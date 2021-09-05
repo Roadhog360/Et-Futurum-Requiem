@@ -15,7 +15,9 @@ import ganymedes01.etfuturum.potion.EtFuturumPotions;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.S1DPacketEntityEffect;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumFacing;
@@ -451,7 +453,9 @@ public class EntityShulkerBullet extends Entity
 
                 if (result.entityHit instanceof EntityLivingBase)
                 {
-                    ((EntityLivingBase)result.entityHit).addPotionEffect(new PotionEffect(EtFuturumPotions.levitation.getId(), 10 * 20));
+                    PotionEffect effect = new PotionEffect(EtFuturumPotions.levitation.getId(), 10 * 20);
+                    ((EntityLivingBase)result.entityHit).addPotionEffect(effect);
+                    MinecraftServer.getServer().getConfigurationManager().sendPacketToAllPlayers(new S1DPacketEntityEffect(result.entityHit.getEntityId(), effect));
                 }
             }
         }
