@@ -4,7 +4,9 @@ import java.util.Random;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil.Fossil;
+import net.minecraft.init.Blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.EnumFacing;
@@ -82,13 +84,21 @@ public class WorldGenAmethystGeode extends WorldGenerator {
                             continue;
                     	}
                     }
-                    
+
                     if (distSq <= DISTANCE_INNER_SQ) {
                         world.setBlockToAir(x + i, y + j, z + k);
                     } else if (distSq <= DISTANCE_BASALT_SQ && distSq > DISTANCE_CALCITE_SQ) {
-                        world.setBlock(x + i, y + j, z + k, ModBlocks.smooth_basalt, 0, 2);
+						if(ConfigBlocksItems.enableSmoothBasalt){
+                       		world.setBlock(x + i, y + j, z + k, ModBlocks.smooth_basalt, 0, 2);
+						} else {
+							world.setBlock(x + i, y + j, z + k, Blocks.stone, 0, 2);
+						}
                 	} else if (distSq <= DISTANCE_CALCITE_SQ && distSq > DISTANCE_AMETHYST_SQ) {
-                        world.setBlock(x + i, y + j, z + k, ModBlocks.calcite, 0, 2);
+						if(ConfigBlocksItems.enableCalcite){
+							world.setBlock(x + i, y + j, z + k, ModBlocks.calcite, 0, 2);
+						} else {
+							world.setBlock(x + i, y + j, z + k, Blocks.stone, 0, 2);
+						}
                 	} else if (distSq <= DISTANCE_AMETHYST_SQ) {
                         placeAmethyst(world, random, x + i, y + j, z + k);
                     }
