@@ -254,7 +254,7 @@ public class ConfigBlocksItems extends ConfigBase {
 
 		//Entity Items
 		enableArmourStand = cfg.getBoolean("enableArmorStand", catItemEntity, true, "");
-		enableNewBoats = cfg.getBoolean("enableNewBoats", catItemEntity, true, "New boats from 1.9+, including the new rowing sounds.");
+		enableNewBoats = cfg.getBoolean("enableNewBoats", catItemEntity, true, "New boats from 1.9+, including the new rowing sounds. All vanilla wood variants included.");
 
 		replaceOldBoats = cfg.getBoolean("replaceOldBoats", catItemEntity, true, "If true, old boats will be replaced with the new oak boat and the item sprite will also be changned. False means the new and old boat and item for it exists separately, and the new boats will use a wooden shovel in their crafting recipe. If this is enabled, a boat that has an entity in it will not be replaced until the entity gets out.\nTHIS WILL NOT WORK PROPERLY WITH BETTER BOATS INSTALLED");
 		newBoatMaxLandSpeed = cfg.getFloat("newBoatMaxLandSpeed", catItemEntity, 0.986F, 0.1F, 1, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = cfg.0.6, Regular/Packed Ice Speed = cfg.0.98, Packed Ice Speed = cfg.0.986. Anything smaller than 0.6 is really, REALLY slow on land.\nAny value above 1 is exponential speed growth, and is discouraged. (Quicksoil from Aether Legacy is 1.1) The speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat. This option does nothing to old boats.");
