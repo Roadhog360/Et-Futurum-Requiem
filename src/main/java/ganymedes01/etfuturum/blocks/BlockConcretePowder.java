@@ -94,7 +94,7 @@ public class BlockConcretePowder extends BlockGenericSand implements IConfigurab
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return ConfigBlocksItems.enableConcrete;
+		return ConfigBlocksItems.enableConcretePowder;
 	}
 
 }

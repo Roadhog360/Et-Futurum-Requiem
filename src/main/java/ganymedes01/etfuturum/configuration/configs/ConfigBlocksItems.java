@@ -57,6 +57,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableNetherGold;
 	public static boolean enableSigns;
 	public static boolean enableSmoothStone;
+	public static boolean enableSmoothBasalt;
 	public static boolean enableSmoothSandstone;
 	public static boolean enableSmoothQuartz;
 	public static boolean enableQuartzBricks;
@@ -74,6 +75,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableNetherite;
 	public static boolean enableBoneBlock;
 	public static boolean enableConcrete;
+	public static boolean enableConcretePowder;
 	public static boolean enableTotemUndying;
 	public static boolean enableRawOres;
 	public static boolean enableNewDyes;
@@ -111,7 +113,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean newBoatPassengerSeat;
 	public static float newBoatMaxLandSpeed;
 	public static boolean replaceOldBoats;
-	
 	public static int endGatewaySpawnColor = 2;
 	public static int endGatewayEntryColor = 2;
 
@@ -202,10 +203,12 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableFences = cfg.getBoolean("enableFences", catBlockMisc, true, "Enables wood variant fences and gates");
 		enableBanners = cfg.getBoolean("enableBanners", catBlockMisc, true, "");
 		enableConcrete = cfg.getBoolean("enableConcrete", catBlockMisc, true, "");
+		enableConcretePowder = cfg.getBoolean("enableConcretePowder", catBlockMisc, true, "");
 		enableStrippedLogs = cfg.getBoolean("enableStrippedLogs", catBlockMisc, true, "Enables stripped log blocks");
 		enableBarkLogs = cfg.getBoolean("enableBarkLogs", catBlockMisc, true, "Enables log blocks with bark on all sides");
 		enableLantern = cfg.getBoolean("enableLantern", catBlockMisc, true, "");
 		enableSmoothStone = cfg.getBoolean("enableSmoothStone", catBlockMisc, true, "");
+		enableSmoothBasalt = cfg.getBoolean("enableSmoothBasalt", catBlockMisc, true, "");
 		enableSmoothSandstone = cfg.getBoolean("enableSmoothSandStone", catBlockMisc, true, "");
 		enableSmoothQuartz = cfg.getBoolean("enableSmoothQuartz", catBlockMisc, true, "");
 		enableQuartzBricks = cfg.getBoolean("enableQuartzBricks", catBlockMisc, true, "");
@@ -251,8 +254,8 @@ public class ConfigBlocksItems extends ConfigBase {
 
 		//Entity Items
 		enableArmourStand = cfg.getBoolean("enableArmorStand", catItemEntity, true, "");
-		enableNewBoats = cfg.getBoolean("enableNewBoats", catItemEntity, true, "New boats from 1.9+, including the new rowing sounds. All vanilla wood variants included.");
-		
+		enableNewBoats = cfg.getBoolean("enableNewBoats", catItemEntity, true, "New boats from 1.9+, including the new rowing sounds.");
+
 		replaceOldBoats = cfg.getBoolean("replaceOldBoats", catItemEntity, true, "If true, old boats will be replaced with the new oak boat and the item sprite will also be changned. False means the new and old boat and item for it exists separately, and the new boats will use a wooden shovel in their crafting recipe. If this is enabled, a boat that has an entity in it will not be replaced until the entity gets out.\nTHIS WILL NOT WORK PROPERLY WITH BETTER BOATS INSTALLED");
 		newBoatMaxLandSpeed = cfg.getFloat("newBoatMaxLandSpeed", catItemEntity, 0.986F, 0.1F, 1, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = cfg.0.6, Regular/Packed Ice Speed = cfg.0.98, Packed Ice Speed = cfg.0.986. Anything smaller than 0.6 is really, REALLY slow on land.\nAny value above 1 is exponential speed growth, and is discouraged. (Quicksoil from Aether Legacy is 1.1) The speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat. This option does nothing to old boats.");
 		newBoatPassengerSeat = cfg.getBoolean("newBoatPassengerSeat", catItemEntity, true, "If disabled, only one person can sit in the passenger seat at a time.");

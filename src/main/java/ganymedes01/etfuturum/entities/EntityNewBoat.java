@@ -1138,6 +1138,7 @@ public class EntityNewBoat extends Entity {
 
 	public static enum Type
 	{
+
 		OAK(0, "oak"),
 		SPRUCE(1, "spruce"),
 		BIRCH(2, "birch"),
