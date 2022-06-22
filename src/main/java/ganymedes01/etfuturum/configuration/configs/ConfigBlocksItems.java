@@ -87,6 +87,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableDeepslate;
 	public static boolean enableDeepslateOres;
 	public static boolean enableTuff;
+	public static boolean enableCalcite;
 	public static boolean enableNewTileEntities;
 	public static boolean enableSuspiciousStew;
 	public static boolean enableGlazedTerracotta;
@@ -169,6 +170,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableSweetBerryBushes = cfg.getBoolean("enableSweetBerryBushes", catBlockNatural, true, "");
 		enableDeepslate = cfg.getBoolean("enableDeepslate", catBlockNatural, true, "");
 		enableTuff = cfg.getBoolean("enableTuff", catBlockNatural, true, "");
+		enableCalcite = cfg.getBoolean("enableCalcite", catBlockNatural, true, "Needed for");
 		enableDeepslateOres = cfg.getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
 		enableAmethyst = cfg.getBoolean("enableAmethyst", catBlockNatural, true, "Enables amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too.");		
 
