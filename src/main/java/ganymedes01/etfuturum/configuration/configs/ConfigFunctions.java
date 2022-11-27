@@ -119,6 +119,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableUpdatedHarvestLevels;
 	public static boolean dropVehiclesTogether;
 	public static boolean enableNewF3Behavior;
+	public static boolean enableNewTextures;
 	public static boolean enableFillCommand;
 	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
 
@@ -179,5 +180,6 @@ public class ConfigFunctions extends ConfigBase {
 		shulkerBoxTooltipLines = cfg.getInt("shulkerBoxTooltipLines", catClient, 5, 0, Byte.MAX_VALUE, "The maximum amount of items a Shulker box can display on its tooltip. When the box has more stacks inside than this number, the rest of the stacks are displayed as \"And x more...\". Set to 0 to disable Shulker Box tooltips.");
 		enableGamemodeSwitcher = cfg.getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
 		enableNewF3Behavior = cfg.getBoolean("enableNewF3Behavior", catClient, true, "Make F3 only show/hide info on release, and not if another key is pressed");
+		enableNewTextures = cfg.getBoolean("enableNewTextures", catClient, true, "Replace tall grass and sponge textures with modern version");
 	}
 }

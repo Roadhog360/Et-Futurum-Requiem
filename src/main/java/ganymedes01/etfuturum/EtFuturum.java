@@ -36,6 +36,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.api.waila.WailaRegistrar;
+import ganymedes01.etfuturum.client.BuiltInResourcePack;
 import ganymedes01.etfuturum.client.DynamicResourcePack;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigBase;
@@ -349,6 +350,10 @@ public class EtFuturum {
 		
 		if(event.getSide() == Side.CLIENT) {
 			DynamicResourcePack.inject();
+			
+			if(ConfigFunctions.enableNewTextures) {
+				BuiltInResourcePack.register("vanilla_overrides");
+			}
 		}
 		
 //      if(ConfigurationHandler.enableNewNether) {
