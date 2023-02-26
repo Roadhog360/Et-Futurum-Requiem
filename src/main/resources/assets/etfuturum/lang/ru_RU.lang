@@ -127,7 +127,7 @@ subtitle.random.anvil_land=Звук наковальни
 
 subtitle.fall.small=Кто-то споткнулся
 subtitle.fall.big=Что-то упало
-subtitle.footsteps=Шаги
+subtitle.footsteps=Шаги/стуки
 
 subtitle.note.harp=Звучание нотного блока
 
@@ -137,8 +137,8 @@ subtitle.liquid.lavapop=Бурление лавы
 
 subtitle.item.bucket.empty=Ведро опустошено
 subtitle.item.bucket.fill=Ведро напоняется
-subtitle.item.bottle.empty=Пузырёк опустошен
-subtitle.item.bottle.fill=Пузырёк напоняется
+subtitle.item.bottle.empty=Использование пузырька
+subtitle.item.bottle.fill=Использование пузырька
 subtitle.item.hoe.till=Вспахивание мотыгой
 subtitle.item.elytra.flying=Звук полета на элитрах
 subtitle.item.armor.equip_generic=Звук надевания кожанной брони
