@@ -33,12 +33,10 @@ public abstract class MixinTileEntityBeacon extends TileEntity {
 	@Inject(method = "updateEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/tileentity/TileEntityBeacon;func_146000_x()V", shift = At.Shift.BEFORE))
 	private void playActivateDeactivateSound(CallbackInfo ci) {
 		if(!isNetherliciousBeacon && worldObj != null && !worldObj.isRemote) {
-			if (field_146015_k) {
-				if (!isOn) {
-					worldObj.playSoundEffect(xCoord + 0.5F, yCoord + 0.5F, zCoord + 0.5F, Reference.MCAssetVer + ":block.beacon.activate", 1, 1);
-				}
-			} else if (isOn) {
+			if (isOn) {
 				worldObj.playSoundEffect(xCoord + 0.5F, yCoord + 0.5F, zCoord + 0.5F, Reference.MCAssetVer + ":block.beacon.deactivate", 1, 1);
+			} else if (field_146015_k) {
+				worldObj.playSoundEffect(xCoord + 0.5F, yCoord + 0.5F, zCoord + 0.5F, Reference.MCAssetVer + ":block.beacon.activate", 1, 1);
 			}
 			isOn = field_146015_k;
 		}
