@@ -585,17 +585,17 @@ public class ModRecipes {
 			addShapelessRecipe(stew, Blocks.red_mushroom, Blocks.brown_mushroom, Items.bowl, getStewFlowers().get(i));
 		}
 
-		for (int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
-			addShapedRecipe(new ItemStack(i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.BOATS[i].get(), 1),
-					(ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
-		}
-		if (!ConfigBlocksItems.replaceOldBoats) {
-			addShapelessRecipe(new ItemStack(Items.boat), ModItems.BOATS[0]);
-			addShapelessRecipe(new ItemStack(ModItems.BOATS[0].get()), Items.wooden_shovel, Items.boat);
-		}
-		for (int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
-			addShapedRecipe(new ItemStack(ModItems.CHEST_BOATS[i].get()), "c", "b", 'b', i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.BOATS[i].get(), 'c', Blocks.chest);
-		}
+		//for (int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
+			//addShapedRecipe(new ItemStack(i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.BOATS[i].get(), 1),
+			//		(ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
+		//}
+		//if (!ConfigBlocksItems.replaceOldBoats) {
+		//	addShapelessRecipe(new ItemStack(Items.boat), ModItems.BOATS[0]);
+		//	addShapelessRecipe(new ItemStack(ModItems.BOATS[0].get()), Items.wooden_shovel, Items.boat);
+		//}
+		//for (int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
+		//	addShapedRecipe(new ItemStack(ModItems.CHEST_BOATS[i].get()), "c", "b", 'b', i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.BOATS[i].get(), 'c', Blocks.chest);
+		//}
 
 		addShapedRecipe(ModBlocks.SHULKER_BOX.newItemStack(), "x", "c", "x", 'x', ModItems.SHULKER_SHELL.newItemStack(), 'c', new ItemStack(Blocks.chest));
 		for (int i = ore_dyes.length - 1; i >= 0; i--) {//Dyed box recipes

@@ -358,6 +358,7 @@ item.etfuturum.dark_oak_chest_boat.name=Dark Oak Boat with Chest
 item.etfuturum.acacia_chest_boat.name=Acacia Boat with Chest
 item.etfuturum.shulker_shell.name=Shulker Shell
 item.etfuturum.amethyst_shard.name=Amethyst Shard
+item.etfuturum.shield.name=Shield
 
 # Arrows
 item.etfuturum.tipped_arrow.name=Tipped Arrow

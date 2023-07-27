@@ -47,6 +47,7 @@ public enum ModItems {
 	NETHERITE_AXE(ConfigBlocksItems.enableNetherite, new ItemEFRAxe(ModMaterials.NETHERITE_TOOL, ConfigBlocksItems.netheriteAxeDurability)),
 	NETHERITE_HOE(ConfigBlocksItems.enableNetherite, new ItemEFRHoe(ModMaterials.NETHERITE_TOOL, ConfigBlocksItems.netheriteHoeDurability)),
 	NETHERITE_SWORD(ConfigBlocksItems.enableNetherite, new ItemEFRSword(ModMaterials.NETHERITE_TOOL, ConfigBlocksItems.netheriteSwordDurability)),
+	SHIELD(true, new ItemEFRShield()),
 	TOTEM_OF_UNDYING(ConfigBlocksItems.enableTotemUndying, new ItemTotemUndying()),
 	DYE(ConfigBlocksItems.enableNewDyes, new ItemNewDye()),
 	COPPER_INGOT(ConfigBlocksItems.enableCopper, new ItemCopperIngot()),
