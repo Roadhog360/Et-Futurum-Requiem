@@ -371,6 +371,25 @@ item.etfuturum.tipped_arrow.potion.regeneration.name=Стрела регенер
 item.etfuturum.tipped_arrow.potion.damageBoost.name=Стрела силы
 item.etfuturum.tipped_arrow.potion.weakness.name=Стрела слабости
 
+# Поддержка модовых предметов (Mod support items)
+item.shulker_vanilla_iron_upgrade.name=Улучшение шалкерового ящика до железного шалкерового ящика
+item.shulker_vanilla_copper_upgrade.name=Улучшение шалкерового ящика до медного шалкерового ящика
+item.shulker_iron_gold_upgrade.name=Улучшение железного шалкерового ящика до золотого шалкерового ящика
+item.shulker_gold_diamond_upgrade.name=Улучшение золотого шалкерового ящика до алмазного шалкерового ящика
+item.shulker_diamond_obsidian_upgrade.name=Улучшение алмазного шалкерового ящика до обсидианового шалкерового ящика
+item.shulker_diamond_crystal_upgrade.name=Улучшение алмазного шалкерового ящика до кристального шалкерового ящика
+item.shulker_copper_iron_upgrade.name=Улучшение медного шалкерового ящика до железного шалкерового ящика
+item.shulker_copper_silver_upgrade.name=Улучшение медного шалкерового ящика до серебряного шалкерового ящика
+item.shulker_silver_gold_upgrade.name=Улучшение серебряного шалкерового ящика до золотого шалкерового ящика
+
+item.etfuturum.raw_aluminum.name=Необработанный алюминий
+item.etfuturum.raw_tin.name=Необработанное олово
+item.etfuturum.raw_silver.name=Необработанное серебро
+item.etfuturum.raw_lead.name=Необработанный свинец
+item.etfuturum.raw_nickel.name=Необработанный никель
+item.etfuturum.raw_platinum.name=Необработанная платина
+item.etfuturum.raw_mythril.name=Необработанный мифрил
+item.etfuturum.raw_uranium.name=Необработанный уран
 
 # Блоки (Blocks)
 tile.etfuturum.granite.name=Гранит
@@ -831,6 +850,10 @@ tile.etfuturum.green_shulker_box.name=Зелёный шалкеровый ящи
 tile.etfuturum.red_shulker_box.name=Красный шалкеровый ящик
 tile.etfuturum.black_shulker_box.name=Чёрный шалкеровый ящик
 
+util.totemBreak=§a§oВаш тотем бессмертия раскололся...
+
+# Поддержка модовых блоков (Mod support blocks)
+
 tile.etfuturum.iron_shulker_box.name=Железный шалкеровый ящик
 tile.etfuturum.white_iron_shulker_box.name=Белый железный шалкеровый ящик
 tile.etfuturum.orange_iron_shulker_box.name=Оранжевый железный шалкеровый ящик
@@ -957,15 +980,14 @@ tile.etfuturum.green_obsidian_shulker_box.name=Зелёный обсидиано
 tile.etfuturum.red_obsidian_shulker_box.name=Красный обсидиановый шалкеровый ящик
 tile.etfuturum.black_obsidian_shulker_box.name=Чёрный обсидиановый шалкеровый ящик
 
-item.shulker_vanilla_iron_upgrade.name=Улучшение шалкерового ящика до железного шалкерового ящика
-item.shulker_vanilla_copper_upgrade.name=Улучшение шалкерового ящика до медного шалкерового ящика
-item.shulker_iron_gold_upgrade.name=Улучшение железного шалкерового ящика до золотого шалкерового ящика
-item.shulker_gold_diamond_upgrade.name=Улучшение золотого шалкерового ящика до алмазного шалкерового ящика
-item.shulker_diamond_obsidian_upgrade.name=Улучшение алмазного шалкерового ящика до обсидианового шалкерового ящика
-item.shulker_diamond_crystal_upgrade.name=Улучшение алмазного шалкерового ящика до кристального шалкерового ящика
-item.shulker_copper_iron_upgrade.name=Улучшение медного шалкерового ящика до железного шалкерового ящика
-item.shulker_copper_silver_upgrade.name=Улучшение медного шалкерового ящика до серебряного шалкерового ящика
-item.shulker_silver_gold_upgrade.name=Улучшение серебряного шалкерового ящика до золотого шалкерового ящика
+tile.etfuturum.raw_aluminum_block.name=Блок необработанного алюминия
+tile.etfuturum.raw_tin_block.name=Блок необработанного олова
+tile.etfuturum.raw_silver_block.name=Блок необработанного серебра
+tile.etfuturum.raw_lead_block.name=Блок необработанного свинца
+tile.etfuturum.raw_nickel_block.name=Блок необработанного  никеля
+tile.etfuturum.raw_platinum_block.name=Блок необработанной платины
+tile.etfuturum.raw_mythril_block.name=Блок необработанного мифрила
+tile.etfuturum.raw_uranium_block.name=Блок необработанного урана
 
 tile.etfuturum.tinted_glass.name=Тонированное стекло
 
@@ -1009,7 +1031,7 @@ tile.etfuturum.blackstone_wall.name=Чернитная ограда
 tile.etfuturum.polished_blackstone_wall.name=Ограда из полированного чернита
 tile.etfuturum.polished_blackstone_brick_wall.name=Ограда из полированно-чернитного кирпича
 
-util.totemBreak=§a§oВаш тотем бессмертия раскололся...
+# Сообщения о смерти (Damage types)
 
 death.attack.hotFloor=%1$s узнал, что пол - это лава
 death.attack.hotFloor.player=%1$s попал в опасную зону благодаря %2$s

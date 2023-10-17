@@ -38,9 +38,8 @@ public class ItemModdedRawOre extends BaseSubtypesItem {
 		for (int i = 0; i < ores.length; i++) {
 			if (!OreDictionary.getOres(ores[i]).isEmpty()) {
 				list.add(new ItemStack(item, 1, i));
-			}
-			//If Mythril is empty but Mithril isn't, we'll add the raw ore anyways since it's Mythril and Mithril
-			if (ores[i].equals("oreMythril") && OreDictionary.getOres("oreMythril").isEmpty() && !OreDictionary.getOres("oreMithril").isEmpty()) {
+			} else if (ores[i].equals("ingotMythril") && !OreDictionary.getOres("ingotMithril").isEmpty()) {
+				//If Mythril is empty but Mithril isn't, we'll add the raw ore anyways since it's Mythril and Mithril
 				list.add(new ItemStack(item, 1, i));
 			}
 		}

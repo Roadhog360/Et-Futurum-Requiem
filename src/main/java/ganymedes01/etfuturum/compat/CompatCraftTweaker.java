@@ -75,12 +75,13 @@ public class CompatCraftTweaker {
 	public static class ReloadEventHandler implements IEventHandler<MineTweakerImplementationAPI.ReloadEvent> {
 		@Override
 		public void handle(MineTweakerImplementationAPI.ReloadEvent event) {
+			ModRecipes.unregisterModdedRawOres();
+			ModRecipes.registerModdedRawOres();
+
 			BlastFurnaceRecipes.smelting().setReloadingCT(true);
 			BlastFurnaceRecipes.smelting().clearLists();
 			SmokerRecipes.smelting().setReloadingCT(true);
 			SmokerRecipes.smelting().clearLists();
-
-			ModRecipes.unregisterModdedRawOres();
 		}
 	}
 
@@ -102,8 +103,6 @@ public class CompatCraftTweaker {
 
 			BlastFurnaceRecipes.smelting().setReloadingCT(false);
 			SmokerRecipes.smelting().setReloadingCT(false);
-
-			ModRecipes.registerModdedRawOres();
 		}
 	}
 }
