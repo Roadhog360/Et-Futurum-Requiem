@@ -16,7 +16,7 @@ potion.levitation.postfix=飘浮药水
 
 # Gamemode selector
 
-debug.gamemodes.select_next=%s下一个
+debug.gamemodes.select_next=%s 下一个
 debug.gamemodes.press_f4=[ F4 ]
 
 # Gamemodes
@@ -376,6 +376,26 @@ item.etfuturum.tipped_arrow.potion.regeneration.name=再生之箭
 item.etfuturum.tipped_arrow.potion.damageBoost.name=力量之箭
 item.etfuturum.tipped_arrow.potion.weakness.name=虚弱之箭
 
+# Mod support items
+
+item.shulker_vanilla_iron_upgrade.name=升级：原版>铁质潜影盒
+item.shulker_vanilla_copper_upgrade.name=升级：原版>铜质潜影盒
+item.shulker_iron_gold_upgrade.name=升级：铁质>金质潜影盒
+item.shulker_gold_diamond_upgrade.name=升级：金质>钻石潜影盒
+item.shulker_diamond_obsidian_upgrade.name=升级：钻石>黑曜石潜影盒
+item.shulker_diamond_crystal_upgrade.name=升级：钻石>水晶潜影盒
+item.shulker_copper_iron_upgrade.name=升级：铜质>铁质潜影盒
+item.shulker_copper_silver_upgrade.name=升级：铜质>银质潜影盒
+item.shulker_silver_gold_upgrade.name=升级：银质>金质潜影盒
+
+item.etfuturum.raw_aluminum.name=粗铝
+item.etfuturum.raw_tin.name=粗锡
+item.etfuturum.raw_silver.name=粗银
+item.etfuturum.raw_lead.name=粗铅
+item.etfuturum.raw_nickel.name=粗镍
+item.etfuturum.raw_platinum.name=粗铂
+item.etfuturum.raw_mythril.name=粗秘银
+item.etfuturum.raw_uranium.name=粗铀
 
 # Blocks
 tile.etfuturum.granite.name=花岗岩
@@ -892,6 +912,10 @@ tile.etfuturum.green_shulker_box.name=绿色潜影盒
 tile.etfuturum.red_shulker_box.name=红色潜影盒
 tile.etfuturum.black_shulker_box.name=黑色潜影盒
 
+util.totemBreak=§a§o你的不死图腾碎掉了…
+
+# Mod support blocks
+
 tile.etfuturum.iron_shulker_box.name=铁潜影盒
 tile.etfuturum.white_iron_shulker_box.name=白色铁潜影盒
 tile.etfuturum.orange_iron_shulker_box.name=橙色铁潜影盒
@@ -1018,17 +1042,16 @@ tile.etfuturum.green_obsidian_shulker_box.name=绿色黑曜石潜影盒
 tile.etfuturum.red_obsidian_shulker_box.name=红色黑曜石潜影盒
 tile.etfuturum.black_obsidian_shulker_box.name=黑色黑曜石潜影盒
 
-item.shulker_vanilla_iron_upgrade.name=升级：原版>铁质潜影盒
-item.shulker_vanilla_copper_upgrade.name=升级：原版>铜质潜影盒
-item.shulker_iron_gold_upgrade.name=升级：铁质>金质潜影盒
-item.shulker_gold_diamond_upgrade.name=升级：金质>钻石潜影盒
-item.shulker_diamond_obsidian_upgrade.name=升级：钻石>黑曜石潜影盒
-item.shulker_diamond_crystal_upgrade.name=升级：钻石>水晶潜影盒
-item.shulker_copper_iron_upgrade.name=升级：铜质>铁质潜影盒
-item.shulker_copper_silver_upgrade.name=升级：铜质>银质潜影盒
-item.shulker_silver_gold_upgrade.name=升级：银质>金质潜影盒
+tile.etfuturum.raw_aluminum_block.name=粗铝块
+tile.etfuturum.raw_tin_block.name=粗锡块
+tile.etfuturum.raw_silver_block.name=粗银块
+tile.etfuturum.raw_lead_block.name=粗铅块
+tile.etfuturum.raw_nickel_block.name=粗镍块
+tile.etfuturum.raw_platinum_block.name=粗铂块
+tile.etfuturum.raw_mythril_block.name=粗秘银块
+tile.etfuturum.raw_uranium_block.name=粗铀块
 
-util.totemBreak=§a§o你的不死图腾碎掉了…
+# Damage types
 
 death.attack.hotFloor=%1$s发现了地板是熔岩做的
 death.attack.hotFloor.player=%1$s因%2$s而步入危险之地
