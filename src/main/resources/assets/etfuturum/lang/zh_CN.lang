@@ -37,6 +37,9 @@ container.enchant.level.required=等级要求
 container.enchant.level.one=+ 1级经验
 container.enchant.level.many=+ %d级经验
 container.enchant.clue=%s…？
+container.etfuturum.blast_furnace=高炉
+container.etfuturum.smoker=烟熏炉
+container.etfuturum.barrel=木桶
 container.etfuturum.shulker_box=潜影盒
 container.etfuturum.chest_boat=运输船
 
