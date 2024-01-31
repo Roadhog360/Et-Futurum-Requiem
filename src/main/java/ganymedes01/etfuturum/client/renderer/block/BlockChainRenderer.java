@@ -1,10 +1,12 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
+@ThreadSafeISBRH
 public class BlockChainRenderer extends BlockModelBase {
 	public BlockChainRenderer(int modelID) {
 		super(modelID);

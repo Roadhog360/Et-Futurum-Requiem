@@ -1,10 +1,12 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
 import ganymedes01.etfuturum.blocks.BlockStonecutter;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
 
+@ThreadSafeISBRH
 public class BlockStonecutterRenderer extends BlockModelBase {
 
 	public BlockStonecutterRenderer(int modelID) {

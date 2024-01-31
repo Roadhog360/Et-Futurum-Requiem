@@ -1,14 +1,17 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockPotionCauldron;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronColoredWater;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
+@ThreadSafeISBRH
 public class BlockColoredWaterCauldronRenderer extends BlockCauldronBaseRenderer {
 
 	public BlockColoredWaterCauldronRenderer(int modelID) {
@@ -18,6 +21,7 @@ public class BlockColoredWaterCauldronRenderer extends BlockCauldronBaseRenderer
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 		super.renderWorldBlock(world, x, y, z, block, modelId, renderer);
+		final Tessellator tessellator = Tessellator.instance;
 
 		TileEntityCauldronColoredWater tile = (TileEntityCauldronColoredWater) world.getTileEntity(x, y, z);
 		int color = tile.getWaterColor();

@@ -1,11 +1,13 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
 import ganymedes01.etfuturum.blocks.BlockNetherRoots;
 import ganymedes01.etfuturum.blocks.BlockNetherSprouts;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
@@ -13,6 +15,7 @@ import net.minecraft.world.IBlockAccess;
  * Basically the default crossed squares renderer (renderID 1) doesn't call getIcon(IBlockAccess world, int x, int y, int z, int side)
  * This means that we can't have world-sensitive rendering icons with it, so we do this.
  */
+@ThreadSafeISBRH
 public class BlockExtendedCrossedSquaresRenderer extends BlockModelBase {
 	public BlockExtendedCrossedSquaresRenderer() {
 		super(RenderIDs.EXTENDED_CROSSED_SQUARES);
@@ -21,6 +24,7 @@ public class BlockExtendedCrossedSquaresRenderer extends BlockModelBase {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		final Tessellator tessellator = Tessellator.instance;
 		tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
 		int l = block.colorMultiplier(world, x, y, z);
 		float f = (float) (l >> 16 & 255) / 255.0F;
@@ -52,4 +56,5 @@ public class BlockExtendedCrossedSquaresRenderer extends BlockModelBase {
 		renderer.drawCrossedSquares(iicon, d1, y, d0, 1.0F);
 		return true;
 	}
+
 }

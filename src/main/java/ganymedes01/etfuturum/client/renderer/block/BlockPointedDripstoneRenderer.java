@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -7,6 +8,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
+@ThreadSafeISBRH
 public class BlockPointedDripstoneRenderer extends BlockModelBase {
 
 	public BlockPointedDripstoneRenderer(int modelID) {

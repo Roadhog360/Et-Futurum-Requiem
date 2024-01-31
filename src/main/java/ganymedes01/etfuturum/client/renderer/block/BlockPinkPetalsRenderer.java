@@ -1,10 +1,13 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
+@ThreadSafeISBRH
 public class BlockPinkPetalsRenderer extends BlockModelBase {
 
 	public BlockPinkPetalsRenderer(int modelID) {
@@ -13,6 +16,7 @@ public class BlockPinkPetalsRenderer extends BlockModelBase {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		final Tessellator tessellator = Tessellator.instance;
 		int meta = world.getBlockMetadata(x, y, z);
 		int count = meta % 4;
 		int rotation = meta / 4;

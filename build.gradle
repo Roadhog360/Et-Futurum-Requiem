@@ -18,11 +18,15 @@ buildscript {
 
 repositories {
 	maven {
-		url 'https://jitpack.io'
-	}
-	maven {
 		name = "gt"
 		url = "https://gregtech.mechaenetia.com/"
+	}
+	maven {
+		name = "GTNH Maven"
+		url = "https://nexus.gtnewhorizons.com/repository/public/"
+	}
+	maven {
+		url 'https://jitpack.io'
 	}
 }
 
@@ -109,9 +113,11 @@ dependencies {
 	compileOnly "codechicken:NotEnoughItems:1.7.10-1.0.5.120:dev"
 	compileOnly "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
 	compileOnly "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
+	compileOnly("com.github.GTNewHorizons:Angelica:1.0.0-alpha19:dev") {
+		transitive = false
+	}
 	
-	// 1.1.12 (for some reason the build failed when I used the version tag)
-	compileOnly("com.github.GTNewHorizons:lwjgl3ify:92b1e089c5:api") {
+	compileOnly("com.github.GTNewHorizons:lwjgl3ify:1.5.14:api") {
 		transitive = false
 	}
 	

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -7,6 +8,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
 
 @SideOnly(Side.CLIENT)
+@ThreadSafeISBRH
 public class BlockDoorRenderer extends BlockModelBase {
 
 	public BlockDoorRenderer(int modelID) {

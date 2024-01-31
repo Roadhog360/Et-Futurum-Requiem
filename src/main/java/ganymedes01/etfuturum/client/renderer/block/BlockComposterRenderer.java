@@ -1,11 +1,14 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockComposter;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 
+@ThreadSafeISBRH
 public class BlockComposterRenderer extends BlockModelBase {
 
 	public BlockComposterRenderer(int modelID) {
@@ -13,6 +16,7 @@ public class BlockComposterRenderer extends BlockModelBase {
 	}
 
 	protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 
 		tessellator.setNormal(0.0F, -1.0F, 0.0F);

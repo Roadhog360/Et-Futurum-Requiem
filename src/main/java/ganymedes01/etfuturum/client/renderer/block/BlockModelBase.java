@@ -17,12 +17,13 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	private final int modelID;
 	private boolean inventory3D = true;
 
-	public BlockModelBase(int modelID) {
+	protected BlockModelBase(int modelID) {
 		this.modelID = modelID;
 	}
 
 	@Override
 	public void renderInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer) {
+		final Tessellator tessellator = Tessellator.instance;
 		if (block.getRenderBlockPass() == 1) {
 			OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			OpenGLHelper.enableBlend();
@@ -42,6 +43,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	}
 
 	protected void renderStandardInventoryCube(Block block, int meta, int modelId, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
 		tessellator.setNormal(0.0F, -1.0F, 0.0F);
 		renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
@@ -128,6 +130,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 							  double startX, double endX, double startY, double endY, double startZ, double endZ,
 							  double startU, double startV, double endU, double endV, IIcon iicon, int rotate,
 							  float r, float g, float b) {
+		final Tessellator tessellator = Tessellator.instance;
 		double startUInterpolated;
 		double startVInterpolated;
 		double endUInterpolated;
@@ -231,6 +234,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	 * Renders the YNeg face with proper shading like renderStandardBlock.
 	 */
 	public void renderFaceYNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -257,6 +261,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	 * Renders the YPos face with proper shading like renderStandardBlock.
 	 */
 	public void renderFaceYPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -301,6 +306,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	 * Renders the ZNeg face with proper shading like renderStandardBlock.
 	 */
 	public void renderFaceZNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -328,6 +334,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	 * Renders the ZPos face with proper shading like renderStandardBlock.
 	 */
 	public void renderFaceZPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -355,6 +362,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	 * Renders the XNeg face with proper shading like renderStandardBlock.
 	 */
 	public void renderFaceXNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -383,6 +391,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	 * Renders the XPos face with proper shading like renderStandardBlock.
 	 */
 	public void renderFaceXPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);

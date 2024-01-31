@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -8,6 +9,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
+@ThreadSafeISBRH
 public class BlockCauldronBaseRenderer extends BlockModelBase {
 	public BlockCauldronBaseRenderer(int modelID) {
 		super(modelID);
@@ -45,4 +47,6 @@ public class BlockCauldronBaseRenderer extends BlockModelBase {
 		renderer.renderFaceYNeg(block, x, (double) y + 1.0F - 0.75F, z, iicon2);
 		return true;
 	}
+
+
 }

@@ -1,13 +1,16 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
 import ganymedes01.etfuturum.blocks.IEmissiveLayerBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 
+@ThreadSafeISBRH
 public class BlockEmissiveLayerRenderer extends BlockModelBase {
 
 	/**
@@ -38,6 +41,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 
 	protected void renderStandardInventoryCubeEmissive(Block block, int meta, int modelId, RenderBlocks renderer, boolean emissive,
 													   double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		final Tessellator tessellator = Tessellator.instance;
 		if (emissive) {
 			int m = ((IEmissiveLayerBlock) block).getEmissiveLayerColor(meta);
 			float f = (float) (m >> 16 & 255) / 255.0F;
@@ -102,6 +106,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 	 * Renders the YNeg face with proper shading like renderStandardBlock.
 	 */
 	private void renderFaceYNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, int minBrightness, IIcon icon, int meta) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -139,6 +144,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 	 * Renders the YPos face with proper shading like renderStandardBlock.
 	 */
 	private void renderFaceYPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, int minBrightness, IIcon icon, int meta) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -176,6 +182,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 	 * Renders the ZNeg face with proper shading like renderStandardBlock.
 	 */
 	private void renderFaceZNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, int minBrightness, IIcon icon, int meta) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -214,6 +221,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 	 * Renders the ZPos face with proper shading like renderStandardBlock.
 	 */
 	private void renderFaceZPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, int minBrightness, IIcon icon, int meta) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -252,6 +260,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 	 * Renders the XNeg face with proper shading like renderStandardBlock.
 	 */
 	private void renderFaceXNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, int minBrightness, IIcon icon, int meta) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -290,6 +299,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 	 * Renders the XPos face with proper shading like renderStandardBlock.
 	 */
 	private void renderFaceXPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, int minBrightness, IIcon icon, int meta) {
+		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
