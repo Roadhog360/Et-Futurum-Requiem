@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
+import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
 import ganymedes01.etfuturum.blocks.IEmissiveLayerBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -10,7 +10,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 
-@ThreadSafeISBRH
+@ThreadSafeISBRH(perThread = false)
 public class BlockEmissiveLayerRenderer extends BlockModelBase {
 
 	/**

@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
+import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockPotionCauldron;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronColoredWater;
@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-@ThreadSafeISBRH
+@ThreadSafeISBRH(perThread = false)
 public class BlockColoredWaterCauldronRenderer extends BlockCauldronBaseRenderer {
 
 	public BlockColoredWaterCauldronRenderer(int modelID) {

@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
+import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
 
-@ThreadSafeISBRH
+@ThreadSafeISBRH(perThread = false)
 public class BlockGlazedTerracottaRenderer extends BlockModelBase {
 
 	public BlockGlazedTerracottaRenderer(int modelID) {

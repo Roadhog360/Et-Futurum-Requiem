@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
+import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
 import ganymedes01.etfuturum.blocks.BlockBamboo;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 
-@ThreadSafeISBRH
+@ThreadSafeISBRH(perThread = false)
 public class BlockBambooRenderer extends BlockModelBase {
 	public BlockBambooRenderer(int modelID) {
 		super(modelID);

@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
+import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockComposter;
 import net.minecraft.block.Block;
@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 
-@ThreadSafeISBRH
+@ThreadSafeISBRH(perThread = false)
 public class BlockComposterRenderer extends BlockModelBase {
 
 	public BlockComposterRenderer(int modelID) {

@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
+import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 
 @SideOnly(Side.CLIENT)
-@ThreadSafeISBRH
+@ThreadSafeISBRH(perThread = false)
 public class BlockAzaleaRenderer extends BlockModelBase {
 
 	public BlockAzaleaRenderer(int modelID) {

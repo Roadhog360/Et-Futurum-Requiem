@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import com.gtnewhorizons.angelica.rendering.ThreadSafeISBRH;
+import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
 import ganymedes01.etfuturum.blocks.BlockNetherRoots;
 import ganymedes01.etfuturum.blocks.BlockNetherSprouts;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -15,7 +15,7 @@ import net.minecraft.world.IBlockAccess;
  * Basically the default crossed squares renderer (renderID 1) doesn't call getIcon(IBlockAccess world, int x, int y, int z, int side)
  * This means that we can't have world-sensitive rendering icons with it, so we do this.
  */
-@ThreadSafeISBRH
+@ThreadSafeISBRH(perThread = false)
 public class BlockExtendedCrossedSquaresRenderer extends BlockModelBase {
 	public BlockExtendedCrossedSquaresRenderer() {
 		super(RenderIDs.EXTENDED_CROSSED_SQUARES);
