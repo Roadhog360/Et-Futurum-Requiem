@@ -13,7 +13,6 @@ import org.lwjgl.opengl.GL11;
 
 public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 
-	protected static final Tessellator tessellator = Tessellator.instance;
 	private final int modelID;
 	private boolean inventory3D = true;
 
