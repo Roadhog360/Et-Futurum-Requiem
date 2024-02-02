@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum;
 
+import cpw.mods.fml.client.CustomModLoadingErrorDisplayException;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -48,6 +49,8 @@ import makamys.mclib.ext.assetdirector.AssetDirectorAPI;
 import net.minecraft.block.*;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiErrorScreen;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -154,6 +157,24 @@ public class EtFuturum {
 
 	@EventHandler
 	public void onConstruction(FMLConstructionEvent event) {
+		if(!EtFuturumCorePlugin.mixinDepsArePresent()) {
+			// TODO support dedicated servers 
+			throw new CustomModLoadingErrorDisplayException() {
+				
+				@Override
+				public void initGui(GuiErrorScreen errorScreen, FontRenderer fontRenderer) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void drawScreen(GuiErrorScreen errorScreen, FontRenderer fontRenderer, int mouseRelX, int mouseRelY,
+						float tickTime) {
+					fontRenderer.drawString("UniMixins is UniMissing", 0, 0, 0xFFFFFFFF, true);
+				}
+			};
+		}
+		
 		MCLib.init();
 
 		ADConfig config = new ADConfig();

@@ -28,5 +28,5 @@ if you're running the game in a development environment.
 
 The following flags can be added to the Gradle build command to modify the build.
 
-* `-Pall`: build all variations of the mod: normal, dev, nomixin, and dev-nomixin.
+* `-Pall`: build all variations of the mod: normal and dev.
 * `-PuseCommitHashInVersion`: include commit hash in version string. Used by the CI.

@@ -96,8 +96,8 @@ compileJava {
 }
 
 configurations {
-    // By default only compileClasspath extends shadow, make runtime extend it too
-    compile.extendsFrom(shadow)
+	// By default only compileClasspath extends shadow, make runtime extend it too
+	compile.extendsFrom(shadow)
 }
 
 dependencies {
@@ -166,26 +166,6 @@ shadowJar {
 	}
 }
 
-task shadowJarNoMixin(type: Jar) {
-	dependsOn shadowJar
-	
-	classifier = ''
-	version += '+nomixin'
-	from(zipTree(tasks.shadowJar.archivePath)){
-		exclude "org/spongepowered/**"
-		exclude "META-INF/services/**"
-		exclude "mcmod.info" // we create a different mcmod.info in this task
-	}
-	from(sourceSets.main.resources.srcDirs) {
-		include "mcmod.info"
-		def metaNoMixin = meta.clone()
-		// add +nomixin to the end of the version in mcmod.info
-		metaNoMixin['commitVersion'] = meta['commitVersion'] + '+nomixin'
-		expand metaNoMixin.collectEntries { k, v -> [k, v.replaceAll("\u00A7.", "")] } // strip formatting
-	}
-	manifest = tasks.shadowJar.manifest
-}
-
 task devJar(type: Jar) {
 	dependsOn shadowJar
 	
@@ -196,25 +176,12 @@ task devJar(type: Jar) {
 	manifest = tasks.shadowJar.manifest
 }
 
-task devJarNoMixin(type: Jar) {
-	dependsOn devJar
-	
-	classifier = 'dev'
-	version += '+nomixin'
-	from zipTree(tasks.devJar.archivePath)
-	
-	exclude "org/spongepowered/**"
-	exclude "META-INF/services/**"
-	
-	manifest = tasks.shadowJar.manifest
-}
-
 if(buildAll) {
 	// we create dev jars by copying the output jars before they get obfuscated
 	reobf.dependsOn devJar
 
 	artifacts {
-		archives devJar, devJarNoMixin, shadowJarNoMixin
+		archives devJar
 	}
 }
 
@@ -249,76 +216,62 @@ uploadArchives {
 //Add
 //--tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.etfuturum.json
 //to your client and server program arguments if working in a dev environment.
-def yourMixinConfig = 'mixins.etfuturum.json'
-def refMapForYourConfig = 'mixins.etfuturum.refmap.json'
-def relativePathToMixinAP = 'tools/mixin-0.8-SNAPSHOT.jar'
+
+// -- Begin UniMixins section --
+
+// -- Add UniMixins dependency --
 
 repositories {
 	maven {
-		name = "sponge"
-		url = "https://repo.spongepowered.org/maven/"
+		url 'https://jitpack.io'
 	}
 }
+
+def unimixinsVersion = "0.1.14"
 
 dependencies {
-	shadow('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
-		// Mixin includes a lot of dependencies that are too up-to-date
-		exclude module: 'launchwrapper'
-		exclude module: 'guava'
-		exclude module: 'gson'
-		exclude module: 'commons-io'
-		exclude module: 'log4j-core'
+	compile("com.github.LegacyModdingMC.UniMixins:unimixins-all-1.7.10:$unimixinsVersion:dev")
+}
+
+// Exclude conflicting transitive dependencies.
+// Only needed if you depend on a mod that depends on one of these.
+// This may need to be at the end of the build script.
+
+configurations.compile.dependencies.each {
+	if (it instanceof ExternalModuleDependency) {
+		it.exclude module: "SpongeMixins"
+		it.exclude module: "SpongePoweredMixin"
+		it.exclude module: "00gasstation-mc1.7.10"
+		it.exclude module: "gtnhmixins"
 	}
 }
 
-def refMap = "${tasks.compileJava.temporaryDir}" + File.separator + refMapForYourConfig
-
-def mixinSrg = "${tasks.reobf.temporaryDir}" + File.separator + "mixins.srg"
-
-shadowJar {
-	from refMap
-	manifest {
-		attributes.put("TweakClass", "org.spongepowered.asm.launch.MixinTweaker")
-		attributes.put("FMLCorePluginContainsFMLMod", true)
-		attributes.put("ForceLoadAsMod", true)
-		attributes.put("MixinConfigs", yourMixinConfig)
-	}
-}
-
-reobf {
-	addExtraSrgFile mixinSrg
-}
-
-afterEvaluate {
-	def fixedRelPathToAP = relativePathToMixinAP
-	if(fixedRelPathToAP.startsWith('./') || fixedRelPathToAP.startsWith('.\\')){
-		fixedRelPathToAP = fixedRelPathToAP.substring(2)
-	} else if(fixedRelPathToAP.startsWith('/') || fixedRelPathToAP.startsWith('\\')){
-		fixedRelPathToAP = fixedRelPathToAP.substring(1)
-	}
-
-	tasks.compileJava {
-		println "Path: " + projectDir.absolutePath
-		options.compilerArgs += [
-				// There's a bug in the AnnotationProcessor for 0.7.11 that will generate the annotations pointing to the parent class instead of subclass
-				// resulting in the mixin not being applied.  This is fixed in 0.8, however 0.8 needs guava > 21.0, and minecraft ships with 17.0.
-				// So as a hacky workaround... ship with 0.7.11, but use the AP from 0.8 for compiling
-				"-processorpath", projectDir.absolutePath + '/' + fixedRelPathToAP,
-				"-processor", "org.spongepowered.tools.obfuscation.MixinObfuscationProcessorInjection,org.spongepowered.tools.obfuscation.MixinObfuscationProcessorTargets",
-				"-Xlint:-sunapi", "-XDenableSunApiLintControl", "-XDignore.symbol.file",
-				"-AreobfSrgFile=${tasks.reobf.srg}", "-AoutSrgFile=${mixinSrg}", "-AoutRefMapFile=${refMap}"
-		]
-	}
-}
-
-sourceSets {
-	main {
-		ext.refMap = refMapForYourConfig
-	}
-}
+// -- Generic Mixin setup --
 
 runClient {
-    // Workaround for Mixin not detecting mod (https://github.com/SpongePowered/Mixin/issues/207)
-    // (Fixed in UniMix, so this should be removed if we ever switch to it.)
-    args("--mods=" + java.nio.file.Paths.get("$projectDir").resolve(minecraft.runDir).normalize().relativize(shadowJar.archivePath.toPath()))
+	args("--tweakClass", "org.spongepowered.asm.launch.MixinTweaker")
+}
+
+runServer {
+	args("--tweakClass", "org.spongepowered.asm.launch.MixinTweaker")
+}
+
+def modid = "etfuturum"
+def outSrgFile = "${tasks.compileJava.temporaryDir}/outSrg.srg"
+def outRefMapFile = "${tasks.compileJava.temporaryDir}/mixins.${modid}.refmap.json"
+
+shadowJar {
+	from outRefMapFile
+	manifest {
+		attributes.put("FMLCorePlugin", "ganymedes01.etfuturum.EtFuturumCorePlugin")
+		attributes.put("FMLCorePluginContainsFMLMod", true)
+		attributes.put("ForceLoadAsMod", true)
+		attributes.put("MixinConfigs", "mixins.${modid}.json")
+	}
+}
+
+tasks.compileJava.options.compilerArgs += ["-AreobfSrgFile=${tasks.reobf.srg}", "-AoutSrgFile=${outSrgFile}", "-AoutRefMapFile=${outRefMapFile}"];
+
+reobf {
+	addExtraSrgFile outSrgFile
 }
