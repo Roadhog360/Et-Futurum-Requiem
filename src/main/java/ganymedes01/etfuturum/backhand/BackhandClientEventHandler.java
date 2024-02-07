@@ -4,6 +4,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
@@ -98,7 +99,7 @@ public class BackhandClientEventHandler {
     }
 
     @SideOnly(Side.CLIENT)
-    @Optional.Method(modid="inventorytweaks")
+    @Method(modid="inventorytweaks")
     public void invTweaksSwapPatch() {
         if (invTweaksDelay <= 0) {
             prevInvTweaksAutoRefill = Boolean.parseBoolean(InvTweaks.getConfigManager().getConfig().getProperty("enableAutoRefill"));
@@ -124,7 +125,7 @@ public class BackhandClientEventHandler {
     }
 
     @SideOnly(Side.CLIENT)
-    @Optional.Method(modid="inventorytweaks")
+    @Method(modid="inventorytweaks")
     public void restoreInvTweaksConfigs() {
         InvTweaks.getConfigManager().getConfig().setProperty("enableAutoRefill",String.valueOf(prevInvTweaksAutoRefill));
         InvTweaks.getConfigManager().getConfig().setProperty("autoRefillBeforeBreak",String.valueOf(prevInvTweaksBreakRefill));
