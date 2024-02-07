@@ -1,13 +1,10 @@
 package ganymedes01.etfuturum.backhand.client.renderer;
 
-import mods.battlegear2.api.core.IBattlePlayer;
-import mods.battlegear2.api.core.BattlegearUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,7 +12,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.IItemRenderer;
@@ -23,12 +19,12 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import ganymedes01.etfuturum.backhand.Backhand;
+
 import static net.minecraftforge.client.IItemRenderer.ItemRenderType.*;
-import static net.minecraftforge.client.IItemRenderer.ItemRendererHelper.BLOCK_3D;
 
 public class ItemRendererOffhand extends ItemRenderer {
     private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
-    private static final ResourceLocation RES_MAP_BACKGROUND = new ResourceLocation("textures/map/map_background.png");
 
     /** A reference to the Minecraft object. */
     private Minecraft mc;
@@ -247,7 +243,7 @@ public class ItemRendererOffhand extends ItemRenderer {
     }
 
     public void renderOffhandItemIn3rdPerson(EntityPlayer player, ModelBiped modelBipedMain, float frame) {
-        ItemStack offhandItem = BattlegearUtils.getOffhandItem(player);
+        ItemStack offhandItem = Backhand.INSTANCE.getOffhandItem(player);
         float f2;
         float f4;
 
@@ -361,7 +357,7 @@ public class ItemRendererOffhand extends ItemRenderer {
     {
         this.prevEquippedProgress = this.equippedProgress;
         EntityClientPlayerMP player = this.mc.thePlayer;
-        ItemStack itemstack = BattlegearUtils.getOffhandItem(player);
+        ItemStack itemstack = Backhand.INSTANCE.getOffhandItem(player);
         boolean flag = itemstack == this.itemToRender;
 
         if (itemstack != null && this.itemToRender != null && itemstack != this.itemToRender && itemstack.getItem() == this.itemToRender.getItem() && itemstack.getItemDamage() == this.itemToRender.getItemDamage())

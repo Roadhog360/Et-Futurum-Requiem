@@ -11,12 +11,8 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.backhand.packets.BackhandBasePacket;
-import ganymedes01.etfuturum.backhand.packets.BackhandAttackPacket;
-import ganymedes01.etfuturum.backhand.packets.BackhandConfigSyncPacket;
-import ganymedes01.etfuturum.backhand.packets.BackhandPlaceBlockPacket;
 import ganymedes01.etfuturum.backhand.packets.BackhandSwapClientPacket;
 import ganymedes01.etfuturum.backhand.packets.BackhandSwapPacket;
-import ganymedes01.etfuturum.backhand.packets.BackhandToServerPacket;
 import ganymedes01.etfuturum.backhand.packets.BackhandWorldHotswapPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -34,13 +30,9 @@ public class BackhandHandler {
     public Map<String, FMLEventChannel> channels = new Hashtable<>();
 
     public BackhandHandler() {
-        map.put(BackhandPlaceBlockPacket.packetName, new BackhandPlaceBlockPacket());
-        map.put(BackhandToServerPacket.packetName, new BackhandToServerPacket());
         map.put(BackhandSwapPacket.packetName, new BackhandSwapPacket());
         map.put(BackhandSwapClientPacket.packetName, new BackhandSwapClientPacket());
-        map.put(BackhandAttackPacket.packetName, new BackhandAttackPacket());
         map.put(BackhandWorldHotswapPacket.packetName, new BackhandWorldHotswapPacket());
-        map.put(BackhandConfigSyncPacket.packetName, new BackhandConfigSyncPacket());
     }
     
     public void register(NetworkRegistry registry){

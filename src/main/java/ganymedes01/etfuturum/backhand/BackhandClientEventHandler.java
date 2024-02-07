@@ -12,6 +12,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.backhand.client.renderer.RenderOffhandPlayer;
 import ganymedes01.etfuturum.backhand.packets.BackhandSwapPacket;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.GuiIngame;
@@ -135,11 +136,11 @@ public class BackhandClientEventHandler {
             delay--;
         }
 
-        if (!Backhand.INSTANCE.OffhandBreakBlocks) {
+        if (!ConfigFunctions.offhand.offhandBreakBlocks) {
             return;
         }
 
-        if (!Backhand.INSTANCE.EmptyOffhand && BattlegearUtils.getOffhandItem(event.player) == null) {
+        if (!ConfigFunctions.offhand.allowEmptyOffhand && Backhand.INSTANCE.getOffhandItem(event.player) == null) {
             return;
         }
 
@@ -148,9 +149,9 @@ public class BackhandClientEventHandler {
         }
 
         ItemStack mainHandItem = event.player.getCurrentEquippedItem();
-        ItemStack offhandItem = BattlegearUtils.getOffhandItem(event.player);
+        ItemStack offhandItem = Backhand.INSTANCE.getOffhandItem(event.player);
 
-        if (mainHandItem != null && (BattlegearUtils.checkForRightClickFunction(mainHandItem) || offhandItem == null)) {
+        if (mainHandItem != null && (Backhand.checkForRightClickFunction(mainHandItem) || offhandItem == null)) {
             return;
         }
 
@@ -158,17 +159,17 @@ public class BackhandClientEventHandler {
 
         if (event.player.worldObj.isRemote && getLeftClickCounter() <= 0 && mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.ENTITY) {
             if (event.player.capabilities.allowEdit) {
-                if (isRightClickHeld() && !(mainHandItem != null && BattlegearUtils.isItemBlock(mainHandItem.getItem()))) { // if it's a block and we should try break it
+                if (isRightClickHeld() && !(mainHandItem != null && Backhand.isItemBlock(mainHandItem.getItem()))) { // if it's a block and we should try break it
                     MovingObjectPosition mop = BattlemodeHookContainerClass.getRaytraceBlock(event.player);
                     if (offhandItem != null && BattlemodeHookContainerClass.isItemBlock(offhandItem.getItem())) {
-                        if (!BattlegearUtils.usagePriorAttack(offhandItem) && mop != null) {
+                        if (!Backhand.usagePriorAttack(offhandItem) && mop != null) {
                             BattlegearClientTickHandler.tryBreakBlockOffhand(mop, offhandItem, mainHandItem, event);
                             setLeftClickCounter(10);
                         } else {
                             mc.playerController.resetBlockRemoving();
                         }
                     } else {
-                        if (mop != null && !BattlegearUtils.usagePriorAttack(offhandItem) && !BattlemodeHookContainerClass.canBlockBeInteractedWith(mc.theWorld, mop.blockX, mop.blockY, mop.blockZ)) {
+                        if (mop != null && !Backhand.usagePriorAttack(offhandItem) && !Backhand.canBlockBeInteractedWith(mc.theWorld, mop.blockX, mop.blockY, mop.blockZ)) {
                             BattlegearClientTickHandler.tryBreakBlockOffhand(mop, offhandItem, mainHandItem, event);
                             setLeftClickCounter(10);
                         } else {
@@ -192,7 +193,7 @@ public class BackhandClientEventHandler {
  
      protected void renderHotbar(GuiIngame gui, int width, int height, float partialTicks) {
          Minecraft mc = Minecraft.getMinecraft();
-         ItemStack itemstack = BattlegearUtils.getOffhandItem(mc.thePlayer);
+         ItemStack itemstack = Backhand.INSTANCE.getOffhandItem(mc.thePlayer);
          if (itemstack == null) {
              return;
          }
@@ -223,7 +224,7 @@ public class BackhandClientEventHandler {
  
      protected void renderOffhandInventorySlot(int p_73832_2_, int p_73832_3_, float p_73832_4_) {
          Minecraft mc = Minecraft.getMinecraft();
-         ItemStack itemstack = BattlegearUtils.getOffhandItem(mc.thePlayer);
+         ItemStack itemstack = Backhand.INSTANCE.getOffhandItem(mc.thePlayer);
  
          if (itemstack != null)
          {
@@ -264,7 +265,7 @@ public class BackhandClientEventHandler {
          if(event.entity instanceof EntityPlayer) {
              EntityPlayer entityPlayer = (EntityPlayer) event.entity;
              renderingPlayer = entityPlayer;
-             ItemStack offhand = BattlegearUtils.getOffhandItem(entityPlayer);
+             ItemStack offhand = Backhand.INSTANCE.getOffhandItem(entityPlayer);
              if (offhand != null && event.renderer instanceof RenderPlayer) {
                  RenderPlayer renderer = ((RenderPlayer) event.renderer);
                  renderer.modelArmorChestplate.heldItemLeft = renderer.modelArmor.heldItemLeft = renderer.modelBipedMain.heldItemLeft = 1;
@@ -292,7 +293,7 @@ public class BackhandClientEventHandler {
  
      @SubscribeEvent
      public void render3rdPersonOffhand(RenderPlayerEvent.Specials.Post event) {
-         if (!Backhand.INSTANCE.EmptyOffhand && BattlegearUtils.getOffhandItem(event.entityPlayer) == null) {
+         if (!ConfigFunctions.offhand.emptyOffhand && Backhand.INSTANCE.getOffhandItem(event.entityPlayer) == null) {
              return;
          }
  

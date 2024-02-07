@@ -5,11 +5,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.player.EntityPlayer;
 
-/**
- * User: nerd-boy
- * Date: 26/06/13
- * Time: 1:35 PM
- */
 public abstract class BackhandBasePacket {
 
 	public final FMLProxyPacket generatePacket() {

@@ -26,7 +26,6 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean avoidDroppingItemsWhenClosing;
 	public static boolean enableSpectatorMode;
 	public static boolean enableElytra;
-	public static boolean enableOffhand;
 	public static boolean enableNewElytraTakeoffLogic;
 	public static boolean enableDoWeatherCycle;
 	public static float creativeFlightSpeedModifier;
@@ -99,10 +98,6 @@ public class ConfigMixins extends ConfigBase {
 				"\nModified Classes: net.minecraft.entity.EntityLivingBase net.minecraft.entity.player.EntityPlayer net.minecraft.entity.EntityTrackerEntry net.minecraft.network.NetHandlerPlayServer" +
 				"\nModified Client Classes: net.minecraft.client.entity.AbstractClientPlayer net.minecraft.client.entity.EntityPlayerSP net.minecraft.client.model.ModelBiped net.minecraft.client.renderer.entity.RenderPlayer" +
 				"\nModified Mod Classes: thaumcraft.common.lib.events.EventHandlerEntity");
-		enableOffhand = getBoolean("enableOffhand", catBackport, true, "A port of Backhand.INSTANCE. The original author of this is https://github.com/c0508383." +
-				"\nModified Classes: tba" +
-				"\nModified Client Classes: tba" +
-				"\nModified Mod Classes: tba");
 		betterPistons = getBoolean("betterPistons", catBackport, true, "A port of Back in Slime, similar to how the elytra is a port of Backlytra. Allows pistons to interact with slime blocks. The original author of this is DonBruce64: https://legacy.curseforge.com/minecraft/mc-mods/back-in-slime-slime-blocks-for-1-7.\nModified Classes: net.minecraft.block.BlockPistonBase");
 		soulFire = getBoolean("soulFire", catBackport, true, "Is not a new block, but rather a mixin for fire. Allows fire to stay ignited on soul soil. Does double damage when standing in it, and does not spread to other blocks.\nEven if this is off fire can still stay ignited on soul soil, but do be mindful that fire will spread from soul soil if this option is disabled.\nModified Classes: net.minecraft.block.BlockFire net.minecraft.entity.Entity\nModified Client Classes: net.minecraft.client.renderer.RenderBlocks");
 		fireproofItems = getBoolean("fireproofItems", catBackport, true, "Some items such as Netherite will not burn in fire and will float to the surface of lava.");

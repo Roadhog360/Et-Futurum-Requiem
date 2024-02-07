@@ -4,16 +4,8 @@ import cpw.mods.fml.common.network.ByteBufUtils;
 import ganymedes01.etfuturum.backhand.Backhand;
 import ganymedes01.etfuturum.backhand.BackhandClientEventHandler;
 import io.netty.buffer.ByteBuf;
-import mods.battlegear2.api.core.BattlegearUtils;
-import mods.battlegear2.api.core.InventoryPlayerBattle;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
-/**
- * User: nerd-boy
- * Date: 26/06/13
- * Time: 1:40 PM
- */
 public final class BackhandSwapClientPacket extends BackhandBasePacket {
 
     public static final String packetName = "ETF|SwapClient";
@@ -33,9 +25,7 @@ public final class BackhandSwapClientPacket extends BackhandBasePacket {
         this.user = ByteBufUtils.readUTF8String(inputStream);
         this.player = player.worldObj.getPlayerEntityByName(user);
         if (this.player!=null) {
-            int slot = inputStream.readInt();
-            if(InventoryPlayerBattle.isValidSwitch(slot))
-                this.player.inventory.currentItem = slot;
+            this.player.inventory.currentItem = inputStream.readInt();
             Backhand.INSTANCE.swapOffhandItem(player);
         }
         BackhandClientEventHandler.allowSwap = true;

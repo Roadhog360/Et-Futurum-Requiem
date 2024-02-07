@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.configuration.configs;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
+import ganymedes01.etfuturum.backhand.BackhandConfig;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.core.utils.Logger;
@@ -166,12 +167,14 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean fireworkRecipeFixes;
 	public static String subtitleBlacklist;
 	public static String[] extraDropRawOres = new String[]{"oreCopper", "oreTin"};
+	public static BackhandConfig offhand = new BackhandConfig();
 
 	static final String catUpdateChecker = "update_checker";
 	static final String catChanges = "changes";
 	static final String catSettings = "settings";
 	static final String catClient = "client";
 	static final String catCommands = "client";
+	static final String catBackhand = "backhand";
 
 	public ConfigFunctions(File file) {
 		super(file);
@@ -180,12 +183,14 @@ public class ConfigFunctions extends ConfigBase {
 		setCategoryComment(catSettings, "Settings for Et Futurum content.");
 		setCategoryComment(catCommands, "New commands");
 		setCategoryComment(catClient, "Client-side settings or changes.");
+		setCategoryComment(catBackhand, "Configs for for the Backhand feature. The original author of the Backhand mod is https://github.com/c0508383.");
 
 		configCats.add(getCategory(catUpdateChecker));
 		configCats.add(getCategory(catChanges));
 		configCats.add(getCategory(catSettings));
 		configCats.add(getCategory(catCommands));
 		configCats.add(getCategory(catClient));
+		configCats.add(getCategory(catBackhand));
 	}
 
 	@Override
@@ -243,6 +248,22 @@ public class ConfigFunctions extends ConfigBase {
 
 		enableSubtitles = getBoolean("enableSubtitles", catClient, false, "Enable subtitles");
 		subtitleBlacklist = getString("subtitleBlacklist", catClient, "^(dig\\.*)", "Regex of subtitles to blacklist");
+
+		//offhand
+		offhand.enable = getBoolean("enable", catBackhand, false, "Main switch to enables the backhand feature wich adds the offhand feature from vanilla Minecraft.");
+		offhand.allowEmptyOffhand = getBoolean("allowEmptyOffhand", catBackhand, false, "If set to false, disables offhand actions and rendering if there is no offhand item. False in vanilla.");
+		offhand.alternateOffhandSlot = getInt("alternateOffhandSlot", catBackhand, 9, Integer.MIN_VALUE, Integer.MAX_VALUE, "If the main offhand inventory can't be used, this slot in the main inventory will be used as the offhand instead. Slot 9 by default.");
+		offhand.offhandAttack = getBoolean("offhandAttack", catBackhand, false, "If set to false, an empty offhand will only be rendered when the player is punching with the offhand. False in vanilla.");
+		offhand.offhandBlacklist = getStringList("offhandBlacklist", catBackhand, new String[0], "These items will be unable to be swapped into the offhand."
+			+ "\nFormatting of an item should be: modid:itemname"
+			+ "\nThese should all be placed on separate lines between the provided '<' and '>'.");
+		offhand.offhandTickHotswap = getBoolean("offhandTickHotswap", catBackhand, false, "If enabled, a hotswap will be performed every tick if the main hand has no use or is empty."
+			+ "\nThis hotswap allows for many more items like fishing rods to be used in the offhand, but may be unstable.");
+		offhand.offhandBreakBlocks = getBoolean("offhandBreakBlocks", catBackhand, false, "Determines whether you can break blocks with the offhand or not. False in vanilla.");
+		offhand.useInventorySlot = getBoolean("useInventorySlot", catBackhand, false, "If enabled, the alternate offhand slot configured above will always be used for the offhand. False by default.");
+		offhand.useOffhandArrows = getBoolean("useOffhandArrows", catBackhand, true, "If enabled, arrows in the offhand will be used first when shooting a bow. Compatible with Et-Futurum's tipped arrows! True in vanilla.");
+		offhand.useOffhandBow = getBoolean("useOffhandBow", catBackhand, true, "If enabled, bows can be used in the offhand. True in vanilla.");
+		offhand.renderEmptyOffhandAtRest = getBoolean("renderEmptyOffhandAtRest", catBackhand, false, "If set to false, an empty offhand will only be rendered when the player is punching with the offhand.");
 	}
 
 	protected void initValues() {

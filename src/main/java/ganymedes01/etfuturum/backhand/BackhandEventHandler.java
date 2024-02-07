@@ -11,9 +11,11 @@ import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.backhand.client.renderer.RenderOffhandPlayer;
-import ganymedes01.etfuturum.backhand.packets.BackhandSwapPacket;
+import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.backhand.packets.BackhandWorldHotswapPacket;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.network.BackhandHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -75,7 +77,7 @@ public class BackhandEventHandler {
             return;
 
         EntityPlayer player = (EntityPlayer) event.entityLiving;
-        if (!Backhand.INSTANCE.hasOffhandInventory(player)) {
+        if (!Backhand.hasOffhandInventory(player)) {
             ItemStack offhandItem = Backhand.INSTANCE.getOffhandItem(player);
             player.func_146097_a(offhandItem, true, false);
             Backhand.INSTANCE.setPlayerOffhandItem(player,null);
@@ -120,7 +122,7 @@ public class BackhandEventHandler {
 
     @SubscribeEvent
     public void onArrowNock(ArrowNockEvent event) {
-        if (!Backhand.INSTANCE.UseOffhandArrows) {
+        if (!ConfigFunctions.offhand.useOffhandArrows) {
             return;
         }
 
@@ -128,8 +130,7 @@ public class BackhandEventHandler {
         ItemStack offhandItem = Backhand.INSTANCE.getOffhandItem(event.entityPlayer);
         if (offhandItem != null) {
             try {
-                Class<?> etFuturumArrow = Class.forName("ganymedes01.etfuturum.items.ItemArrowTipped");
-                if (etFuturumArrow.isInstance(offhandItem.getItem())) {
+                if (offhandItem.getItem() instanceof ItemArrowTipped) {
                     overrideWithOffhand = true;
                 }
             } catch (Exception ignored) {}
@@ -150,11 +151,11 @@ public class BackhandEventHandler {
         EntityPlayer player = event.entityPlayer;
         ItemStack offhandItem = Backhand.INSTANCE.getOffhandItem(player);
         ItemStack mainhandItem = player.getCurrentEquippedItem();
-        boolean mainhandUse = Backhand.INSTANCE.checkForRightClickFunction(mainhandItem);
+        boolean mainhandUse = Backhand.checkForRightClickFunction(mainhandItem);
         if (offhandItem == null || mainhandUse) {
             return;
         }
-        if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER && !ServerTickHandler.tickStartItems.containsKey(player.getUniqueID())) {
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER && !tickStartItems.containsKey(player.getUniqueID())) {
             Backhand.INSTANCE.swapOffhandItem(player);
             regularHotSwap = true;
         }
@@ -169,12 +170,12 @@ public class BackhandEventHandler {
             return;
         }
 
-        if (!ServerTickHandler.tickStartItems.containsKey(player.getUniqueID()) && !regularHotSwap) {
+        if (!tickStartItems.containsKey(player.getUniqueID()) && !regularHotSwap) {
             Backhand.INSTANCE.swapOffhandItem(player);
             regularHotSwap = true;
         }
 
-        if (!Backhand.INSTANCE.UseOffhandArrows || !(event.item.getItem() instanceof ItemBow)) {
+        if (!ConfigFunctions.offhand.useOffhandArrows || !(event.item.getItem() instanceof ItemBow)) {
             return;
         }
 
@@ -208,7 +209,7 @@ public class BackhandEventHandler {
              return;
          }
  
-         if (Backhand.INSTANCE.OffhandTickHotswap) {
+         if (ConfigFunctions.offhand.offhandTickHotswap) {
              List<EntityPlayer> players = event.world.playerEntities;
              for (EntityPlayer player : players) {
                  ItemStack mainhand = player.getCurrentEquippedItem() == null ? null : player.getCurrentEquippedItem().copy();
@@ -218,9 +219,9 @@ public class BackhandEventHandler {
                  }
  
                  if (event.phase == TickEvent.Phase.START && !player.isUsingItem()) {
-                     if (!BattlegearUtils.checkForRightClickFunction(mainhand)) {
+                     if (!Backhand.INSTANCE.checkForRightClickFunction(mainhand)) {
                          if (!tickStartItems.containsKey(player.getUniqueID())) {
-                             Backhand.INSTANCE.packetHandler.sendPacketToPlayer(
+                             BackhandHandler.INSTANCE.sendPacketToPlayer(
                                      new BackhandWorldHotswapPacket(true).generatePacket(), (EntityPlayerMP) player
                              );
                          }
@@ -239,7 +240,7 @@ public class BackhandEventHandler {
              player.setCurrentItemOrArmor(0, tickStartItems.get(player.getUniqueID()).get(0));
              Backhand.INSTANCE.setPlayerOffhandItem(player, tickStartItems.get(player.getUniqueID()).get(1));
              tickStartItems.remove(player.getUniqueID());
-             BackhandHandler.packetHandler.sendPacketToPlayer(
+             BackhandHandler.INSTANCE.sendPacketToPlayer(
                      new BackhandWorldHotswapPacket(false).generatePacket(), (EntityPlayerMP) player
              );
          }
@@ -252,9 +253,9 @@ public class BackhandEventHandler {
      {
          EntityPlayer player = event.player;
          if (FMLCommonHandler.instance().getEffectiveSide() != Side.SERVER) {
-             if (ServerEventsHandler.regularHotSwap) {
+             if (BackhandEventHandler.regularHotSwap) {
                 Backhand.INSTANCE.swapOffhandItem(player);
-                 ServerEventsHandler.regularHotSwap = false;
+                BackhandEventHandler.regularHotSwap = false;
              }
              return;
          }
@@ -273,7 +274,7 @@ public class BackhandEventHandler {
  
                      boolean foundSlot = false;
                      for (int i = 0; i < player.inventory.getSizeInventory() - 4; i++) {
-                         if (i == Backhand.INSTANCE.AlternateOffhandSlot)
+                         if (i == ConfigFunctions.offhand.alternateOffhandSlot)
                              continue;
                          if (player.inventory.getStackInSlot(i) == null) {
                              player.inventory.setInventorySlotContents(i,offhand);
@@ -290,11 +291,11 @@ public class BackhandEventHandler {
              prevStackInSlot = offhand;
          }
  
-         if (Backhand.INSTANCE.getOffhandEP(player).syncOffhand) {
+         if (Backhand.getOffhandEP(player).syncOffhand) {
              if (!tickStartItems.containsKey(player.getUniqueID())) {
-                 BackhandHandler.packetHandler.sendPacketToAll(new BattlegearSyncItemPacket(player).generatePacket());
+                 BackhandHandler.sendPacketToAll(new BackhandSyncItemPacket(player).generatePacket());
              }
-             Backhand.INSTANCE.getOffhandEP(player).syncOffhand = false;
+             Backhand.getOffhandEP(player).syncOffhand = false;
          }
  
          if (arrowHotSwapped) {
