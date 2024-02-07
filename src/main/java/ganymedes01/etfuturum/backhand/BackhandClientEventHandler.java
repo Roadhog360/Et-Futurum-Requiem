@@ -4,7 +4,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
@@ -12,6 +11,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.backhand.client.renderer.RenderOffhandPlayer;
+import ganymedes01.etfuturum.backhand.packets.BackhandSwapPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.GuiIngame;
@@ -25,80 +25,16 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
-public class BackhandClient extends Backhand {
+public class BackhandClientEventHandler {
 
-    public static final BackhandClient INSTANCE = new BackhandClient();
+    public static final BackhandClientEventHandler INSTANCE = new BackhandClientEventHandler();
 
     public static final KeyBinding swapOffhand = new KeyBinding("Swap Offhand", Keyboard.KEY_F, "key.categories.gameplay");
-    public static int rightClickCounter = 0;
-
-    // TODO: Migrate! Currently not called.
-    public void load() {
-        FMLCommonHandler.instance().bus().register(new BattlegearClientTickHandler());
-    }
-    
-    @SideOnly(Side.CLIENT)
-    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        return null;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public EntityPlayer getClientPlayer() {
-        return Minecraft.getMinecraft().thePlayer;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void sendAnimationPacket(EnumBGAnimations animation, EntityPlayer entityPlayer) {
-        if (entityPlayer instanceof EntityClientPlayerMP) {
-            ((EntityClientPlayerMP) entityPlayer).sendQueue.addToSendQueue(
-                    new BattlegearAnimationPacket(animation, entityPlayer).generatePacket());
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    public boolean isRightClickHeld() {
-        return Minecraft.getMinecraft().gameSettings.keyBindUseItem.getIsKeyPressed();
-    }
-
-    @SideOnly(Side.CLIENT)
-    public int getRightClickCounter() {
-        return rightClickCounter;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public int getRightClickDelay() {
-        return BackhandClient.delay;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void setRightClickCounter(int i) {
-        rightClickCounter = i;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public boolean isLeftClickHeld() {
-        return Minecraft.getMinecraft().gameSettings.keyBindAttack.getIsKeyPressed();
-    }
-
-    @SideOnly(Side.CLIENT)
-    public int getLeftClickCounter() {
-        return Minecraft.getMinecraft().leftClickCounter;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void setLeftClickCounter(int i) {
-        Minecraft.getMinecraft().leftClickCounter = i;
-    }
-
-    /*
-     * T i c k   E v e n t   H a n d l e r
-     */
 
     public static int delay;
     public static boolean prevInvTweaksAutoRefill;
@@ -107,20 +43,54 @@ public class BackhandClient extends Backhand {
     public static int invTweaksDelay;
     public static boolean allowSwap = true;
 
+    public static RenderOffhandPlayer renderOffhandPlayer = new RenderOffhandPlayer();
+    public static EntityPlayer renderingPlayer;
+    public static boolean cancelone = false;
+
+    public static int rightClickCounter = 0;
+
+    public boolean isRightClickHeld() {
+        return Minecraft.getMinecraft().gameSettings.keyBindUseItem.getIsKeyPressed();
+    }
+
+    public int getRightClickCounter() {
+        return rightClickCounter;
+    }
+
+    public int getRightClickDelay() {
+        return delay;
+    }
+
+    public void setRightClickCounter(int i) {
+        rightClickCounter = i;
+    }
+
+    public boolean isLeftClickHeld() {
+        return Minecraft.getMinecraft().gameSettings.keyBindAttack.getIsKeyPressed();
+    }
+
+    public int getLeftClickCounter() {
+        return Minecraft.getMinecraft().leftClickCounter;
+    }
+
+    public void setLeftClickCounter(int i) {
+        Minecraft.getMinecraft().leftClickCounter = i;
+    }
+
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onKeyInputEvent(InputEvent.KeyInputEvent event) {
         Minecraft mc = Minecraft.getMinecraft();
         EntityClientPlayerMP player = mc.thePlayer;
 
-        if (BackhandClient.swapOffhand.getIsKeyPressed() && Keyboard.isKeyDown(Keyboard.getEventKey()) && allowSwap) {
+        if (swapOffhand.getIsKeyPressed() && Keyboard.isKeyDown(Keyboard.getEventKey()) && allowSwap) {
             allowSwap = false;
             try {
                 this.getClass().getMethod("invTweaksSwapPatch");
                 invTweaksSwapPatch();
             } catch (Exception ignored) {}
             ((EntityClientPlayerMP)player).sendQueue.addToSendQueue(
-                    new OffhandSwapPacket(player).generatePacket()
+                    new BackhandSwapPacket(player).generatePacket()
             );
         }
     }
@@ -161,8 +131,8 @@ public class BackhandClient extends Backhand {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void clientHelper(TickEvent.PlayerTickEvent event) {
-        if (BackhandClient.delay > 0) {
-            BackhandClient.delay--;
+        if (delay > 0) {
+            delay--;
         }
 
         if (!Backhand.OffhandBreakBlocks) {
@@ -211,14 +181,6 @@ public class BackhandClient extends Backhand {
             }
         }
     }
-
-    /*
-     * C l i e n t   R e n d e r e r
-     */
-
-     public static RenderOffhandPlayer renderOffhandPlayer = new RenderOffhandPlayer();
-     public static EntityPlayer renderingPlayer;
-     public static boolean cancelone = false;
  
      @SubscribeEvent
      public void renderHotbarOverlay(RenderGameOverlayEvent event) {

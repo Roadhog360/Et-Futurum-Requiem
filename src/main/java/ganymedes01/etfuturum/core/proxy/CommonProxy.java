@@ -11,6 +11,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.backhand.Backhand;
+import ganymedes01.etfuturum.backhand.BackhandEventHandler;
 import ganymedes01.etfuturum.client.gui.inventory.*;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.handlers.SculkEventHandler;
@@ -57,9 +58,9 @@ public class CommonProxy implements IGuiHandler {
 		}
 
 		if (ConfigMixins.enableOffhand) {
-			FMLCommonHandler.instance().bus().register(Backhand.INSTANCE);
-			MinecraftForge.EVENT_BUS.register(Backhand.INSTANCE);
-			NetworkRegistry.INSTANCE.registerGuiHandler(Backhand.INSTANCE, this);
+			FMLCommonHandler.instance().bus().register(BackhandEventHandler.INSTANCE);
+			MinecraftForge.EVENT_BUS.register(BackhandEventHandler.INSTANCE);
+			NetworkRegistry.INSTANCE.registerGuiHandler(BackhandEventHandler.INSTANCE, this);
 		}
 
 		if (ModBlocks.SCULK_CATALYST.isEnabled()) {
