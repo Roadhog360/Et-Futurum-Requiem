@@ -1,12 +1,13 @@
 package ganymedes01.etfuturum.backhand.packets;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
+import ganymedes01.etfuturum.backhand.Backhand;
+import ganymedes01.etfuturum.backhand.BackhandClientEventHandler;
 import io.netty.buffer.ByteBuf;
 import mods.battlegear2.api.core.BattlegearUtils;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import xonin.Backhand.INSTANCE.client.ClientTickHandler;
 
 /**
  * User: nerd-boy
@@ -35,9 +36,9 @@ public final class BackhandSwapClientPacket extends BackhandBasePacket {
             int slot = inputStream.readInt();
             if(InventoryPlayerBattle.isValidSwitch(slot))
                 this.player.inventory.currentItem = slot;
-            BattlegearUtils.swapOffhandItem(player);
+            Backhand.INSTANCE.swapOffhandItem(player);
         }
-        ClientTickHandler.allowSwap = true;
+        BackhandClientEventHandler.allowSwap = true;
     }
 
     @Override
