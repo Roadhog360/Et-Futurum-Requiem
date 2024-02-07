@@ -295,7 +295,7 @@ public class BackhandClientEventHandler {
  
      @SubscribeEvent
      public void render3rdPersonOffhand(RenderPlayerEvent.Specials.Post event) {
-         if (!ConfigFunctions.offhand.emptyOffhand && Backhand.INSTANCE.getOffhandItem(event.entityPlayer) == null) {
+         if (!ConfigFunctions.offhand.allowEmptyOffhand && Backhand.INSTANCE.getOffhandItem(event.entityPlayer) == null) {
              return;
          }
  
