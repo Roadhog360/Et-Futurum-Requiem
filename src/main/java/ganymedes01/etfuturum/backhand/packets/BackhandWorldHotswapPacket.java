@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.backhand.packets;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
-import net.tclproject.mysteriumlib.asm.fixes.MysteriumPatchesFixesO;
 
 public class BackhandWorldHotswapPacket extends BackhandBasePacket {
     public static final String packetName = "ETF|WorldHotswap";
@@ -27,6 +26,5 @@ public class BackhandWorldHotswapPacket extends BackhandBasePacket {
 
     @Override
     public void process(ByteBuf inputStream, EntityPlayer player) {
-        MysteriumPatchesFixesO.ignoreSetSlot = inputStream.readBoolean();
     }
 }

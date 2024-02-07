@@ -3,8 +3,6 @@ package ganymedes01.etfuturum.backhand.packets;
 import ganymedes01.etfuturum.backhand.Backhand;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ContainerPlayer;
-import net.tclproject.mysteriumlib.asm.fixes.MysteriumPatchesFixesO;
 
 public final class BackhandConfigSyncPacket extends BackhandBasePacket {
 
@@ -27,7 +25,6 @@ public final class BackhandConfigSyncPacket extends BackhandBasePacket {
         Backhand.INSTANCE.OffhandTickHotswap = inputStream.readBoolean();
         Backhand.INSTANCE.AlternateOffhandSlot = inputStream.readInt();
         Backhand.INSTANCE.UseInventorySlot = inputStream.readBoolean();
-        MysteriumPatchesFixesO.receivedConfigs = true;
     }
 
     @Override
