@@ -6,6 +6,7 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.backhand.BackhandClient;
 import ganymedes01.etfuturum.client.model.ModelShulker;
 import ganymedes01.etfuturum.client.renderer.block.*;
 import ganymedes01.etfuturum.client.renderer.entity.*;
@@ -53,6 +54,12 @@ public class ClientProxy extends CommonProxy {
 		if (ConfigMixins.enableSpectatorMode) {
 			FMLCommonHandler.instance().bus().register(SpectatorModeClient.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(SpectatorModeClient.INSTANCE);
+		}
+
+		if (ConfigMixins.enableOffhand) {
+			FMLCommonHandler.instance().bus().register(BackhandClient.INSTANCE);
+			MinecraftForge.EVENT_BUS.register(BackhandClient.INSTANCE);
+			ClientRegistry.registerKeyBinding(BackhandClient.swapOffhand);
 		}
 
 		if (ConfigFunctions.enableSubtitles) {

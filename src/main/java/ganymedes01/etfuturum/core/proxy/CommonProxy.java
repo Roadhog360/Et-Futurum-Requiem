@@ -3,12 +3,14 @@ package ganymedes01.etfuturum.core.proxy;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.backhand.Backhand;
 import ganymedes01.etfuturum.client.gui.inventory.*;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.handlers.SculkEventHandler;
@@ -52,6 +54,12 @@ public class CommonProxy implements IGuiHandler {
 		if (ConfigMixins.enableSpectatorMode) {
 			FMLCommonHandler.instance().bus().register(SpectatorMode.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(SpectatorMode.INSTANCE);
+		}
+
+		if (ConfigMixins.enableOffhand) {
+			FMLCommonHandler.instance().bus().register(Backhand.INSTANCE);
+			MinecraftForge.EVENT_BUS.register(Backhand.INSTANCE);
+			NetworkRegistry.INSTANCE.registerGuiHandler(Backhand.INSTANCE, this);
 		}
 
 		if (ModBlocks.SCULK_CATALYST.isEnabled()) {
