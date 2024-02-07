@@ -1,5 +1,12 @@
 package ganymedes01.etfuturum.backhand;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -28,6 +35,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
@@ -42,9 +50,6 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
-import scala.actors.threadpool.Arrays;
-import scala.collection.immutable.HashMap;
-import scala.collection.immutable.List;
 
 public class BackhandEventHandler {
 
@@ -89,16 +94,16 @@ public class BackhandEventHandler {
         if (!(event.entityLiving instanceof EntityPlayer) || event.entityLiving.getHealth() - event.ammount > 0)
             return;
         try {
-            Class<?> totemItem = Class.forName("ganymedes01.etfuturum.items.ItemTotemUndying");
-
+            Item totemItem = ModItems.TOTEM_OF_UNDYING.get();
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             ItemStack offhandItem = Backhand.INSTANCE.getOffhandItem(player);
             ItemStack mainhandItem = player.getCurrentEquippedItem();
+            
             if (offhandItem == null) {
                 return;
             }
 
-            if (totemItem.isInstance(offhandItem.getItem()) && (mainhandItem == null || !totemItem.isInstance(mainhandItem.getItem()))) {
+            if (offhandItem.getItem() == totemItem && (mainhandItem == null || mainhandItem.getItem() != totemItem)) {
                 Backhand.INSTANCE.swapOffhandItem(player);
                 regularHotSwap = true;
                 MinecraftForge.EVENT_BUS.post(event);
@@ -210,7 +215,7 @@ public class BackhandEventHandler {
          }
  
          if (ConfigFunctions.offhand.offhandTickHotswap) {
-             List<EntityPlayer> players = event.world.playerEntities;
+             List<EntityPlayer> players = (List<EntityPlayer>)event.world.playerEntities;
              for (EntityPlayer player : players) {
                  ItemStack mainhand = player.getCurrentEquippedItem() == null ? null : player.getCurrentEquippedItem().copy();
                  ItemStack offhand = Backhand.INSTANCE.getOffhandItem(player) == null ? null : Backhand.INSTANCE.getOffhandItem(player).copy();
@@ -225,7 +230,7 @@ public class BackhandEventHandler {
                                      new BackhandWorldHotswapPacket(true).generatePacket(), (EntityPlayerMP) player
                              );
                          }
-                         tickStartItems.put(player.getUniqueID(), Arrays.asList(mainhand, offhand));
+                         tickStartItems.put(player.getUniqueID(), Arrays.asList(mainhand, offhand) );
                          player.setCurrentItemOrArmor(0, tickStartItems.get(player.getUniqueID()).get(1));
                      }
                  } else {

@@ -28,6 +28,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
@@ -37,7 +38,7 @@ public class BackhandClientEventHandler {
 
     public static final BackhandClientEventHandler INSTANCE = new BackhandClientEventHandler();
 
-    public static final KeyBinding swapOffhand = new KeyBinding("Swap Offhand", Keyboard.KEY_F, "key.categories.gameplay");
+    public static final KeyBinding swapOffhand = new KeyBinding(StatCollector.translateToLocal("backhand.swapItem"), Keyboard.KEY_F, "key.categories.gameplay");
 
     public static int delay;
     public static boolean prevInvTweaksAutoRefill;
