@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.backhand.packets;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
+import ganymedes01.etfuturum.backhand.Backhand;
 import io.netty.buffer.ByteBuf;
 import mods.battlegear2.api.core.BattlegearUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,7 +39,7 @@ public class BackhandToServerPacket extends BackhandBasePacket {
         this.player = player.worldObj.getPlayerEntityByName(user);
         if (this.player != null) {
             ItemStack offhandItem = ByteBufUtils.readItemStack(inputStream);
-            BattlegearUtils.setPlayerOffhandItem(this.player,offhandItem);
+            Backhand.INSTANCE.INSTANCE.setPlayerOffhandItem(this.player,offhandItem);
         }
     }
 }

@@ -1,4 +1,3 @@
-
 package ganymedes01.etfuturum.backhand.packets;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
@@ -7,7 +6,7 @@ import mods.battlegear2.api.core.BattlegearUtils;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import xonin.backhand.client.ClientTickHandler;
+import xonin.Backhand.INSTANCE.client.ClientTickHandler;
 
 /**
  * User: nerd-boy

@@ -99,7 +99,7 @@ public class ConfigMixins extends ConfigBase {
 				"\nModified Classes: net.minecraft.entity.EntityLivingBase net.minecraft.entity.player.EntityPlayer net.minecraft.entity.EntityTrackerEntry net.minecraft.network.NetHandlerPlayServer" +
 				"\nModified Client Classes: net.minecraft.client.entity.AbstractClientPlayer net.minecraft.client.entity.EntityPlayerSP net.minecraft.client.model.ModelBiped net.minecraft.client.renderer.entity.RenderPlayer" +
 				"\nModified Mod Classes: thaumcraft.common.lib.events.EventHandlerEntity");
-		enableOffhand = getBoolean("enableOffhand", catBackport, true, "A port of Backhand. The original author of this is https://github.com/c0508383." +
+		enableOffhand = getBoolean("enableOffhand", catBackport, true, "A port of Backhand.INSTANCE. The original author of this is https://github.com/c0508383." +
 				"\nModified Classes: tba" +
 				"\nModified Client Classes: tba" +
 				"\nModified Mod Classes: tba");

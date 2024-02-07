@@ -4,6 +4,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.relauncher.Side;
+import ganymedes01.etfuturum.backhand.Backhand;
 import io.netty.buffer.ByteBuf;
 import mods.battlegear2.BattlemodeHookContainerClass;
 import mods.battlegear2.api.PlayerEventChild;
@@ -137,15 +138,15 @@ public final class BackhandPlaceBlockPacket extends BackhandBasePacket{
             }
             ((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S23PacketBlockChange(i, j, k, player.getEntityWorld()));
         }
-        offhandWeapon = BattlegearUtils.getOffhandItem(player);
+        offhandWeapon = Backhand.INSTANCE.getOffhandItem(player);
         if (offhandWeapon != null && BattlemodeHookContainerClass.isItemBlock(offhandWeapon.getItem())) {
             if (offhandWeapon.stackSize <= 0) {
-                BattlegearUtils.setPlayerOffhandItem(player, null);
+                Backhand.INSTANCE.setPlayerOffhandItem(player, null);
                 offhandWeapon = null;
             }
             if (offhandWeapon == null || offhandWeapon.getMaxItemUseDuration() == 0) {
                 ((EntityPlayerMP) player).isChangingQuantityOnly = true;
-                BattlegearUtils.setPlayerOffhandItem(player, ItemStack.copyItemStack(BattlegearUtils.getOffhandItem(player)));
+                Backhand.INSTANCE.setPlayerOffhandItem(player, ItemStack.copyItemStack(Backhand.INSTANCE.getOffhandItem(player)));
                 player.openContainer.detectAndSendChanges();
                 ((EntityPlayerMP) player).isChangingQuantityOnly = false;
             }
@@ -161,9 +162,9 @@ public final class BackhandPlaceBlockPacket extends BackhandBasePacket{
             if (itemStack.getItem().onItemUseFirst(itemStack, playerMP, theWorld, x, y, z, side, xOffset, yOffset, zOffset)) {
                 if (itemStack.stackSize <= 0) {
                     ForgeEventFactory.onPlayerDestroyItem(playerMP, itemStack);
-                    BattlegearUtils.setPlayerOffhandItem(playerMP, null);
+                    Backhand.INSTANCE.setPlayerOffhandItem(playerMP, null);
                 } else if (itemStack.getItemDamage() != meta) {
-                    BattlegearUtils.setPlayerOffhandItem(playerMP, BattlegearUtils.getOffhandItem(playerMP));
+                    Backhand.INSTANCE.setPlayerOffhandItem(playerMP, Backhand.INSTANCE.getOffhandItem(playerMP));
                 }
                 return true;
             }
@@ -182,9 +183,9 @@ public final class BackhandPlaceBlockPacket extends BackhandBasePacket{
             }
             if (itemStack.stackSize <= 0) {
                 ForgeEventFactory.onPlayerDestroyItem(playerMP, itemStack);
-                BattlegearUtils.setPlayerOffhandItem(playerMP, null);
+                Backhand.INSTANCE.setPlayerOffhandItem(playerMP, null);
             } else if (itemStack.getItemDamage() != meta) {
-                BattlegearUtils.setPlayerOffhandItem(playerMP, itemStack);
+                Backhand.INSTANCE.setPlayerOffhandItem(playerMP, itemStack);
             }
         }
         return result;

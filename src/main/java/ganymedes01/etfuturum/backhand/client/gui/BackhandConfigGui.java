@@ -19,7 +19,7 @@ public class BackhandConfigGui extends GuiScreen {
     @Override
     public void initGui() {
         this.buttonList.add(new GuiButton(1, this.width / 2 - 75, this.height - 38, I18n.format("gui.done")));
-        this.buttonList.add(new GuiToggleButton(10, this.width / 2 - 75, this.height / 2 - 12, I18n.format("backhandconfig.offhandRest") + ":" + Backhand.RenderEmptyOffhandAtRest, this.fontRendererObj));
+        this.buttonList.add(new GuiToggleButton(10, this.width / 2 - 75, this.height / 2 - 12, I18n.format("backhandconfig.offhandRest") + ":" + Backhand.INSTANCE.RenderEmptyOffhandAtRest, this.fontRendererObj));
 
         for (Object obj : this.buttonList) {
             ((GuiButton)obj).xPosition = this.width/2 - ((GuiButton)obj).getButtonWidth()/2;
@@ -33,7 +33,7 @@ public class BackhandConfigGui extends GuiScreen {
                 FMLClientHandler.instance().showGuiScreen(parent);
             }
             if (button.id == 10) {
-                Backhand.RenderEmptyOffhandAtRest = !Backhand.RenderEmptyOffhandAtRest;
+                Backhand.INSTANCE.RenderEmptyOffhandAtRest = !Backhand.INSTANCE.RenderEmptyOffhandAtRest;
             }
             if(button instanceof GuiToggleButton){
                 ((GuiToggleButton) button).toggleDisplayString();

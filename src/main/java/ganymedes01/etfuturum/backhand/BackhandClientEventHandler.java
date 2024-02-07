@@ -135,11 +135,11 @@ public class BackhandClientEventHandler {
             delay--;
         }
 
-        if (!Backhand.OffhandBreakBlocks) {
+        if (!Backhand.INSTANCE.OffhandBreakBlocks) {
             return;
         }
 
-        if (!Backhand.EmptyOffhand && BattlegearUtils.getOffhandItem(event.player) == null) {
+        if (!Backhand.INSTANCE.EmptyOffhand && BattlegearUtils.getOffhandItem(event.player) == null) {
             return;
         }
 
@@ -292,7 +292,7 @@ public class BackhandClientEventHandler {
  
      @SubscribeEvent
      public void render3rdPersonOffhand(RenderPlayerEvent.Specials.Post event) {
-         if (!Backhand.EmptyOffhand && BattlegearUtils.getOffhandItem(event.entityPlayer) == null) {
+         if (!Backhand.INSTANCE.EmptyOffhand && BattlegearUtils.getOffhandItem(event.entityPlayer) == null) {
              return;
          }
  

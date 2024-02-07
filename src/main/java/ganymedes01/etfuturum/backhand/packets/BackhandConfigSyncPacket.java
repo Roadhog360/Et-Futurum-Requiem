@@ -1,4 +1,3 @@
-
 package ganymedes01.etfuturum.backhand.packets;
 
 import ganymedes01.etfuturum.backhand.Backhand;
@@ -20,14 +19,14 @@ public final class BackhandConfigSyncPacket extends BackhandBasePacket {
 
     @Override
     public void process(ByteBuf inputStream, EntityPlayer player) {
-        Backhand.OffhandAttack = inputStream.readBoolean();
-        Backhand.EmptyOffhand = inputStream.readBoolean();
-        Backhand.OffhandBreakBlocks = inputStream.readBoolean();
-        Backhand.UseOffhandArrows = inputStream.readBoolean();
-        Backhand.UseOffhandBow = inputStream.readBoolean();
-        Backhand.OffhandTickHotswap = inputStream.readBoolean();
-        Backhand.AlternateOffhandSlot = inputStream.readInt();
-        Backhand.UseInventorySlot = inputStream.readBoolean();
+        Backhand.INSTANCE.OffhandAttack = inputStream.readBoolean();
+        Backhand.INSTANCE.EmptyOffhand = inputStream.readBoolean();
+        Backhand.INSTANCE.OffhandBreakBlocks = inputStream.readBoolean();
+        Backhand.INSTANCE.UseOffhandArrows = inputStream.readBoolean();
+        Backhand.INSTANCE.UseOffhandBow = inputStream.readBoolean();
+        Backhand.INSTANCE.OffhandTickHotswap = inputStream.readBoolean();
+        Backhand.INSTANCE.AlternateOffhandSlot = inputStream.readInt();
+        Backhand.INSTANCE.UseInventorySlot = inputStream.readBoolean();
         MysteriumPatchesFixesO.receivedConfigs = true;
     }
 
@@ -38,13 +37,13 @@ public final class BackhandConfigSyncPacket extends BackhandBasePacket {
 
     @Override
     public void write(ByteBuf out) {
-        out.writeBoolean(Backhand.OffhandAttack);
-        out.writeBoolean(Backhand.EmptyOffhand);
-        out.writeBoolean(Backhand.OffhandBreakBlocks);
-        out.writeBoolean(Backhand.UseOffhandArrows);
-        out.writeBoolean(Backhand.UseOffhandBow);
-        out.writeBoolean(Backhand.OffhandTickHotswap);
-        out.writeInt(Backhand.AlternateOffhandSlot);
-        out.writeBoolean(Backhand.UseInventorySlot);
+        out.writeBoolean(Backhand.INSTANCE.OffhandAttack);
+        out.writeBoolean(Backhand.INSTANCE.EmptyOffhand);
+        out.writeBoolean(Backhand.INSTANCE.OffhandBreakBlocks);
+        out.writeBoolean(Backhand.INSTANCE.UseOffhandArrows);
+        out.writeBoolean(Backhand.INSTANCE.UseOffhandBow);
+        out.writeBoolean(Backhand.INSTANCE.OffhandTickHotswap);
+        out.writeInt(Backhand.INSTANCE.AlternateOffhandSlot);
+        out.writeBoolean(Backhand.INSTANCE.UseInventorySlot);
     }
 }

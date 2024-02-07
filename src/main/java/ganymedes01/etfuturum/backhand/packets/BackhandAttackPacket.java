@@ -37,7 +37,7 @@ public class BackhandAttackPacket extends BackhandBasePacket {
 
     @Override
     public void process(ByteBuf inputStream, EntityPlayer sender) {
-        if (!ganymedes01.etfuturum.backhand.Backhand.OffhandAttack) {
+        if (!ganymedes01.etfuturum.Backhand.INSTANCE.Backhand.INSTANCE.OffhandAttack) {
             return;
         }
 
