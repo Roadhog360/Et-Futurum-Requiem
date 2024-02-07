@@ -116,6 +116,7 @@ dependencies {
 	compileOnly("com.github.GTNewHorizons:Angelica:1.0.0-alpha19:api") {
 		transitive = false
 	}
+	compileOnly "com.github.GTNewHorizons:inventory-tweaks:1.6.2:dev"
 	
 	compileOnly("com.github.GTNewHorizons:lwjgl3ify:1.5.14:api") {
 		transitive = false

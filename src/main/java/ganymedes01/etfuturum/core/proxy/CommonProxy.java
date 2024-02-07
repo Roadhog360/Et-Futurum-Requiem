@@ -10,7 +10,6 @@ import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.backhand.Backhand;
 import ganymedes01.etfuturum.backhand.BackhandEventHandler;
 import ganymedes01.etfuturum.client.gui.inventory.*;
 import ganymedes01.etfuturum.configuration.configs.*;
@@ -57,7 +56,7 @@ public class CommonProxy implements IGuiHandler {
 			MinecraftForge.EVENT_BUS.register(SpectatorMode.INSTANCE);
 		}
 
-		if (ConfigMixins.enableOffhand) {
+		if (ConfigFunctions.offhand.enable) {
 			FMLCommonHandler.instance().bus().register(BackhandEventHandler.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(BackhandEventHandler.INSTANCE);
 			NetworkRegistry.INSTANCE.registerGuiHandler(BackhandEventHandler.INSTANCE, this);

@@ -13,6 +13,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.backhand.client.renderer.RenderOffhandPlayer;
 import ganymedes01.etfuturum.backhand.packets.BackhandSwapPacket;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import invtweaks.InvTweaks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.GuiIngame;
