@@ -293,5 +293,10 @@ public class ConfigFunctions extends ConfigBase {
 				Logger.warn("Et Futurum Requiem's skin backport has been disabled to prevent conflicts.");
 			}
 		}
+
+		if (ConfigFunctions.offhand.enable && ModsList.BACKHAND.isLoaded()) {
+			ConfigFunctions.offhand.enable = false;
+			Logger.warn("Backport mod is installed. Disabled Et Futurum Requiem's offhand has been disabled to avoid conflicts.");
+		}
 	}
 }

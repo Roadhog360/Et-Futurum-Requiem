@@ -35,6 +35,7 @@ public enum ModsList {
 	ARS_MAGICA_2("arsmagica2"),
 	MULTIPART("McMultipart"),
 	DRACONIC_EVOLUTION("DraconicEvolution"),
+	BACKHAND("backhand"),
 	;
 
 	private final String modID;
