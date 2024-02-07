@@ -1,13 +1,9 @@
 package ganymedes01.etfuturum.backhand;
 
-import cpw.mods.fml.common.SidedProxy;
 import net.minecraft.item.ItemStack;
 
 public class Backhand {
     public static Backhand INSTANCE = new Backhand();
-
-    @SidedProxy(clientSide = "ganymedes01.etfuturum.mixins.backhand.client.ClientProxy",
-                serverSide = "ganymedes01.etfuturum.mixins.backhand.CommonProxy")
 
     public static boolean OffhandAttack = false;
     public static boolean EmptyOffhand = false;
