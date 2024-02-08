@@ -26,7 +26,6 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -73,13 +72,13 @@ public class BackhandClientEventHandler {
         return Minecraft.getMinecraft().gameSettings.keyBindAttack.getIsKeyPressed();
     }
 
-    public int getLeftClickCounter() {
-        return Minecraft.getMinecraft().leftClickCounter;
-    }
+    // public int getLeftClickCounter() {
+    //     return Minecraft.getMinecraft().leftClickCounter;
+    // }
 
-    public void setLeftClickCounter(int i) {
-        Minecraft.getMinecraft().leftClickCounter = i;
-    }
+    // public void setLeftClickCounter(int i) {
+    //     Minecraft.getMinecraft().leftClickCounter = i;
+    // }
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
@@ -158,32 +157,32 @@ public class BackhandClientEventHandler {
             return;
         }
 
-        Minecraft mc = Minecraft.getMinecraft();
+        // Minecraft mc = Minecraft.getMinecraft();
 
-        if (event.player.worldObj.isRemote && getLeftClickCounter() <= 0 && mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.ENTITY) {
-            if (event.player.capabilities.allowEdit) {
-                if (isRightClickHeld() && !(mainHandItem != null && Backhand.isItemBlock(mainHandItem.getItem()))) { // if it's a block and we should try break it
-                    MovingObjectPosition mop = BattlemodeHookContainerClass.getRaytraceBlock(event.player);
-                    if (offhandItem != null && BattlemodeHookContainerClass.isItemBlock(offhandItem.getItem())) {
-                        if (!Backhand.usagePriorAttack(offhandItem) && mop != null) {
-                            BattlegearClientTickHandler.tryBreakBlockOffhand(mop, offhandItem, mainHandItem, event);
-                            setLeftClickCounter(10);
-                        } else {
-                            mc.playerController.resetBlockRemoving();
-                        }
-                    } else {
-                        if (mop != null && !Backhand.usagePriorAttack(offhandItem) && !Backhand.canBlockBeInteractedWith(mc.theWorld, mop.blockX, mop.blockY, mop.blockZ)) {
-                            BattlegearClientTickHandler.tryBreakBlockOffhand(mop, offhandItem, mainHandItem, event);
-                            setLeftClickCounter(10);
-                        } else {
-                            mc.playerController.resetBlockRemoving();
-                        }
-                    }
-                } else if (!isLeftClickHeld()) {
-                    mc.playerController.resetBlockRemoving();
-                }
-            }
-        }
+        // if (event.player.worldObj.isRemote && getLeftClickCounter() <= 0 && mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.ENTITY) {
+        //     if (event.player.capabilities.allowEdit) {
+        //         if (isRightClickHeld() && !(mainHandItem != null && Backhand.isItemBlock(mainHandItem.getItem()))) { // if it's a block and we should try break it
+        //             MovingObjectPosition mop = BattlemodeHookContainerClass.getRaytraceBlock(event.player);
+        //             if (offhandItem != null && BattlemodeHookContainerClass.isItemBlock(offhandItem.getItem())) {
+        //                 if (!Backhand.usagePriorAttack(offhandItem) && mop != null) {
+        //                     BattlegearClientTickHandler.tryBreakBlockOffhand(mop, offhandItem, mainHandItem, event);
+        //                     setLeftClickCounter(10);
+        //                 } else {
+        //                     mc.playerController.resetBlockRemoving();
+        //                 }
+        //             } else {
+        //                 if (mop != null && !Backhand.usagePriorAttack(offhandItem) && !Backhand.canBlockBeInteractedWith(mc.theWorld, mop.blockX, mop.blockY, mop.blockZ)) {
+        //                     BattlegearClientTickHandler.tryBreakBlockOffhand(mop, offhandItem, mainHandItem, event);
+        //                     setLeftClickCounter(10);
+        //                 } else {
+        //                     mc.playerController.resetBlockRemoving();
+        //                 }
+        //             }
+        //         } else if (!isLeftClickHeld()) {
+        //             mc.playerController.resetBlockRemoving();
+        //         }
+        //     }
+        // }
     }
  
      @SubscribeEvent

@@ -13,6 +13,7 @@ import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.backhand.packets.BackhandBasePacket;
 import ganymedes01.etfuturum.backhand.packets.BackhandSwapClientPacket;
 import ganymedes01.etfuturum.backhand.packets.BackhandSwapPacket;
+import ganymedes01.etfuturum.backhand.packets.BackhandSyncItemPacket;
 import ganymedes01.etfuturum.backhand.packets.BackhandWorldHotswapPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -30,8 +31,9 @@ public class BackhandHandler {
     public Map<String, FMLEventChannel> channels = new Hashtable<>();
 
     public BackhandHandler() {
-        map.put(BackhandSwapPacket.packetName, new BackhandSwapPacket());
         map.put(BackhandSwapClientPacket.packetName, new BackhandSwapClientPacket());
+        map.put(BackhandSwapPacket.packetName, new BackhandSwapPacket());
+        map.put(BackhandSyncItemPacket.packetName, new BackhandSyncItemPacket());
         map.put(BackhandWorldHotswapPacket.packetName, new BackhandWorldHotswapPacket());
     }
     

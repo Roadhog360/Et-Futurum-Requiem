@@ -59,7 +59,7 @@ public class CommonProxy implements IGuiHandler {
 		if (ConfigFunctions.offhand.enable) {
 			FMLCommonHandler.instance().bus().register(BackhandEventHandler.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(BackhandEventHandler.INSTANCE);
-			NetworkRegistry.INSTANCE.registerGuiHandler(BackhandEventHandler.INSTANCE, this);
+			// NetworkRegistry.INSTANCE.registerGuiHandler(BackhandEventHandler.INSTANCE, this);
 		}
 
 		if (ModBlocks.SCULK_CATALYST.isEnabled()) {
