@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.core.handlers;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -75,6 +76,7 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderServer;
@@ -1348,19 +1350,64 @@ public class ServerEventHandler {
 	}
 
 	@SubscribeEvent
+	/**
+	 * NOTE: This event for some reason uses event.setResult(Result.DENY) to cancel instead of event.setCanceled... Why does the "result" even exist?
+	 */
 	public void spawnEvent(LivingSpawnEvent.CheckSpawn event) {
-		if (event.world.provider instanceof WorldProviderHell) {
+		if (event.getResult() != Result.DENY) {
+			World world = event.world;
 			int x = MathHelper.floor_double(event.x);
 			int y = MathHelper.floor_double(event.y);
 			int z = MathHelper.floor_double(event.z);
-			World world = event.world;
 
-			if (world.getBlock(x, y - 1, z) == ModBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y - 1, z) == 0) {
-				if (!(event.entity instanceof EntityFlying)) {
+			if (ConfigEntities.enableLightLevel0 && (event.entityLiving instanceof IMob || getSpawnTypes(event.entityLiving).contains(EnumCreatureType.monster))) {
+				if (event.entityLiving.worldObj.getBlockLightValue(x, y, z) > 0) {
 					event.setResult(Result.DENY);
+					return;
+				}
+			}
+
+			if (event.world.provider instanceof WorldProviderHell) {
+				if (world.getBlock(x, y - 1, z) == ModBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y - 1, z) == 0) {
+					if (!(event.entity instanceof EntityFlying)) {
+						event.setResult(Result.DENY);
+					}
 				}
 			}
 		}
+	}
+
+	private static final Map<Class, List<EnumCreatureType>> typesMap = Maps.newHashMap();
+
+	@SuppressWarnings("unchecked")
+	/**
+	 * Checks the spawn types the mob comes from. Used by the light level 0 monster spawning in case the monster isn't instance of IMob but is still being spawned as one.
+	 * Derived from CoreTweaks
+	 * @author makamys
+	 */
+	private static List<EnumCreatureType> getSpawnTypes(Entity entity) {
+		List<EnumCreatureType> list = typesMap.get(entity.getClass());
+		if (list == null) {
+			list = Lists.newArrayList();
+			for (BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
+				if (biome != null) {
+					for (EnumCreatureType type : EnumCreatureType.values()) {
+						if (list.contains(type)) continue;
+						List<BiomeGenBase.SpawnListEntry> spawnableList = biome.getSpawnableList(type);
+						if (spawnableList != null) {
+							for (BiomeGenBase.SpawnListEntry entry : spawnableList) {
+								if (entry.entityClass == entity.getClass()) {
+									list.add(type);
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+			typesMap.put(entity.getClass(), list);
+		}
+		return list;
 	}
 
 	@SubscribeEvent

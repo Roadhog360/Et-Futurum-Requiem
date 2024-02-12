@@ -25,11 +25,11 @@ public class BeePlantRegistry {
 	 * @param block
 	 */
 	public static void addFlower(Block block, int meta) {
-		if (block instanceof BlockDoublePlant && meta > 7 && meta != OreDictionary.WILDCARD_VALUE) {
-			throw new IllegalArgumentException("BlockDoublePlant can't have meta greater than 7, 8 and above are used by the top half. Bees will go to the top half if the bottom meta is valid.");
+		if (block instanceof BlockDoublePlant && BlockDoublePlant.func_149887_c(meta) && meta != OreDictionary.WILDCARD_VALUE) {
+			throw new IllegalArgumentException("BlockDoublePlant can't have meta using bit 8, it is for the top half. Bees will go to the top half if the bottom meta is valid.");
 		}
 		if (ModRecipes.validateItems(block)) {
-			BEE_FLOWERS.add(RegistryMapping.getKeyFor(block, meta));
+			BEE_FLOWERS.add(new RegistryMapping<>(block, meta));
 		}
 	}
 

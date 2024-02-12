@@ -117,6 +117,11 @@ public class CommonProxy implements IGuiHandler {
 			BiomeGenBase[] array = BiomeDictionary.getBiomesForType(Type.SNOWY);
 			array = ArrayUtils.addAll(array, BiomeDictionary.getBiomesForType(Type.PLAINS));
 			array = ArrayUtils.addAll(array, BiomeDictionary.getBiomesForType(Type.FOREST));
+			for (BiomeGenBase biome : ArrayUtils.clone(array)) {
+				if (biome.getClass().getName().toLowerCase().contains("divinerpg")) {
+					ArrayUtils.removeElement(array, biome);
+				}
+			}
 			EntityRegistry.addSpawn(EntityRabbit.class, 10, 3, 3, EnumCreatureType.creature, array);
 		}
 

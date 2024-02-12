@@ -238,8 +238,6 @@ public class ConfigWorld extends ConfigBase {
 					}
 				}
 				amethystOuterBlock = new RegistryMapping<>(GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]), meta);
-			} else {
-				Logger.error("Amethyst outer layer block " + fossilBlockID + " does not exist or is malformed, therefore amethyst geodes will not generate!");
 			}
 
 			String[] amethystMiddleBlockArray = amethystMiddleBlockID.split(":");
@@ -259,8 +257,6 @@ public class ConfigWorld extends ConfigBase {
 					}
 				}
 				amethystMiddleBlock = new RegistryMapping<>(GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]), meta);
-			} else {
-				Logger.error("Amethyst middle layer block " + fossilBlockID + " does not exist or is malformed, therefore amethyst geodes will not generate!");
 			}
 		}
 	}

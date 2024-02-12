@@ -60,8 +60,8 @@ public class DeepslateOreRegistry {
 		if (from instanceof ITileEntityProvider || to instanceof ITileEntityProvider) {
 			throw new IllegalArgumentException("Block Entities are not supported for the deepslate ore registry!");
 		}
-		if (((fromMeta < 0 || fromMeta > 15) && fromMeta != OreDictionary.WILDCARD_VALUE) || ((toMeta < 0 || toMeta > 15) && toMeta != OreDictionary.WILDCARD_VALUE)) {
-			throw new IllegalArgumentException("Meta must be between 0 and 15 (inclusive), you may be trying to add an ItemStack-only meta value (maybe used for Block Entity data?");
+		if (!Utils.isMetaInBlockBoundsIgnoreWildcard(fromMeta) || !Utils.isMetaInBlockBoundsIgnoreWildcard(toMeta)) {
+			throw new IllegalArgumentException("Meta must be between " + Utils.getMinMetadata() + " and " + Utils.getMaxMetadata() + " (inclusive).");
 		}
 		deepslateOres.put(new RegistryMapping<>(from, fromMeta), new RegistryMapping<>(to, toMeta));
 	}

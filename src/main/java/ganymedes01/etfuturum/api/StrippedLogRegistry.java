@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.api;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public class StrippedLogRegistry {
 
-	private static final Map<RegistryMapping<Block>, RegistryMapping<Block>> strippedLogs = new HashMap<RegistryMapping<Block>, RegistryMapping<Block>>();
+	private static final Map<RegistryMapping<Block>, RegistryMapping<Block>> strippedLogs = new HashMap<>();
 
 	/**
 	 * Adds a specified log and its metadata to be converted to another specified log and its metadata.
@@ -24,10 +25,13 @@ public class StrippedLogRegistry {
 	 * @param toMeta   Wrapped by 4
 	 */
 	public static void addLog(Block from, int fromMeta, Block to, int toMeta) {
-		addLog(new RegistryMapping<>(from, fromMeta % 4), new RegistryMapping<>(to, toMeta % 4));
+		addLog(new RegistryMapping<>(from, fromMeta & 3), new RegistryMapping<>(to, toMeta & 3));
 	}
 
 	private static void addLog(RegistryMapping<Block> from, RegistryMapping<Block> to) {
+		if (!Utils.isMetaInBlockBoundsIgnoreWildcard(from.getMeta()) || !Utils.isMetaInBlockBoundsIgnoreWildcard(to.getMeta())) {
+			throw new IllegalArgumentException("Meta must be between " + Utils.getMinMetadata() + " and " + Utils.getMaxMetadata() + " (inclusive).");
+		}
 		strippedLogs.put(from, to);
 	}
 
@@ -37,7 +41,7 @@ public class StrippedLogRegistry {
 	 * @return True if this log and its metadata has a stripped variant.
 	 */
 	public static boolean hasLog(Block block, int meta) {
-		return hasLog(new RegistryMapping<>(block, meta % 4));
+		return hasLog(RegistryMapping.getKeyFor(block, meta & 3));
 	}
 
 	private static boolean hasLog(RegistryMapping<Block> map) {
@@ -52,7 +56,7 @@ public class StrippedLogRegistry {
 	 * the block instance and the meta data it should be replaced with.
 	 */
 	public static RegistryMapping<Block> getLog(Block block, int meta) {
-		return getLog(new RegistryMapping<>(block, meta % 4));
+		return getLog(RegistryMapping.getKeyFor(block, meta & 3));
 	}
 
 	private static RegistryMapping<Block> getLog(RegistryMapping<Block> map) {

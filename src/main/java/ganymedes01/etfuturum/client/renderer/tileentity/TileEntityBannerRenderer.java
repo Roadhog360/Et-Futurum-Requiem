@@ -110,8 +110,10 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer {
 		}
 
 		long worldTime = banner.getWorldObj() != null ? banner.getWorldObj().getTotalWorldTime() : 0;
-		float f3 = (float) (banner.xCoord * 7 + banner.yCoord * 9 + banner.zCoord * 13) + worldTime + partialTicks;
-		bannerModel.bannerSlate.rotateAngleX = (-0.0125F + 0.01F * MathHelper.cos(f3 * (float) Math.PI * 0.02F)) * (float) Math.PI;
+		// 100 is one full revolution, so we can just mod by 100 without affecting the result
+		int animationProgress100 = (((banner.xCoord % 100) * 7 + (banner.yCoord % 100) * 9 + (banner.zCoord % 100) * 13) + (int)(worldTime % 100)) % 100;
+		float f3 = (float) animationProgress100 + partialTicks;
+		bannerModel.bannerSlate.rotateAngleX = (-0.0125F + 0.01F * MathHelper.cos(f3 * 0.01F * 2F * (float) Math.PI)) * (float) Math.PI;
 		OpenGLHelper.enableRescaleNormal();
 		ResourceLocation resourcelocation = getTexture(banner);
 

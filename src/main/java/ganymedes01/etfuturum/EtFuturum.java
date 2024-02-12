@@ -264,7 +264,7 @@ public class EtFuturum {
 //			int test = ModsList.MULTIPART.compareVersion("1.4.1");
 //			String test2 = ModsList.MULTIPART.getVersion();
 //		}
-		if (ModsList.MULTIPART.isLoaded() && ModsList.MULTIPART.isVersionNewer("1.4.1")) {
+		if (ModsList.MULTIPART.isLoaded() && ModsList.MULTIPART.isVersionNewerOrEqual("1.4.2")) {
 			try {
 				Class button = ReflectionHelper.getClass(getClass().getClassLoader(), "codechicken.multipart.minecraft.ButtonPart");
 

@@ -1,7 +1,9 @@
 package ganymedes01.etfuturum.core.utils;
 
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -446,6 +448,48 @@ public class Utils {
 			list = ArrayUtils.removeElements(list, BiomeDictionary.getBiomesForType(typeToBlacklist));
 		}
 		return list;
+	}
+
+	private static Integer maxMeta;
+	private static Integer minMeta;
+
+	public static int getMaxMetadata() {
+		if (maxMeta == null) {
+			if (ModsList.NOT_ENOUGH_IDS.isLoaded() && ModsList.NOT_ENOUGH_IDS.isVersionNewerOrEqual("2.0.0")) {
+				maxMeta = (int) Short.MAX_VALUE;
+			} else if (ModsList.ENDLESS_IDS.isLoaded() && ModsList.ENDLESS_IDS.isVersionNewerOrEqual("1.5-alpha0001")) {
+				try {
+					if (ReflectionHelper.findField(Class.forName("com.falsepattern.endlessids.config.GeneralConfig"), "extendBlockItem").getBoolean(null)) {
+						maxMeta = 65536;
+					}
+				} catch (Exception e) {
+					maxMeta = 15;
+					throw new RuntimeException(e.getMessage());
+				}
+			} else {
+				maxMeta = 15;
+			}
+		}
+		return maxMeta;
+	}
+
+	public static int getMinMetadata() {
+		if (minMeta == null) {
+			if (ModsList.NOT_ENOUGH_IDS.isLoaded() && ModsList.NOT_ENOUGH_IDS.isVersionNewerOrEqual("2.0.0")) {
+				minMeta = (int) Short.MIN_VALUE;
+			} else { //EIDs has min meta 0 too, so we don't need to check for it
+				minMeta = 0;
+			}
+		}
+		return minMeta;
+	}
+
+	public static boolean isMetaInBlockBounds(int meta) {
+		return meta <= getMaxMetadata() && meta >= getMinMetadata();
+	}
+
+	public static boolean isMetaInBlockBoundsIgnoreWildcard(int meta) {
+		return meta == OreDictionary.WILDCARD_VALUE || isMetaInBlockBounds(meta);
 	}
 
 	public static void copyAttribs(Block to, Block from) {

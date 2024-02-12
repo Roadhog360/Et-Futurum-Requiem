@@ -19,6 +19,7 @@ public class ConfigEntities extends ConfigBase {
 	public static boolean enableNetherEndermen;
 	public static boolean enableShearableSnowGolems;
 	public static boolean enableBees;
+	public static boolean enableLightLevel0;
 
 	static final String catHostile = "hostile";
 	static final String catNeutral = "neutral";
@@ -32,7 +33,7 @@ public class ConfigEntities extends ConfigBase {
 		setCategoryComment(catNeutral, "Neutral entities.");
 		setCategoryComment(catPassive, "Passive entities.");
 		setCategoryComment(catPlayer, "These settings affect the player directly.");
-		setCategoryComment(catMisc, "Entity settings that don't fit into any other category, typically entity settings.");
+		setCategoryComment(catMisc, "Entity settings that don't fit into any other category.");
 
 		configCats.add(getCategory(catHostile));
 		configCats.add(getCategory(catNeutral));
@@ -45,10 +46,10 @@ public class ConfigEntities extends ConfigBase {
 	protected void syncConfigOptions() {
 		//passive
 		enableRabbit = getBoolean("enableRabbits", catPassive, true, "");
-		enableBrownMooshroom = getBoolean("enableBrownMooshroom", catPassive, true, "Brown mooshroom variant.");
+		enableBrownMooshroom = getBoolean("enableBrownMooshroom", catPassive, true, "Brown mooshroom variant, the red mooshrooms turn into then when they are hit by lightning.");
 
 		//neutral
-		enableBees = getBoolean("enableBees", catNeutral, true, "Bees, hives, and honey");
+		enableBees = getBoolean("enableBees", catNeutral, true, "");
 
 		//hostile
 		enableEndermite = getBoolean("enableEndermite", catHostile, true, "Rarely spawns when the player lands from Ender Pearl throws");
@@ -63,6 +64,7 @@ public class ConfigEntities extends ConfigBase {
 		enableVillagerTurnsIntoWitch = getBoolean("enableVillagerTurnsIntoWitch", catMisc, true, "Villagers turn into Witches when struck by lightning");
 		enableDragonRespawn = getBoolean("enableDragonRespawn", catMisc, true, "Crude implementation of respawning the dragon using four End crystals.");
 		enableNetherEndermen = getBoolean("enableNetherEndermen", catMisc, true, "Allow endermen to rarely spawn in the Nether");
+		enableLightLevel0 = getBoolean("enableLightLevel0", catMisc, true, "Reduces the required light level for hostile mobs to spawn to light level 0, like in Minecraft 1.18+.");
 	}
 
 }

@@ -36,7 +36,8 @@ public enum ModsList {
 	MULTIPART("McMultipart"),
 	DRACONIC_EVOLUTION("DraconicEvolution"),
 	BACKHAND("backhand"),
-	;
+	NOT_ENOUGH_IDS("neid"),
+	ENDLESS_IDS("endlessids"),
 
 	private final String modID;
 	private Boolean isLoaded;
@@ -72,8 +73,16 @@ public enum ModsList {
 		return compareVersion(compareTo) > 0;
 	}
 
+	public boolean isVersionNewerOrEqual(String compareTo) {
+		return compareVersion(compareTo) >= 0;
+	}
+
 	public boolean isVersionEqual(String compareTo) {
 		return compareVersion(compareTo) == 0;
+	}
+
+	public boolean isVersionOlderOrEqual(String compareTo) {
+		return compareVersion(compareTo) <= 0;
 	}
 
 	public boolean isVersionOlder(String compareTo) {
