@@ -37,7 +37,7 @@ public enum ModsList {
 	DRACONIC_EVOLUTION("DraconicEvolution"),
 	BACKHAND("backhand"),
 	NOT_ENOUGH_IDS("neid"),
-	ENDLESS_IDS("endlessids"),
+	ENDLESS_IDS("endlessids");
 
 	private final String modID;
 	private Boolean isLoaded;
