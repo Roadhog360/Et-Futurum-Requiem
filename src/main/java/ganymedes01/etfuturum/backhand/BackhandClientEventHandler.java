@@ -23,15 +23,21 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.common.MinecraftForge;
 
 public class BackhandClientEventHandler {
 
@@ -51,6 +57,11 @@ public class BackhandClientEventHandler {
     public static boolean cancelone = false;
 
     public static int rightClickCounter = 0;
+
+    public static float ticksBeforeUse = 0;
+    public static boolean prevRightClickHeld = false;
+    public static int attackDelay = 0;
+    public static ItemStack offhandItemUsed;
 
     public boolean isRightClickHeld() {
         return Minecraft.getMinecraft().gameSettings.keyBindUseItem.getIsKeyPressed();
@@ -346,4 +357,145 @@ public class BackhandClientEventHandler {
         RenderOffhandPlayer.itemRenderer.renderOffhandItemIn3rdPerson(event.entityPlayer, biped, event.partialRenderTick);
         GL11.glPopMatrix();
     }
+
+    /* 
+     * ----------------------
+     * T I C K   P L A Y E R
+     * ----------------------
+     */
+
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public void onPlayerTick(TickEvent.PlayerTickEvent event){
+        Minecraft mc = Minecraft.getMinecraft();
+        if(event.player == mc.thePlayer) {
+            if (event.phase == TickEvent.Phase.START) {
+                if (ticksBeforeUse > 0)
+                    ticksBeforeUse--;
+                tickStart(mc.thePlayer);
+            }
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void tickStart(EntityPlayer player) {
+        ItemStack mainhand = player.getCurrentEquippedItem();
+        ItemStack offhand = Backhand.INSTANCE.getOffhandItem(player);
+        boolean mainhandUse = Backhand.checkForRightClickFunction(mainhand);
+        boolean offhandUse = Backhand.checkForRightClickFunction(offhand);
+        Minecraft mc = Minecraft.getMinecraft();
+
+        if (attackDelay > 0) {
+            attackDelay--;
+        }
+
+        boolean usedItem = false;
+        if (offhand != null) {
+            if (mc.gameSettings.keyBindUseItem.getIsKeyPressed()) {
+                if (ticksBeforeUse == 0) {
+                    // usedItem = tryCheckUseItem(offhand, player);
+                }
+            } else {
+                ticksBeforeUse = 0;
+            }
+        }
+        if (mc.gameSettings.keyBindUseItem.getIsKeyPressed() && attackDelay == 0 && !usedItem) {
+            if (!prevRightClickHeld && player.getItemInUse() == null && !mainhandUse && !offhandUse) {
+                // tryAttackEntity(player);
+            }
+            prevRightClickHeld = true;
+        } else {
+            prevRightClickHeld = false;
+        }
+        if (player.getItemInUse() == null) {
+            offhandItemUsed = null;
+        }
+    }
+
+    // public void tryAttackEntity(EntityPlayer player) {
+    //     Minecraft mc = Minecraft.getMinecraft();
+    //     if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
+    //         Entity target = mc.objectMouseOver.entityHit;
+    //         ((EntityClientPlayerMP) player).sendQueue.addToSendQueue(
+    //                 new OffhandAttackPacket(player,target).generatePacket()
+    //         );
+    //     }
+    // }
+
+    // @SideOnly(Side.CLIENT)
+    // public boolean tryCheckUseItem(ItemStack offhandItem, EntityPlayer player){
+    //     Minecraft mc = Minecraft.getMinecraft();
+    //     MovingObjectPosition mouseOver = mc.objectMouseOver;
+
+    //     if (offhandItem.getItem() instanceof ItemBow && !Backhand.UseOffhandBow) {
+    //         return false;
+    //     }
+
+    //     ItemStack mainHandItem = player.getCurrentEquippedItem();
+    //     if (mainHandItem != null && (Backhand.checkForRightClickFunction(mainHandItem)
+    //                 || Backhand.isItemBlock(mainHandItem.getItem()) || player.getItemInUse() == mainHandItem)) {
+    //         ticksBeforeUse = 10;
+    //         return false;
+    //     }
+
+    //     if (mouseOver != null && mouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+    //     {
+    //         if (BattlegearUtils.blockHasUse(player.worldObj.getBlock(mouseOver.blockX, mouseOver.blockY,mouseOver.blockZ))
+    //             && !Backhand.INSTANCE.getOffhandItem(player).getItem().doesSneakBypassUse(player.worldObj, mouseOver.blockX, mouseOver.blockY,mouseOver.blockZ, player)
+    //             && !(offhandItem.getItem() instanceof ItemBlock)) {
+    //             ticksBeforeUse = 4;
+    //             return false;
+    //         }
+    //     }
+
+    //     boolean interacted = false;
+    //     if (BattlegearUtils.usagePriorAttack(offhandItem)) {
+    //         boolean flag = true;
+    //         if (mouseOver != null)
+    //         {
+    //             if (mouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY)
+    //             {
+    //                 if(mc.playerController.interactWithEntitySendPacket(player, mouseOver.entityHit)) {
+    //                     flag = false;
+    //                     interacted = true;
+    //                 }
+    //             }
+
+    //             if (flag)
+    //             {
+    //                 offhandItem = Backhand.INSTANCE.getOffhandItem(player);
+    //                 PlayerEventChild.UseOffhandItemEvent useItemEvent = new PlayerEventChild.UseOffhandItemEvent(new PlayerInteractEvent(player, PlayerInteractEvent.Action.RIGHT_CLICK_AIR, 0, 0, 0, -1, player.worldObj), offhandItem);
+    //                 if (offhandItem != null && !MinecraftForge.EVENT_BUS.post(useItemEvent)) {
+    //                     interacted = BattlemodeHookContainerClass.tryUseItem(player, offhandItem, Side.CLIENT);
+    //                 }
+    //             }
+
+    //             offhandItem = Backhand.INSTANCE.getOffhandItem(player);
+    //             if (offhandItem != null && mouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+    //             {
+    //                 int j = mouseOver.blockX;
+    //                 int k = mouseOver.blockY;
+    //                 int l = mouseOver.blockZ;
+    //                 if (!player.worldObj.getBlock(j, k, l).isAir(player.worldObj, j, k, l)) {
+    //                     final int size = offhandItem.stackSize;
+    //                     int i1 = mouseOver.sideHit;
+    //                     PlayerEventChild.UseOffhandItemEvent useItemEvent = new PlayerEventChild.UseOffhandItemEvent(new PlayerInteractEvent(player, PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK, j, k, l, i1, player.worldObj), offhandItem);
+    //                     if (player.capabilities.allowEdit || !BattlemodeHookContainerClass.isItemBlock(offhandItem.getItem())) {
+    //                         if (!MinecraftForge.EVENT_BUS.post(useItemEvent) && onPlayerPlaceBlock(mc.playerController, player, offhandItem, j, k, l, i1, mouseOver.hitVec)) {
+    //                             ((IBattlePlayer) player).swingOffItem();
+    //                             interacted = true;
+    //                         }
+    //                     }
+    //                     if (offhandItem.stackSize == 0)
+    //                     {
+    //                         Backhand.INSTANCE.setPlayerOffhandItem(player, null);
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         ticksBeforeUse = 4;
+    //     }
+
+    //     return interacted;
+    // }
 }
