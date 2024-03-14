@@ -8,7 +8,6 @@ import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
@@ -57,7 +56,7 @@ public class DeepslateOreRegistry {
 	 * @param toMeta   The meta deepslate changes it to
 	 */
 	public static void addOre(Block from, int fromMeta, Block to, int toMeta) {
-		if (from instanceof ITileEntityProvider || to instanceof ITileEntityProvider) {
+		if (from.hasTileEntity(fromMeta) || to.hasTileEntity(toMeta)) {
 			throw new IllegalArgumentException("Block Entities are not supported for the deepslate ore registry!");
 		}
 		if (!Utils.isMetaInBlockBoundsIgnoreWildcard(fromMeta) || !Utils.isMetaInBlockBoundsIgnoreWildcard(toMeta)) {
@@ -193,7 +192,7 @@ public class DeepslateOreRegistry {
 
 				Block oreNorm = entry.getKey().getObject();
 				Block oreDeep = entry.getValue().getObject();
-				if (!ModRecipes.validateItems(oreNorm, oreDeep)) continue;
+//				if (!ModRecipes.validateItems(oreNorm, oreDeep)) continue;
 
 				boolean saltyModOre = oreDeep.getClass().getName().toLowerCase().contains("saltymod");
 

@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.core.handlers;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -32,6 +31,8 @@ import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
+import ganymedes01.etfuturum.gamerule.DoWeatherCycle;
+import ganymedes01.etfuturum.gamerule.RandomTickSpeed;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.lib.Reference;
@@ -40,7 +41,6 @@ import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
-import ganymedes01.etfuturum.world.DoWeatherCycleHelper;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
 import net.minecraft.block.*;
@@ -76,7 +76,6 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.WorldServer;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderServer;
@@ -1360,13 +1359,6 @@ public class ServerEventHandler {
 			int y = MathHelper.floor_double(event.y);
 			int z = MathHelper.floor_double(event.z);
 
-			if (ConfigEntities.enableLightLevel0 && (event.entityLiving instanceof IMob || getSpawnTypes(event.entityLiving).contains(EnumCreatureType.monster))) {
-				if (event.entityLiving.worldObj.getBlockLightValue(x, y, z) > 0) {
-					event.setResult(Result.DENY);
-					return;
-				}
-			}
-
 			if (event.world.provider instanceof WorldProviderHell) {
 				if (world.getBlock(x, y - 1, z) == ModBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y - 1, z) == 0) {
 					if (!(event.entity instanceof EntityFlying)) {
@@ -1375,39 +1367,6 @@ public class ServerEventHandler {
 				}
 			}
 		}
-	}
-
-	private static final Map<Class, List<EnumCreatureType>> typesMap = Maps.newHashMap();
-
-	@SuppressWarnings("unchecked")
-	/**
-	 * Checks the spawn types the mob comes from. Used by the light level 0 monster spawning in case the monster isn't instance of IMob but is still being spawned as one.
-	 * Derived from CoreTweaks
-	 * @author makamys
-	 */
-	private static List<EnumCreatureType> getSpawnTypes(Entity entity) {
-		List<EnumCreatureType> list = typesMap.get(entity.getClass());
-		if (list == null) {
-			list = Lists.newArrayList();
-			for (BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
-				if (biome != null) {
-					for (EnumCreatureType type : EnumCreatureType.values()) {
-						if (list.contains(type)) continue;
-						List<BiomeGenBase.SpawnListEntry> spawnableList = biome.getSpawnableList(type);
-						if (spawnableList != null) {
-							for (BiomeGenBase.SpawnListEntry entry : spawnableList) {
-								if (entry.entityClass == entity.getClass()) {
-									list.add(type);
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
-			typesMap.put(entity.getClass(), list);
-		}
-		return list;
 	}
 
 	@SubscribeEvent
@@ -1776,9 +1735,17 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onDrops(BlockEvent.HarvestDropsEvent event) {
-		if (ConfigBlocksItems.enableSmoothStone && event.block == Blocks.double_stone_slab && event.blockMetadata == 8) {
-			event.drops.clear();
-			event.drops.add(ModBlocks.SMOOTH_STONE.newItemStack(1));
+		if (event.block == Blocks.double_stone_slab) {
+			if (ModBlocks.SMOOTH_STONE.isEnabled() && event.blockMetadata == 8) {
+				event.drops.clear();
+				event.drops.add(ModBlocks.SMOOTH_STONE.newItemStack(1));
+			} else if (ModBlocks.SMOOTH_SANDSTONE.isEnabled() && event.blockMetadata == 9) {
+				event.drops.clear();
+				event.drops.add(ModBlocks.SMOOTH_SANDSTONE.newItemStack(1));
+			} else if (ModBlocks.SMOOTH_QUARTZ.isEnabled() && event.blockMetadata == 15) {
+				event.drops.clear();
+				event.drops.add(ModBlocks.SMOOTH_QUARTZ.newItemStack(1));
+			}
 		}
 	}
 
@@ -1786,8 +1753,12 @@ public class ServerEventHandler {
 	public void loadWorldEvent(WorldEvent.Load event) {
 		event.world.addWorldAccess(new EtFuturumWorldListener(event.world));
 
-		if (ConfigMixins.enableDoWeatherCycle && !event.world.isRemote && !event.world.getGameRules().hasRule("doWeatherCycle")) {
-			event.world.getGameRules().addGameRule("doWeatherCycle", "true");
+		if (ConfigMixins.enableDoWeatherCycle) {
+			DoWeatherCycle.registerGamerule(event.world);
+		}
+		
+		if(ConfigMixins.enableRandomTickSpeed) {
+			RandomTickSpeed.registerGamerule(event.world);
 		}
 	}
 
@@ -1887,8 +1858,8 @@ public class ServerEventHandler {
 		}
 
 		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.START && e.side == Side.SERVER) {
-			DoWeatherCycleHelper.INSTANCE.isWorldTickInProgress = true;
-			DoWeatherCycleHelper.INSTANCE.isCommandInProgress = false;
+			DoWeatherCycle.INSTANCE.isWorldTickInProgress = true;
+			DoWeatherCycle.INSTANCE.isCommandInProgress = false;
 		}
 	}
 
@@ -1934,7 +1905,7 @@ public class ServerEventHandler {
 		}
 
 		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.END && e.side == Side.SERVER) {
-			DoWeatherCycleHelper.INSTANCE.isWorldTickInProgress = false;
+			DoWeatherCycle.INSTANCE.isWorldTickInProgress = false;
 		}
 	}
 

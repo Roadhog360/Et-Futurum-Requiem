@@ -126,6 +126,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("doweathercycle.MixinCommandHandler");
 			mixins.add("doweathercycle.MixinWorldInfo");
 		}
+		
+		if (ConfigMixins.enableRandomTickSpeed) {
+			mixins.add("randomtickspeed.MixinWorldServer");
+		}
 
 		if (ConfigMixins.creativeFlightSpeedModifier > 1) {
 			mixins.add("flyspeed.MixinEntityPlayer");
@@ -219,6 +223,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 
 		if (ConfigMixins.fireproofItems) {
 			mixins.add("uninflammableitem.MixinEntityItem");
+		}
+
+		if (false) { //Does not work for some reason, investigate in 2.6.1
+			mixins.add("darkspawns.MixinEntityMob");
 		}
 
 		if (side == MixinEnvironment.Side.CLIENT) {

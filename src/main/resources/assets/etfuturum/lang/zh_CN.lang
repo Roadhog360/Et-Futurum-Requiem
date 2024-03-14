@@ -912,19 +912,19 @@ util.totemBreak=§a§o你的不死图腾碎掉了…
 
 # Damage types
 
-death.attack.hotFloor=%1$s发现了地板是熔岩做的
-death.attack.hotFloor.player=%1$s因%2$s而步入危险之地
-death.attack.sweetBerryBush=%1$s被甜浆果丛刺死了
-death.attack.sweetBerryBush.player=%1$s在试图逃离%2$s时被甜浆果丛刺死了
-death.attack.stalactite=%1$s被坠落的钟乳石刺穿了
-death.attack.stalactite.player=%1$s在与%2$s战斗时被坠落的钟乳石刺穿了
-death.attack.stalactite=%1$s被刺穿在石笋上
-death.attack.stalactite.player=%1$s在与%2$s战斗时被石笋刺穿了
-death.attack.flyIntoWall=%1$s感受到了动能
-death.attack.flyIntoWall.player=%1$s在试图逃离%2$s时感受到了动能
-death.attack.sting=%1$s被蛰死了
-death.attack.sting.item=%1$s被%2$s用%3$s蛰死了
-death.attack.sting.player=%1$s被%2$s蛰死了
+death.attack.hotFloor=%1$s 发现了地板是熔岩做的
+death.attack.hotFloor.player=%1$s 因 %2$s而步入危险之地
+death.attack.sweetBerryBush=%1$s 被甜浆果丛刺死了
+death.attack.sweetBerryBush.player=%1$s 在试图逃离 %2$s 时被甜浆果丛刺死了
+death.attack.stalactite=%1$s 被坠落的钟乳石刺穿了
+death.attack.stalactite.player=%1$s 在与 %2$s 战斗时被坠落的钟乳石刺穿了
+death.attack.stalactite=%1$s 被刺穿在石笋上
+death.attack.stalactite.player=%1$s 在与 %2$s 战斗时被石笋刺穿了
+death.attack.flyIntoWall=%1$s 感受到了动能
+death.attack.flyIntoWall.player=%1$s 在试图逃离 %2$s 时感受到了动能
+death.attack.sting=%1$s 被蛰死了
+death.attack.sting.item=%1$s 被 %2$s 用 %3$s 蛰死了
+death.attack.sting.player=%1$s 被 %2$s 蛰死了
 
 # Banners
 item.banner.black.name=黑色旗帜

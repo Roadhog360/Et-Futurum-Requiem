@@ -19,7 +19,6 @@ public class ConfigEntities extends ConfigBase {
 	public static boolean enableNetherEndermen;
 	public static boolean enableShearableSnowGolems;
 	public static boolean enableBees;
-	public static boolean enableLightLevel0;
 
 	static final String catHostile = "hostile";
 	static final String catNeutral = "neutral";
@@ -64,7 +63,6 @@ public class ConfigEntities extends ConfigBase {
 		enableVillagerTurnsIntoWitch = getBoolean("enableVillagerTurnsIntoWitch", catMisc, true, "Villagers turn into Witches when struck by lightning");
 		enableDragonRespawn = getBoolean("enableDragonRespawn", catMisc, true, "Crude implementation of respawning the dragon using four End crystals.");
 		enableNetherEndermen = getBoolean("enableNetherEndermen", catMisc, true, "Allow endermen to rarely spawn in the Nether");
-		enableLightLevel0 = getBoolean("enableLightLevel0", catMisc, true, "Reduces the required light level for hostile mobs to spawn to light level 0, like in Minecraft 1.18+.");
 	}
 
 }

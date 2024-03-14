@@ -36,6 +36,7 @@ public enum ModsList {
 	MULTIPART("McMultipart"),
 	DRACONIC_EVOLUTION("DraconicEvolution"),
 	BACKHAND("backhand"),
+	BIG_REACTORS("BigReactors"),
 	NOT_ENOUGH_IDS("neid"),
 	ENDLESS_IDS("endlessids");
 

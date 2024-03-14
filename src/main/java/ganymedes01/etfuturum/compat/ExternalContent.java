@@ -40,6 +40,8 @@ public class ExternalContent {
 		DRACONIUM_ORE(() -> GameRegistry.findBlock("DraconicEvolution", "draconiumOre")),
 
 		PROJECT_RED_ORE(() -> GameRegistry.findBlock("ProjRed|Exploration", "projectred.exploration.ore")),
+		
+		BR_YELLORITE_ORE(() -> GameRegistry.findBlock("BigReactors", "YelloriteOre")),
 
 		BP_TESLATITE_ORE(() -> GameRegistry.findBlock("bluepower", "teslatite_ore")),
 		BP_RUBY_ORE(() -> GameRegistry.findBlock("bluepower", "ruby_ore")),
