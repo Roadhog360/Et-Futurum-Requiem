@@ -8,8 +8,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 
 public class BackhandExtendedProperty implements IExtendedEntityProperties {
+
+    public static final String NBT_OFFHAND_ITEMSTACK = "OffhandItemStack";
+
     public EntityPlayer player;
     public boolean syncOffhand = true;
+
     private ItemStack offhandItem;
 
     public BackhandExtendedProperty(EntityPlayer player) {
@@ -19,14 +23,14 @@ public class BackhandExtendedProperty implements IExtendedEntityProperties {
     @Override
     public void saveNBTData(NBTTagCompound compound) {
         if (offhandItem != null) {
-            compound.setTag("OffhandItemStack", offhandItem.writeToNBT(new NBTTagCompound()));
+            compound.setTag(NBT_OFFHAND_ITEMSTACK, offhandItem.writeToNBT(new NBTTagCompound()));
         }
     }
 
     @Override
     public void loadNBTData(NBTTagCompound compound) {
-        if (compound.hasKey("OffhandItemStack")) {
-            this.setOffhandItem(ItemStack.loadItemStackFromNBT(compound.getCompoundTag("OffhandItemStack")));
+        if (compound.hasKey(NBT_OFFHAND_ITEMSTACK)) {
+            setOffhandItem(ItemStack.loadItemStackFromNBT(compound.getCompoundTag(NBT_OFFHAND_ITEMSTACK)));
         }
     }
 
@@ -40,8 +44,8 @@ public class BackhandExtendedProperty implements IExtendedEntityProperties {
 
     public void setOffhandItem(ItemStack stack) {
         if (!ItemStack.areItemStacksEqual(stack,this.offhandItem)) {
-            this.syncOffhand = true;
+            syncOffhand = true;
         }
-        this.offhandItem = stack;
+        offhandItem = stack;
     }
 }

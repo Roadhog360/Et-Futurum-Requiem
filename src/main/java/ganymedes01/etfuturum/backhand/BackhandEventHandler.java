@@ -92,13 +92,14 @@ public class BackhandEventHandler {
         } catch (Exception ignored) {}
     }
 
+    /*
+     * Cancels the use of the mainhand item if the offhand item is going to be used.
+     */
     @SubscribeEvent
     public void onItemUseStart(PlayerUseItemEvent.Start event) {
         EntityPlayer player = event.entityPlayer;
         ItemStack offhandItem = Backhand.INSTANCE.getOffhandItem(player);
         ItemStack mainhandItem = player.getCurrentEquippedItem();
-
-        //boolean offHandUse = BattlegearUtils.checkForRightClickFunction(offhandItem);
         boolean mainhandUse = Backhand.checkForRightClickFunction(mainhandItem);
 
         if (offhandItem != null && !mainhandUse) {
@@ -165,21 +166,10 @@ public class BackhandEventHandler {
             return;
         }
 
-        boolean overrideWithOffhand = false;
         ItemStack offhandItem = Backhand.INSTANCE.getOffhandItem(event.entityPlayer);
         if (offhandItem != null) {
-            try {
-                Class<?> etFuturumArrow = Class.forName("ganymedes01.etfuturum.items.ItemArrowTipped");
-                if (etFuturumArrow.isInstance(offhandItem.getItem())) {
-                    overrideWithOffhand = true;
-                }
-            } catch (Exception ignored) {}
-
-            if (Items.arrow == offhandItem.getItem()) {
-                overrideWithOffhand = true;
-            }
-
-            if (overrideWithOffhand) {
+            Item rawItem = offhandItem.getItem();
+            if (rawItem == Items.arrow || rawItem instanceof ItemArrowTipped) {
                 arrowHotSwapped = true;
                 if (offhandItem.getItem() != Items.arrow) {
                     Backhand.INSTANCE.swapOffhandItem(event.entityPlayer);
@@ -277,11 +267,12 @@ public class BackhandEventHandler {
             prevStackInSlot = offhand;
         }
 
-        if (Backhand.getOffhandEP(player).syncOffhand) {
+        BackhandExtendedProperty backhandEP = Backhand.getOffhandEP(player);
+        if (backhandEP.syncOffhand) {
             if (!tickStartItems.containsKey(player.getUniqueID())) {
                 BackhandHandler.INSTANCE.sendPacketToAll(new BackhandSyncItemPacket(player).generatePacket());
             }
-            Backhand.getOffhandEP(player).syncOffhand = false;
+            backhandEP.syncOffhand = false;
         }
 
         if (arrowHotSwapped) {
