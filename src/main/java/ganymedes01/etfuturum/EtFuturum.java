@@ -16,6 +16,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.api.*;
 import ganymedes01.etfuturum.api.mappings.BasicMultiBlockSound;
+import ganymedes01.etfuturum.backhand.Backhand;
+import ganymedes01.etfuturum.backhand.BackhandEventHandler;
 import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
@@ -204,6 +206,7 @@ public class EtFuturum {
 		OceanMonument.makeMap();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
+		BackhandHandler.INSTANCE.register(NetworkRegistry.INSTANCE);
 		networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);
 		networkWrapper.registerMessage(ArmourStandInteractHandler.class, ArmourStandInteractMessage.class, 0, Side.SERVER);
 		networkWrapper.registerMessage(BlackHeartParticlesHandler.class, BlackHeartParticlesMessage.class, 1, Side.CLIENT);
