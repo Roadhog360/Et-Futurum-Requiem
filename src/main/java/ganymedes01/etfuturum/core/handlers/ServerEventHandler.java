@@ -598,6 +598,20 @@ public class ServerEventHandler {
 		}
 	}
 
+	@SubscribeEvent
+	public void onPlayerGotPeanutsAte(PlayerUseItemEvent.Finish event) {
+		if (event.item.getItemUseAction() == EnumAction.eat) {
+			int[] ids = OreDictionary.getOreIDs(event.item);
+			boolean match = event.item.getItem().getUnlocalizedName().toLowerCase().contains("peanut");
+			for (int id : ids) {
+				if (match) break;
+				String ore = OreDictionary.getOreName(id).toLowerCase();
+				match = ore.contains("peanut");
+			}
+			if (match) event.entityLiving.addPotionEffect(new PotionEffect(Potion.wither.getId(), 2400, 1, true));
+		}
+	}
+
 	private final ThreadLocal<Integer> sideHit = new ThreadLocal<>();
 
 	@SubscribeEvent
