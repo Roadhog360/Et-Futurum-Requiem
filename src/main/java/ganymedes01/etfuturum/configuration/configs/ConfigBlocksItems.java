@@ -43,6 +43,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableCoarseDirt;
 	public static boolean enableRedSandstone;
 	public static boolean enableFences;
+	public static boolean enableGates;
 	public static boolean enableSlimeBlock;
 	public static boolean enableBeetroot;
 	public static boolean enableChorusFruit;
@@ -279,7 +280,8 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableTarget = getBoolean("enableTarget", catBlockFunc, true, "Enables target block from 1.16");
 
 		//Misc Blocks
-		enableFences = getBoolean("enableFences", catBlockMisc, true, "Enables wood variant fences and gates");
+		enableFences = getBoolean("enableFences", catBlockMisc, true, "Enables wood variant fences.");
+		enableGates = getBoolean("enableGates", catBlockMisc, true, "Enables wood variant gates.");
 		enableBanners = getBoolean("enableBanners", catBlockMisc, true, "");
 		enableConcrete = getBoolean("enableConcrete", catBlockMisc, true, "");
 		enableStrippedLogs = getBoolean("enableStrippedLogs", catBlockMisc, true, "Enables stripped log blocks");
