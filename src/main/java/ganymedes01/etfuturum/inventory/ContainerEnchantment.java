@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.inventory;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.EnchantingFuelRegistry;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.storage.EtFuturumPlayer;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,14 +14,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class ContainerEnchantment extends Container {
-
-	public static final Map<String, Integer> seeds = new HashMap<>();
 
 	/**
 	 * SlotEnchantmentTable object with ItemStack to be enchanted
@@ -93,16 +90,13 @@ public class ContainerEnchantment extends Container {
 	}
 
 	private static void setEnchantSeed(EntityPlayer player, int seed) {
-		seeds.put(player.getUniqueID().toString(), seed);
+		EtFuturumPlayer storage = EtFuturumPlayer.get(player);
+		storage.setEnchantmentSeed(seed);
 	}
 
 	private static int getEnchantSeed(EntityPlayer player) {
-		Integer seed = seeds.get(player.getUniqueID().toString());
-		if (seed == null) {
-			seed = player.worldObj.rand.nextInt();
-			setEnchantSeed(player, seed);
-		}
-		return seed;
+		EtFuturumPlayer storage = EtFuturumPlayer.get(player);
+		return storage.getEnchantmentSeed();
 	}
 
 	private static void chargeForEnchant(EntityPlayer player, Random rand, int amount) {

@@ -33,13 +33,13 @@ import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
 import ganymedes01.etfuturum.gamerule.DoWeatherCycle;
 import ganymedes01.etfuturum.gamerule.RandomTickSpeed;
-import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.AttackYawMessage;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
+import ganymedes01.etfuturum.storage.EtFuturumPlayer;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
@@ -101,9 +101,13 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.mutable.MutableFloat;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -425,45 +429,25 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onPlayerLoadFromFileEvent(PlayerEvent.LoadFromFile event) {
-		if (!ConfigBlocksItems.enableEnchantingTable)
-			return;
-		try {
-			File file = event.getPlayerFile(Reference.MOD_ID);
-			if (!file.exists()) {
-				file.createNewFile();
-				return;
-			}
+		if (!ConfigBlocksItems.enableEnchantingTable) return;
+		Path file = event.getPlayerFile(Reference.MOD_ID).toPath();
 
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			String line = br.readLine();
-			if (line != null) {
-				int seed = Integer.parseInt(line);
-				ContainerEnchantment.seeds.put(event.playerUUID, seed);
-			}
-			br.close();
-		} catch (Exception ignored) {
-		}
-	}
+		if (Files.exists(file)) {
+			EtFuturumPlayer storage = EtFuturumPlayer.get(event.entityPlayer);
 
-	@SubscribeEvent
-	public void onPlayerSaveFromFileEvent(PlayerEvent.SaveToFile event) {
-		if (!ConfigBlocksItems.enableEnchantingTable)
-			return;
-		try {
-			File file = event.getPlayerFile(Reference.MOD_ID);
-			if (!file.exists()) {
-				file.createNewFile();
-				return;
+			try {
+				try (BufferedReader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8)) {
+					int seed = Integer.parseInt(reader.readLine());
+					storage.setEnchantmentSeed(seed);
+				} catch (NumberFormatException ignore) {
+					// NO-OP
+				} finally {
+					Files.delete(file);
+				}
+			} catch (IOException ignore) {
+				// NO-OP
 			}
-
-			Integer seed = ContainerEnchantment.seeds.get(event.playerUUID);
-			if (seed != null) {
-				BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-				bw.write(seed.toString());
-				bw.close();
-			}
-		} catch (IOException e) {
-		}
+        }
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)

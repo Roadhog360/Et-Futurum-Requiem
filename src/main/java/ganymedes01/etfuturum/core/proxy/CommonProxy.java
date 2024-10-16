@@ -11,6 +11,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.gui.inventory.*;
 import ganymedes01.etfuturum.configuration.configs.*;
+import ganymedes01.etfuturum.core.handlers.EntityEventHandler;
 import ganymedes01.etfuturum.core.handlers.SculkEventHandler;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
@@ -43,6 +44,8 @@ import java.util.List;
 public class CommonProxy implements IGuiHandler {
 
 	public void registerEvents() {
+		MinecraftForge.EVENT_BUS.register(EntityEventHandler.INSTANCE);
+
 		FMLCommonHandler.instance().bus().register(ServerEventHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(ServerEventHandler.INSTANCE);
 
