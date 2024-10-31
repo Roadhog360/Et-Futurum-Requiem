@@ -43,7 +43,7 @@ jobs:
     - name: Attach compilation artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ github.repository_id }}-build-libs
+        name: Package
         path: build/libs/
         retention-days: 31
 
