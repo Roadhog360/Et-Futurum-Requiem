@@ -59,18 +59,23 @@ gui.chat.update.download=Click here to download the update on %s!
 subtitle.game.tnt.primed=TNT primed!
 subtitle.game.player.swim=Player swims
 subtitle.game.player.swim.splash=Player splashes
-subtitle.entity.player.splash.high_speed=High splash
+subtitle.entity.player.splash.high_speed=Huge splash!
 subtitle.game.potion.smash=Potion Smashed
 
 subtitle.game.neutral.hurt=Damage
 subtitle.game.neutral.swim=Someone swims
-subtitle.game.neutral.swim.splash=Splash
+subtitle.game.neutral.swim.splash=Splash!
 
 subtitle.game.hostile.hurt=Damage
 subtitle.game.hostile.swim=Someone swims
-subtitle.game.hostile.swim.splash=Splash
+subtitle.game.hostile.swim.splash=Splash!
 
-subtitle.fireworks.launch=Fireworks launch
+subtitle.game.player.die=Player dies!
+subtitle.game.player.hurt=Player takes damage!
+
+subtitle.portal.portal=Portal whooshes
+
+subtitle.fireworks.launch=Fireworks launch!
 subtitle.fireworks.blast=Firework explosion
 subtitle.fireworks.blast_far=Firework explosion (Far)
 subtitle.fireworks.largeblast=Firework explosion (Large)
@@ -81,10 +86,15 @@ subtitle.fireworks.twinkle_far=Firework crackle (Far)
 subtitle.fire.fire=Fire crackles
 subtitle.fire.ignite=Fire ignites
 
-subtitle.entity.player.attack.weak=Weak Attack!
-subtitle.entity.player.attack.strong=Strong Attack!
-subtitle.entity.player.attack.crit=Critical Attack!
-subtitle.entity.player.attack.knockback=Knockback Attack!
+subtitle.entity.player.attack.weak=Weak attack!
+subtitle.entity.player.attack.strong=Strong attack!
+subtitle.entity.player.attack.crit=Critical attack!
+subtitle.entity.player.attack.knockback=Knockback attack!
+
+subtitle.entity.player.hurt_on_fire=Player burns!
+subtitle.entity.player.hurt_drown=Player drowns!
+subtitle.entity.player.hurt_freeze=Player freezes!
+subtitle.entity.player.hurt_sweet_berry_bush=Sweet Berry Bush hurts player
 
 subtitle.entity.fishing_bobber.throw=Casting out fishing line
 subtitle.entity.fishing_bobber.retrieve=Reeling in fishing line
@@ -93,6 +103,12 @@ subtitle.entity.item_frame.add_item=Item Frame filled
 subtitle.entity.item_frame.remove_item=Emptied Item Frame
 subtitle.entity.item_frame.rotate_item=Rotated framed item
 
+subtitle.entity.bee.loop=Bee buzzes
+subtitle.entity.bee.hurt=Bee takes damage
+subtitle.entity.bee.death=Bee dies
+subtitle.entity.bee.sting=Bee stings
+subtitle.entity.bee.pollinate=Bee buzzes happily
+subtitle.entity.bee.loop_aggressive=Bee buzzes angrily
 subtitle.entity.rabbit.ambient=Rabbit squeaks
 subtitle.entity.rabbit.death=Rabbit dies
 subtitle.entity.rabbit.hurt=Rabbit takes damage
@@ -103,11 +119,11 @@ subtitle.entity.husk.death=Husk dies
 subtitle.entity.stray.ambient=Stray rattles
 subtitle.entity.stray.hurt=Stray takes damage
 subtitle.entity.stray.death=Stray dies
-subtitle.entity.shulker.ambient=Shulker lurk
+subtitle.entity.shulker.ambient=Shulker lurks
 subtitle.entity.shulker.hurt=Shulker takes damage
 subtitle.entity.shulker.hurt_closed=Shulker hit on the shell
-subtitle.entity.shulker.open=Shulker Shell opens
-subtitle.entity.shulker.close=Shulker Shell is closing
+subtitle.entity.shulker.open=Shulker opens
+subtitle.entity.shulker.close=Shulker closes
 subtitle.entity.shulker.teleport=Shulker teleports
 subtitle.entity.shulker.death=Shulker dies
 subtitle.entity.zombie_villager.ambient=Zombie Villager groans
@@ -121,8 +137,8 @@ subtitle.entity.squid.ambient=Squid swims
 subtitle.entity.squid.hurt=Squid takes damage
 subtitle.entity.squid.death=Squid dies
 
-subtitle.entity.boat.paddle_water=Sound of paddles on the water
-subtitle.entity.boat.paddle_land=Sound of paddles on the ground
+subtitle.entity.boat.paddle_water=Paddles smack the water
+subtitle.entity.boat.paddle_land=Paddles hit the ground
 
 subtitle.random.fizz=Something fizzes
 subtitle.random.drink=Drinking
@@ -130,37 +146,41 @@ subtitle.random.eat=Chomping
 subtitle.random.explode=Explosion!
 subtitle.random.pop=Item pickup
 subtitle.random.orb=Experience gained
-subtitle.random.bow=Bow shoots
+subtitle.random.levelup=Leveled up
+subtitle.random.bow=Projectile launched
 subtitle.random.bowhit=Arrow hits
 subtitle.random.click=Click
 subtitle.random.chestopen=Chest opens
 subtitle.random.chest.close=Chest closes
-subtitle.random.anvil_land=Anvil sound
+subtitle.random.anvil_land=Anvil clanks
 subtitle.random.burp=Burp
 
-subtitle.dig.grass=Digging dirt
-subtitle.dig.stone=Stone breaks
-subtitle.dig.wood=Wood breaks
-subtitle.dig.cloth=Block breaks
-subtitle.dig.glass=Glass breaks
-subtitle.dig.gravel=Gravel breaks
+subtitle.dig.grass=Dirt placed or destroyed
+subtitle.dig.stone=Stone placed or destroyed
+subtitle.dig.wood=Wood placed or destroyed
+subtitle.dig.cloth=Block placed or destroyed
+subtitle.dig.glass=Glass placed or destroyed
+subtitle.dig.gravel=Gravel placed or destroyed
+subtitle.dig.sand=Sand placed or destroyed
 
 subtitle.fall.small=Something trips
-subtitle.fall.big=Something fell
+subtitle.fall.big=Something falls
 subtitle.footsteps=Footsteps
 
-subtitle.note.harp=Note Block sound
+subtitle.note.harp=Note Block plays
 
 subtitle.liquid.water=Water flowing
 subtitle.liquid.lava=Lava flowing
 subtitle.liquid.lavapop=Lava seething
 
-subtitle.item.bucket.empty=Bucket empty
-subtitle.item.bucket.fill=Bucket fills up
+subtitle.item.bucket.empty=Bucket empties
+subtitle.item.bucket.fill=Bucket fills
+subtitle.item.bucket.empty_lava=Bucket empties
+subtitle.item.bucket.fill_lava=Bucket fills
 subtitle.item.bottle.empty=Bottle empty
 subtitle.item.bottle.fill=Bottle fills up
 subtitle.item.hoe.till=Tilling with Hoe
-subtitle.item.elytra.flying=Elytra flying sounds
+subtitle.item.elytra.flying=Elytra whooshes
 subtitle.item.armor.equip_generic=Leather armor equipped
 subtitle.item.armor.equip_iron=Iron armor equipped
 subtitle.item.armor.equip_gold=Golden armor equipped
@@ -168,6 +188,7 @@ subtitle.item.armor.equip_chain=Chainmail armor equipped
 subtitle.item.armor.equip_diamond=Diamond armor equipped
 subtitle.item.armor.equip_netherite=Netherite armor equipped
 subtitle.item.armor.equip_elytra=Elytra equipped
+subtitle.item.bone_meal.use=Bone Meal crinkles 
 
 subtitle.records.13=The "13" record is playing
 subtitle.records.cat=The "cat" record is playing
@@ -182,13 +203,15 @@ subtitle.records.ward=The "ward" record is playing
 subtitle.records.11=The "11" record is playing
 subtitle.records.wait=The "wait" record is playing
 
-subtitle.block.destroyed=Block destroyed
-subtitle.block.placed=Block placed
+subtitle.ambient.nether_wastes.mood=Hellish sounds
+
+subtitle.block.destroyed=Block placed or destroyed
+subtitle.block.placed=Block placed or destroyed
 subtitle.block.wooden_door.close=Wooden Door closes
 subtitle.block.wooden_door.open=Wooden Door opens
 subtitle.block.iron_door.close=Iron Door closes
 subtitle.block.iron_door.open=Iron Door opens
-subtitle.block.beacon.deactivate=Beacon makes noise
+subtitle.block.beacon.deactivate=Beacon hums
 subtitle.block.wooden_trapdoor.close=Wooden Trapdoor closes
 subtitle.block.wooden_trapdoor.open=Wooden Trapdoor opens
 subtitle.block.iron_trapdoor.close=Iron Trapdoor closes
@@ -206,8 +229,23 @@ subtitle.block.fence_gate.close=Gate closes
 subtitle.block.fence_gate.open=Gate opens
 subtitle.block.shulker_box.open=Shulker Box opens
 subtitle.block.shulker_box.close=Shulker Box closes
+subtitle.block.beehive.enter=Bee enters hive
+subtitle.block.beehive.exit=Bee leaves hive
+subtitle.block.beehive.drip=Honey drips
+subtitle.block.beehive.work=Bees work
+subtitle.block.beehive.shear=Beehive sheared
+subtitle.block.honey_block.slide=Sliding down a honey block
+subtitle.block.brewing_stand.brew=Brewing Stand bubbles
+subtitle.block.composter.fill=Composter filled
+subtitle.block.composter.fill_success=Compost level rises
+subtitle.block.composter.ready=Composter is full
+subtitle.block.composter.empty=Composter emptied
+subtitle.block.enchantment_table.use=Enchanting Table used
+subtitle.block.smithing_table.use=Smithing Table used
+subtitle.block.sweet_berry_bush.pick_berries=Sweet Berries picked
+subtitle.block.sponge.absorb=Sponge sucks up water
 
-subtitle.mob.hurt=%s hurts
+subtitle.mob.hurt=%s takes damage
 subtitle.mob.death=%s dies
 subtitle.mob.step=Footsteps
 
@@ -226,7 +264,7 @@ subtitle.mob.silverfish.hit=Silverfish take damage
 subtitle.mob.silverfish.kill=Silverfish dies
 subtitle.mob.slime.big=Slime jumps
 subtitle.mob.slime.small=Slime squishes
-subtitle.mob.blaze.breathe=Blaze's breath
+subtitle.mob.blaze.breathe=Blaze breathes
 subtitle.mob.blaze.hit=Blaze takes damage
 subtitle.mob.creeper.say=Creeper hisses
 subtitle.creeper.primed=Creeper explodes
@@ -240,39 +278,39 @@ subtitle.mob.skeleton.say=Skeleton rattles
 subtitle.mob.spider.say=Spider hisses
 subtitle.mob.ghast.moan=Ghast cries
 subtitle.mob.ghast.scream=Ghast screams
-subtitle.mob.ghast.charge=Ghast fires
-subtitle.mob.ghast.fireball=Fireball flying
-subtitle.mob.zombieepig.zpig=Zombie Pigman growls
-subtitle.mob.zombieepig.zpighurt=Zombie Pigman takes damage
-subtitle.mob.zombieepig.zpigangry=Zombie Pigman growls angrily
-subtitle.mob.zombieepig.zpigdeath=Zombie Pigman dies
-subtitle.mob.endermen.idle=Enderman noises
+subtitle.mob.ghast.charge=Ghast shoots
+subtitle.mob.ghast.fireball=Fireball whooshes 
+subtitle.mob.zombiepig.zpig=Zombie Pigman growls
+subtitle.mob.zombiepig.zpighurt=Zombie Pigman takes damage
+subtitle.mob.zombiepig.zpigangry=Zombie Pigman growls angrily
+subtitle.mob.zombiepig.zpigdeath=Zombie Pigman dies
+subtitle.mob.endermen.idle=Enderman vwoops
 subtitle.mob.endermen.portal=Enderman teleports
 subtitle.mob.endermen.hit=Enderman takes damage
 subtitle.mob.endermen.death=Enderman dies
 subtitle.mob.magmacube.big=Magmacube jumps
 subtitle.mob.magmacube.small=Magmacube squishes
 subtitle.mob.wolf.bark=Wolf barks
-subtitle.mob.wolf.panting=Wolf panting
+subtitle.mob.wolf.panting=Wolf pants
 subtitle.mob.wolf.shake=Wolf shakes off
 subtitle.mob.horse.idle=Horse neighs
-subtitle.mob.horse.angry=Horse gets angry
+subtitle.mob.horse.angry=Horse neighs angrily
 subtitle.mob.horse.hit=Horse takes damage
 subtitle.mob.horse.death=Horse dies
 subtitle.mob.horse.eat=Horse eats
-subtitle.mob.horse.gallop=Horse galloping
-subtitle.mob.horse.jump=Horse jumping
+subtitle.mob.horse.gallop=Horse gallops
+subtitle.mob.horse.jump=Horse jumps
 subtitle.mob.horse.land=Horse lands
-subtitle.mob.horse.breathe=Horse breathing
-subtitle.mob.horse.wood=Horse accelerating
-subtitle.mob.horse.soft=Horse walking
-subtitle.mob.horse.leather=Putting on a saddle
+subtitle.mob.horse.breathe=Horse breathes
+subtitle.mob.horse.wood=Horse accelerates
+subtitle.mob.horse.soft=Horse walks
+subtitle.mob.horse.leather=Saddle equips
 
 subtitle.tile.piston.out=Piston moves outward
 subtitle.tile.piston.in=Piston moves inward
 
-subtitle.weather.rain=Rain
-subtitle.ambient.weather.thunder=Thunder
+subtitle.weather.rain=Rain pours
+subtitle.ambient.weather.thunder=Thunder strikes
 
 # Entities
 entity.etfuturum.endermite.name=Endermite
@@ -432,7 +470,7 @@ tile.etfuturum.frosted_ice.name=Frosted Ice
 tile.etfuturum.rose.name=Rose
 tile.etfuturum.ancient_debris.name=Ancient Debris
 tile.etfuturum.netherite_block.name=Block of Netherite
-tile.etfuturum.netherite_stairs.name=Netherite Stairs
+tile.etfuturum.netherite_stairs.name=Swaggiest stairs ever
 tile.etfuturum.blue_ice.name=Blue Ice
 tile.etfuturum.smooth_stone.name=Smooth Stone
 tile.etfuturum.smooth_sandstone.name=Smooth Sandstone
@@ -1921,3 +1959,7 @@ item.etfuturum.raw_magnesium.name=Raw Magnesium
 item.etfuturum.raw_boron.name=Raw Boron
 
 item.etfuturum.simpleores.raw_adamantium.name=Raw Adamantium
+
+
+
+# PATRIOTS IN CONTROL  😎 🇺🇸 🦅 #
