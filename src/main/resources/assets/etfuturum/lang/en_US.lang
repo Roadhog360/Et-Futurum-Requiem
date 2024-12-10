@@ -56,26 +56,26 @@ gui.chat.update=%1$s version %2$s is available!
 gui.chat.update.download=Click here to download the update on %s!
 
 # Subtitles
-subtitle.game.tnt.primed=TNT primed!
+subtitle.game.tnt.primed=TNT primed
 subtitle.game.player.swim=Player swims
 subtitle.game.player.swim.splash=Player splashes
-subtitle.entity.player.splash.high_speed=Huge splash!
+subtitle.entity.player.splash.high_speed=Huge splash
 subtitle.game.potion.smash=Potion Smashed
 
 subtitle.game.neutral.hurt=Damage
 subtitle.game.neutral.swim=Someone swims
-subtitle.game.neutral.swim.splash=Splash!
+subtitle.game.neutral.swim.splash=Splash
 
 subtitle.game.hostile.hurt=Damage
 subtitle.game.hostile.swim=Someone swims
-subtitle.game.hostile.swim.splash=Splash!
+subtitle.game.hostile.swim.splash=Splash
 
-subtitle.game.player.die=Player dies!
-subtitle.game.player.hurt=Player takes damage!
+subtitle.game.player.die=Player dies
+subtitle.game.player.hurt=Player takes damage
 
 subtitle.portal.portal=Portal whooshes
 
-subtitle.fireworks.launch=Fireworks launch!
+subtitle.fireworks.launch=Fireworks launch
 subtitle.fireworks.blast=Firework explosion
 subtitle.fireworks.blast_far=Firework explosion (Far)
 subtitle.fireworks.largeblast=Firework explosion (Large)
@@ -86,14 +86,14 @@ subtitle.fireworks.twinkle_far=Firework crackle (Far)
 subtitle.fire.fire=Fire crackles
 subtitle.fire.ignite=Fire ignites
 
-subtitle.entity.player.attack.weak=Weak attack!
-subtitle.entity.player.attack.strong=Strong attack!
-subtitle.entity.player.attack.crit=Critical attack!
-subtitle.entity.player.attack.knockback=Knockback attack!
+subtitle.entity.player.attack.weak=Weak attack
+subtitle.entity.player.attack.strong=Strong attack
+subtitle.entity.player.attack.crit=Critical attack
+subtitle.entity.player.attack.knockback=Knockback attack
 
-subtitle.entity.player.hurt_on_fire=Player burns!
-subtitle.entity.player.hurt_drown=Player drowns!
-subtitle.entity.player.hurt_freeze=Player freezes!
+subtitle.entity.player.hurt_on_fire=Player burns
+subtitle.entity.player.hurt_drown=Player drowns
+subtitle.entity.player.hurt_freeze=Player freezes
 subtitle.entity.player.hurt_sweet_berry_bush=Sweet Berry Bush hurts player
 
 subtitle.entity.fishing_bobber.throw=Casting out fishing line
@@ -143,7 +143,7 @@ subtitle.entity.boat.paddle_land=Paddles hit the ground
 subtitle.random.fizz=Something fizzes
 subtitle.random.drink=Drinking
 subtitle.random.eat=Chomping
-subtitle.random.explode=Explosion!
+subtitle.random.explode=Explosion
 subtitle.random.pop=Item pickup
 subtitle.random.orb=Experience gained
 subtitle.random.levelup=Leveled up
