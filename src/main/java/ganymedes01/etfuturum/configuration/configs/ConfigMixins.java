@@ -84,7 +84,7 @@ public class ConfigMixins extends ConfigBase {
 		enableNewElytraTakeoffLogic = getBoolean("enableNewElytraTakeoffLogic", catBackport, true, "When enabled, the 1.15+ elytra takeoff logic is used, when disabled, the 1.9-1.14 elytra takeoff logic is used.");
 		enableDoWeatherCycle = getBoolean("enableDoWeatherCycle", catBackport, true, "Add the doWeatherCycle game rule from 1.11+");
 		enableRandomTickSpeed = getBoolean("enableRandomTickSpeed", catBackport, true, "Add the randomTickSpeed game rule from 1.8+");
-		creativeFlightSpeedModifier = getFloat("creativeFlightSpeedModifier", catBackport, 2, 1, 4, "When greater than 1, boosts creative flight speed when sprinting, like in newer versions");
+		creativeFlightSpeedModifier = getFloat("creativeFlightSpeedModifier", catBackport, 2, 1, 5, "When greater than 1, boosts creative flight speed when sprinting, like in newer versions");
 		bouncyBeds = getBoolean("bouncyBeds", catBackport, true, "Makes beds bouncy. Should work with most modded beds. For continuity disabling this also disables EFR beds being bouncy.\nModified Classes: net.minecraft.block.BlockBed");
 		floorCeilingButtons = getBoolean("floorCeilingButtons", catBackport, true, "Allows ability to place buttons on the floor and ceiling. Note: Due to metadata limits, they won't rotate to face the player like how they were made to in more modern versions.\nModified Classes: net.minecraft.block.BlockButton");
 		newHurtSounds = getBoolean("newHurtSounds", catBackport, true, "Damage sounds for walking into a berry bush, drowning or burning\nModified Classes: net.minecraft.entity.player.EntityPlayer net.minecraft.client.entity.EntityClientPlayerMP");
