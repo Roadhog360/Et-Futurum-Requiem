@@ -1,14 +1,14 @@
 # Et Futurum Requiem
 
-**Download: [CurseForge](https://www.curseforge.com/minecraft/mc-mods/et-futurum-requiem/files)
-| [Modrinth](https://modrinth.com/mod/etfuturum/versions)**
+**Download: [Modrinth](https://modrinth.com/mod/etfuturum/versions)
+| [CurseForge](https://www.curseforge.com/minecraft/mc-mods/et-futurum-requiem/files)**
 
 WARNING!
 
 Though this project is licensed under the LGPL-3.0 a lot of the code featured here is a direct copy or adaptation of
 Mojangs original code. So be careful with what you do with it.
 
-This project is jss2a98aj's fork of KryptonCaptain's Et Futurum build, as well as a merge of my own (Roadhog460's)
+This project is jss2a98aj's fork of KryptonCaptain's Et Futurum build, as well as a merge of my own (Roadhog360's)
 changes I made to Et Futurum and never published anywhere. Thanks to other incredible notable contributors such as
 makamys among various things, including helping setup mixins, contributed hugely useful changes like porting the
 expanded container code for Iron Shulker Boxes, and CI + nomixin to the gradle and GitHub scripts. And embeddedt who
@@ -24,7 +24,7 @@ The mod requires [UniMixins](https://modrinth.com/mod/unimixins), more specifica
 
 ## Contributing
 
-To enable incomplete test features, add `-Detfuturum.testing=true` to your JVM arguments. This also enables a debug item
+To enable incomplete test features, add `-Detfuturum.testing=true` to your JVM arguments. This also enables a debug item.
 
 ## Contributors
 <a href="https://github.com/Roadhog360/Et-Futurum-Requiem/graphs/contributors">
