@@ -980,26 +980,35 @@ public class ServerEventHandler {
 						//Grass pathing/Log Stripping
 						//This is nested into the same function since they use similar checks
 						if (heldStack != null) {
-							Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
-							if (toolClasses != null
-									//TODO dirty solution, make this a list, maybe a HogUtils tag `#etfuturum:no_till_shovels`?
-									&& heldStack.getItem() != ExternalContent.Items.BOTANIA_MANASTEEL_SHOVEL.get()
-									&& heldStack.getItem() != ExternalContent.Items.THAUMCRAFT_EARTHMOVER_SHOVEL.get()) {
-								if (ConfigBlocksItems.enableGrassPath && toolClasses.contains("shovel") && !world.getBlock(x, y + 1, z).getMaterial().isSolid() && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
-									player.swingItem();
-									if (!world.isRemote) {
-										world.setBlock(x, y, z, ModBlocks.GRASS_PATH.get());
-										heldStack.damageItem(1, player);
-										world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer + ":item.shovel.flatten", 1.0F, 1.0F);
-									}
-								} else if (ConfigBlocksItems.enableStrippedLogs && toolClasses.contains("axe")) {
-									RegistryMapping<Block> newBlock = StrippedLogRegistry.getLog(oldBlock, world.getBlockMetadata(x, y, z) % 4);
-									if (newBlock != null) {
+
+							//Check if tool is a broken TiC tool
+							boolean toolIsBroken = false;
+							if (heldStack.hasTagCompound() && heldStack.getTagCompound().hasKey("InfiTool")) {
+								toolIsBroken = heldStack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken");
+							}
+
+							if (!toolIsBroken) {
+								Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
+								if (toolClasses != null
+										//TODO dirty solution, make this a list, maybe a HogUtils tag `#etfuturum:no_till_shovels`?
+										&& heldStack.getItem() != ExternalContent.Items.BOTANIA_MANASTEEL_SHOVEL.get()
+										&& heldStack.getItem() != ExternalContent.Items.THAUMCRAFT_EARTHMOVER_SHOVEL.get()) {
+									if (ConfigBlocksItems.enableGrassPath && toolClasses.contains("shovel") && !world.getBlock(x, y + 1, z).getMaterial().isSolid() && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
 										player.swingItem();
 										if (!world.isRemote) {
-											world.setBlock(x, y, z, newBlock.getObject(), newBlock.getMeta() + ((meta / 4) * 4), 2);
+											world.setBlock(x, y, z, ModBlocks.GRASS_PATH.get());
 											heldStack.damageItem(1, player);
-											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer + ":item.axe.strip", 1.0F, 0.8F);
+											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer + ":item.shovel.flatten", 1.0F, 1.0F);
+										}
+									} else if (ConfigBlocksItems.enableStrippedLogs && toolClasses.contains("axe")) {
+										RegistryMapping<Block> newBlock = StrippedLogRegistry.getLog(oldBlock, world.getBlockMetadata(x, y, z) % 4);
+										if (newBlock != null) {
+											player.swingItem();
+											if (!world.isRemote) {
+												world.setBlock(x, y, z, newBlock.getObject(), newBlock.getMeta() + ((meta / 4) * 4), 2);
+												heldStack.damageItem(1, player);
+												world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer + ":item.axe.strip", 1.0F, 0.8F);
+											}
 										}
 									}
 								}
