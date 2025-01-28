@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +19,7 @@ public class BlockCoarseDirt extends Block {
 		setHarvestLevel("shovel", 0);
 		setStepSound(soundTypeGravel);
 		setBlockTextureName("coarse_dirt");
-		setBlockName(Utils.getUnlocalisedName("coarse_dirt"));
+		setBlockName("coarse_dirt");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 

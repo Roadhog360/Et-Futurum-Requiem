@@ -6,7 +6,6 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
 import net.minecraft.block.Block;
@@ -36,7 +35,7 @@ public class BlockBlastFurnace extends BlockFurnace {
 		this.setHardness(3.5F);
 		this.setResistance(3.5F);
 		this.setLightLevel(cooking ? .875F : 0);
-		this.setBlockName(Utils.getUnlocalisedName("blast_furnace"));
+		this.setBlockName("blast_furnace");
 		this.setCreativeTab(!cooking ? EtFuturum.creativeTabBlocks : null);
 	}
 

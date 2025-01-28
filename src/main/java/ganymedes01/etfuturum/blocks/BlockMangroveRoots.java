@@ -1,12 +1,12 @@
 package ganymedes01.etfuturum.blocks;
 
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-public class BlockMangroveRoots extends BaseBlock {
+public class BlockMangroveRoots extends BaseEFRBlock {
 
 	private IIcon sideIcon;
 
@@ -16,7 +16,7 @@ public class BlockMangroveRoots extends BaseBlock {
 		setResistance(0.7F);
 		setHardness(0.7F);
 		setNames("mangrove_roots");
-		setBlockSound(ModSounds.soundMangroveRoots);
+		setStepSound(ModSounds.soundMangroveRoots);
 	}
 
 	@Override
@@ -45,6 +45,6 @@ public class BlockMangroveRoots extends BaseBlock {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.MANGROVE_ROOTS;
+		return BlockRenderers.MANGROVE_ROOTS.getRenderId();
 	}
 }

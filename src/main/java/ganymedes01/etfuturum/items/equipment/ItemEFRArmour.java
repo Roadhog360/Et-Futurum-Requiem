@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.items.equipment;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,7 +27,7 @@ public class ItemEFRArmour extends ItemArmor implements ISpecialArmor {
 				s = "boots";
 				break;
 		}
-		this.setUnlocalizedName(Utils.getUnlocalisedName("netherite_" + s));
+		this.setUnlocalizedName("netherite_" + s);
 		this.setTextureName("netherite_" + s);
 		this.setCreativeTab(EtFuturum.creativeTabItems);
 	}

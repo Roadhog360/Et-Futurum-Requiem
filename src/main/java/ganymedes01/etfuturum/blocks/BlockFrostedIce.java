@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockIce;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -25,7 +24,7 @@ public class BlockFrostedIce extends BlockIce {
 		setCreativeTab(null);
 		setStepSound(soundTypeGlass);
 		setBlockTextureName("frosted_ice");
-		setBlockName(Utils.getUnlocalisedName("frosted_ice"));
+		setBlockName("frosted_ice");
 	}
 
 	@Override

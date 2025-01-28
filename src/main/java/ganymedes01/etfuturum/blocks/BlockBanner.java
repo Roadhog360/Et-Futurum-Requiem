@@ -30,7 +30,7 @@ public class BlockBanner extends BlockContainer {
 		disableStats();
 		setHardness(1.0F);
 		setStepSound(soundTypeWood);
-		setBlockName(Utils.getUnlocalisedName("banner"));
+		setBlockName("banner");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 
 		float f = 0.25F;

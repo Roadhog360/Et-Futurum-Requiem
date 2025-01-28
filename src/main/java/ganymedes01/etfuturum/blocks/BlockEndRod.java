@@ -2,8 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -23,7 +22,7 @@ public class BlockEndRod extends Block {
 		setHardness(0);
 		setLightLevel(0.9375F);
 		setBlockTextureName("end_rod");
-		setBlockName(Utils.getUnlocalisedName("end_rod"));
+		setBlockName("end_rod");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
@@ -93,7 +92,7 @@ public class BlockEndRod extends Block {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.END_ROD;
+		return BlockRenderers.END_ROD.getRenderId();
 	}
 
 	@Override

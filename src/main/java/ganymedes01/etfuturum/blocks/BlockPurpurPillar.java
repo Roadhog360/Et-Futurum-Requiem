@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -20,7 +19,7 @@ public class BlockPurpurPillar extends BlockRotatedPillar {
 		setResistance(10.0F);
 		setStepSound(soundTypePiston);
 		setBlockTextureName("purpur_pillar");
-		setBlockName(Utils.getUnlocalisedName("purpur_pillar"));
+		setBlockName("purpur_pillar");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 

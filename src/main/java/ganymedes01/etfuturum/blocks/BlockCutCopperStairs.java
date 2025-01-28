@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import roadhog360.hogutils.api.blocksanditems.block.ISubtypesBlock;
 
 import java.util.Random;
 
@@ -16,7 +17,7 @@ public class BlockCutCopperStairs extends BaseStairs implements IDegradable {
 
 	public BlockCutCopperStairs(Block baseBlock, int p_i45428_2_) {
 		super(baseBlock, p_i45428_2_);
-		setUnlocalizedNameWithPrefix(((ISubBlocksBlock) baseBlock).getTypes()[p_i45428_2_]);
+		setUnlocalizedNameWithPrefix(((ISubtypesBlock) baseBlock).getTypes().get(p_i45428_2_));
 		setTickRandomly(meta < 7);
 	}
 

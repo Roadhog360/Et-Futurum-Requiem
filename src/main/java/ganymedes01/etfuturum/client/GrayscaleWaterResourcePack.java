@@ -51,7 +51,6 @@ public class GrayscaleWaterResourcePack implements IResourcePack {
 	}
 
 	private static BufferedImage convertImageToGrayscale(BufferedImage image, GrayscaleType type) {
-		int referenceRGB = type == GrayscaleType.TINT_INVERSE ? findMaxRGB(image) : 0; // Used by TINT_INVERSE.
 
 		BufferedImage copy = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
@@ -64,6 +63,7 @@ public class GrayscaleWaterResourcePack implements IResourcePack {
 				int b = rgbaToB(rgb);
 				switch (type) {
 					case TINT_INVERSE:
+						int referenceRGB = findMaxRGB(image); // Used by TINT_INVERSE.
 						float referenceRelativeR = (float) r / (float) rgbaToR(referenceRGB);
 						float referenceRelativeG = (float) g / (float) rgbaToG(referenceRGB);
 						float referenceRelativeB = (float) b / (float) rgbaToB(referenceRGB);

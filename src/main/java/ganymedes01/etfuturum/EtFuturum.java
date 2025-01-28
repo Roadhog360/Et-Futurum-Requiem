@@ -17,7 +17,6 @@ import ganymedes01.etfuturum.api.*;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
 import ganymedes01.etfuturum.client.DynamicSoundsResourcePack;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
-import ganymedes01.etfuturum.client.sound.BlockSoundRegisterHelper;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.command.CommandFill;
 import ganymedes01.etfuturum.compat.*;
@@ -37,6 +36,7 @@ import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.ModTagging;
 import ganymedes01.etfuturum.recipes.SmithingTableRecipes;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
+import ganymedes01.etfuturum.world.EtFuturumEarlyWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEFREnd;
@@ -51,6 +51,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -64,6 +65,7 @@ import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
+import roadhog360.hogutils.api.utils.GenericUtils;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -154,7 +156,9 @@ public class EtFuturum {
 
 	@EventHandler
 	public void onConstruction(FMLConstructionEvent event) {
-		Logger.info(Tags.MOD_ID + " is in snapshot mode. Disabling update checker... Other features may also be different.");
+		if(Reference.SNAPSHOT_BUILD && !Reference.DEV_ENVIRONMENT) {
+			Logger.info(Tags.MOD_ID + " is in snapshot mode. Disabling update checker... Other features may also be different.");
+		}
 
 		MCLib.init();
 
@@ -221,6 +225,7 @@ public class EtFuturum {
 			NetherBiomeManager.init();
 		}
 
+		GameRegistry.registerWorldGenerator(EtFuturumEarlyWorldGenerator.INSTANCE, Integer.MIN_VALUE);
 		GameRegistry.registerWorldGenerator(EtFuturumWorldGenerator.INSTANCE, 0);
 		GameRegistry.registerWorldGenerator(EtFuturumLateWorldGenerator.INSTANCE, Integer.MAX_VALUE);
 
@@ -363,6 +368,16 @@ public class EtFuturum {
 		if (ModsList.TINKERS_CONSTRUCT.isLoaded()) {
 			CompatTinkersConstruct.postInit();
 		}
+
+		if(GenericUtils.isEndermanCarryingFixInstalled()) {
+			doEndermanPickupChecks();
+		}
+	}
+
+	private void doEndermanPickupChecks() {
+		if (ModBlocks.NYLIUM.isEnabled()) {
+			EntityEnderman.setCarriable(ModBlocks.NYLIUM.get(), true);
+		}
 	}
 
 	@EventHandler
@@ -407,8 +422,6 @@ public class EtFuturum {
 			Blocks.bed.blockMaterial = Material.wood;
 			Blocks.bed.setStepSound(Block.soundTypeWood);
 		}
-
-		BlockSoundRegisterHelper.setupMultiBlockSoundRegistry();
 
 		CompatMisc.runModHooksLoadComplete();
 

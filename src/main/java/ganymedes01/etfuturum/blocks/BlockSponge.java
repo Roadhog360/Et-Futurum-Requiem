@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.blocks;
 
 import com.google.common.collect.Lists;
+import com.gtnewhorizon.gtnhlib.client.renderer.util.DirectionUtil;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.Tags;
@@ -23,20 +24,20 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.*;
 
-public class BlockSponge extends BaseSubtypesBlock {
+public class BlockSponge extends BaseEFRBlock {
 
 	public BlockSponge() {
 		super(Material.sponge, "sponge", "wet_sponge");
 		setHardness(0.6F);
-		setBlockSound(ModSounds.soundSponge);
+		setStepSound(ModSounds.soundSponge);
 		setBlockTextureName("sponge");
-		setBlockName(Utils.getUnlocalisedName("sponge"));
+		setBlockName("sponge");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override
-	public String getNameFor(ItemStack stack) {
-		return stack.getItemDamage() == 1 ? getTypes()[1] : Blocks.sponge.getUnlocalizedName();
+	public String getDisplayName(ItemStack stack) {
+		return stack.getItemDamage() == 1 ? super.getDisplayName(stack) : Blocks.sponge.getUnlocalizedName();
 	}
 
 	@Override
@@ -105,7 +106,7 @@ public class BlockSponge extends BaseSubtypesBlock {
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		if (world.getBlockMetadata(x, y, z) == 1) {
-			ForgeDirection dir = getRandomDirection(rand);
+			ForgeDirection dir = Utils.getRandom(DirectionUtil.ALL_DIRECTIONS, rand);
 
 			if (dir != ForgeDirection.UP && !World.doesBlockHaveSolidTopSurface(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ)) {
 				double d0 = x;
@@ -144,10 +145,6 @@ public class BlockSponge extends BaseSubtypesBlock {
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(item, 1, 1));
-	}
-
-	private ForgeDirection getRandomDirection(Random rand) {
-		return ForgeDirection.VALID_DIRECTIONS[rand.nextInt(ForgeDirection.VALID_DIRECTIONS.length)];
 	}
 
 	@Override

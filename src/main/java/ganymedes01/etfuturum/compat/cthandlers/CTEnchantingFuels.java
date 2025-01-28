@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.compat.cthandlers;
 
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.api.EnchantingFuelRegistry;
 import ganymedes01.etfuturum.compat.CompatCraftTweaker;
 import ganymedes01.etfuturum.core.utils.ItemStackSet;
@@ -7,8 +8,8 @@ import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
-import minetweaker.mc1710.item.MCItemStack;
 import net.minecraft.item.ItemStack;
+import roadhog360.hogutils.api.hogtags.HogTagsHelper;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -22,16 +23,19 @@ public class CTEnchantingFuels {
 	@ZenMethod
 	public static void remove(IIngredient fuel) {
 
+		MineTweakerAPI.logWarning("Registering/Removing enchantment fuels is no longer supported this way.");
+		MineTweakerAPI.logWarning("Please use HogTags instead!");
 		Object internal = getInternal(fuel);
 
-		if (((internal instanceof String && EnchantingFuelRegistry.isFuel((String) internal)) || (internal instanceof ItemStack && EnchantingFuelRegistry.isFuel((ItemStack) internal)))) {
-			final ItemStackSet toRemove = new ItemStackSet();
-			for (ItemStack stack : EnchantingFuelRegistry.getFuels().keySet()) {
-				if (fuel.matches(new MCItemStack(stack))) {
-					toRemove.add(stack);
-				}
-			}
-			MineTweakerAPI.apply(new RemoveAction(toRemove));
+		if (((internal instanceof String && EnchantingFuelRegistry.isFuel((String) internal))
+				|| (internal instanceof ItemStack && HogTagsHelper.ItemTags.hasAnyTag(((ItemStack) internal).getItem(), ((ItemStack) internal).getItemDamage(), Tags.MOD_ID + ":enchantment_fuel")))) {
+//			final List<ItemTagMapping> toRemove = new ObjectArrayList<>();
+//			for (ItemTagMapping stack : HogTagsHelper.ItemTags.getInTag(Tags.MOD_ID + ":enchantment_fuel")) {
+//				if (fuel.matches(new MCItemStack(stack.newItemStack()))) {
+//					toRemove.add(stack);
+//				}
+//			}
+//			MineTweakerAPI.apply(new RemoveAction(toRemove));
 		} else {
 			MineTweakerAPI.logWarning("No enchanting fuels for " + fuel);
 		}
@@ -39,6 +43,9 @@ public class CTEnchantingFuels {
 
 	@ZenMethod
 	public static void addFuel(IIngredient fuel) {
+		MineTweakerAPI.logWarning("Registering/Removing enchantment fuels is no longer supported this way.");
+		MineTweakerAPI.logWarning("Please use HogTags instead!");
+
 		List<IItemStack> items = fuel.getItems();
 		if (items == null) {
 			MineTweakerAPI.logError("Cannot turn " + fuel + " into a enchanting fuel");
@@ -64,7 +71,7 @@ public class CTEnchantingFuels {
 		@Override
 		public void apply() {
 			for (ItemStack item : items.keySet()) {
-				EnchantingFuelRegistry.remove(item);
+				HogTagsHelper.ItemTags.removeTags(item.getItem(), item.getItemDamage(), ":enchantment_fuel");
 			}
 		}
 
@@ -75,8 +82,8 @@ public class CTEnchantingFuels {
 
 		@Override
 		public void undo() {
-			for (ItemStack stack : items.keySet()) {
-				EnchantingFuelRegistry.registerFuel(stack);
+			for (ItemStack entry : items.keySet()) {
+				HogTagsHelper.ItemTags.addTags(entry.getItem(), entry.getItemDamage(), ":enchantment_fuel");
 			}
 		}
 

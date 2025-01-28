@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.world.World;
@@ -15,7 +14,7 @@ public class BlockSoulTorch extends BlockTorch {
 		super();
 		setStepSound(Block.soundTypeWood);
 		setLightLevel(0.666F);
-		setBlockName(Utils.getUnlocalisedName("soul_torch"));
+		setBlockName("soul_torch");
 		setBlockTextureName("soul_torch");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}

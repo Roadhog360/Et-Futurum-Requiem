@@ -9,6 +9,7 @@ import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.mc1710.item.MCItemStack;
 import net.minecraft.item.ItemStack;
+import roadhog360.hogutils.api.hogtags.HogTagsHelper;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -65,7 +66,7 @@ public class CTBrewingFuels {
 		@Override
 		public void apply() {
 			for (ItemStack item : items.keySet()) {
-				BrewingFuelRegistry.remove(item);
+				HogTagsHelper.ItemTags.removeTags(item.getItem(), item.getItemDamage(), "minecraft:brewing_fuel");
 			}
 		}
 
@@ -77,7 +78,8 @@ public class CTBrewingFuels {
 		@Override
 		public void undo() {
 			for (Map.Entry<ItemStack, Integer> entry : items.entrySet()) {
-				BrewingFuelRegistry.registerFuel(entry.getKey(), entry.getValue());
+				HogTagsHelper.ItemTags.addTags(entry.getKey().getItem(), entry.getKey().getItemDamage(), "minecraft:brewing_fuel");
+				/// TODO: Needs support for custom fuel levels, unless we no longer support it?
 			}
 		}
 
@@ -112,7 +114,7 @@ public class CTBrewingFuels {
 		@Override
 		public void apply() {
 			for (ItemStack inputStack : fuels) {
-				BrewingFuelRegistry.registerFuel(inputStack, count);
+				HogTagsHelper.ItemTags.addTags(inputStack.getItem(), inputStack.getItemDamage(), "minecraft:brewing_fuel");
 			}
 		}
 
@@ -124,7 +126,7 @@ public class CTBrewingFuels {
 		@Override
 		public void undo() {
 			for (ItemStack inputStack : fuels) {
-				BrewingFuelRegistry.remove(inputStack);
+				HogTagsHelper.ItemTags.removeTags(inputStack.getItem(), inputStack.getItemDamage(), "minecraft:brewing_fuel");
 			}
 		}
 

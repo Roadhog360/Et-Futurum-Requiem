@@ -7,7 +7,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.model.ModelShulker;
-import ganymedes01.etfuturum.client.renderer.block.*;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.client.renderer.entity.*;
 import ganymedes01.etfuturum.client.renderer.item.*;
 import ganymedes01.etfuturum.client.renderer.tileentity.*;
@@ -18,8 +18,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.entities.*;
-import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.spectator.SpectatorModeClient;
 import ganymedes01.etfuturum.tileentities.*;
 import ganymedes01.etfuturum.world.nether.biome.utils.BiomeFogEventHandler;
@@ -90,35 +88,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityShulkerBox.class, new TileEntityShulkerBoxRenderer(new ModelShulker()));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGateway.class, new TileEntityGatewayRenderer());
 
-		RenderingRegistry.registerBlockHandler(new BlockExtendedCrossedSquaresRenderer());
-		RenderingRegistry.registerBlockHandler(new BlockNewFenceRenderer());
-		RenderingRegistry.registerBlockHandler(new BlockTrapDoorRenderer(RenderIDs.TRAPDOOR));
-		RenderingRegistry.registerBlockHandler(new BlockDoorRenderer(RenderIDs.DOOR));
-		RenderingRegistry.registerBlockHandler(new BlockDoubleCubeRenderer(13, RenderIDs.SLIME_BLOCK));
-		RenderingRegistry.registerBlockHandler(new BlockEndRodRenderer(RenderIDs.END_ROD));
-		RenderingRegistry.registerBlockHandler(new BlockChorusFlowerRenderer(RenderIDs.CHORUS_FLOWER));
-		RenderingRegistry.registerBlockHandler(new BlockChorusPlantRenderer(RenderIDs.CHORUS_PLANT));
-		RenderingRegistry.registerBlockHandler(new BlockLanternRenderer(RenderIDs.LANTERN));
-		RenderingRegistry.registerBlockHandler(new BlockBarrelRenderer(RenderIDs.BARREL));
-		RenderingRegistry.registerBlockHandler(new BlockGlazedTerracottaRenderer(RenderIDs.GLAZED_TERRACOTTA));
-		RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer(RenderIDs.LAVA_CAULDRON));
-		RenderingRegistry.registerBlockHandler(new BlockStonecutterRenderer(RenderIDs.STONECUTTER));
-		RenderingRegistry.registerBlockHandler(new BlockComposterRenderer(RenderIDs.COMPOSTER));
-		RenderingRegistry.registerBlockHandler(new BlockLoomRenderer(RenderIDs.LOOM));
-		RenderingRegistry.registerBlockHandler(new BlockAmethystClusterRenderer(RenderIDs.AMETHYST_CLUSTER));
-		RenderingRegistry.registerBlockHandler(new BlockPointedDripstoneRenderer(RenderIDs.POINTED_DRIPSTONE));
-		RenderingRegistry.registerBlockHandler(new BlockColoredWaterCauldronRenderer(RenderIDs.COLORED_CAULDRON));
-		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
-		RenderingRegistry.registerBlockHandler(new BlockObserverRenderer(RenderIDs.OBSERVER));
-		RenderingRegistry.registerBlockHandler(new BlockDoubleCubeRenderer(15, RenderIDs.HONEY_BLOCK));
-		RenderingRegistry.registerBlockHandler(new BlockChainRenderer(RenderIDs.CHAIN));
-		RenderingRegistry.registerBlockHandler(new BlockAzaleaRenderer(RenderIDs.AZALEA));
-		RenderingRegistry.registerBlockHandler(new BlockMangroveRootsRenderer(RenderIDs.MANGROVE_ROOTS));
-		RenderingRegistry.registerBlockHandler(new BlockPinkPetalsRenderer(RenderIDs.PINK_PETALS));
-		RenderingRegistry.registerBlockHandler(new BlockBambooRenderer(RenderIDs.BAMBOO));
-		RenderingRegistry.registerBlockHandler(new BlockBubbleColumnRenderer(RenderIDs.BUBBLE_COLUMN));
-
-		RenderingRegistry.registerBlockHandler(new BlockEmissiveLayerRenderer(RenderIDs.EMISSIVE_DOUBLE_LAYER));
+		BlockRenderers.registerRenderers();
 	}
 
 	private void registerEntityRenderers() {

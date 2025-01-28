@@ -7,16 +7,15 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenNetherGrass;
+import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMushroom;
 import net.minecraft.block.BlockNetherrack;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
@@ -25,13 +24,14 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
+import roadhog360.hogutils.api.blocksanditems.BaseHelper;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
+public class BlockNylium extends BaseEFRBlock implements IGrowable {
 
-	private IIcon[] topIcons;
+	private final Map<Integer, IIcon> icons_top = new Int2ObjectArrayMap();
 
 	public BlockNylium() {
 		super(Material.rock, "crimson_nylium", "warped_nylium");
@@ -39,7 +39,7 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 		setResistance(0.4F);
 		setNames("nylium");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-		setBlockSound(ModSounds.soundNylium);
+		setStepSound(ModSounds.soundNylium);
 		setTickRandomly(true);
 	}
 
@@ -75,36 +75,34 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
-		if (ConfigExperiments.enableCrimsonBlocks) {
-			list.add(new ItemStack(item, 1, 0));
-		}
-		if (ConfigExperiments.enableWarpedBlocks) {
-			list.add(new ItemStack(item, 1, 1));
-		}
+	public boolean isMetadataEnabled(int meta) {
+		return meta == 1 ? ConfigExperiments.enableWarpedBlocks : meta == 0 ? ConfigExperiments.enableCrimsonBlocks : super.isMetadataEnabled(meta);
 	}
 
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		switch (side) {
-			case 1:
-				return topIcons[meta % topIcons.length];
 			case 0:
+				return icons_top.getOrDefault(meta, super.getIcon(side, meta));
+			case 1:
 				return blockIcon;
 			default:
-				return getIcons()[meta % getIcons().length];
+				return super.getIcon(side, meta);
 		}
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
-		setIcons(new IIcon[getTypes().length]);
-		topIcons = new IIcon[getTypes().length];
-		for (int i = 0; i < getIcons().length; i++) {
-			getIcons()[i] = reg.registerIcon(getTypes()[i] + "_side");
-			topIcons[i] = reg.registerIcon(getTypes()[i]);
+		super.registerBlockIcons(reg);
+		icons_top.clear();
+
+		for(Map.Entry<Integer, String> entry : getTypes().entrySet()) {
+			icons_top.put(entry.getKey(),
+					reg.registerIcon(BaseHelper.getTextureName(entry.getValue() + "_top", getTextureDomain(entry.getValue()),
+							getTextureSubfolder(entry.getValue()))));
 		}
+
 		blockIcon = Blocks.netherrack.getIcon(0, 0);
 	}
 
@@ -113,10 +111,7 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 	 */
 	@Override
 	public boolean func_149851_a(World world, int x, int y, int z, boolean isClient) {
-		if (world.getBlockMetadata(x, y, z) == 0 && !ConfigExperiments.enableCrimsonBlocks) {
-			return false;
-		}
-		return world.getBlockMetadata(x, y, z) != 1 || ConfigExperiments.enableWarpedBlocks;
+		return isMetadataEnabled(world.getBlockMetadata(x, y, z));
 	}
 
 	/**

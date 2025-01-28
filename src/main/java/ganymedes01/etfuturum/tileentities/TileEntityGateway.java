@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.tileentities;
 
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.world.end.gen.WorldGenEndGateway;
 import ganymedes01.etfuturum.world.end.gen.WorldGenEndIsland;
@@ -22,6 +21,7 @@ import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.chunk.Chunk;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import roadhog360.hogutils.api.utils.GenericUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -284,7 +284,7 @@ public class TileEntityGateway extends TileEntity {
 	public int getParticleAmount() {
 		int i = 0;
 
-		for (EnumFacing enumfacing : Utils.ENUM_FACING_VALUES) {
+		for (EnumFacing enumfacing : GenericUtils.Constants.ENUM_FACING_VALUES) {
 			if (this.shouldRenderFace(enumfacing))
 				i++;
 		}

@@ -2,13 +2,12 @@ package ganymedes01.etfuturum.core.utils;
 
 import cpw.mods.fml.common.Loader;
 import ganymedes01.etfuturum.Tags;
-import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
+import me.mrnavastar.r.R;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +23,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -34,18 +32,7 @@ import java.util.stream.Collectors;
 
 public class Utils {
 
-	/**
-	 * Note: Includes UNKNOWN, use ForgeDirection.VALID_DIRECTIONS to exclude it
-	 */
-	public static final ForgeDirection[] FORGE_DIRECTIONS = ForgeDirection.values();
-	public static final ForgeDirection[] HORIZONTAL_FORGE_DIRECTIONS = new ForgeDirection[]{ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST};
-	public static final EnumFacing[] ENUM_FACING_VALUES = EnumFacing.values();
-	public static final EnumFacing[] HORIZONTAL_ENUM_FACING = new EnumFacing[]{EnumFacing.NORTH, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.EAST};
 	public static final float SQRT_2 = MathHelper.sqrt_float(2.0F);
-
-	public static String getUnlocalisedName(String name) {
-		return Tags.MOD_ID + "." + name;
-	}
 
 	public static String getBlockTexture(String name) {
 		return Reference.ITEM_BLOCK_TEXTURE_PATH + name;
@@ -177,9 +164,9 @@ public class Utils {
 		double d1 = p_188803_0_.motionY;
 		double d2 = p_188803_0_.motionZ;
 		float f = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
-		p_188803_0_.rotationYaw = (float) (atan2(d2, d0) * (180D / Math.PI)) + 90.0F;
+		p_188803_0_.rotationYaw = (float) (Math.atan2(d2, d0) * (180D / Math.PI)) + 90.0F;
 
-		for (p_188803_0_.rotationPitch = (float) (atan2(f, d1) * (180D / Math.PI))
+		for (p_188803_0_.rotationPitch = (float) (Math.atan2(f, d1) * (180D / Math.PI))
 				- 90.0F; p_188803_0_.rotationPitch
 					 - p_188803_0_.prevRotationPitch < -180.0F; p_188803_0_.prevRotationPitch -= 360.0F) {
 		}
@@ -200,59 +187,6 @@ public class Utils {
 				+ (p_188803_0_.rotationPitch - p_188803_0_.prevRotationPitch) * p_188803_1_;
 		p_188803_0_.rotationYaw = p_188803_0_.prevRotationYaw
 				+ (p_188803_0_.rotationYaw - p_188803_0_.prevRotationYaw) * p_188803_1_;
-	}
-
-	private static final double optimizationsAndTweaks$frac_bias = Double.longBitsToDouble(4805340802404319232L);
-	private static final double[] optimizationsAndTweaks$asine_tab = new double[257];
-	private static final double[] optimizationsAndTweaks$cos_tab = new double[257];
-
-	public static double atan2(double y, double x) {
-		// Check if any of the values ​​are NaN (Not a Number) and return NaN if so.
-		if (Double.isNaN(x) || Double.isNaN(y)) {
-			return Double.NaN;
-		}
-
-		// Handle cases where the values ​​are negative by reversing the signs if necessary
-		boolean isNegativeY = y < 0.0;
-		if (isNegativeY) y = -y;
-
-		boolean isNegativeX = x < 0.0;
-		if (isNegativeX) x = -x;
-
-		// Determine if y is greater than x
-		boolean isYGreaterThanX = y > x;
-		if (isYGreaterThanX) {
-			double temp = x;
-			x = y;
-			y = temp;
-		}
-
-		// Calculate magnitude and normalize components
-		double magnitudeSquared = x * x + y * y;
-		double invMagnitude = invSqrt(magnitudeSquared);
-		x *= invMagnitude;
-		y *= invMagnitude;
-
-		// Use the pre-calculated sine and cosine tables to find the angle
-		double angle = optimizationsAndTweaks$getAngle(y, x);
-
-		// Adjust angle based on initial signs
-		if (isYGreaterThanX) angle = (Math.PI / 2) - angle;
-		if (isNegativeX) angle = Math.PI - angle;
-		if (isNegativeY) angle = -angle;
-
-		return angle;
-	}
-
-	private static double optimizationsAndTweaks$getAngle(double y, double x) {
-		double biasedY = optimizationsAndTweaks$frac_bias + y;
-		int index = (int) Double.doubleToRawLongBits(biasedY);
-		double asinValue = optimizationsAndTweaks$asine_tab[index];
-		double cosValue = optimizationsAndTweaks$cos_tab[index];
-		double deltaY = biasedY - optimizationsAndTweaks$frac_bias;
-		double delta = y * cosValue - x * deltaY;
-		double correctionTerm = (6.0 + delta * delta) * delta * 0.16666666666666666;
-		return asinValue + correctionTerm;
 	}
 
 	public static float invSqrt(float num) {
@@ -345,17 +279,6 @@ public class Utils {
 		return array[rand.nextInt(array.length)];
 	}
 
-	public static void setBlockSound(Block block, Block.SoundType type) {
-		block.setStepSound(getSound(type));
-	}
-
-	public static Block.SoundType getSound(Block.SoundType type) {
-		if (type instanceof ModSounds.CustomSound) {
-			return ConfigSounds.newBlockSounds ? type : ((ModSounds.CustomSound) type).getDisabledSound();
-		}
-		return type;
-	}
-
 	/**
 	 * This has to exist BECAUSE THE EQUIVALENT FUNCTION FOR IT IS CLIENT SIDED FOR NO DAMN REASON
 	 */
@@ -400,14 +323,18 @@ public class Utils {
 	private static String betterFpsAlgo;
 
 	public static boolean badBetterFPSAlgorithm() {
-		if (betterFpsAlgo == null) {
-			betterFpsAlgo = "";
-			try {
-				betterFpsAlgo = (String) Class.forName("me.guichaguri.betterfps.BetterFpsHelper").getField("ALGORITHM_NAME").get(null);
-			} catch (IllegalAccessException | NoSuchFieldException | ClassNotFoundException ignored) {
+		if(ModsList.BETTER_FPS.isLoaded()) {
+			if (betterFpsAlgo == null) {
+				try {
+					betterFpsAlgo = R.of(Class.forName("me.guichaguri.betterfps.BetterFpsHelper")).get("ALGORITHM_NAME", String.class);
+				} catch (ClassNotFoundException e) {
+					throw new RuntimeException(e);
+				}
 			}
+			return Objects.equals(betterFpsAlgo, "rivens-half") || Objects.equals(betterFpsAlgo, "taylors");
+		} else {
+			return false;
 		}
-		return Objects.equals(betterFpsAlgo, "rivens-half") || Objects.equals(betterFpsAlgo, "taylors");
 	}
 
 	/**
@@ -435,41 +362,6 @@ public class Utils {
 			list = ArrayUtils.removeElements(list, BiomeDictionary.getBiomesForType(typeToBlacklist));
 		}
 		return list;
-	}
-
-	private static Integer maxMeta;
-	private static Integer minMeta;
-
-	public static int getMaxMetadata() {
-		if (maxMeta == null) {
-			if (ModsList.NOT_ENOUGH_IDS.isLoaded() && ModsList.NOT_ENOUGH_IDS.isVersionNewerOrEqual("2.0.0")) {
-				maxMeta = (int) Short.MAX_VALUE;
-			} else if (ModsList.ENDLESS_IDS_BLOCKITEM.isLoaded()) {
-				maxMeta = 65536;
-			} else {
-				maxMeta = 15;
-			}
-		}
-		return maxMeta;
-	}
-
-	public static int getMinMetadata() {
-		if (minMeta == null) {
-			if (ModsList.NOT_ENOUGH_IDS.isLoaded() && ModsList.NOT_ENOUGH_IDS.isVersionNewerOrEqual("2.0.0")) {
-				minMeta = (int) Short.MIN_VALUE;
-			} else { //EIDs has min meta 0 too, so we don't need to check for it
-				minMeta = 0;
-			}
-		}
-		return minMeta;
-	}
-
-	public static boolean isMetaInBlockBounds(int meta) {
-		return meta <= getMaxMetadata() && meta >= getMinMetadata();
-	}
-
-	public static boolean isMetaInBlockBoundsIgnoreWildcard(int meta) {
-		return meta == OreDictionary.WILDCARD_VALUE || isMetaInBlockBounds(meta);
 	}
 
 	public static void copyAttribs(Block to, Block from) {

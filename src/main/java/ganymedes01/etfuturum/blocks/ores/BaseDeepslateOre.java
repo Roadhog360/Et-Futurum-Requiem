@@ -2,8 +2,7 @@ package ganymedes01.etfuturum.blocks.ores;
 
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.Tags;
-import ganymedes01.etfuturum.blocks.BaseBlock;
+import ganymedes01.etfuturum.blocks.BaseEFRBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
@@ -26,10 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction {
+public abstract class BaseDeepslateOre extends BaseEFRBlock implements IInitAction {
 	public BaseDeepslateOre() {
 		super(Material.rock);
-		setBlockSound(ModSounds.soundDeepslate);
+		setStepSound(ModSounds.soundDeepslate);
 	}
 
 	@Override
@@ -223,13 +222,9 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 	}
 
 	@Override
-	public String getNameDomain() {
-		return super.getNameDomain() + (getTextureSubfolder().isEmpty() ? "" : (super.getNameDomain().isEmpty() ? "" : ".") + getTextureSubfolder());
-	}
-
-	@Override
-	public String getTextureDomain() {
-		return Tags.MOD_ID;
+	public String getNameDomain(String name) {
+		return super.getNameDomain(name) +
+				(getTextureSubfolder(name) == null ? "" : (super.getNameDomain(name) == null ? "" : ".") + getTextureSubfolder(name));
 	}
 
 	public abstract Block getBase();

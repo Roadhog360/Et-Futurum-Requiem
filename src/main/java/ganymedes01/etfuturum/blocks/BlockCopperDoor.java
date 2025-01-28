@@ -1,25 +1,26 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import roadhog360.hogutils.api.blocksanditems.block.ISubtypesBlock;
 
 import java.util.Random;
 
-public class BlockCopperDoor extends BaseDoor implements IDegradable {
+public class BlockCopperDoor extends BaseEFRDoor implements IDegradable {
 
 	public BlockCopperDoor(int meta) {
 		super(Material.iron, "copper_door");
-		setBlockSound(ModSounds.soundCopper);
+		setStepSound(ModSounds.soundCopper);
 		setTickRandomly(meta < 7);
-		String name = ((ISubBlocksBlock) ModBlocks.COPPER_BLOCK.get()).getTypes()[meta].replace("_block", "");
+		String name = ((ISubtypesBlock) ModBlocks.COPPER_BLOCK.get()).getTypes().get(meta).replace("_block", "");
 		setBlockTextureName(name.replace("waxed_", "") + "_door");
-		setBlockName(Utils.getUnlocalisedName(name + "_door"));
+		setBlockName(name + "_door");
 	}
 
 	@Override
@@ -120,5 +121,10 @@ public class BlockCopperDoor extends BaseDoor implements IDegradable {
 		playSound.set(top);
 		IDegradable.super.spawnParticles(world, x, top ? y - 1 : y + 1, z, type);
 		playSound.set(true);
+	}
+
+	@Override
+	public String getSound(World world, int i, int i1, int i2, String s) {
+		return Tags.MC_ASSET_VER + ":block.copper_door.active";
 	}
 }

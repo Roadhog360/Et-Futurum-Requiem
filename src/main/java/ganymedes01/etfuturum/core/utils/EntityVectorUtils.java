@@ -133,7 +133,7 @@ public class EntityVectorUtils {
 	@Nullable
 	private static BlockPos func_226343_a_(Random p_226343_0_, int p_226343_1_, int p_226343_2_, int p_226343_3_, Vec3 p_226343_4_, double p_226343_5_) {
 		if (p_226343_4_ != null && !(p_226343_5_ >= Math.PI)) {
-			double d3 = Utils.atan2(p_226343_4_.zCoord, p_226343_4_.xCoord) - (double) ((float) Math.PI / 2F);
+			double d3 = Math.atan2(p_226343_4_.zCoord, p_226343_4_.xCoord) - (double) ((float) Math.PI / 2F);
 			double d4 = d3 + (double) (2.0F * p_226343_0_.nextFloat() - 1.0F) * p_226343_5_;
 			double d0 = Math.sqrt(p_226343_0_.nextDouble()) * Utils.SQRT_2 * (double) p_226343_1_;
 			double d1 = -d0 * Math.sin(d4);

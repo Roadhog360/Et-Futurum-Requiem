@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.blocks.ores.modded;
 
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.Tags;
-import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
+import ganymedes01.etfuturum.blocks.BaseEFRBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
@@ -20,8 +20,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-public class BlockGeneralModdedDeepslateOre extends BaseSubtypesBlock implements IInitAction {
-	//Uses BaseSubtypesBlock instead of BaseSubtypesDeepslateOre as the latter is designed for individual mod support rather than the way this is used.
+public class BlockGeneralModdedDeepslateOre extends BaseEFRBlock implements IInitAction {
+	//Uses BaseEFRBlock instead of BaseSubtypesDeepslateOre as the latter is designed for individual mod support rather than the way this is used.
 	public final String[] ores;
 	private final float[] hardnesses;
 	private final float[] resistances;
@@ -34,8 +34,8 @@ public class BlockGeneralModdedDeepslateOre extends BaseSubtypesBlock implements
 		}
 		hardnesses = new float[ores.length];
 		resistances = new float[ores.length];
-		setBlockName(Utils.getUnlocalisedName("modded_deepslate_ore"));
-		setBlockSound(ModSounds.soundDeepslate);
+		setBlockName("modded_deepslate_ore");
+		setStepSound(ModSounds.soundDeepslate);
 		setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 3.0F : 4.5F);
 		setResistance(3);
 		setHarvestLevel("pickaxe", 1);
@@ -52,7 +52,7 @@ public class BlockGeneralModdedDeepslateOre extends BaseSubtypesBlock implements
 	}
 
 	@Override
-	public String getTextureDomain() {
+	public String getTextureDomain(String textureName) {
 		return Tags.MOD_ID;
 	}
 
@@ -88,7 +88,7 @@ public class BlockGeneralModdedDeepslateOre extends BaseSubtypesBlock implements
 					setHarvestLevel("pickaxe", block.getHarvestLevel(stack.getItemDamage()), i);
 				}
 				hardnesses[i] = ConfigFunctions.useStoneHardnessForDeepslate ? block.getBlockHardness(world, 0, 0, 0) : block.getBlockHardness(world, 0, 0, 0) * 1.5F;
-				resistances[i] = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0); //We don't need to divide because the base method we overrode won't be dividing
+				resistances[i] = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0); //We don't need to multiply because we won't divide this value when we call it
 			} catch (Exception e) {
 				setHarvestLevel("pickaxe", 1, i);
 				hardnesses[i] = ConfigFunctions.useStoneHardnessForDeepslate ? Blocks.iron_ore.blockHardness : Blocks.iron_ore.blockHardness * 1.5F;

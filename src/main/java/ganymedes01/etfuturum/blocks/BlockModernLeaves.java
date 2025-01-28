@@ -1,44 +1,31 @@
 package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import roadhog360.hogutils.api.blocksanditems.block.ILeavesDecayRange;
+import roadhog360.hogutils.api.blocksanditems.block.sound.IMultiBlockSound;
 
-import java.util.List;
+import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BlockModernLeaves extends BaseLeaves {
+public class BlockModernLeaves extends BaseEFRLeaves implements ILeavesDecayRange, IMultiBlockSound {
 
 	public BlockModernLeaves() {
 		super("mangrove", "cherry");
-		setCreativeTab(EtFuturum.creativeTabBlocks);
-	}
-
-	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
-	 */
-	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-		if (ConfigExperiments.enableMangroveBlocks) {
-			list.add(new ItemStack(itemIn, 1, 0));
-		}
-		if (ConfigBlocksItems.enableCherryBlocks) {
-			list.add(new ItemStack(itemIn, 1, 1));
-		}
 	}
 
 	@Override
-	public int getRange(int meta) {
-		return meta == 1 ? 7 : 4;
+	public boolean isMetadataEnabled(int meta) {
+		return meta == 1 ? ConfigBlocksItems.enableCherryBlocks : meta == 0 ? ConfigExperiments.enableMangroveBlocks :
+				super.isMetadataEnabled(meta);
 	}
 
 	@Override
@@ -78,5 +65,16 @@ public class BlockModernLeaves extends BaseLeaves {
 			return;
 		}
 		super.randomDisplayTick(world, x, y, z, rand);
+	}
+
+	@Override
+	public byte getDecayCheckRange(World world, int i, int i1, int i2) {
+		return 7;
+	}
+
+	@Nullable
+	@Override
+	public SoundType getSoundType(World world, int i, int i1, int i2, SoundMode soundMode) {
+		return (world.getBlockMetadata(i, i1, i2) & 3) == 1 ? ModSounds.soundCherryLeaves : null;
 	}
 }

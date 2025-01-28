@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.api;
 
+import ganymedes01.etfuturum.api.crops.IBeeGrowable;
 import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
@@ -24,8 +25,8 @@ public class BeePlantRegistry {
 	/// Deprecated; Use HogUtils tagging
 	@Deprecated
 	public static void addCrop(Block block) {
-		if (!(block instanceof IGrowable)) {
-			Logger.warn("Bee crops can only be instance of IGrowable; this entry will do nothing!");
+		if (!(block instanceof IGrowable) || !(block instanceof IBeeGrowable)) {
+			Logger.warn("Bee crops can only be instance of IGrowable or IBeeGrowable; this entry will do nothing!");
 		}
 		HogTagsHelper.BlockTags.addTags(block, OreDictionary.WILDCARD_VALUE, "minecraft:bee_growables");
 	}

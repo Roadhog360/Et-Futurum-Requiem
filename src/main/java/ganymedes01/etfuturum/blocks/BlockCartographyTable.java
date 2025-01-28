@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,7 +23,7 @@ public class BlockCartographyTable extends Block {
 		this.setHardness(2.5F);
 		this.setHarvestLevel("axe", 0);
 		this.setResistance(2.5F);
-		this.setBlockName(Utils.getUnlocalisedName("cartography_table"));
+		this.setBlockName("cartography_table");
 		this.setBlockTextureName("cartography_table");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}

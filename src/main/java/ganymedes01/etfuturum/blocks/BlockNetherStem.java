@@ -1,19 +1,18 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockNetherStem extends BaseLog {
+public class BlockNetherStem extends BaseEFRLogFull {
 
 	public BlockNetherStem(String type) {
 		super(type);
-		for (int i = 0; i < getTypes().length; i++) {
-			getTypes()[i] = getTypes()[i].replace("log", "stem").replace("wood", "hyphae");
+		for (int i = 0; i < getTypes().size(); i++) {
+			getTypes().put(i, getTypes().get(i).replace("log", "stem").replace("wood", "hyphae"));
 		}
-		setBlockName(Utils.getUnlocalisedName(type + "_stem"));
-		setBlockSound(ModSounds.soundStem);
+		setNames(type + "_stem");
+		setStepSound(ModSounds.soundStem);
 	}
 
 	@Override

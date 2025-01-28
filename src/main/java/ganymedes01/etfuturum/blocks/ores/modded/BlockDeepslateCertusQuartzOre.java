@@ -2,8 +2,8 @@ package ganymedes01.etfuturum.blocks.ores.modded;
 
 import ganymedes01.etfuturum.blocks.IEmissiveLayerBlock;
 import ganymedes01.etfuturum.blocks.ores.BaseSubtypesDeepslateOre;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.compat.ExternalContent;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.util.IIcon;
 
@@ -14,7 +14,7 @@ public class BlockDeepslateCertusQuartzOre extends BaseSubtypesDeepslateOre impl
 	}
 
 	@Override
-	public String getTextureSubfolder() {
+	public String getTextureSubfolder(String name) {
 		return "ae2";
 	}
 
@@ -39,6 +39,6 @@ public class BlockDeepslateCertusQuartzOre extends BaseSubtypesDeepslateOre impl
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.EMISSIVE_DOUBLE_LAYER;
+		return BlockRenderers.EMISSIVE_DOUBLE_LAYER.getRenderId();
 	}
 }

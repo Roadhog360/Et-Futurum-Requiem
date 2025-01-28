@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -20,13 +19,13 @@ import net.minecraftforge.common.IShearable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BlockTwistingVines extends BaseBlock implements IShearable {
+public class BlockTwistingVines extends BaseEFRBlock implements IShearable {
 
 	private IIcon topIcon;
 
 	public BlockTwistingVines() {
 		super(Material.plants);
-		setBlockSound(ModSounds.soundWeepingVines);
+		setStepSound(ModSounds.soundWeepingVines);
 		setNames("twisting_vines");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setTickRandomly(true);
@@ -112,11 +111,6 @@ public class BlockTwistingVines extends BaseBlock implements IShearable {
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
-	}
-
-	@Override
-	public int getRenderType() {
-		return RenderIDs.EXTENDED_CROSSED_SQUARES;
 	}
 
 	@Override

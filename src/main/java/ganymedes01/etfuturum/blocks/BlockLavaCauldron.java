@@ -2,8 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -24,7 +23,7 @@ public class BlockLavaCauldron extends BlockCauldron {
 		this.setHardness(2);
 		this.setResistance(2);
 		this.setLightLevel(1.0F);
-		this.setBlockName(Utils.getUnlocalisedName("lava_cauldron"));
+		this.setBlockName("lava_cauldron");
 	}
 
 	@Override
@@ -90,7 +89,7 @@ public class BlockLavaCauldron extends BlockCauldron {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.LAVA_CAULDRON;
+		return BlockRenderers.LAVA_CAULDRON.getRenderId();
 	}
 
 }

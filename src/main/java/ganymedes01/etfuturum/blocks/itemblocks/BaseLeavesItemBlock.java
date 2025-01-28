@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
 import net.minecraft.block.Block;
+import roadhog360.hogutils.api.blocksanditems.block.itemblock.BaseItemBlock;
 
 public class BaseLeavesItemBlock extends BaseItemBlock {
 	public BaseLeavesItemBlock(Block block) {

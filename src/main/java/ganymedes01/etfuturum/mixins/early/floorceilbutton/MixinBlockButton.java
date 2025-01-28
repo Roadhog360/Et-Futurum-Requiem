@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import static net.minecraftforge.common.util.ForgeDirection.DOWN;
 import static net.minecraftforge.common.util.ForgeDirection.UP;
@@ -26,13 +25,12 @@ import static net.minecraftforge.common.util.ForgeDirection.UP;
  * @author roadhog360
  */
 @Mixin(BlockButton.class)
-public class MixinBlockButton extends Block {
+public abstract class MixinBlockButton extends Block {
 
 	protected MixinBlockButton(Material materialIn) {
 		super(materialIn);
 	}
 
-	@Override
 	@Shadow
 	public int isProvidingWeakPower(IBlockAccess worldIn, int x, int y, int z, int side) {
 		return 0;
@@ -65,11 +63,11 @@ public class MixinBlockButton extends Block {
 	 */
 	@Inject(method = "onBlockPlaced",
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockButton;func_150045_e(Lnet/minecraft/world/World;III)I"),
-			cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
+			cancellable = true)
 	public void onBlockPlacedUpDown(World world, int x, int y, int z, int side,
 									float hitX, float hitY, float hitZ, int var,
 									CallbackInfoReturnable<Integer> cir,
-									int j1, int k1, ForgeDirection dir) {
+									@Local(ordinal = 6) int k1, @Local ForgeDirection dir) {
 		if (dir == UP && world.isSideSolid(x, y - 1, z, UP)) {
 			cir.setReturnValue(5 + k1);
 		}
@@ -79,7 +77,7 @@ public class MixinBlockButton extends Block {
 	}
 
 	@Inject(method = "func_150045_e", at = @At(value = "HEAD"), cancellable = true)
-	private void findSolidSide_up_down(World worldIn, int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
+	private void findSolidSideUpDown(World worldIn, int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
 		if (worldIn.isSideSolid(x, y - 1, z, UP)) {
 			cir.setReturnValue(5);
 		}
@@ -89,15 +87,20 @@ public class MixinBlockButton extends Block {
 	}
 
 	@ModifyVariable(method = "onNeighborBlockChange",
-			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isSideSolid(IIILnet/minecraftforge/common/util/ForgeDirection;)Z", remap = false, shift = At.Shift.BEFORE, ordinal = 0))
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isSideSolid(IIILnet/minecraftforge/common/util/ForgeDirection;)Z", remap = false,
+					shift = At.Shift.BEFORE, ordinal = 0))
 	public boolean modifyFlag(boolean flag,
-							  @Local(name = "worldIn") World world, @Local(name = "x") int x, @Local(name = "y") int y, @Local(name = "z") int z, @Local(name = "l") int meta) {
+							  @Local(argsOnly = true) World world,
+							  @Local(argsOnly = true, ordinal = 0) int x,
+							  @Local(argsOnly = true, ordinal = 1) int y,
+							  @Local(argsOnly = true, ordinal = 2) int z,
+							  @Local(name = "l") int meta) {
 		return flag || (meta == 5 && !world.isSideSolid(x, y - 1, z, ForgeDirection.UP)) ||
 				(meta == 0 && !world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN));
 	}
 
-	@Inject(method = "func_150043_b", at = @At(value = "TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void setBlockBoundsFromMeta(int meta, CallbackInfo ci, int j, boolean flag, float f, float f1, float f2, float f3) {
+	@Inject(method = "func_150043_b", at = @At(value = "TAIL"))
+	private void setBlockBoundsFromMeta(int meta, CallbackInfo ci, @Local(ordinal = 1) int j, @Local(ordinal = 0) float f, @Local(ordinal = 1) float f1, @Local(ordinal = 2) float f2, @Local(ordinal = 3) float f3) {
 		if (j == 5) {
 			this.setBlockBounds(0.5F - f2, 0.0F, f, 0.5F + f2, f3, f1);
 		} else if (j == 0) {

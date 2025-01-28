@@ -3,8 +3,7 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -28,7 +27,7 @@ public class BlockLoom extends Block {
 		this.setHardness(2.5F);
 		this.setHarvestLevel("axe", 0);
 		this.setResistance(2.5F);
-		this.setBlockName(Utils.getUnlocalisedName("loom"));
+		this.setBlockName("loom");
 		this.setBlockTextureName("loom");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
@@ -82,7 +81,7 @@ public class BlockLoom extends Block {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.LOOM;
+		return BlockRenderers.LOOM.getRenderId();
 	}
 
 }

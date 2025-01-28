@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSign;
 import net.minecraft.init.Blocks;
@@ -42,13 +41,13 @@ public class BlockWoodSign extends BlockSign {
 		}
 		setHardness(1.0F);
 		disableStats();
-		setBlockName(Utils.getUnlocalisedName(type + "_sign"));
+		setBlockName(type + "_sign");
 		if (type.equals("crimson") || type.equals("warped")) {
-			Utils.setBlockSound(this, ModSounds.soundNetherWood);
+			setStepSound(ModSounds.soundNetherWood);
 		} else if (type.equals("cherry")) {
-			Utils.setBlockSound(this, ModSounds.soundCherryWood);
+			setStepSound(ModSounds.soundCherryWood);
 		} else if (type.equals("bamboo")) {
-			Utils.setBlockSound(this, ModSounds.soundBambooWood);
+			setStepSound(ModSounds.soundBambooWood);
 		} else {
 			setStepSound(Block.soundTypeWood);
 		}

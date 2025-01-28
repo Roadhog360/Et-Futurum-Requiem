@@ -1,20 +1,20 @@
 package ganymedes01.etfuturum.blocks;
 
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockChain extends BaseBlock {
+public class BlockChain extends BaseEFRBlock {
 
 	public BlockChain() {
 		super(Material.iron);
 		setNames("chain");
 		setResistance(6F);
 		setHardness(5F);
-		setBlockSound(ModSounds.soundChain);
+		setStepSound(ModSounds.soundChain);
 	}
 
 	@Override
@@ -84,6 +84,6 @@ public class BlockChain extends BaseBlock {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.CHAIN;
+		return BlockRenderers.CHAIN.getRenderId();
 	}
 }

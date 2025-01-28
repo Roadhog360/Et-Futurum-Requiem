@@ -3,9 +3,8 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.ducks.IObserverWorldExtension;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -31,7 +30,7 @@ public class BlockObserver extends Block implements IBlockObserver {
 		this.setHardness(3F);
 		this.setHarvestLevel("pickaxe", 0);
 		this.setResistance(3F);
-		this.setBlockName(Utils.getUnlocalisedName("observer"));
+		this.setBlockName("observer");
 		this.setBlockTextureName("observer");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
@@ -81,7 +80,7 @@ public class BlockObserver extends Block implements IBlockObserver {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.OBSERVER;
+		return BlockRenderers.OBSERVER.getRenderId();
 	}
 
 	@Override

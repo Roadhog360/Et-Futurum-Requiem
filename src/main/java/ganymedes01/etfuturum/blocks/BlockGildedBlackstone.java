@@ -11,12 +11,12 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BlockGildedBlackstone extends BaseBlock {
+public class BlockGildedBlackstone extends BaseEFRBlock {
 	public BlockGildedBlackstone() {
 		super(Material.rock);
 		setResistance(6.0F);
 		setHardness(1.5F);
-		setBlockSound(ModSounds.soundGildedBlackstone);
+		setStepSound(ModSounds.soundGildedBlackstone);
 		setNames("gilded_blackstone");
 	}
 

@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,9 +18,9 @@ public class BlockAncientDebris extends Block {
 		setHarvestLevel("pickaxe", 3);
 		setHardness(30F);
 		setResistance(1200F);
-		Utils.setBlockSound(this, ModSounds.soundAncientDebris);
+		setStepSound(ModSounds.soundAncientDebris);
 		setBlockTextureName("ancient_debris");
-		setBlockName(Utils.getUnlocalisedName("ancient_debris"));
+		setBlockName("ancient_debris");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 

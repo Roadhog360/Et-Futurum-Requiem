@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks.ores;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -19,7 +18,7 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 		super(lit ? Blocks.lit_redstone_ore : Blocks.redstone_ore);
 		if (lit) {
 			setCreativeTab(null);
-			setBlockName(Utils.getUnlocalisedName("deepslate_lit_redstone_ore"));
+			setBlockName("deepslate_lit_redstone_ore");
 			setTickRandomly(true);
 			this.isLit = true;
 		}

@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,10 +18,10 @@ public class BlockLodestone extends Block {
 		setHardness(3.5F);
 		setResistance(3.5F);
 		setHarvestLevel("pickaxe", 1);
-		setBlockName(Utils.getUnlocalisedName("lodestone"));
+		setBlockName("lodestone");
 		setBlockTextureName("lodestone");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-		Utils.setBlockSound(this, ModSounds.soundLodestone);
+		setStepSound(ModSounds.soundLodestone);
 		setTickRandomly(true);
 	}
 

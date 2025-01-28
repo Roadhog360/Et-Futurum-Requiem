@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -10,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockTuff extends BaseSubtypesBlock {
+public class BlockTuff extends BaseEFRBlock {
 
 	private IIcon chiseledTuffTop;
 	private IIcon chiseledTuffBricksTop;
@@ -20,7 +19,7 @@ public class BlockTuff extends BaseSubtypesBlock {
 		setHardness(1.5F);
 		setResistance(6.0F);
 		setNames("tuff");
-		setBlockSound(ModSounds.soundTuff);
+		setStepSound(ModSounds.soundTuff);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
@@ -46,14 +45,7 @@ public class BlockTuff extends BaseSubtypesBlock {
 
 	@Override
 	public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
-		boolean flag = this == target;
-		if (world.getBlockMetadata(x, y, z) == 0 && world.getBlock(x, y, z) == this) {
-			flag |= target == Blocks.stone || target == ModBlocks.DEEPSLATE.get();
-			if (flag) {
-				BlockDeepslate.doDeepslateRedoCheck(world, x, y, z);
-			}
-		}
-		return flag;
+		return this == target || target == Blocks.stone;
 	}
 
 }

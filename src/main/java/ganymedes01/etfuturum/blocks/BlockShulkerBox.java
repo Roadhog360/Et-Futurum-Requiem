@@ -53,7 +53,7 @@ public class BlockShulkerBox extends BlockContainer {
 		this.setStepSound(soundTypeStone);
 		this.setHardness(2.5F);
 		this.setResistance(2.5F);
-		this.setBlockName(Utils.getUnlocalisedName("shulker_box"));
+		this.setBlockName("shulker_box");
 		this.setBlockTextureName("shulker_box");
 		this.isBlockContainer = true;
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);

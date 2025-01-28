@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -20,9 +19,9 @@ public class BlockMuddyMangroveRoots extends BlockRotatedPillar {
 		super(Material.ground);
 		setHardness(0.7F);
 		setResistance(0.7F);
-		Utils.setBlockSound(this, ModSounds.soundMuddyMangroveRoots);
+		setStepSound(ModSounds.soundMuddyMangroveRoots);
 		setBlockTextureName("muddy_mangrove_roots");
-		setBlockName(Utils.getUnlocalisedName("muddy_mangrove_roots"));
+		setBlockName("muddy_mangrove_roots");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setHarvestLevel("shovel", 0);
 	}

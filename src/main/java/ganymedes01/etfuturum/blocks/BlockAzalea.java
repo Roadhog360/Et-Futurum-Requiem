@@ -3,47 +3,42 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.Tags;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
-import net.minecraft.block.BlockBush;
+import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
+import roadhog360.hogutils.api.blocksanditems.BaseHelper;
+import roadhog360.hogutils.api.blocksanditems.block.BaseBush;
 
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Map;
 
-public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
+public class BlockAzalea extends BaseBush {
 
-	public IIcon[] sideIcons;
-	public IIcon[] topIcons;
-	public int meta;
+	private final Map<Integer, IIcon> topIcons = new Int2ObjectArrayMap<>();
 
-	private final String[] types = new String[]{"azalea", "flowering_azalea"};
-
-	public BlockAzalea() {
-		super(Material.wood);
+	public BlockAzalea(String... types) {
+		super(types);
+		blockMaterial = Material.wood;
 		setHardness(0.0F);
 		setResistance(0.0F);
-		Utils.setBlockSound(this, ModSounds.soundAzalea);
-		setBlockName(Utils.getUnlocalisedName("azalea"));
-		setBlockTextureName("azalea");
+		setStepSound(ModSounds.soundAzalea);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setBlockBounds(0, 0, 0, 1, 1, 1);
 	}
 
-	@Override
-	public boolean isOpaqueCube() {
-		return false;
+	public BlockAzalea() {
+		this("azalea", "flowering_azalea");
 	}
 
 	@Override
@@ -77,20 +72,13 @@ public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
-		for (int i = 0; i < getTypes().length; i++) {
-			list.add(new ItemStack(item, 1, i));
-		}
-	}
-
-	@Override
 	public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.AZALEA;
+		return BlockRenderers.AZALEA.getRenderId();
 	}
 
 	@Override
@@ -101,24 +89,24 @@ public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
-		this.blockIcon = reg.registerIcon(this.getTextureName() + "_plant");
+		topIcons.clear();
+		getIcons().clear();
 
-		sideIcons = new IIcon[2];
-		topIcons = new IIcon[2];
-		sideIcons[0] = reg.registerIcon(this.getTextureName() + "_side");
-		sideIcons[1] = reg.registerIcon("flowering_" + this.getTextureName() + "_side");
-		topIcons[0] = reg.registerIcon(this.getTextureName() + "_top");
-		topIcons[1] = reg.registerIcon("flowering_" + this.getTextureName() + "_top");
+		for(Map.Entry<Integer, String> entry : this.getTypes().entrySet()) {
+			topIcons.put(entry.getKey(),
+					reg.registerIcon(BaseHelper.getTextureName(entry.getValue() + "_top", this.getTextureDomain(entry.getValue()),
+							this.getTextureSubfolder(entry.getValue()))));
+			getIcons().put(entry.getKey(),
+					reg.registerIcon(BaseHelper.getTextureName(entry.getValue() + "_side", this.getTextureDomain(entry.getValue()),
+							this.getTextureSubfolder(entry.getValue()))));
+		}
+
+		this.blockIcon = reg.registerIcon("azalea_plant");
 	}
 
 	@Override
 	public int damageDropped(int meta) {
-		return meta % getTypes().length;
-	}
-
-	@Override
-	public IIcon[] getIcons() {
-		return sideIcons;
+		return this.isMetadataEnabled(meta) ? meta : 0;
 	}
 
 	@Override
@@ -127,23 +115,25 @@ public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 			return this.blockIcon;
 		}
 		if (side == 1) {
-			return topIcons[meta % topIcons.length];
+			return topIcons.getOrDefault(meta, super.getIcon(side, meta));
 		}
-		return sideIcons[meta % topIcons.length];
-	}
-
-	@Override
-	public String[] getTypes() {
-		return types;
-	}
-
-	@Override
-	public String getNameFor(ItemStack stack) {
-		return getTypes()[stack.getItemDamage() % types.length];
+		return getIcons().getOrDefault(meta, super.getIcon(side, meta));
 	}
 
 	@Override
 	public MapColor getMapColor(int meta) {
 		return MapColor.grassColor;
+	}
+
+	@Nullable
+	@Override
+	public String getTextureDomain(String s) {
+		return null;
+	}
+
+	@Nullable
+	@Override
+	public String getNameDomain(String s) {
+		return Tags.MOD_ID;
 	}
 }

@@ -5,7 +5,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourTippedArrow;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -39,7 +38,7 @@ public class ItemArrowTipped extends Item {
 	public ItemArrowTipped() {
 		setHasSubtypes(true);
 		setTextureName("tipped_arrow");
-		setUnlocalizedName(Utils.getUnlocalisedName("tipped_arrow"));
+		setUnlocalizedName("tipped_arrow");
 		setCreativeTab(EtFuturum.creativeTabItems);
 
 		if (ConfigBlocksItems.enableTippedArrows)

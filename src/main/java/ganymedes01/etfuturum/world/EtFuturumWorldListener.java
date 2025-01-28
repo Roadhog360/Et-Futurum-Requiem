@@ -1,13 +1,13 @@
 package ganymedes01.etfuturum.world;
 
 import com.google.common.collect.Maps;
+import com.gtnewhorizon.gtnhlib.client.renderer.util.DirectionUtil;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockBubbleColumn;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -20,6 +20,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import roadhog360.hogutils.api.utils.GenericUtils;
 
 import java.util.Map;
 
@@ -95,7 +96,7 @@ public class EtFuturumWorldListener implements IWorldAccess {
 			return;
 
 		handleBasaltFromLava(x, y, z);
-		for (ForgeDirection dir : Utils.FORGE_DIRECTIONS) {
+		for (ForgeDirection dir : DirectionUtil.ALL_DIRECTIONS) {
 			handleBubbleColumnCreation(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 		}
 
@@ -132,7 +133,7 @@ public class EtFuturumWorldListener implements IWorldAccess {
 				Block soulsand = ModBlocks.SOUL_SOIL.isEnabled() ? ModBlocks.SOUL_SOIL.get() : Blocks.soul_sand;
 				if (world.getBlock(x, y - 1, z) == soulsand) {
 					Block ice = ModBlocks.BLUE_ICE.isEnabled() ? ModBlocks.BLUE_ICE.get() : Blocks.packed_ice;
-					for (EnumFacing facing : Utils.ENUM_FACING_VALUES) {
+					for (EnumFacing facing : GenericUtils.Constants.ENUM_FACING_VALUES) {
 						if (facing == EnumFacing.DOWN) continue;
 						if (world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ()) == ice) {
 							world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);

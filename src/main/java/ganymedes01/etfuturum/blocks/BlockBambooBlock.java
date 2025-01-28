@@ -1,51 +1,27 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.core.utils.Utils;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
+import roadhog360.hogutils.api.blocksanditems.block.BaseLog;
 
-import java.util.List;
+import javax.annotation.Nullable;
 
 public class BlockBambooBlock extends BaseLog {
 
 	public BlockBambooBlock(String type) {
-		super(type);
-		types = new String[]{type + "_block", "stripped_" + type + "_block"};
-		setBlockName(Utils.getUnlocalisedName(type + "_block"));
-		setBlockSound(ModSounds.soundBambooWood);
+		super(type + "_block", "stripped_" + type + "_block");
+		setStepSound(ModSounds.soundBambooWood);
 	}
 
+	@Nullable
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-		list.add(new ItemStack(itemIn, 1, 0));
-		if (ConfigBlocksItems.enableStrippedLogs) {
-			list.add(new ItemStack(itemIn, 1, 1));
-		}
+	public String getTextureDomain(String s) {
+		return null;
 	}
 
+	@Nullable
 	@Override
-	public boolean canSustainLeaves(IBlockAccess world, int x, int y, int z) {
-		return false;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister iconRegister) {
-		field_150167_a = new IIcon[types.length];
-		field_150166_b = new IIcon[types.length];
-
-		blockIcon = field_150167_a[0] = iconRegister.registerIcon(types[0]);
-		field_150166_b[0] = iconRegister.registerIcon(types[0] + "_top");
-
-		field_150167_a[1] = iconRegister.registerIcon(types[1]);
-		field_150166_b[1] = iconRegister.registerIcon(types[1] + "_top");
+	public String getNameDomain(String s) {
+		return Tags.MOD_ID;
 	}
 }

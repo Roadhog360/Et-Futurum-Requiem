@@ -8,13 +8,13 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockSoulSoil extends BaseBlock {
+public class BlockSoulSoil extends BaseEFRBlock {
 	public BlockSoulSoil() {
 		super(Material.ground);
 		setHardness(0.5F);
 		setResistance(0.5F);
 		setNames("soul_soil");
-		setBlockSound(ModSounds.soundSoulSoil);
+		setStepSound(ModSounds.soundSoulSoil);
 		setHarvestLevel("shovel", 0);
 	}
 

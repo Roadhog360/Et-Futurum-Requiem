@@ -184,7 +184,7 @@ public class CompostingRegistry {
 	 * Print all entries in composting registry. Used for debugging purposes.
 	 */
 	public void printCompostables() {
-		getComposts().forEach((key, value) -> Logger.info("Composter entry: " + Item.itemRegistry.getNameForObject(key.getItem()) + " Meta: " + (key.getItemDamage() == OreDictionary.WILDCARD_VALUE ? "any" : key.getItemDamage())));
+		getComposts().forEach((key, value) -> Logger.info("Composter entry: " + (key.getItem()) + " Meta: " + Item.itemRegistry.getNameForObject((key.getItemDamage() == OreDictionary.WILDCARD_VALUE ? "any" : key.getItemDamage()))));
 	}
 
 }

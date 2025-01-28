@@ -2,8 +2,8 @@ package ganymedes01.etfuturum.blocks.ores.modded;
 
 import ganymedes01.etfuturum.blocks.IEmissiveLayerBlock;
 import ganymedes01.etfuturum.blocks.ores.BaseSubtypesDeepslateOre;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.compat.ExternalContent;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.util.IIcon;
 
@@ -14,29 +14,21 @@ public class BlockDeepslateFiskHeroOre extends BaseSubtypesDeepslateOre implemen
 	}
 
 	@Override
-	public String getTextureSubfolder() {
+	public String getTextureSubfolder(String name) {
 		return "fiskheroes";
 	}
 
 	@Override
 	public Block getBase(int meta) {
-		switch (meta) {
-			case 1:
-				return ExternalContent.Blocks.FISK_TUTRIDIUM_SPECKLED_STONE.get();
-			case 2:
-				return ExternalContent.Blocks.FISK_VIBRANIUM_ORE.get();
-			case 3:
-				return ExternalContent.Blocks.FISK_DWARF_STAR_ORE.get();
-			case 4:
-				return ExternalContent.Blocks.FISK_OLIVINE_ORE.get();
-			case 5:
-				return ExternalContent.Blocks.FISK_ETERNIUM_ORE.get();
-			case 6:
-				return ExternalContent.Blocks.FISK_ETERNIUM_INFUSED_STONE.get();
-			case 0:
-			default:
-				return ExternalContent.Blocks.FISK_TUTRIDIUM_ORE.get();
-		}
+		return switch (meta) {
+			case 1 -> ExternalContent.Blocks.FISK_TUTRIDIUM_SPECKLED_STONE.get();
+			case 2 -> ExternalContent.Blocks.FISK_VIBRANIUM_ORE.get();
+			case 3 -> ExternalContent.Blocks.FISK_DWARF_STAR_ORE.get();
+			case 4 -> ExternalContent.Blocks.FISK_OLIVINE_ORE.get();
+			case 5 -> ExternalContent.Blocks.FISK_ETERNIUM_ORE.get();
+			case 6 -> ExternalContent.Blocks.FISK_ETERNIUM_INFUSED_STONE.get();
+			default -> ExternalContent.Blocks.FISK_TUTRIDIUM_ORE.get();
+		};
 	}
 
 	@Override
@@ -66,6 +58,6 @@ public class BlockDeepslateFiskHeroOre extends BaseSubtypesDeepslateOre implemen
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.EMISSIVE_DOUBLE_LAYER;
+		return BlockRenderers.EMISSIVE_DOUBLE_LAYER.getRenderId();
 	}
 }

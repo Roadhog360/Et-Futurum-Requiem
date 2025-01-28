@@ -1,20 +1,15 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockCutCopperSlab extends BaseSlab implements IDegradable {
+public class BlockCutCopperSlab extends BaseEFRSlab implements IDegradable {
 
 	public BlockCutCopperSlab(boolean isDouble) {
 		this(isDouble, "cut_copper", "exposed_cut_copper", "weathered_cut_copper", "oxidized_cut_copper", "waxed_cut_copper", "waxed_exposed_cut_copper",
@@ -26,9 +21,9 @@ public class BlockCutCopperSlab extends BaseSlab implements IDegradable {
 		setHardness(3);
 		setResistance(6);
 		setHarvestLevel("pickaxe", 1);
-		setBlockName(Utils.getUnlocalisedName("cut_copper_slab"));
+		setBlockName("cut_copper_slab");
 		setBlockTextureName("cut_copper");
-		setBlockSound(ModSounds.soundCopper);
+		setStepSound(ModSounds.soundCopper);
 		setTickRandomly(true);
 	}
 
@@ -42,14 +37,14 @@ public class BlockCutCopperSlab extends BaseSlab implements IDegradable {
 		return tryWaxOnWaxOff(world, x, y, z, entityPlayer);
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
-		setIcons(new IIcon[4]);
-		for (int i = 0; i < getIcons().length; i++) {
-			getIcons()[i] = reg.registerIcon((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":") + getTypes()[i]);
-		}
-	}
+//	@Override
+//	@SideOnly(Side.CLIENT)
+//	public void registerBlockIcons(IIconRegister reg) {
+//		getIcons().clear();
+//		for (int i = 0; i < getIcons().size(); i++) {
+//			getIcons().put(reg.registerIcon((getTextureDomain() == null ? "" : getTextureDomain() + ":") + getTypes()[i]));
+//		}
+//	}
 
 	@Override
 	public int getFinalCopperMeta(IBlockAccess world, int x, int y, int z, int copperMeta, int worldMeta) {

@@ -30,13 +30,13 @@ public class BlockCopperBulb extends BlockCopper {
 				"waxed_copper_bulb_lit", "waxed_exposed_copper_bulb_lit", "waxed_weathered_copper_bulb_lit", "waxed_oxidized_copper_bulb_lit"
 		});
 		this.powered = powered;
-		setBlockSound(ModSounds.soundCopperBulb);
+		setStepSound(ModSounds.soundCopperBulb);
 	}
 
 	@Override
-	public String getNameFor(ItemStack stack) {
-		String type = getTypes()[(stack.getItemDamage() % 4) + (stack.getItemDamage() > 7 ? 8 : 0)];
-		return "".equals(type) ? getUnlocalizedName().replace("tile.", "").replace(getNameDomain() + ".", "") : type;
+	public String getDisplayName(ItemStack stack) {
+		String type = getTypes().get((stack.getItemDamage() % 4) + (stack.getItemDamage() > 7 ? 8 : 0));
+		return type == null ? getUnlocalizedName() : type;
 	}
 
 	@Override

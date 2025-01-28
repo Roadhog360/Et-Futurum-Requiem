@@ -11,7 +11,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -49,7 +48,7 @@ public class ItemArmorStand extends BaseItem {
 		double d2 = z;
 		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBox(d0, d1, d2, d0 + 1.0D, d1 + 2.0D, d2 + 1.0D));
 
-		if (list.size() > 0)
+		if (!list.isEmpty())
 			return false;
 		if (!world.isRemote) {
 			world.setBlockToAir(x, y, z);
@@ -87,10 +86,9 @@ public class ItemArmorStand extends BaseItem {
 	}
 
 	public void merge(NBTTagCompound nbt, NBTTagCompound other) {
-		Iterator<String> iterator = other.func_150296_c().iterator(); // getKeySet
+		// getKeySet
 
-		while (iterator.hasNext()) {
-			String s = iterator.next();
+		for (String s : other.func_150296_c()) {
 			NBTBase nbtbase = other.getTag(s);
 
 			if (nbtbase.getId() == 10) {

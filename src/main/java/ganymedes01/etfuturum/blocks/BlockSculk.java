@@ -7,13 +7,13 @@ import net.minecraft.world.IBlockAccess;
 
 import java.util.Random;
 
-public class BlockSculk extends BaseBlock {
+public class BlockSculk extends BaseEFRBlock {
 	public BlockSculk() {
 		super(Material.ground);
 		setNames("sculk");
 		setHardness(.6F);
 		setResistance(.2F);
-		setBlockSound(ModSounds.soundSculk);
+		setStepSound(ModSounds.soundSculk);
 	}
 
 	@Override

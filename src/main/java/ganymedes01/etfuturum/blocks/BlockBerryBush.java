@@ -5,7 +5,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
@@ -32,8 +31,8 @@ public class BlockBerryBush extends BlockBush implements IGrowable {
 
 	public BlockBerryBush() {
 		super(Material.vine);
-		Utils.setBlockSound(this, ModSounds.soundBerryBush);
-		setBlockName(Utils.getUnlocalisedName("sweet_berry_bush"));
+		setStepSound(ModSounds.soundBerryBush);
+		setBlockName("sweet_berry_bush");
 		setBlockTextureName("sweet_berry_bush");
 		setCreativeTab(null);
 		setTickRandomly(true);

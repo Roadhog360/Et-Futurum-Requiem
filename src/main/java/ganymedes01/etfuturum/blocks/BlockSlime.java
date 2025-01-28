@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.blocks;
 
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class BlockSlime extends BaseBlock {
+public class BlockSlime extends BaseEFRBlock {
 
 	private static final Map<Entity, Double> SLIME_BOUNCE_CACHE = new WeakHashMap<>();
 	private long lastBounceTick;
@@ -18,8 +18,8 @@ public class BlockSlime extends BaseBlock {
 	public BlockSlime() {
 		super(Material.clay);
 		setHardness(0.0F);
-		setNames("slime");
-		setBlockSound(ModSounds.soundSlime);
+		setNames("slime_block");
+		setStepSound(ModSounds.soundSlime);
 	}
 
 	@Override
@@ -73,6 +73,6 @@ public class BlockSlime extends BaseBlock {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.SLIME_BLOCK;
+		return BlockRenderers.SLIME_BLOCK.getRenderId();
 	}
 }

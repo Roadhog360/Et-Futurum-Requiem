@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.blocks.itemblocks;
 
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourShulkerBox;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
@@ -46,7 +45,7 @@ public class ItemBlockShulkerBox extends ItemBlock {
 			String dye = ModRecipes.dye_names[stack.getTagCompound().getByte("Color") - 1 % ModRecipes.dye_names.length];
 			string = dye + "_" + string;
 		}
-		return "tile." + Utils.getUnlocalisedName(string);
+		return "tile." + string;
 	}
 
 	@Override

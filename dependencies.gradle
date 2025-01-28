@@ -38,7 +38,8 @@ dependencies {
     compileOnly "com.falsepattern:rple-mc1.7.10:1.1.0"
 
     //My core mod
-    api files('libs/hogutils-e2e466d3b1-dirty-dev.jar')
+    implementation files('libs/hogutils-0.0.0-nightly-dev.jar')
+    implementation files('libs/gtnhlib-dev.jar') //temp until HogUtils is on some sort of maven; then this will be transitively pulled in (probably will just use ModrinthMaven lmao)
 
     // Can use `compileOnly` instead of `compile` if you want to require it at build time,
     // but not require it in `runClient`/`runServer`

@@ -16,7 +16,7 @@ import java.util.Random;
 
 import static net.minecraftforge.common.EnumPlantType.Nether;
 
-public class BlockWitherRose extends BaseFlower {
+public class BlockWitherRose extends BaseEFRFlower {
 
 	public BlockWitherRose() {
 		setNames("wither_rose");

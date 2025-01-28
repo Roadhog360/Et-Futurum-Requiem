@@ -4,9 +4,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.Tags;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,7 +19,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockHoney extends BaseBlock {
+public class BlockHoney extends BaseEFRBlock {
 
 	private IIcon bottomIcon;
 	private IIcon topIcon;
@@ -27,7 +27,7 @@ public class BlockHoney extends BaseBlock {
 	public BlockHoney() {
 		super(Material.clay);
 		setNames("honey_block");
-		setBlockSound(ModSounds.soundHoneyBlock);
+		setStepSound(ModSounds.soundHoneyBlock);
 	}
 
 	/**
@@ -154,6 +154,6 @@ public class BlockHoney extends BaseBlock {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.HONEY_BLOCK;
+		return BlockRenderers.HONEY_BLOCK.getRenderId();
 	}
 }

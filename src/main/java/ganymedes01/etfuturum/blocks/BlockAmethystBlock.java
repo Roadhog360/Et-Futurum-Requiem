@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.world.World;
 
-public class BlockAmethystBlock extends BaseBlock {
+public class BlockAmethystBlock extends BaseEFRBlock {
 
 	public BlockAmethystBlock() {
 		this(Material.rock);
@@ -17,7 +17,7 @@ public class BlockAmethystBlock extends BaseBlock {
 		super(material);
 		setHardness(1.5F);
 		setResistance(1.5F);
-		setBlockSound(ModSounds.soundAmethystBlock);
+		setStepSound(ModSounds.soundAmethystBlock);
 		setNames("amethyst_block");
 	}
 

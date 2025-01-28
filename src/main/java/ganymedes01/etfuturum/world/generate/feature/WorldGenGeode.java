@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.world.generate.feature;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.helpers.DoublePerlinNoiseSampler;
@@ -13,6 +12,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import org.apache.commons.lang3.tuple.Pair;
+import roadhog360.hogutils.api.RegistryMapping;
+import roadhog360.hogutils.api.utils.GenericUtils;
 
 import java.util.Iterator;
 import java.util.List;
@@ -160,7 +161,7 @@ public class WorldGenGeode extends WorldGenerator {
 
 					for (BlockPos buddingPos : buddingList) {
 						budBlock = Utils.getRandom(budBlocks, random);
-						EnumFacing[] directions = Utils.ENUM_FACING_VALUES;
+						EnumFacing[] directions = GenericUtils.Constants.ENUM_FACING_VALUES;
 
 						for (EnumFacing budFacing : directions) {
 							BlockPos budPos = buddingPos.offset(budFacing);

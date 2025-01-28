@@ -4,12 +4,12 @@ import ganymedes01.etfuturum.ModBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 
-public class BlockBlackstoneWall extends BaseWall {
+public class BlockBlackstoneWall extends BaseEFRWall {
 	public BlockBlackstoneWall() {
 		super(Material.rock, "blackstone", "polished_blackstone", "polished_blackstone_bricks");
 		setResistance(6.0F);
 		setHardness(1.5F);
-		setHardnesses(2.0F, 1);
+		setHardnessValues(2.0F, 1);
 	}
 
 	@Override

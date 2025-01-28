@@ -3,36 +3,41 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.Tags;
+import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minecraft.block.BlockNewLog;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
+import roadhog360.hogutils.api.blocksanditems.block.ISubtypesBlock;
 
-public class BlockStrippedNewLog extends BlockNewLog implements ISubBlocksBlock {
+import javax.annotation.Nullable;
+import java.util.Map;
+
+public class BlockStrippedNewLog extends BlockNewLog implements ISubtypesBlock {
 
 	public static final String[] icon_names = new String[]{"stripped_acacia_log", "stripped_dark_oak_log"};
 
 	public BlockStrippedNewLog() {
-		setBlockName(Utils.getUnlocalisedName("log2_stripped"));
+		setBlockName("log2_stripped");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override
-	public IIcon[] getIcons() {
-		return field_150167_a;
+	public Map<Integer, IIcon> getIcons() {
+		return new Int2ObjectArrayMap<>();
 	}
 
 	@Override
-	public String[] getTypes() {
-		return icon_names;
+	public Map<Integer, String> getTypes() {
+		return new Int2ObjectArrayMap<>();
 	}
 
 	@Override
-	public String getNameFor(ItemStack stack) {
-		return getTypes()[stack.getItemDamage() % getTypes().length];
+	public String getDisplayName(ItemStack stack) {
+		return getTypes().get(stack.getItemDamage());
 	}
 
 	@Override
@@ -60,5 +65,17 @@ public class BlockStrippedNewLog extends BlockNewLog implements ISubBlocksBlock 
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return 5;
+	}
+
+	@Nullable
+	@Override
+	public String getTextureDomain(String s) {
+		return null;
+	}
+
+	@Nullable
+	@Override
+	public String getNameDomain(String s) {
+		return Tags.MOD_ID;
 	}
 }

@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
@@ -16,7 +15,7 @@ public class BlockBeetroot extends BlockCrops {
 	public BlockBeetroot() {
 		setCreativeTab(null);
 		setBlockTextureName("beetroots");
-		setBlockName(Utils.getUnlocalisedName("beetroots"));
+		setBlockName("beetroots");
 	}
 
 	@Override

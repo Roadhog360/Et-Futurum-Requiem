@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.entities;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
@@ -29,6 +28,7 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
+import roadhog360.hogutils.api.utils.GenericUtils;
 
 import java.util.List;
 import java.util.UUID;
@@ -90,7 +90,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 			int yPos = MathHelper.floor_double(posY);
 			int zPos = MathHelper.floor_double(posZ);
 			this.setAttachmentPos(new BlockPos(xPos, yPos, zPos));
-			for (EnumFacing enumfacing1 : Utils.ENUM_FACING_VALUES) {
+			for (EnumFacing enumfacing1 : GenericUtils.Constants.ENUM_FACING_VALUES) {
 				if (this.worldObj.isBlockNormalCubeDefault(xPos + enumfacing1.getFrontOffsetX(), yPos + enumfacing1.getFrontOffsetY(), zPos + enumfacing1.getFrontOffsetZ(), false)) {
 					this.getDataWatcher().updateObject(ATTACHED_FACE, (byte) enumfacing1.ordinal());
 					break;
@@ -257,7 +257,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 				boolean flag = false;
 
 
-				for (EnumFacing enumfacing1 : Utils.ENUM_FACING_VALUES) {
+				for (EnumFacing enumfacing1 : GenericUtils.Constants.ENUM_FACING_VALUES) {
 					if (this.worldObj.isBlockNormalCubeDefault(blockpos.getX() + enumfacing1.getFrontOffsetX(), blockpos.getY() + enumfacing1.getFrontOffsetY(),
 							blockpos.getZ() + enumfacing1.getFrontOffsetZ(), false)) {
 						this.getDataWatcher().updateObject(ATTACHED_FACE, (byte) enumfacing1.ordinal());
@@ -383,7 +383,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 						&& /* this.worldObj.isInsideBorder(this.worldObj.getWorldBorder(), this) && */this.worldObj.getCollidingBoundingBoxes(this, AxisAlignedBB.getBoundingBox(newx, newy, newz, newx + 1, newy + 1, newz + 1)).isEmpty()) {
 					boolean flag = false;
 
-					for (EnumFacing enumfacing : Utils.ENUM_FACING_VALUES) {
+					for (EnumFacing enumfacing : GenericUtils.Constants.ENUM_FACING_VALUES) {
 						if (this.worldObj.isBlockNormalCubeDefault(newx + enumfacing.getFrontOffsetX(), newy + enumfacing.getFrontOffsetY(),
 								newz + enumfacing.getFrontOffsetZ(), false)) {
 							this.getDataWatcher().updateObject(ATTACHED_FACE, (byte) enumfacing.ordinal());

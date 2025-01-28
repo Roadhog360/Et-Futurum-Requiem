@@ -2,9 +2,9 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
@@ -19,14 +19,14 @@ public class BlockLantern extends Block {
 		float f = 0.375F;
 		float f1 = f / 2.0F;
 		this.setHarvestLevel("pickaxe", 0);
-		Utils.setBlockSound(this, ModSounds.soundLantern);
+		setStepSound(ModSounds.soundLantern);
 		Utils.setLightLevel(this, lightLevel);
 		this.setHardness(3.5F);
 		this.setResistance(3.5F);
 		this.setLightOpacity(500);
 		this.setBlockBounds(0.5F - f1, r * 1, 0.5F - f1, 0.5F + f1, r * 7, 0.5F + f1);
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
-		this.setBlockName(Utils.getUnlocalisedName(name));
+		this.setBlockName(name);
 		this.setBlockTextureName(name);
 		this.setLightOpacity(0);
 	}
@@ -108,7 +108,7 @@ public class BlockLantern extends Block {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.LANTERN;
+		return BlockRenderers.LANTERN.getRenderId();
 	}
 
 	@Override

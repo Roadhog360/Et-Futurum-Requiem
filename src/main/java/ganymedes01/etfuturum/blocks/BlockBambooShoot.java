@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
@@ -16,7 +15,7 @@ public class BlockBambooShoot extends BlockBush implements IGrowable {
 	public BlockBambooShoot() {
 		super(Material.plants);
 		setBlockTextureName("bamboo_stage0");
-		Utils.setBlockSound(this, ModSounds.soundBambooSapling);
+		setStepSound(ModSounds.soundBambooSapling);
 		setTickRandomly(true);
 	}
 

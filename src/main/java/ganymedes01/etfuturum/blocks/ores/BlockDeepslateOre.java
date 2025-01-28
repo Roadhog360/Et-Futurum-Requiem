@@ -23,13 +23,13 @@ public class BlockDeepslateOre extends BaseDeepslateOre {
 		//We don't do this stuff in the constructor normally since modded blocks might not be loaded right now, but vanilla blocks are here so it's fine.
 		if (getClass().getName().startsWith("ganymedes01.etfuturum")) { //We only want to do this on my own stuff, not mods that extend it.
 			//We use the texture name because texture naming conventions look just like namespaced IDs.
-			//Block.blockRegistry.getNameFor does not work in preInit
+			//Block.blockRegistry.getDisplayName does not work in preInit
 			setNames("deepslate_" + block.textureName);
 		}
 		if (defaultMapping && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres) {
 			addDeepslateMappings();
 		}
-		setBlockSound(ModSounds.soundDeepslate);
+		setStepSound(ModSounds.soundDeepslate);
 	}
 
 	public BlockDeepslateOre(Block block) {
@@ -47,7 +47,7 @@ public class BlockDeepslateOre extends BaseDeepslateOre {
 	public static void setAttribs(Block to, Block from) {
 		Utils.copyAttribs(to, from);
 		to.setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? from.blockHardness : from.blockHardness * 1.5F);
-		Utils.setBlockSound(to, ModSounds.soundDeepslate);
+		to.setStepSound(ModSounds.soundDeepslate);
 	}
 
 	protected void copyAttribs(Block from) {
@@ -62,10 +62,5 @@ public class BlockDeepslateOre extends BaseDeepslateOre {
 	@Override
 	public Block getBase() {
 		return base;
-	}
-
-	@Override
-	public String getTextureDomain() {
-		return "";
 	}
 }

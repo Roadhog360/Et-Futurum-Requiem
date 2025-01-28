@@ -4,8 +4,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -30,7 +30,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 		super(Material.glass);
 		setHardness(1.5F);
 		setResistance(1.5F);
-		setBlockSound(type == 0 ? ModSounds.soundAmethystBudMed : ModSounds.soundAmethystCluster);
+		setStepSound(type == 0 ? ModSounds.soundAmethystBudMed : ModSounds.soundAmethystCluster);
 		setNames("amethyst_cluster");
 		setHarvestLevel("pickaxe", 0);
 		this.lightValue = 1;
@@ -228,6 +228,6 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.AMETHYST_CLUSTER;
+		return BlockRenderers.AMETHYST_CLUSTER.getRenderId();
 	}
 }

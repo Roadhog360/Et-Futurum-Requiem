@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -16,7 +15,7 @@ public class BlockPurpur extends Block {
 		setResistance(10.0F);
 		setStepSound(soundTypePiston);
 		setBlockTextureName("purpur_block");
-		setBlockName(Utils.getUnlocalisedName("purpur_block"));
+		setBlockName("purpur_block");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 

@@ -4,17 +4,16 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.item.Item;
 import net.minecraft.world.IBlockAccess;
 
 import java.util.Random;
 
-public class BlockAzaleaLeaves extends BaseLeaves {
+public class BlockAzaleaLeaves extends BaseEFRLeaves {
 
 	public BlockAzaleaLeaves() {
-		super("azalea", "flowering_azalea");
-		Utils.setBlockSound(this, ModSounds.soundAzaleaLeaves);
+		super("azalea_leaves", "flowering_azalea_leaves");
+		setStepSound(ModSounds.soundAzaleaLeaves);
 	}
 
 	@Override

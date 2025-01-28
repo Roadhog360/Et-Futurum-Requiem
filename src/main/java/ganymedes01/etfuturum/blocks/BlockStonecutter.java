@@ -3,9 +3,8 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -30,7 +29,7 @@ public class BlockStonecutter extends Block {
 		this.setStepSound(soundTypeStone);
 		this.setHardness(3.5F);
 		this.setResistance(3.5F);
-		this.setBlockName(Utils.getUnlocalisedName("stonecutter"));
+		this.setBlockName("stonecutter");
 		this.setBlockTextureName("stonecutter");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
@@ -95,7 +94,7 @@ public class BlockStonecutter extends Block {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.STONECUTTER;
+		return BlockRenderers.STONECUTTER.getRenderId();
 	}
 
 	//NON-VANILLA TWEAK CODE

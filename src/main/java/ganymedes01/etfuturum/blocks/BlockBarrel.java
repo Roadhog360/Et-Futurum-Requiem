@@ -3,9 +3,8 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.lib.GUIIDs;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -34,7 +33,7 @@ public class BlockBarrel extends BlockContainer {
 		this.setHardness(2.5F);
 		this.setHarvestLevel("axe", 0);
 		this.setResistance(2.5F);
-		this.setBlockName(Utils.getUnlocalisedName("barrel"));
+		this.setBlockName("barrel");
 		this.setBlockTextureName("barrel");
 		this.useNeighborBrightness = true;
 		this.setLightOpacity(500);
@@ -47,7 +46,7 @@ public class BlockBarrel extends BlockContainer {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.BARREL;
+		return BlockRenderers.BARREL.getRenderId();
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -16,7 +15,7 @@ public class BlockEndBricks extends Block {
 		setResistance(9.0F);
 		setStepSound(soundTypePiston);
 		setBlockTextureName("end_bricks");
-		setBlockName(Utils.getUnlocalisedName("end_bricks"));
+		setBlockName("end_bricks");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 

@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.mixins.early.sounds.client;
 
 import ganymedes01.etfuturum.Tags;
+import it.unimi.dsi.fastutil.objects.Object2FloatArrayMap;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.SoundManager;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,13 +9,11 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-import java.util.HashMap;
-
 @Mixin(SoundManager.class)
 public class MixinSoundManager_Attenuation {
 
 	@Unique
-	private static final HashMap<String, Float> CUSTOM_ATTENUATION_VALUES = new HashMap<>();
+	private static final Object2FloatArrayMap<String> CUSTOM_ATTENUATION_VALUES = new Object2FloatArrayMap<>();
 
 	static {
 		CUSTOM_ATTENUATION_VALUES.put(Tags.MC_ASSET_VER + ":block.beacon.ambient", 7F);

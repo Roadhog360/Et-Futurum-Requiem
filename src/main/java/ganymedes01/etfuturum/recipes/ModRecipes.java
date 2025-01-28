@@ -7,7 +7,7 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import ganymedes01.etfuturum.api.RawOreRegistry;
-import ganymedes01.etfuturum.blocks.BaseSlab;
+import ganymedes01.etfuturum.blocks.BaseEFRSlab;
 import ganymedes01.etfuturum.blocks.IDegradable;
 import ganymedes01.etfuturum.blocks.ores.BaseDeepslateOre;
 import ganymedes01.etfuturum.blocks.ores.BaseSubtypesDeepslateOre;
@@ -136,12 +136,12 @@ public class ModRecipes {
 		}
 
 		if (ConfigFunctions.enableLangReplacements) {
-			Blocks.wooden_button.setBlockName(Utils.getUnlocalisedName("oak_button"));
-			Blocks.wooden_pressure_plate.setBlockName(Utils.getUnlocalisedName("oak_pressure_plate"));
+			Blocks.wooden_button.setBlockName("oak_button");
+			Blocks.wooden_pressure_plate.setBlockName("oak_pressure_plate");
 		}
 
 		if (ConfigBlocksItems.replaceOldBoats) {
-			Items.boat.setUnlocalizedName(Utils.getUnlocalisedName("oak_boat"));
+			Items.boat.setUnlocalizedName("oak_boat");
 		}
 
 		if (ConfigFunctions.fireworkRecipeFixes) {
@@ -217,7 +217,7 @@ public class ModRecipes {
 		RecipeHelper.addHighPriorityShapedRecipe(output212, "xx", "xx", 'x', "stoneAndesite");
 		Block[] stone_stairs = new Block[]{ModBlocks.GRANITE_STAIRS.get(), ModBlocks.POLISHED_GRANITE_STAIRS.get(), ModBlocks.DIORITE_STAIRS.get(), ModBlocks.POLISHED_DIORITE_STAIRS.get(), ModBlocks.ANDESITE_STAIRS.get(), ModBlocks.POLISHED_ANDESITE_STAIRS.get()};
 		for (int i = 0; i < stone_stairs.length; i++) { //TODO: Rewrite this, this seems needlessly convoluted
-			String dictName = "stone" + StringUtils.capitalize(((BaseSlab) ModBlocks.STONE_SLAB_2.get()).types[(i / 2) * 2]) + (i % 2 == 1 ? "Polished" : "");
+			String dictName = "stone" + StringUtils.capitalize(((BaseEFRSlab) ModBlocks.STONE_SLAB_2.get()).getTypes().get((i / 2) * 2)) + (i % 2 == 1 ? "Polished" : "");
 			if (!ModsList.GTNH.isLoaded()) {
 				ItemStack output = ModBlocks.STONE_SLAB_2.newItemStack(6, i);
 				RecipeHelper.addHighPriorityShapedRecipe(output, "xxx", 'x', dictName);
@@ -1950,7 +1950,7 @@ public class ModRecipes {
 				}
 			}
 			for (BaseSubtypesDeepslateOre ore : BaseSubtypesDeepslateOre.loaded) {
-				for (int i = 0; i < ore.getTypes().length; i++) {
+				for (int i = 0; i < ore.getTypes().size(); i++) {
 					ItemStack baseStack = new ItemStack(ore.getBase(i), 1, ore.getBaseMeta(i));
 					ItemStack stack = new ItemStack(ore, 1, i);
 					for (String tag : EtFuturum.getOreStrings(baseStack)) {

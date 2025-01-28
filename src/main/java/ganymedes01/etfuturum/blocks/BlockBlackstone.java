@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockBlackstone extends BaseSubtypesBlock {
+public class BlockBlackstone extends BaseEFRBlock {
 	private IIcon blackstoneTop;
 
 	public BlockBlackstone() {

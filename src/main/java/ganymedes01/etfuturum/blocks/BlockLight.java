@@ -15,17 +15,14 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
-
-	private IIcon[] lightIcons;
-	private static final String[] types = new String[16];
+public class BlockLight extends BlockBarrier implements roadhog360.hogutils.api.blocksanditems.block.ISubtypesBlock {
 
 	public BlockLight() {
-		super();
+		super("light");
 		setNames("light");
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		for (int i = 0; i < 16; i++) {
-			types[i] = "light_" + String.format("%02d", i);
+			getTypes().put(i, "light_" + String.format("%02d", i));
 		}
 	}
 
@@ -82,16 +79,9 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
-		lightIcons = new IIcon[16];
-		for (int i = 0; i < types.length; i++) {
-			lightIcons[i] = reg.registerIcon(types[i]);
+		for (int i = 0; i < 16; i++) {
+			getIcons().put(i, reg.registerIcon(getTypes().get(i)));
 		}
-		blockIcon = lightIcons[0];
-	}
-
-	@Override
-	public IIcon getIcon(int side, int meta) {
-		return lightIcons[meta % types.length];
 	}
 
 	@Override
@@ -100,17 +90,7 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 	}
 
 	@Override
-	public IIcon[] getIcons() {
-		return lightIcons;
-	}
-
-	@Override
-	public String[] getTypes() {
-		return types;
-	}
-
-	@Override
-	public String getNameFor(ItemStack stack) {
+	public String getDisplayName(ItemStack stack) {
 		return getUnlocalizedName();
 	}
 

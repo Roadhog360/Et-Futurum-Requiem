@@ -11,7 +11,7 @@ public class BlockDeepslateAdamantiumOre extends BaseDeepslateOre {
 	}
 
 	@Override
-	public String getTextureSubfolder() {
+	public String getTextureSubfolder(String name) {
 		return "simpleores";
 	}
 

@@ -3,9 +3,8 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -26,11 +25,11 @@ public class BlockPointedDripstone extends Block {
 
 	public BlockPointedDripstone() {
 		super(Material.rock);
-		Utils.setBlockSound(this, ModSounds.soundPointedDripstone);
+		setStepSound(ModSounds.soundPointedDripstone);
 		this.setHardness(1.5F);
 		this.setResistance(3F);
 		this.setHarvestLevel("pickaxe", 0);
-		this.setBlockName(Utils.getUnlocalisedName("pointed_dripstone"));
+		this.setBlockName("pointed_dripstone");
 		this.setBlockTextureName("pointed_dripstone");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
@@ -136,7 +135,7 @@ public class BlockPointedDripstone extends Block {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.POINTED_DRIPSTONE;
+		return BlockRenderers.POINTED_DRIPSTONE.getRenderId();
 	}
 
 	@Override

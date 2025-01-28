@@ -1,15 +1,13 @@
 package ganymedes01.etfuturum.world.generate;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.api.DeepslateOreRegistry;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import roadhog360.hogutils.api.RegistryMapping;
 
 import java.util.Random;
 
@@ -63,18 +61,8 @@ public class WorldGenDeepslateLayerBlob extends WorldGenMinable {
 								double d14 = (z + 0.5D - d8) / (d10 / 2.0D);
 
 								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D) {
-									block = world.getBlock(x, y, z);
-
-									if ((ConfigWorld.deepslateReplacesStones || block != ModBlocks.STONE.get()) && block.getMaterial() != Material.air && block != ModBlocks.TUFF.get()) {
-										if (block.isReplaceableOreGen(world, x, y, z, Blocks.stone)) {
-											world.setBlock(x, y, z, field_150519_a);
-											continue;
-										}
-										mapping = DeepslateOreRegistry.getOre(block, world.getBlockMetadata(x, y, z));
-										if (mapping != null) {
-											world.setBlock(x, y, z, mapping.getObject(), mapping.getMeta(), 2);
-										}
-									}
+									Chunk chunk = world.getChunkFromBlockCoords(x, z);
+									EtFuturumWorldGenerator.changeToDeepslate(chunk, x & 15, y, z & 15, field_150519_a, 0);
 								}
 							}
 						}

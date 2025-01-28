@@ -10,7 +10,7 @@ public class BlockDeepslateBluePowerOre extends BaseSubtypesDeepslateOre {
 	}
 
 	@Override
-	public String getTextureSubfolder() {
+	public String getTextureSubfolder(String name) {
 		return "bluepower";
 	}
 

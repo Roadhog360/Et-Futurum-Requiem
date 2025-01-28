@@ -8,7 +8,7 @@ import net.minecraft.util.MathHelper;
 
 import java.util.Random;
 
-public class BlockSeaLantern extends BaseBlock {
+public class BlockSeaLantern extends BaseEFRBlock {
 
 	public BlockSeaLantern() {
 		super(Material.glass);

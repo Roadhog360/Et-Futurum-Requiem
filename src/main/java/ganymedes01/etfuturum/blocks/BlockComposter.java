@@ -8,8 +8,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.api.CompostingRegistry;
 import ganymedes01.etfuturum.api.inventory.FakeTileEntityProvider;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.tileentities.fake.TileEntityFakeInventory;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -47,7 +46,7 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 		this.setHardness(0.6F);
 		this.setResistance(0.6F);
 		this.setHarvestLevel("axe", 0);
-		this.setBlockName(Utils.getUnlocalisedName("composter"));
+		this.setBlockName("composter");
 		this.setBlockTextureName("composter");
 		this.setLightOpacity(500);
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
@@ -168,7 +167,7 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.COMPOSTER;
+		return BlockRenderers.COMPOSTER.getRenderId();
 	}
 
 	@Override

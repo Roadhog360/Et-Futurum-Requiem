@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.material.Material;
@@ -30,7 +29,7 @@ public class BlockDirtPath extends Block {
 		useNeighborBrightness = true;
 		setStepSound(soundTypeGrass);
 		setBlockTextureName("dirt_path");
-		setBlockName(Utils.getUnlocalisedName("dirt_path"));
+		setBlockName("dirt_path");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
 	}

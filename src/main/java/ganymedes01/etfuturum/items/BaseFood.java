@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.items;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.item.ItemFood;
 
 public class BaseFood extends ItemFood {
@@ -16,7 +15,7 @@ public class BaseFood extends ItemFood {
 	}
 
 	public BaseFood setUnlocalizedNameWithPrefix(String name) {
-		setUnlocalizedName(Utils.getUnlocalisedName(name));
+		setUnlocalizedName(name);
 		return this;
 	}
 

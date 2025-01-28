@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.blocks.rawore.modded;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.Tags;
-import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
+import ganymedes01.etfuturum.blocks.BaseEFRBlock;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -19,7 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-public class BlockGeneralModdedRawOre extends BaseSubtypesBlock implements IInitAction {
+public class BlockGeneralModdedRawOre extends BaseEFRBlock implements IInitAction {
 
 	public final String[] ores;
 	private final float[] hardnesses;
@@ -45,7 +45,7 @@ public class BlockGeneralModdedRawOre extends BaseSubtypesBlock implements IInit
 	}
 
 	@Override
-	public String getTextureDomain() {
+	public String getTextureDomain(String textureName) {
 		return Tags.MOD_ID;
 	}
 

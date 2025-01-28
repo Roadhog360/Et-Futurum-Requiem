@@ -1,8 +1,7 @@
 package ganymedes01.etfuturum.blocks;
 
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.IGrowable;
 import net.minecraft.client.renderer.IconFlipped;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -18,14 +17,14 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockPinkPetals extends BaseFlower implements IGrowable {
+public class BlockPinkPetals extends BaseEFRFlower implements IGrowable {
 
 	private IIcon stemIcon;
 
 	public BlockPinkPetals() {
 		super();
 		setNames("pink_petals");
-		Utils.setBlockSound(this, ModSounds.soundPinkPetals);
+		setStepSound(ModSounds.soundPinkPetals);
 	}
 
 	@Override
@@ -109,7 +108,7 @@ public class BlockPinkPetals extends BaseFlower implements IGrowable {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.PINK_PETALS;
+		return BlockRenderers.FLOWER_BED.getRenderId();
 	}
 
 	/**

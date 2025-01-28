@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -33,6 +32,6 @@ public class ItemBlockAmethystCluster extends ItemBlock {
 		if (secondCluster) {
 			damage += 2;
 		}
-		return "tile." + Utils.getUnlocalisedName(item_names[damage]);
+		return "tile." + item_names[damage];
 	}
 }

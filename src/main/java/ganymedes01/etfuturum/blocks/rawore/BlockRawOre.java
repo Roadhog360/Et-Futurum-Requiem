@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.blocks.rawore;
 
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
+import ganymedes01.etfuturum.blocks.BaseEFRBlock;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -10,13 +10,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class BlockRawOre extends BaseSubtypesBlock implements IInitAction {
+public class BlockRawOre extends BaseEFRBlock implements IInitAction {
 	public BlockRawOre() {
 		super(Material.rock, "raw_copper_block", "raw_iron_block", "raw_gold_block");
 		setNames("raw_ore_block");
-		setToolClass("pickaxe", 1, 0);
-		setToolClass("pickaxe", 1, 1);
-		setToolClass("pickaxe", 2, 2);
+		setHarvestLevel("pickaxe", 1, 0);
+		setHarvestLevel("pickaxe", 1, 1);
+		setHarvestLevel("pickaxe", 2, 2);
 		setHardness(5);
 		setResistance(6);
 	}

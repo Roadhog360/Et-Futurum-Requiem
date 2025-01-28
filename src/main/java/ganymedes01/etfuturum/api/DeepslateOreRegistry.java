@@ -2,40 +2,37 @@ package ganymedes01.etfuturum.api;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Logger;
-import ganymedes01.etfuturum.core.utils.Utils;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
+import roadhog360.hogutils.api.RegistryMapping;
+import roadhog360.hogutils.api.utils.GenericUtils;
 import roadhog360.hogutils.api.utils.RecipeHelper;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-/**
- * The registry for which blocks should convert into a deepslate ore. When the game reaches
- * LoaderState.AVAILABLE, the registry cannot be added to. It is highly advised you use
- * the helper methods when getting an ore, or checking of one exists, instead of using {@code getOreMap()},
- * in the case the key changes to something more efficient.
- * <p>
- * The getOre methods return a BlockAndMetadataMapping, which is used to store the block instance
- * and its desired meta value in the same object.
- *
- * @author roadhog360
- * @apiNote Example: {@code DeepslateOreRegistry.addOre(Blocks.iron_ore, ModBlocks.deepslate_iron_ore);}
- * would cause vanilla iron ore to convert into the "deepslate_iron_ore" block when
- * deepslate generates over it.
- */
+/// The registry for which blocks should convert into a deepslate ore. It is highly advised you use
+/// the helper methods when getting an ore, or checking of one exists, instead of using `getOreMap()`,
+/// in the case the key changes to something more efficient.
+///
+/// The getOre methods return a BlockAndMetadataMapping, which is used to store the block instance
+/// and its desired meta value in the same object.
+///
+/// @author roadhog360
+/// @apiNote Example: `DeepslateOreRegistry.addOre(Blocks.iron_ore, ModBlocks.deepslate_iron_ore.get());`
+/// would cause vanilla iron ore to convert into the "deepslate_iron_ore" block when
+/// deepslate generates over it.
 public class DeepslateOreRegistry {
 
-	private static final Map<RegistryMapping<Block>, RegistryMapping<Block>> deepslateOres = new HashMap<>();
+	private static final Map<RegistryMapping<Block>, RegistryMapping<Block>> deepslateOres = new Object2ObjectOpenHashMap<>();
 
 	/**
 	 * Adds a block to block pair to the deepslate mapping registry.
@@ -66,13 +63,13 @@ public class DeepslateOreRegistry {
 		if (from.hasTileEntity(fromMeta) || to.hasTileEntity(toMeta)) {
 			throw new IllegalArgumentException("Block Entities are not supported for the deepslate ore registry!");
 		}
-		if (!Utils.isMetaInBlockBoundsIgnoreWildcard(fromMeta) || !Utils.isMetaInBlockBoundsIgnoreWildcard(toMeta)) {
-			throw new IllegalArgumentException("Meta must be between " + Utils.getMinMetadata() + " and " + Utils.getMaxMetadata() + " (inclusive).");
+		if (!GenericUtils.isBlockMetaInBoundsIgnoreWildcard(fromMeta) || !GenericUtils.isBlockMetaInBoundsIgnoreWildcard(toMeta)) {
+			throw new IllegalArgumentException("Meta must be between " + GenericUtils.getMinBlockMetadata() + " and " + GenericUtils.getMaxBlockMetadata() + " (inclusive).");
 		}
 		if (putIfAbsent) {
-			deepslateOres.putIfAbsent(new RegistryMapping<>(from, fromMeta), new RegistryMapping<>(to, toMeta));
+			deepslateOres.putIfAbsent(RegistryMapping.of(from, fromMeta), RegistryMapping.of(to, toMeta));
 		} else {
-			deepslateOres.put(new RegistryMapping<>(from, fromMeta), new RegistryMapping<>(to, toMeta));
+			deepslateOres.put(RegistryMapping.of(from, fromMeta), RegistryMapping.of(to, toMeta));
 		}
 	}
 
@@ -100,15 +97,15 @@ public class DeepslateOreRegistry {
 					try {
 						addOre(blockToAdd, ore.getItemDamage(), to, toMeta, true);
 					} catch (IllegalArgumentException e) {
-	//					ignoredEntries.putIfAbsent(Block.blockRegistry.getNameForObject(blockToAdd) + ":" + (ore.getItemDamage() == OreDictionary.WILDCARD_VALUE ? "*" : ore.getItemDamage()),
-	//							Block.blockRegistry.getNameForObject(to) + ":" + (toMeta == OreDictionary.WILDCARD_VALUE ? "*" : toMeta) + " (" + (e.getMessage().contains("Block Entities") ? "is block entity" : "meta out of 0-15 range") + ")");
+	//					ignoredEntries.putIfAbsent(Block.blockRegistry.getDisplayNameObject(blockToAdd) + ":" + (ore.getItemDamage() == OreDictionary.WILDCARD_VALUE ? "*" : ore.getItemDamage()),
+	//							Block.blockRegistry.getDisplayNameObject(to) + ":" + (toMeta == OreDictionary.WILDCARD_VALUE ? "*" : toMeta) + " (" + (e.getMessage().contains("Block Entities") ? "is block entity" : "meta out of 0-15 range") + ")");
 						hasBadEntry = true;
 					}
 				}
 			}
 		}
 		if (/*!ignoredEntries.isEmpty()*/ hasBadEntry) {
-			Logger.warn(oreDict + " had one ore more entries which are either block entities or supplying a meta outside of " + Utils.getMinMetadata() + "-" + Utils.getMaxMetadata() + ". Check the contents of the OreDict tag for more info.");
+			Logger.warn(oreDict + " had one ore more entries which are either block entities or supplying a meta outside of " + GenericUtils.getMinBlockMetadata() + "-" + GenericUtils.getMaxBlockMetadata() + ". Check the contents of the OreDict tag for more info.");
 			Logger.warn("Ignoring those entries instead of crashing, since this could be an unintended side effect of adding by OreDict string.");
 //			StringBuilder builder = new StringBuilder();
 //			int i = 0;
@@ -182,7 +179,7 @@ public class DeepslateOreRegistry {
 	 * the block instance and the meta data it should be replaced with.
 	 */
 	public static RegistryMapping<Block> getOre(Block block, int meta) {
-		return deepslateOres.get(RegistryMapping.getKeyFor(block, meta));
+		return deepslateOres.get(RegistryMapping.of(block, meta));
 	}
 
 	/// @return The entire deepslate ore mapping, where a [RegistryMapping<Block>] is the key.
@@ -198,15 +195,11 @@ public class DeepslateOreRegistry {
 
 				Block oreNorm = entry.getKey().getObject();
 				Block oreDeep = entry.getValue().getObject();
-				if (!RecipeHelper.validateItems(oreNorm, oreDeep)) {
-					Logger.error("INVALID FURNACE RECIPE DETECTED: " + entry);
-					Logger.error("This means that a mod added INVALID items to the furnace registry!");
-				}
 
 				boolean saltyModOre = oreDeep.getClass().getName().toLowerCase().contains("saltymod");
 
 				if (oreDeep.stepSound == Block.soundTypeStone || saltyModOre) {
-					Utils.setBlockSound(oreDeep, ModSounds.soundDeepslate);
+					oreDeep.setStepSound(ModSounds.soundDeepslate);
 					//SaltyMod introduces a deepslate salt ore but it assumes an old resource domain, making it silent on new EFR versions
 				}
 

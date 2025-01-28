@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks.ores;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
@@ -20,7 +19,7 @@ public class BlockOreNetherGold extends Block {
 		setHardness(3.0F);
 		setResistance(5.0F);
 		setBlockTextureName("nether_gold_ore");
-		setBlockName(Utils.getUnlocalisedName("nether_gold_ore"));
+		setBlockName("nether_gold_ore");
 	}
 
 	private final Random rand = new Random();

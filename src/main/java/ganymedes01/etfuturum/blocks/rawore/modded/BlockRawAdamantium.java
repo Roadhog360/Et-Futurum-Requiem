@@ -12,7 +12,7 @@ public class BlockRawAdamantium extends BaseRawOreBlock {
 	}
 
 	@Override
-	public String getTextureSubfolder() {
+	public String getTextureSubfolder(String name) {
 		return "simpleores";
 	}
 

@@ -10,7 +10,7 @@ public class BlockDeepslateProjectRedOre extends BaseSubtypesDeepslateOre {
 	}
 
 	@Override
-	public String getTextureSubfolder() {
+	public String getTextureSubfolder(String name) {
 		return "projectred";
 	}
 

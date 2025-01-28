@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.core.utils;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.util.ForgeDirection;
+import roadhog360.hogutils.api.utils.GenericUtils;
 
 public enum Rotation {
 	NONE("rotate_0"),//North facing
@@ -85,7 +86,7 @@ public enum Rotation {
 				return rotateY(facing);
 
 			case CLOCKWISE_180:
-				return Utils.ENUM_FACING_VALUES[ForgeDirection.VALID_DIRECTIONS[facing.ordinal()].getOpposite().ordinal()];
+				return GenericUtils.Constants.ENUM_FACING_VALUES[ForgeDirection.VALID_DIRECTIONS[facing.ordinal()].getOpposite().ordinal()];
 
 			case COUNTERCLOCKWISE_90:
 				return rotateYCCW(facing);

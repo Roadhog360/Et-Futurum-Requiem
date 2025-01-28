@@ -12,21 +12,16 @@ public class BlockDeepslateDragonBlockOre extends BaseSubtypesDeepslateOre {
 
 	@Override
 	public Block getBase(int meta) {
-		switch (meta) {
-			case 1:
-				return ExternalContent.Blocks.DBC_JJAY_ORE.get();
-			case 2:
-				return ExternalContent.Blocks.DBC_DLOG_ORE.get();
-			case 3:
-				return ExternalContent.Blocks.DBC_LEHNORI_ORE.get();
-			default:
-			case 0:
-				return ExternalContent.Blocks.DBC_WARENAI_ORE.get();
-		}
+		return switch (meta) {
+			case 1 -> ExternalContent.Blocks.DBC_JJAY_ORE.get();
+			case 2 -> ExternalContent.Blocks.DBC_DLOG_ORE.get();
+			case 3 -> ExternalContent.Blocks.DBC_LEHNORI_ORE.get();
+			default -> ExternalContent.Blocks.DBC_WARENAI_ORE.get();
+		};
 	}
 
 	@Override
-	public String getTextureSubfolder() {
+	public String getTextureSubfolder(String name) {
 		return "dbc";
 	}
 }

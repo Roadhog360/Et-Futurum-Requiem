@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockSculkCatalyst extends BaseBlock {
+public class BlockSculkCatalyst extends BaseEFRBlock {
 	private IIcon topIcon, bottomIcon, sideBloomIcon, topBloomIcon;
 
 	public BlockSculkCatalyst() {
@@ -22,7 +22,7 @@ public class BlockSculkCatalyst extends BaseBlock {
 		setNames("sculk_catalyst");
 		setHardness(3.0F);
 		setResistance(3.0F);
-		setBlockSound(ModSounds.soundSculkCatalyst);
+		setStepSound(ModSounds.soundSculkCatalyst);
 	}
 
 	@Override

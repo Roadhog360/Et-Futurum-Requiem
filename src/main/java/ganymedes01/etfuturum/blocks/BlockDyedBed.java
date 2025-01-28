@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
@@ -20,7 +19,7 @@ public class BlockDyedBed extends BlockBed {
 		disableStats();
 		setHardness(0.2F);
 		String dyeName = ModRecipes.dye_names[dye];
-		setBlockName(Utils.getUnlocalisedName(dyeName + "_bed"));
+		setBlockName(dyeName + "_bed");
 		setBlockTextureName(dyeName + "_bed");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setStepSound(Block.soundTypeWood);

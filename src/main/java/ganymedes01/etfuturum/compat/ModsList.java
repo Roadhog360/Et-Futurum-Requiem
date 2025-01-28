@@ -40,6 +40,7 @@ public enum ModsList {
 	SIMPLEORES("simpleores"),
 	DRAGON_QUEST("DQMIIINext"),
 	LOTR("lotr"),
+	BETTER_FPS("betterfps"),
 
 	NOTFINE("notfine"),
 	NOT_ENOUGH_IDS("neid"),

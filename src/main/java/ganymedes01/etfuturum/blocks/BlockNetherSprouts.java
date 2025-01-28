@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.init.Blocks;
@@ -19,8 +18,8 @@ import java.util.Random;
 public class BlockNetherSprouts extends BlockBush implements IShearable {
 
 	public BlockNetherSprouts() {
-		Utils.setBlockSound(this, ModSounds.soundNetherSprouts);
-		setBlockName(Utils.getUnlocalisedName("nether_sprouts"));
+		setStepSound(ModSounds.soundNetherSprouts);
+		setBlockName("nether_sprouts");
 		setBlockTextureName("nether_sprouts");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.3F, 0.9F);

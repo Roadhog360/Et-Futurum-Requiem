@@ -12,13 +12,13 @@ import net.minecraft.world.IBlockAccess;
 
 import java.util.List;
 
-public class BlockNetherwart extends BaseSubtypesBlock {
+public class BlockNetherwart extends BaseEFRBlock {
 
 	public BlockNetherwart() {
 		super(Material.grass, "nether_wart_block", "warped_wart_block");
 		setHardness(1F);
 		setResistance(5F);
-		setBlockSound(ModSounds.soundWartBlock);
+		setStepSound(ModSounds.soundWartBlock);
 		setNames("wart_block");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}

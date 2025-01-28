@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButtonWood;
 import net.minecraft.util.IIcon;
@@ -20,15 +19,15 @@ public class BlockWoodButton extends BlockButtonWood {
 		this.meta = meta;
 		baseBlock = block;
 		this.flammable = flammable;
-		setBlockName(Utils.getUnlocalisedName(type + "_button"));
+		setBlockName(type + "_button");
 		setHardness(0.5F);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		if (type.equals("crimson") || type.equals("warped")) {
-			Utils.setBlockSound(this, ModSounds.soundNetherWood);
+			setStepSound(ModSounds.soundNetherWood);
 		} else if (type.equals("cherry")) {
-			Utils.setBlockSound(this, ModSounds.soundCherryWood);
+			setStepSound(ModSounds.soundCherryWood);
 		} else if (type.equals("bamboo")) {
-			Utils.setBlockSound(this, ModSounds.soundBambooWood);
+			setStepSound(ModSounds.soundBambooWood);
 		} else {
 			setStepSound(Block.soundTypeWood);
 		}

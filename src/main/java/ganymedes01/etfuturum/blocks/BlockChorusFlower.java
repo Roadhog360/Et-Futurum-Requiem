@@ -5,8 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.Tags;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -30,7 +29,7 @@ public class BlockChorusFlower extends Block {
 		setTickRandomly(true);
 		setStepSound(soundTypeWood);
 		setBlockTextureName("chorus_flower");
-		setBlockName(Utils.getUnlocalisedName("chorus_flower"));
+		setBlockName("chorus_flower");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
@@ -49,7 +48,7 @@ public class BlockChorusFlower extends Block {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.CHORUS_FLOWER;
+		return BlockRenderers.CHORUS_FLOWER.getRenderId();
 	}
 
 	@Override

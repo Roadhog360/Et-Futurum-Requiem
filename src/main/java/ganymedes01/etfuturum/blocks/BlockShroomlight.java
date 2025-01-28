@@ -4,13 +4,13 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockShroomlight extends BaseBlock {
+public class BlockShroomlight extends BaseEFRBlock {
 
 
 	public BlockShroomlight() {
 		super(Material.gourd);
 		setNames("shroomlight");
-		setBlockSound(ModSounds.soundShroomlight);
+		setStepSound(ModSounds.soundShroomlight);
 		setResistance(1);
 		setHardness(1);
 		setLightLevel(1);

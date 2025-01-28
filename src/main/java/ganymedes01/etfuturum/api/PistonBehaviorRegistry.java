@@ -1,41 +1,35 @@
 package ganymedes01.etfuturum.api;
 
-import com.google.common.collect.Maps;
-import cpw.mods.fml.common.registry.GameRegistry;
-import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
-import ganymedes01.etfuturum.compat.ModsList;
-import ganymedes01.etfuturum.recipes.ModRecipes;
+import ganymedes01.etfuturum.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.oredict.OreDictionary;
+import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.utils.GenericUtils;
 
-import java.util.Map;
-
+@Deprecated
 public class PistonBehaviorRegistry {
-	/**
-	 * These blocks will stick to sticky pistons and allow you to push clusters of blocks. They won't stick to each other however.
-	 */
-	private static final Map<RegistryMapping<Block>, PistonAction> BEHAVIOR_REGISTRY = Maps.newHashMap();
-//  private static final List<RegistryMapping<Block>> BEE_FLOWERS = Lists.newArrayList();
-
+	@Deprecated
 	public static void addPistonBehavior(Block block, PistonAction action) {
 		addPistonBehavior(block, OreDictionary.WILDCARD_VALUE, action);
 	}
 
+	@Deprecated
 	public static void addPistonBehavior(Block block, int meta, PistonAction action) {
-		if ((meta < 0 || meta > 15) && meta != OreDictionary.WILDCARD_VALUE) {
-			throw new IllegalArgumentException("Meta must be between 0 and 15 (inclusive)");
+		if (GenericUtils.isBlockMetaInBoundsIgnoreWildcard(meta)) {
+			throw new IllegalArgumentException("Meta must be between " + GenericUtils.getMinBlockMetadata() + " and " + GenericUtils.getMaxBlockMetadata() + " (inclusive).");
 		}
 		if (block != null && block != Blocks.air) {
-			BEHAVIOR_REGISTRY.put(new RegistryMapping<>(block, meta), action);
+			HogTagsHelper.BlockTags.addTags(block, meta, getTagForAction(action));
 		}
 	}
 
+	@Deprecated
 	public static void addPistonBehavior(Block block, String action) {
 		addPistonBehavior(block, OreDictionary.WILDCARD_VALUE, PistonAction.valueOf(action));
 	}
 
+	@Deprecated
 	public static void addPistonBehavior(Block block, int meta, String action) {
 		if (!action.equals("NON_STICKY") && !action.equals("BOUNCES_ENTITIES") && !action.equals("PULLS_ENTITIES")) {
 			throw new IllegalArgumentException("Action must be NON_STICKY, BOUNCES_ENTITIES, or PULLS_ENTITIES");
@@ -43,80 +37,46 @@ public class PistonBehaviorRegistry {
 		addPistonBehavior(block, meta, PistonAction.valueOf(action));
 	}
 
+	@Deprecated
 	public static void remove(Block block, int meta) {
-		BEHAVIOR_REGISTRY.remove(new RegistryMapping<>(block, meta));
+		HogTagsHelper.BlockTags.removeTags(block, meta,
+				getTagForAction(PistonAction.NON_STICKY), getTagForAction(PistonAction.PULLS_ENTITIES), getTagForAction(PistonAction.BOUNCES_ENTITIES));
 	}
 
+	@Deprecated
 	public static boolean isNonStickyBlock(Block block, int meta) {
-		return BEHAVIOR_REGISTRY.get(new RegistryMapping<>(block, meta)) == PistonAction.NON_STICKY;
+		return HogTagsHelper.BlockTags.hasAnyTag(block, meta, getTagForAction(PistonAction.NON_STICKY));
 	}
 
+	@Deprecated
 	public static boolean isStickyBlock(Block block, int meta) {
-		PistonAction action = BEHAVIOR_REGISTRY.get(new RegistryMapping<>(block, meta));
-		return action == PistonAction.BOUNCES_ENTITIES || action == PistonAction.PULLS_ENTITIES;
+		return HogTagsHelper.BlockTags.hasAnyTag(block, meta,
+				getTagForAction(PistonAction.PULLS_ENTITIES), getTagForAction(PistonAction.BOUNCES_ENTITIES));
 	}
 
+	@Deprecated
 	public static boolean pullsEntities(Block block, int meta) {
-		return BEHAVIOR_REGISTRY.get(new RegistryMapping<>(block, meta)) == PistonAction.PULLS_ENTITIES;
+		return HogTagsHelper.BlockTags.hasAnyTag(block, meta, getTagForAction(PistonAction.PULLS_ENTITIES));
 	}
 
+	@Deprecated
 	public static boolean bouncesEntities(Block block, int meta) {
-		return BEHAVIOR_REGISTRY.get(new RegistryMapping<>(block, meta)) == PistonAction.BOUNCES_ENTITIES;
+		return HogTagsHelper.BlockTags.hasAnyTag(block, meta, getTagForAction(PistonAction.BOUNCES_ENTITIES));
 	}
 
+	@Deprecated
 	public static void init() {
-		if (ModBlocks.SLIME.isEnabled()) {
-			addPistonBehavior(ModBlocks.SLIME.get(), PistonAction.BOUNCES_ENTITIES);
-		}
-		if (ModBlocks.HONEY_BLOCK.isEnabled()) {
-			addPistonBehavior(ModBlocks.HONEY_BLOCK.get(), PistonAction.PULLS_ENTITIES);
-		}
-		for (ModBlocks mb : ModBlocks.TERRACOTTA) {
-			if (mb.isEnabled()) {
-				addPistonBehavior(mb.get(), PistonAction.NON_STICKY);
-			}
-		}
-
-		//Begin mod blocks
-		//Todo glue blocks to move entities with it like honey
-
-		Block block = GameRegistry.findBlock("VillageNames", "glazedTerracotta");
-		if (block != null) {
-			addPistonBehavior(block, PistonAction.NON_STICKY);
-		}
-		block = GameRegistry.findBlock("VillageNames", "glazedTerracotta2");
-		if (block != null) {
-			addPistonBehavior(block, PistonAction.NON_STICKY);
-		}
-		block = GameRegistry.findBlock("VillageNames", "glazedTerracotta3");
-		if (block != null) {
-			addPistonBehavior(block, PistonAction.NON_STICKY);
-		}
-		block = GameRegistry.findBlock("VillageNames", "glazedTerracotta4");
-		if (block != null) {
-			addPistonBehavior(block, PistonAction.NON_STICKY);
-		}
-		for (String color : ModRecipes.dye_names) {
-			block = GameRegistry.findBlock("uptodate", "glazed_terracotta_" + color);
-			if (block != null) {
-				addPistonBehavior(block, PistonAction.NON_STICKY);
-			}
-		}
-
-		if (ModsList.TINKERS_CONSTRUCT.isLoaded()) {
-			addPistonBehavior(GameRegistry.findBlock("TConstruct", "slime.gel"), PistonAction.BOUNCES_ENTITIES);
-			addPistonBehavior(GameRegistry.findBlock("TConstruct", "GlueBlock"), PistonAction.PULLS_ENTITIES);
-		}
-
-		if (ModsList.MINEFACTORY_RELOADED.isLoaded()) {
-			addPistonBehavior(GameRegistry.findBlock("MineFactoryReloaded", "pinkslime.block"), PistonAction.BOUNCES_ENTITIES);
-		}
-
-		if (ModsList.BIOMES_O_PLENTY.isLoaded()) {
-			addPistonBehavior(GameRegistry.findBlock("BiomesOPlenty", "honeyBlock"), PistonAction.PULLS_ENTITIES);
-		}
 	}
 
+	private static String getTagForAction(PistonAction action) {
+		return switch (action) {
+			case NON_STICKY -> Tags.MOD_ID + ":piston_slick_blocks";
+			case PULLS_ENTITIES -> Tags.MOD_ID + ":piston_honey_blocks";
+			case BOUNCES_ENTITIES -> Tags.MOD_ID + ":piston_slime_blocks";
+		};
+	}
+
+	@Deprecated
 	public enum PistonAction {
 		NON_STICKY,
 		BOUNCES_ENTITIES,

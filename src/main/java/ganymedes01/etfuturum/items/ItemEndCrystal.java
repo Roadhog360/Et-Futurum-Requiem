@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.items;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +13,7 @@ public class ItemEndCrystal extends ItemSimpleFoiled {
 
 	public ItemEndCrystal() {
 		setTextureName("end_crystal");
-		setUnlocalizedName(Utils.getUnlocalisedName("end_crystal"));
+		setUnlocalizedName("end_crystal");
 		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 

@@ -10,10 +10,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockMud extends BaseBlock {
+public class BlockMud extends BaseEFRBlock {
 	public BlockMud() {
 		super(Material.ground);
-		setBlockSound(ModSounds.soundMud);
+		setStepSound(ModSounds.soundMud);
 		setNames("mud");
 		setHardness(0.5F);
 		setResistance(0.5F);

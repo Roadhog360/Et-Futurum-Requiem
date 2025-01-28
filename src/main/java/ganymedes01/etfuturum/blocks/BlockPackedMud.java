@@ -5,7 +5,7 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
-public class BlockPackedMud extends BaseSubtypesBlock {
+public class BlockPackedMud extends BaseEFRBlock {
 
 	public BlockPackedMud() {
 		super(Material.rock, "packed_mud", "mud_bricks");
@@ -13,7 +13,7 @@ public class BlockPackedMud extends BaseSubtypesBlock {
 		setResistance(3);
 		setHarvestLevel("pickaxe", 0);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-		setBlockSound(ModSounds.soundPackedMud);
+		setStepSound(ModSounds.soundPackedMud);
 	}
 
 	@Override

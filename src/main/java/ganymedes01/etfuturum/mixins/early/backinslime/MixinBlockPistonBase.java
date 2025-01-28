@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.mixins.early.backinslime;
 
 import com.google.common.collect.Lists;
-import ganymedes01.etfuturum.api.PistonBehaviorRegistry;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.tuple.Pair;
 import org.spongepowered.asm.mixin.*;
+import roadhog360.hogutils.api.hogtags.HogTagsHelper;
 
 import java.util.List;
 
@@ -142,7 +143,7 @@ public class MixinBlockPistonBase extends Block {
 				Block blockToPull = world.getBlock(x + xoffset2, y + yoffset2, z + zoffset2);
 				int metaToPull = world.getBlockMetadata(x + xoffset2, y + yoffset2, z + zoffset2);
 
-				if (blockToPull.getMobilityFlag() != 1 && !PistonBehaviorRegistry.isNonStickyBlock(blockToPull, metaToPull)) {
+				if (blockToPull.getMobilityFlag() != 1 && !HogTagsHelper.BlockTags.hasAnyTag(blockToPull, metaToPull, Tags.MOD_ID + ":piston_slick_blocks")) {
 					if (etfuturum$getPushableBlocks(world, x + xoffset2, y + yoffset2, z + zoffset2, oppositeSide, oppositeSide, x + xoffset, y + yoffset, z + zoffset, pushedBlockList, pushedBlockPosList) == 0) {
 						world.setBlockToAir(x + xoffset, y + yoffset, z + zoffset);
 					} else {
@@ -221,7 +222,8 @@ public class MixinBlockPistonBase extends Block {
 			pushedBlockList.add(Pair.of(pushedBlock, pushedBlockMeta));
 			pushedBlockPosList.add(pushedBlockCoords);
 
-			if (PistonBehaviorRegistry.isStickyBlock(pushedBlock, pushedBlockMeta)) {
+			if (HogTagsHelper.BlockTags.hasAnyTag(pushedBlock, pushedBlockMeta,
+					Tags.MOD_ID + ":piston_honey_blocks", Tags.MOD_ID + ":piston_slime_blocks")) {
 				for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 					if (dir.ordinal() != side && dir.ordinal() != ignoreSide) {
 						int attachedX = pushedBlockX + dir.offsetX;
@@ -353,13 +355,13 @@ public class MixinBlockPistonBase extends Block {
 				world.notifyBlocksOfNeighborChange(blockX, blockY, blockZ, block);
 			}
 
-			if (extending && PistonBehaviorRegistry.bouncesEntities(block, blockMeta)) {
+			if (extending && HogTagsHelper.BlockTags.hasAnyTag(block, blockMeta, Tags.MOD_ID + ":piston_slime_blocks")) {
 				for (Entity o : world.getEntitiesWithinAABBExcludingEntity(null, this.getCollisionBoundingBoxFromPool(world, blockX, blockY, blockZ))) {
 					if (!launchedEntityList.contains(o)) {
 						launchedEntityList.add(o);
 					}
 				}
-			} else if (side > 1 && PistonBehaviorRegistry.pullsEntities(block, blockMeta)) {
+			} else if (side > 1 && HogTagsHelper.BlockTags.hasAnyTag(block, blockMeta, Tags.MOD_ID + ":piston_honey_blocks")) {
 				for (Entity o : world.getEntitiesWithinAABBExcludingEntity(null, this.getCollisionBoundingBoxFromPool(world, blockX, blockY, blockZ))) {
 					if (!pulledEntityList.contains(o)) {
 						pulledEntityList.add(o);
@@ -401,7 +403,7 @@ public class MixinBlockPistonBase extends Block {
 		}
 		int pushedMeta = world.getBlockMetadata(x, y, z);
 		if (sideToPushTo != pushedSide) {
-			if (PistonBehaviorRegistry.isNonStickyBlock(pushedBlock, pushedMeta)) {
+			if (HogTagsHelper.BlockTags.hasAnyTag(pushedBlock, pushedMeta, Tags.MOD_ID + ":piston_slick_blocks")) {
 				return false;
 			}
 
@@ -411,7 +413,11 @@ public class MixinBlockPistonBase extends Block {
 			Block stuckToBlock = world.getBlock(x + xoffset, y + yoffset, z + zoffset);
 			int stuckToMeta = world.getBlockMetadata(x + xoffset, y + yoffset, z + zoffset);
 
-			if (PistonBehaviorRegistry.isStickyBlock(pushedBlock, pushedMeta) && PistonBehaviorRegistry.isStickyBlock(stuckToBlock, stuckToMeta) && (pushedBlock != stuckToBlock || pushedMeta != stuckToMeta)) {
+			if (HogTagsHelper.BlockTags.hasAnyTag(pushedBlock, pushedMeta,
+					Tags.MOD_ID + ":piston_honey_blocks", Tags.MOD_ID + ":piston_slime_blocks")
+					&& HogTagsHelper.BlockTags.hasAnyTag(stuckToBlock, stuckToMeta,
+					Tags.MOD_ID + ":piston_honey_blocks", Tags.MOD_ID + ":piston_slime_blocks")
+					&& (pushedBlock != stuckToBlock || pushedMeta != stuckToMeta)) {
 				return false;
 			}
 		}

@@ -30,7 +30,8 @@ public class BlockDeepslateCopperOre extends BlockDeepslateOre implements IInitA
 					setHarvestLevel("pickaxe", block.getHarvestLevel(stack.getItemDamage()));
 				}
 				blockHardness = ConfigFunctions.useStoneHardnessForDeepslate ? block.getBlockHardness(world, 0, 0, 0) : block.getBlockHardness(world, 0, 0, 0) * 1.5F;
-				blockResistance = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0); //Because the game divides it by 5 for some reason
+				blockResistance = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0) * 5F; //Because the game divides it by 5 for some reason
+				base = block;
 			} catch (Exception ignored) {
 				setHarvestLevel("pickaxe", 1);
 

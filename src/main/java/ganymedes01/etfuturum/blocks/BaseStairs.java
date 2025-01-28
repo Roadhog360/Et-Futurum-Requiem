@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -22,12 +21,12 @@ public class BaseStairs extends BlockStairs {
 	}
 
 	public BaseStairs setUnlocalizedNameWithPrefix(String name) {
-		setBlockName(Utils.getUnlocalisedName(name.replace("bricks", "brick").replace("tiles", "tile")) + "_stairs");
+		setBlockName(name.replace("bricks", "brick").replace("tiles", "tile") + "_stairs");
 		return this;
 	}
 
 	public BaseStairs setBlockSound(SoundType type) {
-		Utils.setBlockSound(this, type);
+		setStepSound(type);
 		return this;
 	}
 

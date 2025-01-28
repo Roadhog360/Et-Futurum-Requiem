@@ -4,6 +4,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.Tags;
+import ganymedes01.etfuturum.api.crops.IBeeGrowable;
 import ganymedes01.etfuturum.blocks.*;
 import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.compat.ModsList;
@@ -19,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.utils.GenericUtils;
 import roadhog360.hogutils.api.utils.RecipeHelper;
 
 import java.util.Map;
@@ -35,13 +37,11 @@ public class ModTagging {
 		// BEE FLOWER DYNAMIC TAGS
 		if (block instanceof BlockFlower) {
 			HogTagsHelper.BlockTags.addTags(block, "minecraft:bee_attractive");
-			//TODO: ISSUE: Tags don't show up on F3 but apparently bees still know them so they're on the server
-			//When I had instanceof BlockChorusFlower here (and not below) though that block worked fine. Why doesn't BlockFlower work?
 			if(Item.getItemFromBlock(block) != null) {
 				HogTagsHelper.ItemTags.addTags(Item.getItemFromBlock(block), "minecraft:bee_food");
 			}
 		}
-		if (block instanceof BlockCrops || block instanceof BlockStem || block instanceof BlockBerryBush) {
+		if (block instanceof BlockCrops || block instanceof BlockStem || block instanceof BlockBerryBush || block instanceof IBeeGrowable) {
 			HogTagsHelper.BlockTags.addTags(block, OreDictionary.WILDCARD_VALUE, "minecraft:bee_growables");
 			//TODO: Add cave vines as a pollinatable crop, when they get added
 		}
@@ -64,7 +64,11 @@ public class ModTagging {
 		HogTagsHelper.BlockTags.addTags(ModBlocks.TARGET.get(), "minecraft:mineable/hoe");
 		HogTagsHelper.BlockTags.addTags(ModBlocks.NETHER_WART.get(), "minecraft:mineable/hoe");
 
+		HogTagsHelper.BlockTags.addTags(ModBlocks.DEEPSLATE.get(), Tags.MOD_ID + ":deepslate_ore_base");
+		HogTagsHelper.BlockTags.addTags(ModBlocks.TUFF.get(), 0, Tags.MOD_ID + ":deepslate_ore_base");
+
 		doBeeTags();
+		doPistonTags();
 	}
 
 	private static void doBeeTags() {
@@ -114,6 +118,48 @@ public class ModTagging {
 		HogTagsHelper.BlockTags.addTags(ExternalContent.Blocks.ECRU_LEAVES_FIRE.get(), Tags.MOD_ID + ":bee_hive_fumigator");
 		HogTagsHelper.BlockTags.addTags(ExternalContent.Blocks.THAUMCRAFT_AIRY.get(), Tags.MOD_ID + ":bee_hive_fumigator");
 		//TODO: And spore blossoms, when added
+	}
+
+	private static void doPistonTags() {
+		HogTagsHelper.BlockTags.addTags(ModBlocks.SLIME.get(), Tags.MOD_ID + ":piston_slime_blocks");
+		HogTagsHelper.BlockTags.addTags(ModBlocks.HONEY_BLOCK.get(), Tags.MOD_ID + ":piston_honey_blocks");
+		for (ModBlocks mb : ModBlocks.TERRACOTTA) {
+			if (mb.isEnabled()) {
+				HogTagsHelper.BlockTags.addTags(mb.get(), Tags.MOD_ID + ":piston_slick_blocks");
+			}
+		}
+
+		//Begin mod blocks
+		HogTagsHelper.BlockTags.addTags(GameRegistry.findBlock("VillageNames", "glazedTerracotta"),
+				Tags.MOD_ID + ":piston_slick_blocks");
+		HogTagsHelper.BlockTags.addTags(GameRegistry.findBlock("VillageNames", "glazedTerracotta2"),
+				Tags.MOD_ID + ":piston_slick_blocks");
+		HogTagsHelper.BlockTags.addTags(GameRegistry.findBlock("VillageNames", "glazedTerracotta3"),
+				Tags.MOD_ID + ":piston_slick_blocks");
+		HogTagsHelper.BlockTags.addTags(GameRegistry.findBlock("VillageNames", "glazedTerracotta4"),
+				Tags.MOD_ID + ":piston_slick_blocks");
+
+		for (String color : GenericUtils.Constants.MODERN_COLORS_SNAKE_CASE) {
+			HogTagsHelper.BlockTags.addTags(GameRegistry.findBlock("uptodate", "glazed_terracotta_" + color),
+					Tags.MOD_ID + ":piston_slick_blocks");
+		}
+
+		if (ModsList.TINKERS_CONSTRUCT.isLoaded()) {
+			HogTagsHelper.BlockTags.addTags(GameRegistry.findBlock("TConstruct", "slime.gel"),
+					Tags.MOD_ID + ":piston_slime_blocks");
+			HogTagsHelper.BlockTags.addTags(GameRegistry.findBlock("TConstruct", "GlueBlock"),
+					Tags.MOD_ID + ":piston_honey_blocks");
+		}
+
+		if (ModsList.MINEFACTORY_RELOADED.isLoaded()) {
+			HogTagsHelper.BlockTags.addTags(GameRegistry.findBlock("MineFactoryReloaded", "pinkslime.block"),
+					Tags.MOD_ID + ":piston_slime_blocks");
+		}
+
+		if (ModsList.BIOMES_O_PLENTY.isLoaded()) {
+			HogTagsHelper.BlockTags.addTags(GameRegistry.findBlock("BiomesOPlenty", "honeyBlock"),
+					Tags.MOD_ID + ":piston_honey_blocks");
+		}
 	}
 
 	static void registerOreDictionary() {

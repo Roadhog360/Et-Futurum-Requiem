@@ -16,7 +16,6 @@ import ganymedes01.etfuturum.core.handlers.SculkEventHandler;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
 import ganymedes01.etfuturum.core.utils.Logger;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.inventory.*;
 import ganymedes01.etfuturum.lib.GUIIDs;
@@ -69,40 +68,40 @@ public class CommonProxy implements IGuiHandler {
 
 	public void registerEntities() {
 		if (ModBlocks.BREWING_STAND.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityNewBrewingStand.class, Utils.getUnlocalisedName("brewing_stand"));
+			GameRegistry.registerTileEntity(TileEntityNewBrewingStand.class, "brewing_stand");
 		}
 		if (ModBlocks.BEACON.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityNewBeacon.class, Utils.getUnlocalisedName("beacon"));
+			GameRegistry.registerTileEntity(TileEntityNewBeacon.class, "beacon");
 		}
 		if (ModBlocks.BARREL.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityBarrel.class, Utils.getUnlocalisedName("barrel"));
+			GameRegistry.registerTileEntity(TileEntityBarrel.class, "barrel");
 		}
 		if (ModBlocks.SMOKER.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntitySmoker.class, Utils.getUnlocalisedName("smoker"));
+			GameRegistry.registerTileEntity(TileEntitySmoker.class, "smoker");
 		}
 		if (ModBlocks.BLAST_FURNACE.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityBlastFurnace.class, Utils.getUnlocalisedName("blast_furnace"));
+			GameRegistry.registerTileEntity(TileEntityBlastFurnace.class, "blast_furnace");
 		}
 		if (ConfigBlocksItems.enableVanillaSigns) {
-			GameRegistry.registerTileEntity(TileEntityWoodSign.class, Utils.getUnlocalisedName("sign"));
+			GameRegistry.registerTileEntity(TileEntityWoodSign.class, "sign");
 		}
 		if (ModBlocks.SCULK_CATALYST.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntitySculkCatalyst.class, Utils.getUnlocalisedName("sculk_catalyst"));
+			GameRegistry.registerTileEntity(TileEntitySculkCatalyst.class, "sculk_catalyst");
 		}
 		if (ModBlocks.END_GATEWAY.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityGateway.class, Utils.getUnlocalisedName("end_gateway"));
+			GameRegistry.registerTileEntity(TileEntityGateway.class, "end_gateway");
 		}
 		if (ModBlocks.SHULKER_BOX.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityShulkerBox.class, Utils.getUnlocalisedName("shulker_box"));
+			GameRegistry.registerTileEntity(TileEntityShulkerBox.class, "shulker_box");
 		}
 		if (ModBlocks.POTION_CAULDRON.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityCauldronPotion.class, Utils.getUnlocalisedName("potion_cauldron"));
+			GameRegistry.registerTileEntity(TileEntityCauldronPotion.class, "potion_cauldron");
 		}
 		if (ModBlocks.BANNER.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityBanner.class, Utils.getUnlocalisedName("banner"));
+			GameRegistry.registerTileEntity(TileEntityBanner.class, "banner");
 		}
 		if (ModBlocks.BEEHIVE.isEnabled() || ModBlocks.BEE_NEST.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityBeeHive.class, Utils.getUnlocalisedName("hive"));
+			GameRegistry.registerTileEntity(TileEntityBeeHive.class, "hive");
 		}
 
 		if (ConfigEntities.enableRabbit) {
@@ -174,9 +173,6 @@ public class CommonProxy implements IGuiHandler {
 
 		if (ConfigEntities.enableNetherEndermen) {
 			EntityRegistry.addSpawn(EntityEnderman.class, 1, 4, 4, EnumCreatureType.monster, BiomeGenBase.hell);
-//			if (ModBlocks.NYLIUM.isEnabled()) {
-//				EntityEnderman.setCarriable(ModBlocks.NYLIUM.get(), true);
-//			}
 		}
 
 		if (ConfigBlocksItems.enableLingeringPotions) {

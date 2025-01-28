@@ -21,21 +21,24 @@ import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
 
-public class BlockBarrier extends BaseBlock implements IFloatingParticleBlock {
+public class BlockBarrier extends BaseEFRBlock implements IFloatingParticleBlock {
 
 	/**
 	 * Caches barrier particles spawned, so we don't just spam barrier particles
 	 */
 	protected static final Map<BlockPos, EntityFX> INVISIBLE_BLOCK_FX_MAP = new WeakHashMap<>();
 
-	public BlockBarrier() {
-		super(Material.rock);
+	public BlockBarrier(String type) {
+		super(Material.rock, type);
 		setBlockUnbreakable();
 		setResistance(2000000F);
 		setLightOpacity(0);
-		setNames("barrier");
 		useNeighborBrightness = true;
 		canBlockGrass = false;
+	}
+
+	public BlockBarrier() {
+		this("barrier");
 	}
 
 	@Override

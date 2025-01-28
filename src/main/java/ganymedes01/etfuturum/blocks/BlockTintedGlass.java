@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.material.Material;
@@ -18,7 +17,7 @@ public class BlockTintedGlass extends BlockGlass {
 		setResistance(0.3f);
 		setLightOpacity(255);
 		setBlockTextureName("tinted_glass");
-		setBlockName(Utils.getUnlocalisedName("tinted_glass"));
+		setBlockName("tinted_glass");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setStepSound(Block.soundTypeGlass);
 	}

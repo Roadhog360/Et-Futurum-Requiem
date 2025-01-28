@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
-import ganymedes01.etfuturum.lib.RenderIDs;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -12,7 +12,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class BlockGlazedTerracotta extends BaseBlock {
+public class BlockGlazedTerracotta extends BaseEFRBlock {
 
 	private final int meta;
 	private IIcon blockIconFlipped;
@@ -63,6 +63,6 @@ public class BlockGlazedTerracotta extends BaseBlock {
 //
 	@Override
 	public int getRenderType() {
-		return RenderIDs.GLAZED_TERRACOTTA;
+		return BlockRenderers.GLAZED_TERRACOTTA.getRenderId();
 	}
 }

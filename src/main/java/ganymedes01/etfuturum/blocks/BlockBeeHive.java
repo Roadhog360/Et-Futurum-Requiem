@@ -7,7 +7,6 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.tileentities.TileEntityBeeHive;
 import net.minecraft.block.Block;
@@ -51,7 +50,7 @@ public class BlockBeeHive extends BlockContainer {
 	}
 
 	public BlockBeeHive setHiveType(String type, boolean efrprefix) {
-		setBlockName(efrprefix ? Utils.getUnlocalisedName(type) : type);
+		setBlockName(efrprefix ? type : type);
 		setBlockTextureName(type);
 		if (type.contains("nest")) {
 			setResistance(0.3F);

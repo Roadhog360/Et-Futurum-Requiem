@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.core.handlers;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -11,8 +12,6 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.Tags;
-import ganymedes01.etfuturum.api.MultiBlockSoundRegistry;
-import ganymedes01.etfuturum.api.mappings.MultiBlockSoundContainer;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
@@ -36,17 +35,14 @@ import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
 import ganymedes01.etfuturum.world.nether.dimension.WorldProviderEFRNether;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSound;
-import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.client.resources.I18n;
@@ -55,11 +51,13 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.ClickEvent.Action;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
-import net.minecraft.util.*;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatStyle;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -67,7 +65,6 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent.SetArmorModel;
-import net.minecraftforge.client.event.sound.PlaySoundEvent17;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
@@ -383,264 +380,62 @@ public class ClientEventHandler {
 		}
 	}
 
+	private float prevYOffset;
+
 	@SubscribeEvent
-	public void onPlaySoundEvent(PlaySoundEvent17 event) {
-		if (event.sound != null && event.name != null && FMLClientHandler.instance().getWorldClient() != null) {
-			final World world = FMLClientHandler.instance().getWorldClient();
-			final float soundX = event.sound.getXPosF();
-			final float soundY = event.sound.getYPosF();
-			final float soundZ = event.sound.getZPosF();
-			final int x = MathHelper.floor_float(soundX);
-			final int y = MathHelper.floor_float(soundY);
-			final int z = MathHelper.floor_float(soundZ);
-			final Block block = world.getBlock(x, y, z);
-
-			final boolean hitSound = block.stepSound.getStepResourcePath().endsWith(event.name);
-			final boolean breakSound = block.stepSound.getBreakSound().endsWith(event.name);
-			final boolean placeSound = block.stepSound.func_150496_b/*getPlaceSound*/().endsWith(event.name);
-
-			if (MultiBlockSoundRegistry.multiBlockSounds.containsKey(block) && (hitSound || breakSound || placeSound)) {
-				MultiBlockSoundContainer obj = MultiBlockSoundRegistry.multiBlockSounds.get(block);
-				MultiBlockSoundRegistry.BlockSoundType type;
-				if (hitSound) {
-					type = MultiBlockSoundRegistry.BlockSoundType.HIT;
-				} else if (placeSound) {
-					type = MultiBlockSoundRegistry.BlockSoundType.PLACE;
-				} else {
-					type = MultiBlockSoundRegistry.BlockSoundType.BREAK;
-				}
-				String newSoundString = obj.getSound(world, x, y, z, event.name, type);
-				float volume = obj.getVolume(world, x, y, z, event.sound.getVolume(), type);
-				float pitch = obj.getPitch(world, x, y, z, event.sound.getPitch(), type);
-				if (newSoundString != null || volume != -1 || pitch != -1) {
-					if (newSoundString == null) newSoundString = event.name;
-					if (volume == -1) volume = event.sound.getVolume();
-					if (pitch == -1) pitch = event.sound.getPitch();
-					event.result = new PositionedSoundRecord(new ResourceLocation(newSoundString), volume, pitch, soundX, soundY, soundZ);
-					return;
-				}
-			}
-
-
-			//Opening and closing doors/chests
-			if (ConfigSounds.doorOpenClose && event.name.contains("random.door")) {
-				event.result = new PositionedSoundRecord(new ResourceLocation(getReplacementDoorSound(block, event.name)),
-						event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-				return;
-			}
-			if (ConfigSounds.chestOpenClose && event.name.contains("random.chest")) {
-				String s = event.name;
-				String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
-				if (blockID.contains("chest") && (event.name.contains("open") || event.name.contains("close"))) {
-					if ((blockID.contains("ender") && block.getMaterial().equals(Material.rock)))
-						s = Tags.MC_ASSET_VER + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");
-					else if (block.getMaterial().equals(Material.wood) && event.name.contains("close"))
-						s = Tags.MC_ASSET_VER + ":" + "block.chest.close";
-				}
-
-				if (!s.equals(event.name)) {
-					event.result = new PositionedSoundRecord(new ResourceLocation(s), event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-					return;
-				}
-			}
-
-			//We check what sound event to use by the pitch. These blocks fire 0.6F when turning on, and 0.5F when turning off. We use > 0.5F instead of == 0.6F to account for floating point precision.w
-			if (ConfigSounds.pressurePlateButton) {
-				// --- Wooden Button --- //
-				if (block instanceof BlockButton && event.name.equals("random.click")) {
-					String s = null;
-					if (block.stepSound == Block.soundTypeWood) {
-						s = Tags.MC_ASSET_VER + ":block.wooden_button.click";
-					} else if (block.stepSound == ModSounds.soundNetherWood) {
-						s = Tags.MC_ASSET_VER + ":block.nether_wood_button.click";
-					} else if (block.stepSound == ModSounds.soundCherryWood) {
-						s = Tags.MC_ASSET_VER + ":block.cherry_wood_button.click";
-					} else if (block.stepSound == ModSounds.soundBambooWood) {
-						s = Tags.MC_ASSET_VER + ":block.bamboo_wood_button.click";
-					}
-					if (s != null) {
-						event.result = new PositionedSoundRecord(new ResourceLocation(s + "_" + (event.sound.getPitch() > 0.5F ? "on" : "off")), 1, 1, soundX, soundY, soundZ);
-					}
-					return;
-				}
-
-				// --- Wooden/Metal Pressure plate --- //
-				if (block instanceof BlockBasePressurePlate && event.name.equals("random.click")) {
-					String s = null;
-					if (block.stepSound == Block.soundTypeMetal) {
-						s = Tags.MC_ASSET_VER + ":block.metal_pressure_plate.click";
-					} else if (block.stepSound == Block.soundTypeWood) {
-						s = Tags.MC_ASSET_VER + ":block.wooden_pressure_plate.click";
-					} else if (block.stepSound == ModSounds.soundNetherWood) {
-						s = Tags.MC_ASSET_VER + ":block.nether_wood_pressure_plate.click";
-					} else if (block.stepSound == ModSounds.soundCherryWood) {
-						s = Tags.MC_ASSET_VER + ":block.cherry_wood_pressure_plate.click";
-					} else if (block.stepSound == ModSounds.soundBambooWood) {
-						s = Tags.MC_ASSET_VER + ":block.bamboo_wood_pressure_plate.click";
-					}
-
-					if (s != null) {
-						event.result = new PositionedSoundRecord(new ResourceLocation(s + "_" + (event.sound.getPitch() > 0.5F ? "on" : "off")), 1, 1, soundX, soundY, soundZ);
-					}
-					return;
-				}
-			}
-
-			// --- Note Blocks --- //
-			if (ConfigSounds.noteBlockNotes && world.getBlock(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)) instanceof BlockNote &&
-					(event.name.equals("note.harp") || event.name.equals("note.snare") || event.name.equals("note.hat") || event.name.equals("note.bd"))) {
-				String instrumentToPlay = event.name;
-				String blockName = "";
-
-				Block blockBeneath = world.getBlock(
-						MathHelper.floor_float(soundX),
-						MathHelper.floor_float(soundY) - 1,
-						MathHelper.floor_float(soundZ));
-				Item item = Item.getItemFromBlock(blockBeneath);
-				if (item != null && item.getHasSubtypes()) {
-					try {
-						STORAGE_STACK.func_150996_a(item); // setItem
-						STORAGE_STACK.setItemDamage(world.getBlockMetadata(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)));
-						blockName = item.getUnlocalizedName(STORAGE_STACK).toLowerCase();
-					} catch (
-							Exception e) {/*In case a mod doesn't have a catch for invalid meta states and throws an error, just ignore it and proceed*/}
-				}
-
-				if (blockName.equals("")) {
-					blockName = blockBeneath.getUnlocalizedName().toLowerCase();
-				}
-
-				// Specific blocks
-				if (blockBeneath == Blocks.soul_sand) {
-					instrumentToPlay = Tags.MC_ASSET_VER + ":block.note_block.cow_bell";
-				} else if (blockName.contains("hay")) {
-					instrumentToPlay = Tags.MC_ASSET_VER + ":block.note_block.banjo";
-				} else if (EtFuturum.hasDictTag(blockBeneath, "blockGold")) {
-					instrumentToPlay = Tags.MC_ASSET_VER + ":block.note_block.bell";
-				} else if (EtFuturum.hasDictTag(blockBeneath, "blockEmerald")) {
-					instrumentToPlay = Tags.MC_ASSET_VER + ":block.note_block.bit";
-				} else if (blockName.contains("packed") && blockName.contains("ice")) {
-					instrumentToPlay = Tags.MC_ASSET_VER + ":block.note_block.chime";
-				} else if (blockName.contains("pumpkin")) {
-					instrumentToPlay = Tags.MC_ASSET_VER + ":block.note_block.didgeridoo";
-				} else if (blockBeneath.getMaterial() == Material.clay) {
-					instrumentToPlay = Tags.MC_ASSET_VER + ":block.note_block.flute";
-				} else if (EtFuturum.hasDictTag(blockBeneath, "blockIron")) {
-					instrumentToPlay = Tags.MC_ASSET_VER + ":block.note_block.iron_xylophone";
-				} else if (blockBeneath.getMaterial() == Material.cloth) {
-					instrumentToPlay = Tags.MC_ASSET_VER + ":block.note_block.guitar";
-				} else if (blockName.contains("bone") || blockName.contains("ivory")) {
-					instrumentToPlay = Tags.MC_ASSET_VER + ":block.note_block.xylophone";
-				}
-				if (event.name.equals(instrumentToPlay)) return;
-
-				event.result = new PositionedSoundRecord(new ResourceLocation(instrumentToPlay), instrumentToPlay.equals(Tags.MC_ASSET_VER + ":block.note_block.iron_xylophone") ? 1F : event.sound.getVolume(), event.sound.getPitch(), soundX, soundY, soundZ);
-				return;
-			}
-
-
-			// --- Book page turn --- //
-			if (mc.currentScreen instanceof GuiScreenBook gui && event.name.equals("gui.button.press")) {
-				// If there is a disagreement on page, play the page-turning sound
-				if (gui.currPage != this.currPage) {
-					this.currPage = gui.currPage;
-					EntityClientPlayerMP player = mc.thePlayer;
-					player.playSound(Tags.MC_ASSET_VER + ":item.book.page_turn", 1.0F, 1.0F);
-					event.result = null;
-					return;
-				}
-			}
-
-			if (ConfigSounds.rainSounds && event.name.equals("ambient.weather.rain")) {
-				event.result = new PositionedSoundRecord(new ResourceLocation(Tags.MC_ASSET_VER + ":weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")),
-						event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-			}
-
-			if (event.name.startsWith("music.game")) { //Just override overworld or Nether music, not other music types
-				if (musicOverride == null || !mc.getSoundHandler().isSoundPlaying(musicOverride)) {
-					String music = getAmbientMusicOverride();
-					if (music != null) {
-						musicOverride = PositionedSoundRecord.func_147673_a(new ResourceLocation(music)); // createPositionedSoundRecord
-						event.result = musicOverride;
-					}
-				} else {
-					event.result = null;
-				}
-			}
-
-			if (event.name.equals("ambient.cave.cave")) {
-				if (getAmbienceMood() != null) {
-					event.result = new PositionedSoundRecord(new ResourceLocation(getAmbienceMood()),
-							event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-				}
+	public void onRenderTick(TickEvent.RenderTickEvent event) {
+		if (!ConfigMixins.enableElytra)
+			return;
+		EntityPlayerSP player = mc.thePlayer;
+		if (!(player instanceof IElytraPlayer))
+			return;
+		if (((IElytraPlayer) player).etfu$isElytraFlying()) {
+			if (event.phase == Phase.START) {
+				prevYOffset = player.yOffset;
+				/* TODO find the right number here */
+				if (mc.gameSettings.thirdPersonView == 0)
+					player.yOffset = 3.02f;
+			} else {
+				player.yOffset = prevYOffset;
 			}
 		}
 	}
 
-	private String getReplacementDoorSound(Block block, String string) {
-		Random random = new Random();
-		String closeOrOpen = random.nextBoolean() ? "open" : "close";
-		if (block instanceof BlockDoor) {
-			if (block.getMaterial() == Material.wood) {
-				if (block.stepSound == ModSounds.soundNetherWood) {
-					return Tags.MC_ASSET_VER + ":block.nether_wood_door." + closeOrOpen;
+	@SubscribeEvent
+	public void onLivingUpdateEvent(LivingUpdateEvent event) {
+		Entity entity = event.entityLiving;
+		World world = entity.worldObj;
+
+		if (ConfigMixins.enableElytra && entity instanceof EntityPlayerSP) {
+			IElytraPlayer e = (IElytraPlayer) entity;
+			if (e.etfu$isElytraFlying() && !e.etfu$lastElytraFlying()) {
+				mc.getSoundHandler().playSound(new ElytraSound((EntityPlayerSP) entity));
+			}
+			/* lastElytraFlying is set by the shared handler in ServerEventHandler */
+		}
+		/*
+		 * The purpose of the function is to manifest sprint particles
+		 * and adjust slipperiness when entity is moving on block, so check
+		 * that the conditions are met first.
+		 */
+		if (entity.onGround && (entity.motionX != 0 || entity.motionZ != 0)) {
+			int x = MathHelper.floor_double(entity.posX);
+			int y = MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset);
+			int z = MathHelper.floor_double(entity.posZ);
+
+			if (entity.worldObj.getTileEntity(x, y, z) instanceof TileEntityShulkerBox shulkerBox) {
+				if (world.isRemote && entity.isSprinting() && !entity.isInWater()) {
+					EntityDiggingFX dig = new EntityDiggingFX(world, entity.posX + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, entity.boundingBox.minY + 0.1D, entity.posZ + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, -entity.motionX * 4.0D, 1.5D, -entity.motionZ * 4.0D, shulkerBox.getBlockType(), 0);
+					dig.setParticleIcon(((BlockShulkerBox) shulkerBox.getBlockType()).colorIcons[shulkerBox.color]);
+					mc.effectRenderer.addEffect((dig).applyColourMultiplier(x, y, z));
 				}
-				if (block.stepSound == ModSounds.soundCherryWood) {
-					return Tags.MC_ASSET_VER + ":block.cherry_wood_door." + closeOrOpen;
-				}
-				if (block.stepSound == ModSounds.soundBambooWood) {
-					return Tags.MC_ASSET_VER + ":block.bamboo_wood_door." + closeOrOpen;
-				}
-				return Tags.MC_ASSET_VER + ":block.wooden_door." + closeOrOpen;
-			} else if (block.getMaterial() == Material.iron) {
-				if (block.stepSound == ModSounds.soundCopper) {
-					return Tags.MC_ASSET_VER + ":block.copper_door." + closeOrOpen;
-				}
-				return Tags.MC_ASSET_VER + ":block.iron_door." + closeOrOpen;
 			}
 		}
-
-		if (block instanceof BlockTrapDoor) {
-			if (block.getMaterial() == Material.wood) {
-				if (block.stepSound == ModSounds.soundNetherWood) {
-					return Tags.MC_ASSET_VER + ":block.nether_wood_trapdoor." + closeOrOpen;
-				}
-				if (block.stepSound == ModSounds.soundCherryWood) {
-					return Tags.MC_ASSET_VER + ":block.cherry_wood_trapdoor." + closeOrOpen;
-				}
-				if (block.stepSound == ModSounds.soundBambooWood) {
-					return Tags.MC_ASSET_VER + ":block.bamboo_wood_trapdoor." + closeOrOpen;
-				}
-				return Tags.MC_ASSET_VER + ":block.wooden_trapdoor." + closeOrOpen;
-			} else if (block.getMaterial() == Material.iron) {
-				if (block.stepSound == ModSounds.soundCopper) {
-					return Tags.MC_ASSET_VER + ":block.copper_trapdoor." + closeOrOpen;
-				}
-				return Tags.MC_ASSET_VER + ":block.iron_trapdoor." + closeOrOpen;
-			}
-		}
-
-		if (block instanceof BlockFenceGate) {
-			if (block.getMaterial() == Material.wood) {
-				if (block.stepSound == ModSounds.soundNetherWood) {
-					return Tags.MC_ASSET_VER + ":block.nether_wood_fence_gate." + closeOrOpen;
-				}
-				if (block.stepSound == ModSounds.soundCherryWood) {
-					return Tags.MC_ASSET_VER + ":block.cherry_wood_fence_gate." + closeOrOpen;
-				}
-				if (block.stepSound == ModSounds.soundBambooWood) {
-					return Tags.MC_ASSET_VER + ":block.bamboo_wood_fence_gate." + closeOrOpen;
-				}
-				return Tags.MC_ASSET_VER + ":block.fence_gate." + closeOrOpen;
-			}
-		}
-
-		return string;
 	}
 
 	private static final String ignore_suffix = "$etfuturum:ignore";
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event) {
 		if (event.name == null) return; //Some mods fire null sounds, blech
 
@@ -696,19 +491,7 @@ public class ClientEventHandler {
 		World world = FMLClientHandler.instance().getWorldClient();
 		Block block = world.getBlock(x, y, z);
 
-		if (MultiBlockSoundRegistry.multiBlockSounds.containsKey(block) && block.stepSound.getStepResourcePath().equals(event.name)) {
-			MultiBlockSoundContainer obj = MultiBlockSoundRegistry.multiBlockSounds.get(block);
-			String newSoundString = obj.getSound(world, x, y, z, event.name, MultiBlockSoundRegistry.BlockSoundType.WALK);
-			float volume = obj.getVolume(world, x, y, z, event.volume, MultiBlockSoundRegistry.BlockSoundType.WALK);
-			float pitch = obj.getPitch(world, x, y, z, event.volume, MultiBlockSoundRegistry.BlockSoundType.WALK);
-			if (newSoundString != null || volume != -1 || pitch != -1) {
-				if (newSoundString == null) newSoundString = event.name;
-				if (volume == -1) volume = event.volume;
-				if (pitch == -1) pitch = event.pitch;
-				entity.playSound(newSoundString + ignore_suffix, volume, pitch);
-				event.setCanceled(true);
-			}
-		} else if (ConfigSounds.newBlockSounds && ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)) {
+		if (ConfigSounds.newBlockSounds && ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)) {
 			MutablePair<Float, Integer> pair = AMETHYST_CHIME_CACHE.get(entity);
 			if (pair == null) {
 				pair = new MutablePair<>(0.0F, 0);
@@ -725,62 +508,6 @@ public class ClientEventHandler {
 				pair.setLeft(field_26997);
 				pair.setRight(lastChimeAge);
 				AMETHYST_CHIME_CACHE.put(entity, pair);
-			}
-		}
-	}
-
-	private float prevYOffset;
-
-	@SubscribeEvent
-	public void onRenderTick(TickEvent.RenderTickEvent event) {
-		if (!ConfigMixins.enableElytra)
-			return;
-		EntityPlayerSP player = mc.thePlayer;
-		if (!(player instanceof IElytraPlayer))
-			return;
-		if (((IElytraPlayer) player).etfu$isElytraFlying()) {
-			if (event.phase == Phase.START) {
-				prevYOffset = player.yOffset;
-				/* TODO find the right number here */
-				if (mc.gameSettings.thirdPersonView == 0)
-					player.yOffset = 3.02f;
-			} else {
-				player.yOffset = prevYOffset;
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public void onLivingUpdateEvent(LivingUpdateEvent event) {
-		Entity entity = event.entityLiving;
-		World world = entity.worldObj;
-
-		if (ConfigMixins.enableElytra && entity instanceof EntityPlayerSP) {
-			IElytraPlayer e = (IElytraPlayer) entity;
-			if (e.etfu$isElytraFlying() && !e.etfu$lastElytraFlying()) {
-				mc.getSoundHandler().playSound(new ElytraSound((EntityPlayerSP) entity));
-			}
-			/* lastElytraFlying is set by the shared handler in ServerEventHandler */
-		}
-		/*
-		 * The purpose of the function is to manifest sprint particles
-		 * and adjust slipperiness when entity is moving on block, so check
-		 * that the conditions are met first.
-		 */
-		if (entity.onGround && (entity.motionX != 0 || entity.motionZ != 0)) {
-			int x = MathHelper.floor_double(entity.posX);
-			int y = MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset);
-			int z = MathHelper.floor_double(entity.posZ);
-
-			if (entity.worldObj.getBlock(x, y, z) instanceof BlockShulkerBox) {
-				TileEntityShulkerBox TE = (TileEntityShulkerBox) entity.worldObj.getTileEntity(x, y, z);
-				if (TE != null) {
-					if (world.isRemote && entity.isSprinting() && !entity.isInWater()) {
-						EntityDiggingFX dig = new EntityDiggingFX(world, entity.posX + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, entity.boundingBox.minY + 0.1D, entity.posZ + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, -entity.motionX * 4.0D, 1.5D, -entity.motionZ * 4.0D, TE.getBlockType(), 0);
-						dig.setParticleIcon(((BlockShulkerBox) TE.getBlockType()).colorIcons[TE.color]);
-						mc.effectRenderer.addEffect((dig).applyColourMultiplier(x, y, z));
-					}
-				}
 			}
 		}
 	}

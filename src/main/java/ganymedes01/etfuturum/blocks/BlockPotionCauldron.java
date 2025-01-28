@@ -6,9 +6,8 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack.GrayscaleType;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronColoredWater;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronPotion;
 import net.minecraft.block.BlockCauldron;
@@ -37,7 +36,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 		this.setStepSound(Blocks.cauldron.stepSound);
 		this.setHardness(2);
 		this.setResistance(2);
-		this.setBlockName(Utils.getUnlocalisedName("potion_cauldron"));
+		this.setBlockName("potion_cauldron");
 	}
 
 	@Override
@@ -160,7 +159,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.COLORED_CAULDRON;
+		return BlockRenderers.COLOR_CAULDRON.getRenderId();
 	}
 
 	public IIcon grayscaleWaterIcon() {

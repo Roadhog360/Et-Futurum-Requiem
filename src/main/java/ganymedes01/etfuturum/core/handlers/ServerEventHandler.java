@@ -13,7 +13,6 @@ import ganymedes01.etfuturum.*;
 import ganymedes01.etfuturum.api.RawOreRegistry;
 import ganymedes01.etfuturum.api.StrippedLogRegistry;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BlockHoney;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -96,7 +95,9 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.mutable.MutableFloat;
+import roadhog360.hogutils.api.RegistryMapping;
 import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.utils.GenericUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -1200,7 +1201,7 @@ public class ServerEventHandler {
 		if (event.entityLiving instanceof EntityShulker shulker) {
 			shulker.persistenceRequired = false;
 			if (ConfigTweaks.spawnAnywhereShulkerColors) {
-				for (EnumFacing facing : Utils.ENUM_FACING_VALUES) {
+				for (EnumFacing facing : GenericUtils.Constants.ENUM_FACING_VALUES) {
 					int offX = x + facing.getFrontOffsetX();
 					int offY = y + facing.getFrontOffsetY();
 					int offZ = z + facing.getFrontOffsetZ();

@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -21,7 +20,7 @@ public class BlockSilkedMushroom extends Block {
 		this.block = block;
 		setHardness(0.2F);
 		setStepSound(soundTypeWood);
-		setBlockName(Utils.getUnlocalisedName(str + "_mushroom"));
+		setBlockName(str + "_mushroom");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 

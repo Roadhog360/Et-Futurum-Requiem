@@ -3,9 +3,8 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.compat.ExternalContent;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -16,6 +15,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import roadhog360.hogutils.api.utils.GenericUtils;
 
 import java.util.Random;
 
@@ -26,7 +26,7 @@ public class BlockChorusPlant extends Block {
 		setHardness(0.5F);
 		setStepSound(soundTypeWood);
 		setBlockTextureName("chorus_plant");
-		setBlockName(Utils.getUnlocalisedName("chorus_plant"));
+		setBlockName("chorus_plant");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
@@ -91,7 +91,7 @@ public class BlockChorusPlant extends Block {
 		boolean flag = world.isAirBlock(x, y + 1, z);
 		boolean flag1 = world.isAirBlock(x, y - 1, z);
 
-		for (EnumFacing enumfacing : Utils.ENUM_FACING_VALUES) {
+		for (EnumFacing enumfacing : GenericUtils.Constants.ENUM_FACING_VALUES) {
 			if (enumfacing.getFrontOffsetY() != 0) continue;
 
 			Block block = world.getBlock(x + enumfacing.getFrontOffsetX(), y, z + enumfacing.getFrontOffsetZ());
@@ -134,7 +134,7 @@ public class BlockChorusPlant extends Block {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.CHORUS_PLANT;
+		return BlockRenderers.CHORUS_PLANT.getRenderId();
 	}
 
 	@Override

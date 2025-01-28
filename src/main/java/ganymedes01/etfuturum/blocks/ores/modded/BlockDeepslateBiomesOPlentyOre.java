@@ -10,7 +10,7 @@ public class BlockDeepslateBiomesOPlentyOre extends BaseSubtypesDeepslateOre {
 	}
 
 	@Override
-	public String getTextureSubfolder() {
+	public String getTextureSubfolder(String name) {
 		return "bop";
 	}
 
@@ -21,22 +21,15 @@ public class BlockDeepslateBiomesOPlentyOre extends BaseSubtypesDeepslateOre {
 
 	@Override
 	public int getBaseMeta(int meta) {
-		switch (meta) {
-			case 0:
-				return 2;
-			case 1:
-				return 4;
-			case 2:
-				return 6;
-			case 3:
-				return 8;
-			case 4:
-				return 10;
-			case 5:
-				return 12;
-			case 6:
-				return 14;
-		}
-		return 0;
+		return switch (meta) {
+			case 0 -> 2;
+			case 1 -> 4;
+			case 2 -> 6;
+			case 3 -> 8;
+			case 4 -> 10;
+			case 5 -> 12;
+			case 6 -> 14;
+			default -> 0;
+		};
 	}
 }

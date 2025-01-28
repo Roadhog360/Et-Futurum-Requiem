@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +13,7 @@ public class BlockIronTrapdoor extends BlockTrapDoor {
 		setHardness(5.0F);
 		setStepSound(soundTypeMetal);
 		setBlockTextureName("iron_trapdoor");
-		setBlockName(Utils.getUnlocalisedName("iron_trapdoor"));
+		setBlockName("iron_trapdoor");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 

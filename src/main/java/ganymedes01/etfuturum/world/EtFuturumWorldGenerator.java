@@ -3,12 +3,13 @@ package ganymedes01.etfuturum.world;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.common.IWorldGenerator;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.Tags;
+import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.end.dimension.WorldProviderEFREnd;
-import ganymedes01.etfuturum.world.generate.WorldGenDeepslateLayerBlob;
 import ganymedes01.etfuturum.world.generate.WorldGenMinableCustom;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenBamboo;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenCherryTrees;
@@ -17,13 +18,16 @@ import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenGeode;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraft.world.gen.ChunkProviderFlat;
 import net.minecraft.world.gen.feature.*;
 import net.minecraftforge.common.BiomeDictionary;
@@ -31,17 +35,16 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.ArrayUtils;
+import roadhog360.hogutils.api.RegistryMapping;
+import roadhog360.hogutils.api.hogtags.HogTagsHelper;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	public static final EtFuturumWorldGenerator INSTANCE = new EtFuturumWorldGenerator();
-
-	protected final List<WorldGenMinable> stoneGen = new LinkedList<WorldGenMinable>();
 
 	protected final WorldGenMinable copperGen = new WorldGenMinable(ModBlocks.COPPER_ORE.get(), ConfigWorld.maxCopperPerCluster);
 
@@ -50,9 +53,6 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	protected final WorldGenMinable debrisGen = new WorldGenMinableCustom(ModBlocks.ANCIENT_DEBRIS.get(), ConfigWorld.debrisMax, Blocks.netherrack);
 	protected final WorldGenMinable smallDebrisGen = new WorldGenMinableCustom(ModBlocks.ANCIENT_DEBRIS.get(), ConfigWorld.smallDebrisMax, Blocks.netherrack);
 	protected final WorldGenMinable mesaGoldGen = new WorldGenMinable(Blocks.gold_ore, 8);
-
-	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
-	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxTuffPerCluster, true);
 
 	protected WorldGenerator amethystGen;
 	protected WorldGenerator fossilGen;
@@ -75,9 +75,6 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	private List<BiomeGenBase> cherryBiomes;
 
 	protected EtFuturumWorldGenerator() {
-		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
-		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 3, ConfigWorld.maxStonesPerCluster, Blocks.stone));
-		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 5, ConfigWorld.maxStonesPerCluster, Blocks.stone));
 	}
 
 	public void postInit() {
@@ -170,7 +167,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		if (!isFlatWorld(chunkGenerator) || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
+		if (supportsStandardWorldgen(chunkGenerator, world)) {
 			int x;
 			int z;
 
@@ -353,7 +350,49 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		return rand.nextInt(i);
 	}
 
-	protected final boolean isFlatWorld(IChunkProvider chunkProvider) {
+	public static boolean isFlatWorld(IChunkProvider chunkProvider) {
 		return chunkProvider instanceof ChunkProviderFlat && !chunkProvider.getClass().getName().equals("com.rwtema.extrautils.worldgen.Underdark.ChunkProviderUnderdark");
 	}
+	
+	public static boolean supportsStandardWorldgen(IChunkProvider chunkProvider, World world) {
+		return !isFlatWorld(chunkProvider) || world.getWorldInfo().getGeneratorOptions().contains("decoration");
+	}
+
+	public static boolean changeToDeepslate(Chunk chunk, int chunkX, int chunkY, int chunkZ) {
+		return changeToDeepslate(chunk, chunkX, chunkY, chunkZ, ModBlocks.DEEPSLATE.get(), 0);
+	}
+
+	public static boolean changeToDeepslate(Chunk chunk, int chunkX, int chunkY, int chunkZ, Block newBlock, int newMeta) {
+		ExtendedBlockStorage storage = chunk.getBlockStorageArray()[chunkY >> 4];
+		if(storage != null) {
+			Block prevBlock = storage.getBlockByExtId(chunkX, chunkY & 15, chunkZ);
+			int prevMeta = storage.getExtBlockMetadata(chunkX, chunkY & 15, chunkZ);
+
+			int worldX = chunk.xPosition << 4 + chunkX;
+			int worldZ = chunk.zPosition << 4 + chunkZ;
+			if ((ConfigWorld.deepslateReplacesStones || prevBlock != ModBlocks.STONE.get())
+					&& prevBlock.getMaterial() != Material.air
+					&& !HogTagsHelper.BlockTags.hasAnyTag(prevBlock, prevMeta, Tags.MOD_ID + ":deepslate_ore_base")) {
+				if (prevBlock.isReplaceableOreGen(chunk.worldObj, worldX, chunkY, worldZ, Blocks.stone)) {
+					storage.func_150818_a/*setExtBlockID*/(chunkX, chunkY & 15, chunkZ, newBlock);
+					storage.setExtBlockMetadata(chunkX, chunkY & 15, chunkZ, newMeta);
+					return true;
+				}
+				RegistryMapping<Block> mapping = DeepslateOreRegistry.getOre(prevBlock, storage.getExtBlockMetadata(chunkX, chunkY & 15, chunkZ));
+				if (mapping != null) {
+					Block block = mapping.getObject();
+					int meta = mapping.getMeta();
+					if(block == ModBlocks.DEEPSLATE.get() && newBlock != ModBlocks.DEEPSLATE.get()) {
+						block = newBlock;
+						meta = newMeta;
+					}
+					storage.func_150818_a/*setExtBlockID*/(chunkX, chunkY & 15, chunkZ, block);
+					storage.setExtBlockMetadata(chunkX, chunkY & 15, chunkZ, meta);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 }

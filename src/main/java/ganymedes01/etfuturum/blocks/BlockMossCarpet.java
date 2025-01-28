@@ -2,23 +2,22 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockMossCarpet extends BaseBlock {
+public class BlockMossCarpet extends BaseEFRBlock {
 
 	public BlockMossCarpet() {
 		super(Material.carpet);
 		setHardness(0.1F);
 		setResistance(0.1F);
 		setBlockTextureName("moss_block");
-		setBlockName(Utils.getUnlocalisedName("moss_carpet"));
+		setBlockName("moss_carpet");
 		setHarvestLevel("hoe", 0);
-		setBlockSound(ModSounds.soundMossCarpet);
+		setStepSound(ModSounds.soundMossCarpet);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
 		this.validateBlockBounds(0);

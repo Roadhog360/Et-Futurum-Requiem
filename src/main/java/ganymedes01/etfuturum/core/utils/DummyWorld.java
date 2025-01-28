@@ -1,8 +1,7 @@
 package ganymedes01.etfuturum.core.utils;
 
-import com.google.common.collect.Maps;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -17,6 +16,7 @@ import net.minecraft.world.chunk.storage.IChunkLoader;
 import net.minecraft.world.storage.IPlayerFileData;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
+import roadhog360.hogutils.api.RegistryMapping;
 import roadhog360.hogutils.api.utils.FastRandom;
 
 import java.io.File;
@@ -42,8 +42,8 @@ public class DummyWorld extends World {
 
 	public static final DummyWorld GLOBAL_DUMMY_WORLD = new DummyWorld();
 	public GT_IteratorRandom mRandom = new GT_IteratorRandom();
-	private final Map<BlockPos, RegistryMapping<Block>> FAKE_WORLD_DATA = Maps.newHashMap(); //Stores setblock data for getblock
-	private static final RegistryMapping<Block> AIR = new RegistryMapping<>(Blocks.air, 0);
+	private final Map<BlockPos, RegistryMapping<Block>> FAKE_WORLD_DATA = new Object2ObjectArrayMap<>(); //Stores setblock data for getblock
+	private static final RegistryMapping<Block> AIR = RegistryMapping.of(Blocks.air, 0);
 
 	DummyWorld(ISaveHandler par1iSaveHandler, String par2Str, WorldProvider par3WorldProvider, WorldSettings par4WorldSettings, Profiler par5Profiler) {
 		super(par1iSaveHandler, par2Str, par4WorldSettings, par3WorldProvider, par5Profiler);
@@ -145,7 +145,7 @@ public class DummyWorld extends World {
 		if (aBlock == Blocks.air) {
 			FAKE_WORLD_DATA.remove(pos);
 		} else {
-			FAKE_WORLD_DATA.put(pos, new RegistryMapping<>(aBlock, aMeta));
+			FAKE_WORLD_DATA.put(pos, RegistryMapping.of(aBlock, aMeta));
 		}
 		return true;
 	}

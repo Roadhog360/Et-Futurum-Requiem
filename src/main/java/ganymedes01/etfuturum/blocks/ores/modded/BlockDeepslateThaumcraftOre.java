@@ -5,8 +5,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.blocks.IEmissiveLayerBlock;
 import ganymedes01.etfuturum.blocks.ores.BaseSubtypesDeepslateOre;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.compat.ExternalContent;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -28,7 +28,7 @@ public class BlockDeepslateThaumcraftOre extends BaseSubtypesDeepslateOre implem
 	}
 
 	@Override
-	public String getTextureSubfolder() {
+	public String getTextureSubfolder(String name) {
 		return "thaumcraft";
 	}
 
@@ -55,20 +55,19 @@ public class BlockDeepslateThaumcraftOre extends BaseSubtypesDeepslateOre implem
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
-		setIcons(new IIcon[3]);
-		getIcons()[0] = reg.registerIcon(Tags.MOD_ID + ":thaumcraft/deepslate_cinnabar_ore");
-		getIcons()[1] = reg.registerIcon(Tags.MOD_ID + ":thaumcraft/infused_deepslate");
-		getIcons()[2] = reg.registerIcon(Tags.MOD_ID + ":thaumcraft/amber_bearing_deepslate");
+		getIcons().put(0, reg.registerIcon(Tags.MOD_ID + ":thaumcraft/deepslate_cinnabar_ore"));
+		getIcons().put(1, reg.registerIcon(Tags.MOD_ID + ":thaumcraft/infused_deepslate"));
+		getIcons().put(2, reg.registerIcon(Tags.MOD_ID + ":thaumcraft/amber_bearing_deepslate"));
 		infusedOverlay = reg.registerIcon("thaumcraft:infusedore");
 	}
 
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		if (meta == 0)
-			return getIcons()[0];
+			return getIcons().get(0);
 		if (meta == 7)
-			return getIcons()[2];
-		return getIcons()[1];
+			return getIcons().get(2);
+		return getIcons().get(1);
 	}
 
 	@Override
@@ -86,7 +85,7 @@ public class BlockDeepslateThaumcraftOre extends BaseSubtypesDeepslateOre implem
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.EMISSIVE_DOUBLE_LAYER;
+		return BlockRenderers.EMISSIVE_DOUBLE_LAYER.getRenderId();
 	}
 
 	@Override

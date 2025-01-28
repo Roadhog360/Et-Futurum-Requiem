@@ -15,7 +15,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
-public class BlockMoss extends BaseBlock implements IGrowable {
+public class BlockMoss extends BaseEFRBlock implements IGrowable {
 
 	public BlockMoss() {
 		super(Material.grass);
@@ -23,7 +23,7 @@ public class BlockMoss extends BaseBlock implements IGrowable {
 		setResistance(0.1F);
 		setNames("moss_block");
 		setHarvestLevel("hoe", 0);
-		setBlockSound(ModSounds.soundMoss);
+		setStepSound(ModSounds.soundMoss);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 

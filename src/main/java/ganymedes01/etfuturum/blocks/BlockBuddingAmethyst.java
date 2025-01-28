@@ -3,13 +3,13 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import roadhog360.hogutils.api.utils.GenericUtils;
 
 import java.util.Random;
 
@@ -19,7 +19,7 @@ public class BlockBuddingAmethyst extends BlockAmethystBlock {
 		setHardness(1.5F);
 		setResistance(1.5F);
 		setBlockTextureName("budding_amethyst");
-		setBlockName(Utils.getUnlocalisedName("budding_amethyst"));
+		setBlockName("budding_amethyst");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setTickRandomly(true);
 	}
@@ -47,7 +47,7 @@ public class BlockBuddingAmethyst extends BlockAmethystBlock {
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		if (rand.nextInt(5) == 0) {
-			EnumFacing facing = EnumFacing.getFront(rand.nextInt(Utils.ENUM_FACING_VALUES.length));
+			EnumFacing facing = EnumFacing.getFront(rand.nextInt(GenericUtils.Constants.ENUM_FACING_VALUES.length));
 			Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 			int meta = world.getBlockMetadata(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 

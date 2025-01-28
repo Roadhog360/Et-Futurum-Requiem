@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.entities;
 
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.Tags;
+import ganymedes01.etfuturum.api.crops.IBeeGrowable;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
@@ -1098,8 +1099,11 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 					int y = (int) posY - i;
 					int z = (int) posZ;
 					Block block = worldObj.getBlock(x, y, z);
-					if (block instanceof IGrowable growable) {
-						if (HogTagsHelper.BlockTags.hasAnyTag(block, worldObj.getBlockMetadata(x, y, z))
+					if(HogTagsHelper.BlockTags.hasAnyTag(block, worldObj.getBlockMetadata(x, y, z), "minecraft:bee_growables")) {
+						if (block instanceof IBeeGrowable growable && growable.canPollinate(worldObj, x, y, z, EntityBee.this)) {
+							growable.pollinateCrop(worldObj, x, y, z, EntityBee.this);
+							addCropCounter();
+						} else if (block instanceof IGrowable growable
 								&& growable.func_149851_a/*canFertilize*/(worldObj, x, y, z, false)
 								&& growable.func_149852_a/*shouldFertilize*/(worldObj, worldObj.rand, x, y, z)) {
 							//BlockCrops, BlockStem and BlockBerryBush should use the next meta for growth stage.

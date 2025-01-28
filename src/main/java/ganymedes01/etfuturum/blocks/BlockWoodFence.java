@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
@@ -26,7 +25,7 @@ public class BlockWoodFence extends BlockFence {
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setStepSound(soundTypeWood);
-		setBlockName(Utils.getUnlocalisedName(ModRecipes.woodTypes[meta] + "_fence"));
+		setBlockName(ModRecipes.woodTypes[meta] + "_fence");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 

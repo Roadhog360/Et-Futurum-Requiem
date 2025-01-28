@@ -2,9 +2,9 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
@@ -24,7 +24,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import java.util.Random;
 import java.util.Set;
 
-public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
+public class BlockBamboo extends BaseEFRBlock implements IPlantable, IGrowable {
 
 	public IIcon[] leaves;
 
@@ -32,7 +32,7 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 		super(Material.wood);
 		setBlockTextureName("bamboo_stalk");
 		setHarvestLevel("axe", 0);
-		setBlockSound(ModSounds.soundBamboo);
+		setStepSound(ModSounds.soundBamboo);
 		setHardness(1);
 		setResistance(1);
 		setTickRandomly(true);
@@ -148,7 +148,7 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.BAMBOO;
+		return BlockRenderers.BAMBOO.getRenderId();
 	}
 
 	@Override

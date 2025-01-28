@@ -2,23 +2,23 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import roadhog360.hogutils.api.blocksanditems.block.ISubtypesBlock;
 
 import java.util.Random;
 
-public class BlockCopperTrapdoor extends BaseTrapdoor implements IDegradable {
+public class BlockCopperTrapdoor extends BaseEFRTrapdoor implements IDegradable {
 	public BlockCopperTrapdoor(int meta) {
 		super(Material.iron, "copper_trapdoor");
-		setBlockSound(ModSounds.soundCopper);
+		setStepSound(ModSounds.soundCopper);
 		setTickRandomly(meta < 7);
-		String name = ((ISubBlocksBlock) ModBlocks.COPPER_BLOCK.get()).getTypes()[meta].replace("_block", "");
+		String name = ((ISubtypesBlock) ModBlocks.COPPER_BLOCK.get()).getTypes().get(meta).replace("_block", "");
 		setBlockTextureName(name.replace("waxed_", "") + "_trapdoor");
-		setBlockName(Utils.getUnlocalisedName(name + "_trapdoor"));
+		setBlockName(name + "_trapdoor");
 	}
 
 	@Override

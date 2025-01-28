@@ -8,12 +8,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import roadhog360.hogutils.api.blocksanditems.BaseHelper;
 
+import java.util.Map;
 import java.util.Random;
 
-public class BlockCopper extends BaseSubtypesBlock implements IDegradable {
+public class BlockCopper extends BaseEFRBlock implements IDegradable {
 
 	public BlockCopper() {
 		this("copper_block", "exposed_copper", "weathered_copper", "oxidized_copper",
@@ -34,7 +35,7 @@ public class BlockCopper extends BaseSubtypesBlock implements IDegradable {
 		setResistance(6);
 		setHarvestLevel("pickaxe", 1);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-		setBlockSound(ModSounds.soundCopper);
+		setStepSound(ModSounds.soundCopper);
 		setTickRandomly(true);
 	}
 
@@ -51,9 +52,12 @@ public class BlockCopper extends BaseSubtypesBlock implements IDegradable {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
-		setIcons(new IIcon[getTypes().length / 2]);
-		for (int i = 0; i < getIcons().length; i++) {
-			getIcons()[i] = reg.registerIcon((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":") + getTypes()[i]);
+		for (Map.Entry<Integer, String> entry : this.getTypes().entrySet()) {
+			if(entry.getKey() >= getTypes().size() / 2) {
+				break;
+			}
+			this.getIcons().put(entry.getKey(), reg.registerIcon(BaseHelper.getTextureName(entry.getValue(), this.getTextureDomain(entry.getValue()), this.getTextureSubfolder(entry.getValue()))));
+			this.getIcons().put(entry.getKey() + (getTypes().size() / 2), reg.registerIcon(BaseHelper.getTextureName(entry.getValue(), this.getTextureDomain(entry.getValue()), this.getTextureSubfolder(entry.getValue()))));
 		}
 	}
 

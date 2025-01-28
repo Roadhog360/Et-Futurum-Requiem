@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_chorus_flower",
+  "textures": {
+    "texture": "chorus_flower_dead"
+  }
+}

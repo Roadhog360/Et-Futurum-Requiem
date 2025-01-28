@@ -2,9 +2,9 @@ package ganymedes01.etfuturum.blocks;
 
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.Tags;
+import ganymedes01.etfuturum.client.renderer.block.BlockRenderers;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class BlockBubbleColumn extends BaseBlock implements IInitAction {
+public class BlockBubbleColumn extends BaseEFRBlock implements IInitAction {
 
 	public IIcon[] inner_icons;
 	public IIcon[] outer_icons;
@@ -144,7 +144,7 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.BUBBLE_COLUMN;
+		return BlockRenderers.BUBBLE_COLUMN.getRenderId();
 	}
 
 	@Override

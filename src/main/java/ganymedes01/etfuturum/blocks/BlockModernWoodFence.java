@@ -1,11 +1,10 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.lib.RenderIDs;
+import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
@@ -17,24 +16,24 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import org.apache.commons.lang3.ArrayUtils;
+import roadhog360.hogutils.api.blocksanditems.BaseHelper;
+import roadhog360.hogutils.api.blocksanditems.block.ISubtypesBlock;
 
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Map;
 
-public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock {
+public class BlockModernWoodFence extends BlockFence implements ISubtypesBlock {
 
 	final BlockModernWoodPlanks basePlanks;
-	final String[] types;
+	private final Map<Integer, String> types = new Int2ObjectArrayMap<>();
 
 	public BlockModernWoodFence() {
 		super(null, Material.wood);
-		setHardness(2.0F);
-		setResistance(5.0F);
-		setStepSound(Block.soundTypeWood);
 		basePlanks = (BlockModernWoodPlanks) ModBlocks.WOOD_PLANKS.get();
-		types = ArrayUtils.clone(basePlanks.getTypes()); //We need to clone it to not ruin the regular plank type icons
-		for (int i = 0; i < types.length; i++) {
-			types[i] = types[i].replace("planks", "fence");
+		types.putAll(basePlanks.getTypes()); //We need to clone it to not ruin the regular plank type icons
+		for(Map.Entry<Integer, String> entry : types.entrySet()) {
+			types.put(entry.getKey(), entry.getValue().replace("planks", "fence"));
 		}
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
@@ -60,7 +59,7 @@ public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock 
 
 	@Override
 	public int damageDropped(int meta) {
-		return meta % getTypes().length;
+		return meta % getTypes().size();
 	}
 
 	@Override
@@ -75,33 +74,25 @@ public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock 
 	}
 
 	@Override
-	public IIcon[] getIcons() {
+	public Map<Integer, IIcon> getIcons() {
 		return basePlanks.getIcons();
 	}
 
 	@Override
-	public String[] getTypes() {
+	public Map<Integer, String> getTypes() {
 		return types;
 	}
 
 	@Override
-	public String getNameFor(ItemStack stack) {
-		return types[stack.getItemDamage() % types.length];
-	}
-
-	@Override
-	public int getRenderType() {
-		//We need to do this because some things stupidly check if there's a fence by checking if the render type is 11 and not if it's instance of Fence!!!
-		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-			return RenderIDs.FENCE;
-		}
-		return super.getRenderType();
+	public String getDisplayName(ItemStack stack) {
+		String type = this.getTypes().get(stack.getItemDamage());
+		return type == null ? this.unlocalizedName : BaseHelper.getUnlocalizedName(type, this.getNameDomain(type));
 	}
 
 	@Override
 	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		if (ConfigFunctions.enableExtraBurnableBlocks) {
-			int meta = aWorld.getBlockMetadata(aX, aY, aZ) % getTypes().length;
+			int meta = aWorld.getBlockMetadata(aX, aY, aZ) % getTypes().size();
 			return meta > 1;
 		}
 		return false;
@@ -115,5 +106,17 @@ public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock 
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return isFlammable(aWorld, aX, aY, aZ, aSide) ? 5 : 0;
+	}
+
+	@Nullable
+	@Override
+	public String getTextureDomain(String s) {
+		return null;
+	}
+
+	@Nullable
+	@Override
+	public String getNameDomain(String s) {
+		return Tags.MOD_ID;
 	}
 }

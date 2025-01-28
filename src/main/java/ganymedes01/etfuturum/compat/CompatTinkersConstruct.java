@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.compat;
 import ganymedes01.etfuturum.api.RawOreRegistry;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -37,7 +37,7 @@ public class CompatTinkersConstruct {
 				if (ore.getItem() instanceof ItemBlock itemBlock) {
 					Block block = Block.getBlockFromItem(itemBlock);
 
-					if (block != null && block != Blocks.air) {
+					if (block != null && block.getMaterial() != Material.air) {
 						rawOreBlock = ore;
 						break;
 					}
@@ -49,7 +49,7 @@ public class CompatTinkersConstruct {
 				if (ore.getItem() instanceof ItemBlock itemBlock) {
 					Block block = Block.getBlockFromItem(itemBlock);
 
-					if (block != null && block != Blocks.air) {
+					if (block != null && block.getMaterial() != Material.air) {
 						oreBlock = ore;
 						if (rawOreBlock == null) {
 							rawOreBlock = oreBlock;

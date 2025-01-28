@@ -44,7 +44,7 @@ public class ModEnchantments {
 			return;
 
 		ItemStack boots = entity.getEquipmentInSlot(1);
-		int level = 0;
+		int level;
 		if ((level = EnchantmentHelper.getEnchantmentLevel(frostWalker.effectId, boots)) > 0 && entity.onGround) {
 			double[] prevCoords = prevMoveCache.get(entity);
 			if (prevCoords == null || (Math.abs(prevCoords[0] - entity.posX) > 0.003D && Math.abs(prevCoords[1] - entity.posZ) > 0.003D)) {

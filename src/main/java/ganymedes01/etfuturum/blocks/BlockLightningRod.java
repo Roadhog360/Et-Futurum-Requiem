@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockLightningRod extends BaseBlock {
+public class BlockLightningRod extends BaseEFRBlock {
 
 	public BlockLightningRod() {
 		super(Material.iron);
@@ -14,7 +14,7 @@ public class BlockLightningRod extends BaseBlock {
 		setResistance(6);
 		setHarvestLevel("pickaxe", 1);
 		setNames("lightning_rod");
-		setBlockSound(ModSounds.soundCopper);
+		setStepSound(ModSounds.soundCopper);
 		setTickRandomly(true);
 	}
 

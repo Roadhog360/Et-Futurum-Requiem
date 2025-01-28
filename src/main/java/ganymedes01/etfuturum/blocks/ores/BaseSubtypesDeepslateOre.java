@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.blocks.ores;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.Tags;
-import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
+import ganymedes01.etfuturum.blocks.BaseEFRBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
@@ -26,11 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock implements IInitAction {
+public abstract class BaseSubtypesDeepslateOre extends BaseEFRBlock implements IInitAction {
 
 	public BaseSubtypesDeepslateOre(String... types) {
 		super(Material.rock, types);
-		setBlockSound(ModSounds.soundDeepslate);
+		setStepSound(ModSounds.soundDeepslate);
 	}
 
 	@Override
@@ -221,12 +221,13 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	}
 
 	@Override
-	public String getNameDomain() {
-		return super.getNameDomain() + (getTextureSubfolder().isEmpty() ? "" : (super.getNameDomain().isEmpty() ? "" : ".") + getTextureSubfolder());
+	public String getNameDomain(String textureName) {
+		return super.getNameDomain(textureName) +
+				(getTextureSubfolder(textureName) == null ? "" : (super.getNameDomain(textureName) == null ? "" : ".") + getTextureSubfolder(textureName));
 	}
 
 	@Override
-	public String getTextureDomain() {
+	public String getTextureDomain(String textureName) {
 		return Tags.MOD_ID;
 	}
 
@@ -245,7 +246,7 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	@Override
 	public void onLoadAction() {
 		DummyWorld world = DummyWorld.GLOBAL_DUMMY_WORLD;
-		for (int i = 0; i < getTypes().length; i++) {
+		for (int i = 0; i < getTypes().size(); i++) {
 			Block block = getBase(i);
 			//See BlockGeneralModdedDeepslateOre for a comment on why we do this cursed stuff
 			world.setBlock(0, 0, 0, block, getBaseMeta(i), 0);

@@ -9,6 +9,7 @@ import roadhog360.hogutils.api.hogtags.HogTagsHelper;
 
 import java.util.List;
 
+/// Deprecated this in favor of tags, may un-deprecate to add the custom count system back.
 @Deprecated
 public class BrewingFuelRegistry {
 

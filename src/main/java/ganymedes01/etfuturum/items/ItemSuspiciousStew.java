@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.items;
 
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSoup;
 import net.minecraft.item.ItemStack;
@@ -23,7 +22,7 @@ public class ItemSuspiciousStew extends ItemSoup {
 	public ItemSuspiciousStew() {
 		super(6);
 		setTextureName("suspicious_stew");
-		setUnlocalizedName(Utils.getUnlocalisedName("suspicious_stew"));
+		setUnlocalizedName("suspicious_stew");
 		setCreativeTab(null);
 		setAlwaysEdible();
 	}
