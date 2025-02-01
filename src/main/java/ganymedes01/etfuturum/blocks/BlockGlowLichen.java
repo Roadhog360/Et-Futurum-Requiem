@@ -32,10 +32,10 @@ import static net.minecraftforge.common.util.ForgeDirection.getOrientation;
 public class BlockGlowLichen extends BlockContainer {
     public BlockGlowLichen() {
         super(Material.vine);
+        this.lightValue = 7;
         this.setStepSound(soundTypeGrass)
                 .setHardness(0.2F)
                 .setCreativeTab(EtFuturum.creativeTabBlocks)
-                .setLightLevel(7)
                 .setBlockTextureName("glow_lichen")
                 .setBlockName(Utils.getUnlocalisedName("glow_lichen"));;
     }
