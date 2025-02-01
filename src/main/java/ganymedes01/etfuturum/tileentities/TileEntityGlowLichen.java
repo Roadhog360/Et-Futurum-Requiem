@@ -17,8 +17,16 @@ public class TileEntityGlowLichen extends TileEntity
     }
     
     public void setSideMap(int state) {
-        this.sideMap = state;
+        if (state == 0)
+        {
+            this.getWorldObj().setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
+        }
+        else
+        {
+            this.sideMap = state;
+        }
         markDirty();
+        this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
     }
 
     // Save and load state from NBT

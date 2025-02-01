@@ -529,7 +529,7 @@ public enum ModBlocks {
 	DEEPSLATE_BLUEPOWER_ORE(Utils.enableModdedDeepslateOres(ModsList.BLUEPOWER), new BlockDeepslateBluePowerOre()),
 	DEEPSLATE_DBC_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_BLOCK_C), new BlockDeepslateDragonBlockOre()),
 	DEEPSLATE_DQ_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_QUEST), new BlockDeepslateDragonQuestOre()),
-	GLOW_LICHEN(ConfigBlocksItems.enableGlowLichen, new BlockGlowLichen()),
+	GLOW_LICHEN(ConfigBlocksItems.enableGlowLichen, new BlockGlowLichen(), ItemBlockGlowLichen.class),
 	GLOW_BERRIES(ConfigBlocksItems.enableGlowBerries, new BlockGlowBerries())
 	;
 

@@ -6,11 +6,14 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityGlowLichen;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -19,17 +22,63 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IShearable;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockGlowLichen extends BlockContainer
-{
-    public BlockGlowLichen()
-    {
+import java.util.ArrayList;
+
+import static net.minecraftforge.common.util.ForgeDirection.getOrientation;
+
+public class BlockGlowLichen extends BlockContainer {
+    public BlockGlowLichen() {
         super(Material.vine);
-        this.lightValue = 7;
-        setBlockTextureName("glow_lichen");
-        this.setBlockName(Utils.getUnlocalisedName("glow_lichen"));
-        this.setCreativeTab(EtFuturum.creativeTabBlocks);
+        this.setStepSound(soundTypeGrass)
+                .setHardness(0.2F)
+                .setCreativeTab(EtFuturum.creativeTabBlocks)
+                .setLightLevel(7)
+                .setBlockTextureName("glow_lichen")
+                .setBlockName(Utils.getUnlocalisedName("glow_lichen"));;
+    }
+
+    @Override
+    public float getBlockHardness(World worldIn, int x, int y, int z) {
+        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        if (player != null && (isHoldingShears(player.getHeldItem()))) {
+            return 0.1F;
+        }
+        return super.getBlockHardness(worldIn, x, y, z);
+    }
+    
+    private boolean isHoldingShears(ItemStack itemStack) {
+        if (itemStack == null) {
+            return false;
+        }
+        if (itemStack.getItem() == Items.shears) {
+            return true;
+        }
+        return itemStack.getItem() instanceof IShearable;
+    }
+
+    @Override
+    public String getHarvestTool(int metadata) {
+        return "shears";
+    }
+
+    @Override
+    public void onBlockHarvested(World world, int x, int y, int z, int metadata, EntityPlayer player) {
+        if (isHoldingShears(player.getHeldItem())) {
+            dropBlockAsItem(world, x, y, z, metadata, 0);
+        }
+        world.setBlockToAir(x, y, z);
+    }
+
+    @Override
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
+    {
+        if (isHoldingShears(Minecraft.getMinecraft().thePlayer.getHeldItem())) {
+            return super.getDrops(world, x, y, z, metadata, fortune);
+        }
+        return new ArrayList<ItemStack>();
     }
     
     @Override
@@ -67,7 +116,7 @@ public class BlockGlowLichen extends BlockContainer
     public void registerBlockIcons(IIconRegister reg) {
         this.blockIcon = reg.registerIcon(getTextureName());
     }
-
+    
     @Override
     public String getItemIconName() {
         return "glow_lichen";
@@ -84,31 +133,24 @@ public class BlockGlowLichen extends BlockContainer
     }
     
     // For testing
-    @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if (!world.isRemote) {
-            TileEntity tileEntity = world.getTileEntity(x, y, z);
-            if (tileEntity instanceof TileEntityGlowLichen glowLichenTE) {
-                int newState = (glowLichenTE.getSideMap() + 1) % 64;
-                glowLichenTE.setSideMap(newState);
-                world.markBlockForUpdate(x, y, z); 
-            }
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+//        if (!world.isRemote) {
+//            TileEntity tileEntity = world.getTileEntity(x, y, z);
+//            if (tileEntity instanceof TileEntityGlowLichen glowLichenTE) {
+//                int newState = (glowLichenTE.getSideMap() + 1) % 64;
+//                glowLichenTE.setSideMap(newState);
+//                // world.markBlockForUpdate(x, y, z); 
+//            }
+//        }
+//        return true;
+//    }
     
+
     @Override
-    public boolean canPlaceBlockOnSide(World worldIn, int x, int y, int z, int side)
+    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
     {
-        return switch (side) {
-            case 0 -> worldIn.isSideSolid(x, y + 1, z, ForgeDirection.DOWN);
-            case 1 -> worldIn.isSideSolid(x, y - 1, z, ForgeDirection.UP);
-            case 2 -> worldIn.isSideSolid(x, y, z + 1, ForgeDirection.NORTH);
-            case 3 -> worldIn.isSideSolid(x, y, z - 1, ForgeDirection.SOUTH);
-            case 4 -> worldIn.isSideSolid(x + 1, y, z, ForgeDirection.WEST);
-            case 5 -> worldIn.isSideSolid(x - 1, y, z, ForgeDirection.EAST);
-            default -> false;
-        };
+        return isDirectionSolid(world, x, y, z, ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[side]));
     }
 
     @Override
@@ -118,8 +160,7 @@ public class BlockGlowLichen extends BlockContainer
         if (tileEntity instanceof TileEntityGlowLichen glowLichen) {
             int sidePlaced = world.getBlockMetadata(x, y, z);
             int sideBit = 1 << sidePlaced;
-            glowLichen.setSideMap(sideBit);
-            glowLichen.markDirty();
+            glowLichen.setSideMap(glowLichen.getSideMap() | sideBit);
         }
     }
     
@@ -164,7 +205,6 @@ public class BlockGlowLichen extends BlockContainer
                     if (distance < closestDistance) {
                         closestDistance = distance;
                         closestHit = hit;
-                        
                     }
                 }
             }
@@ -178,4 +218,38 @@ public class BlockGlowLichen extends BlockContainer
         return closestHit;
     }
     
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor)
+    {
+        if (!world.isRemote) {
+            TileEntity te = world.getTileEntity(x, y, z);
+            if (te instanceof TileEntityGlowLichen teLichen)
+            {
+                int sideMap = teLichen.getSideMap();
+                for (int i = 0; i < ForgeDirection.VALID_DIRECTIONS.length; i ++)
+                {
+                    if ((sideMap & (1 << i)) != 0)
+                    {
+                        if (!isDirectionSolid(world, x, y, z, getOrientation(i)))
+                        {
+                            teLichen.setSideMap((sideMap &= ~(1 << i)));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private boolean isDirectionSolid(World world, int x, int y, int z, ForgeDirection direction)
+    {
+        return switch (direction) {
+            case DOWN -> world.isSideSolid(x, y - 1, z, ForgeDirection.UP);
+            case UP -> world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN);
+            case NORTH -> world.isSideSolid(x, y, z - 1, ForgeDirection.SOUTH);
+            case SOUTH -> world.isSideSolid(x, y, z + 1, ForgeDirection.NORTH);
+            case WEST -> world.isSideSolid(x - 1, y, z, ForgeDirection.EAST);
+            case EAST -> world.isSideSolid(x + 1, y, z, ForgeDirection.WEST);
+            default -> false;
+        };
+    }
 }
