@@ -3,8 +3,11 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.lib.RenderIDs;
+import ganymedes01.etfuturum.lib.WorldLocation;
 import ganymedes01.etfuturum.tileentities.TileEntityGlowLichen;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -24,8 +27,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.common.util.ForgeDirection;
+import org.apache.commons.lang3.tuple.Pair;
+import tconstruct.mechworks.entity.item.ExplosivePrimed;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static net.minecraftforge.common.util.ForgeDirection.getOrientation;
 
@@ -131,22 +137,125 @@ public class BlockGlowLichen extends BlockContainer {
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityGlowLichen();
     }
-    
-    // For testing
-//    @Override
-//    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-//        if (!world.isRemote) {
-//            TileEntity tileEntity = world.getTileEntity(x, y, z);
-//            if (tileEntity instanceof TileEntityGlowLichen glowLichenTE) {
-//                int newState = (glowLichenTE.getSideMap() + 1) % 64;
-//                glowLichenTE.setSideMap(newState);
-//                // world.markBlockForUpdate(x, y, z); 
-//            }
-//        }
-//        return true;
-//    }
-    
 
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+        ItemStack heldItem = player.getHeldItem();
+
+        if (heldItem != null && heldItem.getItem() == Items.dye && heldItem.getItemDamage() == 15) { // 15 = White dye (bonemeal)
+            if (!world.isRemote) {
+                TileEntity te = world.getTileEntity(x, y, z);
+                if (te instanceof TileEntityGlowLichen glowLichen) {
+                    
+                    if (grow(world, glowLichen, x, y, z))
+                    {
+                        world.playAuxSFX(2005, x, y, z, 0);
+                    }
+                }
+                if (!player.capabilities.isCreativeMode) {
+                    heldItem.stackSize--;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    private boolean grow(World world, TileEntityGlowLichen te, int x, int y, int z)
+    {
+        int sideMap = te.getSideMap();
+        ArrayList<Pair<BlockPos, ForgeDirection>> validSpots = new ArrayList<>();
+        for (int i = 0; i < ForgeDirection.values().length; i++) {
+            if ((sideMap & (1 << i)) != 0) 
+            {
+                // directions that aren't valid are the current side and the opposite
+                int validMap = 63 & ~((1 << i) | (1 << ForgeDirection.OPPOSITES[i]));
+                for (int j = 0; j < ForgeDirection.values().length; j++)
+                {
+                    if ((validMap & (1 << j)) != 0)
+                    {
+                        WorldLocation loc = new WorldLocation(x, y, z);
+                        loc.moveInDirection(j);
+                        if (world.isAirBlock(loc.x, loc.y, loc.z))
+                        {
+                            if (isDirectionSolid(world, loc.x, loc.y, loc.z, ForgeDirection.getOrientation(i)))
+                            {
+                                validSpots.add(Pair.of(new BlockPos(loc.x, loc.y, loc.z), ForgeDirection.getOrientation(i)));
+                            }
+                            else
+                            {
+                                loc.moveInDirection(i);
+                                if (world.isAirBlock(loc.x, loc.y, loc.z) && isDirectionSolid(world, loc.x, loc.y, loc.z, ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[j])))
+                                {
+                                    validSpots.add(Pair.of(new BlockPos(loc.x, loc.y, loc.z), ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[j])));
+                                }
+                                else if (world.getBlock(loc.x, loc.y, loc.z) instanceof BlockGlowLichen && isDirectionSolid(world, loc.x, loc.y, loc.z, ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[j])))
+                                {
+                                    if (world.getTileEntity(loc.x, loc.y, loc.z) instanceof TileEntityGlowLichen offsetTE)
+                                    {
+                                        int offsetSideMap = offsetTE.getSideMap();
+                                        if ((offsetSideMap & (1 << ForgeDirection.OPPOSITES[j])) == 0)
+                                        {
+                                            validSpots.add(Pair.of(new BlockPos(loc.x, loc.y, loc.z), ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[j])));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (world.getBlock(loc.x, loc.y, loc.z) instanceof BlockGlowLichen && isDirectionSolid(world, loc.x, loc.y, loc.z, ForgeDirection.getOrientation(i)))
+                        {
+                            if (world.getTileEntity(loc.x, loc.y, loc.z) instanceof TileEntityGlowLichen offsetTE)
+                            {
+                                int offsetSideMap = offsetTE.getSideMap();
+                                if ((offsetSideMap & (1 << i)) == 0)
+                                {
+                                    validSpots.add(Pair.of(new BlockPos(loc.x, loc.y, loc.z), ForgeDirection.getOrientation(i)));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                int cardinalDirMap = sideMap & ~(1 << ForgeDirection.OPPOSITES[i]);
+                if (isDirectionSolid(world, x, y, z, ForgeDirection.getOrientation(i)))
+                {
+                    for (int k = 0; k < ForgeDirection.values().length; k++)
+                    {
+                        if ((cardinalDirMap & (1 << k)) != 0)
+                        {
+                            validSpots.add(Pair.of(new BlockPos(x, y, z), ForgeDirection.getOrientation(i)));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if (!validSpots.isEmpty())
+        {
+            Random rand = new Random();
+            Pair<BlockPos, ForgeDirection> chosenSpot = validSpots.get(rand.nextInt(validSpots.size()));
+            if (world.getBlock(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ()) instanceof BlockGlowLichen)
+            {
+                if (world.getTileEntity(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ()) instanceof TileEntityGlowLichen teToGrowOn)
+                {
+                    teToGrowOn.setSideMap(te.getSideMap() | (1 << chosenSpot.getRight().ordinal()));
+                }
+            }
+            else
+            {
+                world.setBlock(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ(), ModBlocks.GLOW_LICHEN.get());
+                if (world.getTileEntity(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ()) instanceof TileEntityGlowLichen teToMake)
+                {
+                    teToMake.setSideMap((1 << chosenSpot.getRight().ordinal()));
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    
     @Override
     public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
     {
