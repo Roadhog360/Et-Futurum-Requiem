@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -119,6 +121,7 @@ public class ServerEventHandler {
 	public static HashSet<EntityPlayerMP> playersClosedContainers = new HashSet<>();
 	private static final Map<EntityPlayer, List<ItemStack>> armorTracker = new WeakHashMap<>();
 	private static final Set<EntityFallingBlock> fallingConcreteBlocks = new HashSet<>();
+	public static final Cache<EntityItem, EntityPlayer> droppedEntityItems = CacheBuilder.newBuilder().weakKeys().maximumSize(1000).build();
 
 	private ServerEventHandler() {
 	}
@@ -135,6 +138,13 @@ public class ServerEventHandler {
 		int z = MathHelper.floor_double(event.entity.posZ);
 		if (event.entity.worldObj.getBlock(x, y, z) instanceof BlockHoney) {
 			event.entity.motionY *= .5D;
+		}
+	}
+
+	@SubscribeEvent
+	public void livingFall(LivingFallEvent event) {
+		if (event.entity instanceof EntityFox fox) {
+			event.distance = fox.computeFallDistance(event.distance);
 		}
 	}
 
@@ -1143,6 +1153,20 @@ public class ServerEventHandler {
 				addDrop(ModBlocks.WITHER_ROSE.newItemStack(1, 0), event.entityLiving, event.drops);
 			}
 		}
+
+		if (event.source.getEntity() instanceof EntityFox fox) {
+			int looting = fox.getLootingLevel();
+			EntityLivingBase victim = event.entityLiving;
+			if (victim instanceof EntityChicken) {
+				int extraChicken = victim.getRNG().nextInt(1 + looting);
+				for (EntityItem entityItem : event.drops) {
+					Item item = entityItem.getEntityItem().getItem();
+					if (item == Items.cooked_chicken || item == Items.chicken) {
+						entityItem.getEntityItem().stackSize += extraChicken;
+					}
+				}
+			}
+		}
 	}
 
 	private void dropHead(EntityLivingBase entity, DamageSource source, int looting, List<EntityItem> drops) {
@@ -1785,6 +1809,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onItemToss(ItemTossEvent event) {
+		droppedEntityItems.put(event.entityItem, event.player);
 		if (ConfigMixins.avoidDroppingItemsWhenClosing && event.player instanceof EntityPlayerMP && playersClosedContainers.contains(event.player)) {
 			if (event.player.inventory.addItemStackToInventory(event.entityItem.getEntityItem())) {
 				event.setCanceled(true);
