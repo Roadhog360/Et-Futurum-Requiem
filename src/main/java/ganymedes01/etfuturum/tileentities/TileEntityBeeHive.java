@@ -1,12 +1,10 @@
 package ganymedes01.etfuturum.tileentities;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.compat.ExternalContent;
-import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.lib.Reference;
@@ -26,7 +24,6 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class TileEntityBeeHive extends TileEntity {

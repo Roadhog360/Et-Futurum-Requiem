@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.entities.ai;
 
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.INoGravityEntity;
 import ganymedes01.etfuturum.entities.attributes.EtFuturumEntityAttributes;
 import net.minecraft.entity.EntityLiving;

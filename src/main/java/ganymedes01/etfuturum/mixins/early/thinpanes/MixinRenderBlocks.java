@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-@Mixin(value = RenderBlocks.class, priority = 5000)
+@Mixin(value = RenderBlocks.class, priority = 999)
 public abstract class MixinRenderBlocks {
 
 	@Shadow
@@ -43,7 +43,7 @@ public abstract class MixinRenderBlocks {
 //	private Method renderThinFunc;
 
 	@SuppressWarnings("UnreachableCode")
-	@Inject(method = "renderBlockPane", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockPane;shouldSideBeRendered(Lnet/minecraft/world/IBlockAccess;IIII)Z", ordinal = 1, shift = At.Shift.BY, by = 2),
+	@Inject(method = "renderBlockPane", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/BlockPane;shouldSideBeRendered(Lnet/minecraft/world/IBlockAccess;IIII)Z", ordinal = 1),
 			cancellable = true)
 	private void tweakPaneRenderer(BlockPane block, int posX, int posY, int posZ, CallbackInfoReturnable<Boolean> cir,
 								   @Local(name = "tessellator") Tessellator tessellator,
@@ -134,7 +134,7 @@ public abstract class MixinRenderBlocks {
 	}
 
 	@SuppressWarnings("UnreachableCode")
-	@Inject(method = "renderBlockStainedGlassPane", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockPane;canPaneConnectTo(Lnet/minecraft/world/IBlockAccess;IIILnet/minecraftforge/common/util/ForgeDirection;)Z", ordinal = 3, remap = false, shift = At.Shift.BY, by = 2),
+	@Inject(method = "renderBlockStainedGlassPane", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/BlockPane;canPaneConnectTo(Lnet/minecraft/world/IBlockAccess;IIILnet/minecraftforge/common/util/ForgeDirection;)Z", ordinal = 3, remap = false),
 			cancellable = true)
 	private void tweakStainedPaneRenderer(Block block, int posX, int posY, int posZ, CallbackInfoReturnable<Boolean> cir,
 										  @Local(name = "tessellator") Tessellator tessellator,
