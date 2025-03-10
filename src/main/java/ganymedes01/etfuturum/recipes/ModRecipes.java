@@ -770,7 +770,7 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(4), "i", "x", "s", 'x', "stickWood", 'i', "charcoal", 's', "soulSoil");
 
 		if (!ModsList.GTNH.isLoaded()) {
-			addShapedRecipe(ModBlocks.BARREL.newItemStack(), "xsx", "x x", "xsx", 'x', "plankWood", 's', "slabWood");
+			addShapedRecipe(ModBlocks.VANILLA_BARREL.newItemStack(), "xsx", "x x", "xsx", 'x', "plankWood", 's', "slabWood");
 
 			addShapedRecipe(ModBlocks.BLUE_ICE.newItemStack(), "xxx", "xxx", "xxx", 'x', Blocks.packed_ice);
 		}

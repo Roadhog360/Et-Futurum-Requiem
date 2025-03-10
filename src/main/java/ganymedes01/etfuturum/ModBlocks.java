@@ -12,6 +12,7 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -277,7 +278,6 @@ public enum ModBlocks {
 
 	IRON_TRAPDOOR(ConfigBlocksItems.enableIronTrapdoor, new BlockIronTrapdoor()),
 	MAGMA(ConfigBlocksItems.enableMagmaBlock, new BlockMagma()),
-	BARREL(ConfigBlocksItems.enableBarrel, new BlockBarrel()),
 	LANTERN(ConfigBlocksItems.enableLantern, new BlockLantern("lantern", 15)),
 	SOUL_LANTERN(ConfigBlocksItems.enableLantern && ConfigBlocksItems.enableSoulLighting, new BlockLantern("soul_lantern", 10)),
 	SOUL_TORCH(ConfigBlocksItems.enableSoulLighting, new BlockSoulTorch()),
@@ -311,6 +311,18 @@ public enum ModBlocks {
 	POTION_CAULDRON(ConfigBlocksItems.enablePotionCauldron, new BlockPotionCauldron(), null),
 	BUBBLE_COLUMN_UP(ConfigExperiments.enableBubbleColumns, new BlockBubbleColumn(true, Blocks.soul_sand), null),
 	BUBBLE_COLUMN_DOWN(ConfigExperiments.enableBubbleColumns, new BlockBubbleColumn(false, MAGMA.get()), null),
+
+	// barrels + iron barrels
+	VANILLA_BARREL(ConfigBlocksItems.enableBarrel, new BlockBarrel(TileEntityBarrel.BarrelType.VANILLA)),
+	IRON_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.IRON)),
+	GOLD_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.GOLD)),
+	DIAMOND_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.DIAMOND)),
+	COPPER_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.COPPER)),
+	SILVER_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.SILVER)),
+	STEEL_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.STEEL)),
+	OBSIDIAN_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.OBSIDIAN)),
+	DARKSTEEL_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.DARKSTEEL)),
+	NETHERITE_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.NETHERITE)),
 
 	BLACKSTONE(ConfigBlocksItems.enableBlackstone, new BlockBlackstone()),
 	GILDED_BLACKSTONE(ConfigBlocksItems.enableBlackstone, new BlockGildedBlackstone()),

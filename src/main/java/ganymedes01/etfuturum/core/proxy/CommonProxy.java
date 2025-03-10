@@ -74,7 +74,7 @@ public class CommonProxy implements IGuiHandler {
 		if (ModBlocks.BEACON.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityNewBeacon.class, Utils.getUnlocalisedName("beacon"));
 		}
-		if (ModBlocks.BARREL.isEnabled()) {
+		if (ModBlocks.VANILLA_BARREL.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityBarrel.class, Utils.getUnlocalisedName("barrel"));
 		}
 		if (ModBlocks.SMOKER.isEnabled()) {
@@ -239,7 +239,8 @@ public class CommonProxy implements IGuiHandler {
 			case GUIIDs.ANVIL -> new ContainerAnvil(player, world, x, y, z);
 			case GUIIDs.BREWING_STAND ->
 					new ContainerNewBrewingStand(player.inventory, (TileEntityNewBrewingStand) world.getTileEntity(x, y, z));
-			case GUIIDs.BARREL -> new ContainerChest(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z));
+			case GUIIDs.BARREL ->
+					new ContainerChestGeneric(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z), ((TileEntityBarrel) world.getTileEntity(x, y, z)).getRowSize(), ((TileEntityBarrel) world.getTileEntity(x, y, z)).getSizeInventory() != 27);
 			case GUIIDs.SMOKER ->
 					new ContainerSmoker(player.inventory, (TileEntitySmoker) world.getTileEntity(x, y, z));
 			case GUIIDs.BLAST_FURNACE ->
@@ -258,7 +259,7 @@ public class CommonProxy implements IGuiHandler {
 			case GUIIDs.ANVIL -> new GuiAnvil(player, world, x, y, z);
 			case GUIIDs.BREWING_STAND ->
 					new GuiNewBrewingStand(player.inventory, (TileEntityNewBrewingStand) world.getTileEntity(x, y, z));
-			case GUIIDs.BARREL -> new GuiChest(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z));
+			case GUIIDs.BARREL -> new GuiBarrel(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z));
 			case GUIIDs.SMOKER -> new GuiSmoker(player.inventory, (TileEntitySmoker) world.getTileEntity(x, y, z));
 			case GUIIDs.BLAST_FURNACE ->
 					new GuiBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));

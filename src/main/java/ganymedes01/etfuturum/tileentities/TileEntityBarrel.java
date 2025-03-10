@@ -1,8 +1,12 @@
 package ganymedes01.etfuturum.tileentities;
 
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockBarrel;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.inventory.ContainerChestGeneric;
 import ganymedes01.etfuturum.lib.Reference;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
@@ -19,13 +23,28 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	private int ticksSinceSync;
 	private float soundTimer;
 	private String customName;
-	private ItemStack[] chestContents = new ItemStack[36];
+	public ItemStack[] chestContents;
 	public int numPlayersUsing;
+	public BarrelType type;
+	public boolean upgrading = false;
 	//TODO: Fish barrel Easter Egg
+
+	public TileEntityBarrel(){
+		this(BarrelType.VANILLA);
+	}
+
+	public TileEntityBarrel(BarrelType type) {
+		this.type = type;
+		this.chestContents = new ItemStack[type.size];
+	}
 
 	@Override
 	public int getSizeInventory() {
-		return 27;
+		return type.getSize();
+	}
+
+	public int getRowSize() {
+		return type.getRowSize();
 	}
 
 	@Override
@@ -36,9 +55,19 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
+		if (compound.hasKey("Type")){ // compat with barrels placed before iron barrels were added
+			this.type = ConfigModCompat.barrelIronChest ? BarrelType.VALUES[compound.getByte("Type")] : BarrelType.VANILLA;
+		} else {
+			this.type = BarrelType.VANILLA;
+		}
+		if (this.chestContents == null || this.chestContents.length != this.getSizeInventory()) {
+			this.chestContents = new ItemStack[this.getSizeInventory()];
+		}
+
 		NBTTagList nbttaglist = compound.getTagList("Items", 10);
-		this.chestContents = new ItemStack[this.getSizeInventory()];
-		Utils.loadItemStacksFromNBT(nbttaglist, this.chestContents);
+		if (nbttaglist.tagCount() > 0) {
+			Utils.loadItemStacksFromNBT(nbttaglist, this.chestContents);
+		}
 
 		if (compound.hasKey("CustomName", 8)) {
 			this.customName = compound.getString("CustomName");
@@ -48,6 +77,8 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	@Override
 	public void writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
+
+		compound.setByte("Type", (byte) type.ordinal());
 
 		compound.setTag("Items", Utils.writeItemStacksToNBT(this.chestContents));
 
@@ -135,7 +166,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 			while (iterator.hasNext()) {
 				EntityPlayer entityplayer = iterator.next();
 
-				if (entityplayer.openContainer instanceof ContainerChest) {
+				if (entityplayer.openContainer instanceof ContainerChestGeneric) {
 					++this.numPlayersUsing;
 				}
 			}
@@ -238,6 +269,93 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	public void invalidate() {
 		super.invalidate();
 		this.updateContainingBlockInfo();
+	}
+
+	@Override
+	public int getBlockMetadata() {
+		if (this.blockMetadata == -1) {
+			if (ConfigModCompat.barrelIronChest) {
+				this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+			} else {
+				blockMetadata = 0;
+			}
+		}
+
+		return this.blockMetadata;
+	}
+
+	public TileEntityBarrel updateFromMetadata(int l) {
+		if (worldObj != null && worldObj.isRemote) {
+			if (l != blockMetadata) {
+//                worldObj.setTileEntity(xCoord, yCoord, zCoord, IronChestType.makeEntity(l));
+				return (TileEntityBarrel) worldObj.getTileEntity(xCoord, yCoord, zCoord);
+			}
+		}
+		return this;
+	}
+
+	public enum BarrelType {
+		VANILLA(27, 9,  184, 168, null),
+		IRON(54, 9,  184, 202, "ironcontainer"),
+		GOLD(81, 9,  184, 256, "goldcontainer"),
+		DIAMOND(108, 12,  238, 256, "diamondcontainer"),
+		COPPER(45, 9,  184, 184, "coppercontainer"),
+		SILVER(72, 9,  184, 238, "silvercontainer"),
+		STEEL(72, 9, 184, 238, "silvercontainer"),
+		OBSIDIAN(108, 12, 238, 256, "diamondcontainer"),
+		DARKSTEEL(135, 15, 292, 256, "netheritecontainer"),
+		NETHERITE(135, 15, 292, 256, "netheritecontainer");
+
+		public static final BarrelType[] VALUES = values();
+
+		private final int size;
+		private final int rowSize;
+		private final int xSize;
+		private final int ySize;
+		private final String guiTextureName;
+
+		BarrelType(int size, int rowSize, int xSize, int ySize, String guiTextureName) {
+			this.size = size;
+			this.rowSize = rowSize;
+			this.xSize = xSize;
+			this.ySize = ySize;
+			this.guiTextureName = guiTextureName;
+        }
+
+        public Block getBlock() {
+            return switch (this) {
+                case VANILLA -> ModBlocks.VANILLA_BARREL.get();
+                case IRON -> ModBlocks.IRON_BARREL.get();
+                case GOLD -> ModBlocks.GOLD_BARREL.get();
+                case DIAMOND -> ModBlocks.DIAMOND_BARREL.get();
+                case COPPER -> ModBlocks.COPPER_BARREL.get();
+                case SILVER -> ModBlocks.SILVER_BARREL.get();
+				case STEEL -> ModBlocks.STEEL_BARREL.get();
+                case OBSIDIAN -> ModBlocks.OBSIDIAN_BARREL.get();
+				case DARKSTEEL -> ModBlocks.DARKSTEEL_BARREL.get();
+                case NETHERITE -> ModBlocks.NETHERITE_BARREL.get();
+            };
+        }
+
+        public int getSize() {
+			return size;
+		}
+
+		public int getRowSize() {
+			return rowSize;
+		}
+
+		public int getXSize() {
+			return xSize;
+		}
+
+		public int getYSize() {
+			return ySize;
+		}
+
+		public String getGuiTextureName() {
+			return guiTextureName;
+		}
 	}
 
 }
