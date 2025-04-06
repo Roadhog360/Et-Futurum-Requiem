@@ -47,12 +47,11 @@ public class BlockGlowLichen extends BlockContainer {
     }
 
     @Override
-    public float getBlockHardness(World worldIn, int x, int y, int z) {
-        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-        if (player != null && (isHoldingShears(player.getHeldItem()))) {
-            return 0.1F;
+    public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
+        if (player != null && isHoldingShears(player.getHeldItem())) {
+            return 0.1F / this.getBlockHardness(world, x, y, z); // Must divide by base hardness
         }
-        return super.getBlockHardness(worldIn, x, y, z);
+        return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
     }
     
     private boolean isHoldingShears(ItemStack itemStack) {
