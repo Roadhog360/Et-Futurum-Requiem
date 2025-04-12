@@ -160,7 +160,7 @@ public class BlockGlowLichen extends BlockContainer {
         return false;
     }
     
-    private boolean grow(World world, TileEntityGlowLichen te, int x, int y, int z)
+    public boolean grow(World world, TileEntityGlowLichen te, int x, int y, int z)
     {
         int sideMap = te.getSideMap();
         ArrayList<Pair<BlockPos, ForgeDirection>> validSpots = new ArrayList<>();
