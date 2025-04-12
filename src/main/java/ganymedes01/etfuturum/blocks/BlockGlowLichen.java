@@ -28,7 +28,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.tuple.Pair;
-import tconstruct.mechworks.entity.item.ExplosivePrimed;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -43,7 +42,7 @@ public class BlockGlowLichen extends BlockContainer {
                 .setHardness(0.2F)
                 .setCreativeTab(EtFuturum.creativeTabBlocks)
                 .setBlockTextureName("glow_lichen")
-                .setBlockName(Utils.getUnlocalisedName("glow_lichen"));;
+                .setBlockName(Utils.getUnlocalisedName("glow_lichen"));
     }
 
     @Override
@@ -83,7 +82,7 @@ public class BlockGlowLichen extends BlockContainer {
         if (isHoldingShears(Minecraft.getMinecraft().thePlayer.getHeldItem())) {
             return super.getDrops(world, x, y, z, metadata, fortune);
         }
-        return new ArrayList<ItemStack>();
+        return new ArrayList<>();
     }
     
     @Override
