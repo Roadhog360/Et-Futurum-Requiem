@@ -12,11 +12,12 @@ import ganymedes01.etfuturum.tileentities.TileEntityGlowLichen;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -34,7 +35,7 @@ import java.util.Random;
 
 import static net.minecraftforge.common.util.ForgeDirection.getOrientation;
 
-public class BlockGlowLichen extends BlockContainer {
+public class BlockGlowLichen extends BlockContainer implements IShearable {
     public BlockGlowLichen() {
         super(Material.vine);
         this.lightValue = 7;
@@ -52,37 +53,27 @@ public class BlockGlowLichen extends BlockContainer {
         }
         return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
     }
-    
+
     private boolean isHoldingShears(ItemStack itemStack) {
         if (itemStack == null) {
             return false;
         }
-        if (itemStack.getItem() == Items.shears) {
+        Item item = itemStack.getItem();
+        if (item == Items.shears) {
             return true;
         }
-        return itemStack.getItem() instanceof IShearable;
+        return item instanceof ItemShears;
     }
 
     @Override
     public String getHarvestTool(int metadata) {
         return "shears";
     }
-
+    
     @Override
-    public void onBlockHarvested(World world, int x, int y, int z, int metadata, EntityPlayer player) {
-        if (isHoldingShears(player.getHeldItem())) {
-            dropBlockAsItem(world, x, y, z, metadata, 0);
-        }
-        world.setBlockToAir(x, y, z);
-    }
-
-    @Override
-    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
+    public Item getItemDropped(int meta, Random random, int fortune)
     {
-        if (isHoldingShears(Minecraft.getMinecraft().thePlayer.getHeldItem())) {
-            return super.getDrops(world, x, y, z, metadata, fortune);
-        }
-        return new ArrayList<>();
+        return null;
     }
     
     @Override
@@ -358,5 +349,25 @@ public class BlockGlowLichen extends BlockContainer {
             case EAST -> world.isSideSolid(x + 1, y, z, ForgeDirection.WEST);
             default -> false;
         };
+    }
+
+    @Override
+    public boolean isShearable(ItemStack item, IBlockAccess world, int x, int y, int z) {
+        return true;
+    }
+
+    @Override
+    public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, int x, int y, int z, int fortune) 
+    {
+        ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+        ret.add(new ItemStack(ModBlocks.GLOW_LICHEN.getItem()));
+        return ret;
+    }
+
+    public void harvestBlock(World worldIn, EntityPlayer player, int x, int y, int z, int meta)
+    {
+        {
+            super.harvestBlock(worldIn, player, x, y, z, meta);
+        }
     }
 }
