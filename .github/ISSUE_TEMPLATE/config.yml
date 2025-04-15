@@ -1,5 +1,9 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Suggestion
+    url: https://github.com/Roadhog360/Et-Futurum-Requiem/discussions
+    about: >-
+      Click here if you want to post a suggestion instead of reporting a bug.
   - name: Legacy Modding Discord
     url: https://discord.gg/EXshrPV
     about: >-
