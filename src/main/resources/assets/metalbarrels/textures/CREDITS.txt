@@ -1,0 +1,2 @@
+Steel and DarkSteel barrel and upgrade textures created by krezhvick (Discord)
+All other textures created by Tfarcenim (https://github.com/Tfarcenim/MetalBarrels/tree/1.16.x/src/main/resources/assets/metalbarrels/textures) (Public Domain)
