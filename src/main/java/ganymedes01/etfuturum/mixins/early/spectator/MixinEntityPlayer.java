@@ -36,7 +36,7 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 
 	@Override
 	public boolean canBeCollidedWith() {
-		return !SpectatorMode.isSpectator((EntityPlayer) (Object) this) && !super.canBeCollidedWith();
+		return !SpectatorMode.isSpectator((EntityPlayer) (Object) this) && super.canBeCollidedWith();
 	}
 
 	@Override
