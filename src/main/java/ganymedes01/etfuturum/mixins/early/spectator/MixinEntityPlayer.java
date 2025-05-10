@@ -89,10 +89,4 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 			}
 		}
 	}
-
-	@Override
-	public boolean canAttackWithItem()
-	{
-		return false;
-	}
 }
