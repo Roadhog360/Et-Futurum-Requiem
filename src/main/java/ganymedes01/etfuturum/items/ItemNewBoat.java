@@ -21,8 +21,8 @@ import java.util.function.Supplier;
 
 public class ItemNewBoat extends BaseItem {
 
-	@Deprecated
-	private EntityNewBoat.Type type;
+    @Deprecated
+    private EntityNewBoat.Type type;
 	private final boolean isChest;
 
 	private final String name;

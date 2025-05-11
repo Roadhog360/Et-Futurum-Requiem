@@ -19,7 +19,6 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
 

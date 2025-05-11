@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.lib;
 
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.Tags;
 import net.minecraft.launchwrapper.Launch;
 

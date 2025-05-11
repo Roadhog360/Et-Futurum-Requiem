@@ -619,9 +619,9 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		return this.getBeeFlag(2);
 	}
 
-	private void setNearTarget(boolean p_226452_1_) {
-		this.setBeeFlag(2, p_226452_1_);
-	}
+    private void setNearTarget(boolean p_226452_1_) {
+        this.setBeeFlag(2, p_226452_1_);
+    }
 
 	private boolean isTooFar(BlockPos pos) {
 		return !this.isWithinDistance(pos, 48);
