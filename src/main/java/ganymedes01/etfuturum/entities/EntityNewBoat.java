@@ -26,9 +26,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.ArrayUtils;
+import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class EntityNewBoat extends Entity {
 	//    private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer>createKey(EntityNewBoat.class, DataSerializers.VARINT);
@@ -555,7 +557,7 @@ public class EntityNewBoat extends Entity {
 	}
 
 	private void tickLerp() {
-		if (worldObj.isRemote && this.lerpSteps > 0) {
+		if (worldObj.isRemote && this.lerpSteps > 0 && !ConfigTweaks.stopBoatRotationLock) {
 			if (worldObj.isRemote && getSeat() != null && getSeat().riddenByEntity instanceof EntityClientPlayerMP) {
 				double i = MathHelper.wrapAngleTo180_double(this.boatYaw - (double) this.rotationYaw);
 				getSeat().riddenByEntity.rotationYaw += i / lerpSteps;
@@ -881,8 +883,13 @@ public class EntityNewBoat extends Entity {
 		Vec3 vec3d = (Vec3.createVectorHelper(f, 0.0D, 0.0D));
 		vec3d.rotateAroundY(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
 		passenger.setPosition(this.posX + vec3d.xCoord, this.posY + (double) f1, this.posZ + vec3d.zCoord);
-		passenger.rotationYaw += this.deltaRotation;
-		this.applyYawToEntity(passenger);
+		if (ConfigTweaks.stopBoatRotationLock) {
+			return;
+		}
+		else {
+			passenger.rotationYaw += this.deltaRotation;
+			this.applyYawToEntity(passenger);
+		}
 	}
 
 	/**
