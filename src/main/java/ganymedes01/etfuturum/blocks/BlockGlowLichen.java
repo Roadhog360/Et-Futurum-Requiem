@@ -165,7 +165,7 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
                     {
                         BlockPos loc = new BlockPos(x, y, z);
                         loc = loc.offset(ForgeDirection.getOrientation(j));
-                        if (world.isAirBlock(loc.getX(), loc.getY(), loc.getY()))
+                        if (world.isAirBlock(loc.getX(), loc.getY(), loc.getZ()))
                         {
                             if (isDirectionSolid(world, loc.getX(), loc.getY(), loc.getZ(), ForgeDirection.getOrientation(i)))
                             {
@@ -229,7 +229,7 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
             {
                 if (world.getTileEntity(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ()) instanceof TileEntityGlowLichen teToGrowOn)
                 {
-                    teToGrowOn.setSideMap(te.getSideMap() | (1 << chosenSpot.getRight().ordinal()));
+                    teToGrowOn.setSideMap(teToGrowOn.getSideMap() | (1 << chosenSpot.getRight().ordinal()));
                 }
             }
             else
