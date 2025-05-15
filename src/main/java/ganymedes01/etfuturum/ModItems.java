@@ -55,6 +55,7 @@ public enum ModItems {
 	COPPER_INGOT(ConfigBlocksItems.enableCopper && !ConfigModCompat.disableCopperOreAndIngotOnly, new BaseItem("copper_ingot")),
 	SUSPICIOUS_STEW(ConfigBlocksItems.enableSuspiciousStew, new ItemSuspiciousStew()),
 	SWEET_BERRIES(ConfigBlocksItems.enableSweetBerryBushes, new ItemSweetBerries()),
+	GLOW_BERRIES(ConfigBlocksItems.enableGlowBerries, new ItemGlowBerries(ModBlocks.CAVE_VINE.get())),
 	SHULKER_SHELL(ConfigBlocksItems.enableShulkerBoxes, new BaseItem("shulker_shell")),
 	PIGSTEP_RECORD(ConfigBlocksItems.enablePigstep, new ItemEtFuturumRecord("pigstep")),
 	OTHERSIDE_RECORD(ConfigBlocksItems.enableOtherside, new ItemEtFuturumRecord("otherside")),

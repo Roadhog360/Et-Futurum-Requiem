@@ -16,11 +16,11 @@ public class WorldGenGlowLichen extends WorldGenerator {
 
     private final Block glowLichen;
 
-    public WorldGenGlowLichen(Block bamboo) {
-        this.glowLichen = bamboo;
+    public WorldGenGlowLichen(Block glowLichen) {
+        this.glowLichen = glowLichen;
     }
     @Override
-    public boolean generate(World world, Random rand, int x, int y, int z) 
+    public boolean generate(World world, Random rand, int x, int y, int z)
     {
         if (world.isAirBlock(x, y, z) && world.getSavedLightValue(Sky, x, y, z) <= 3) {
             for (int side = 0; side < 6; side++) {
@@ -30,11 +30,11 @@ public class WorldGenGlowLichen extends WorldGenerator {
                 int bz = z + dir.offsetZ;
 
                 Block target = world.getBlock(bx, by, bz);
-                if (target != null && target.isSideSolid(world, bx, by, bz, dir.getOpposite())) 
+                if (target != null && target.isSideSolid(world, bx, by, bz, dir.getOpposite()))
                 {
                     int meta = 1 << side;
                     world.setBlock(x, y, z, glowLichen);
-                    
+
                     Block block = world.getBlock(x,y,z);
                     if (block instanceof BlockGlowLichen lichen)
                     {

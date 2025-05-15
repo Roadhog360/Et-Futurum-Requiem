@@ -5,41 +5,50 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityGlowLichen extends TileEntity
-{
-    // A 6 bit bitmap representing if there is a piece of glowlichen on the represented side.
-    private int sideMap;
-    public TileEntityGlowLichen() {}
+import java.util.Random;
 
-    public int getSideMap()
+public class TileEntityCaveVines extends TileEntity
+{
+    private int maxLength;
+    private boolean tipSheared = false;
+
+    public TileEntityCaveVines()
     {
-        return sideMap;
+        Random rand = new Random();
+
+        maxLength = rand.nextInt(26) + 2;
     }
 
-    public void setSideMap(int state) {
-        if (state == 0)
-        {
-            this.getWorldObj().setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
-        }
-        else
-        {
-            this.sideMap = state;
-        }
-        markDirty();
-        this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+    public int getMaxLength()
+    {
+        return maxLength;
+    }
+    public void setMaxLength(int length)
+    {
+        maxLength = length;
+    }
+    public boolean getTipSheared()
+    {
+        return tipSheared;
+    }
+    public void setTipSheared(boolean value)
+    {
+        tipSheared = value;
     }
 
     // Save and load state from NBT
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        compound.setInteger("State", sideMap);
+        compound.setInteger("MaxLength", maxLength);
+        compound.setBoolean("TipSheared", tipSheared);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        this.sideMap = compound.getInteger("State");
+        this.maxLength = compound.getInteger("MaxLength");
+        this.tipSheared = compound.getBoolean("TipSheared");
     }
 
     @Override

@@ -11,6 +11,7 @@ import ganymedes01.etfuturum.world.end.dimension.WorldProviderEFREnd;
 import ganymedes01.etfuturum.world.generate.WorldGenDeepslateLayerBlob;
 import ganymedes01.etfuturum.world.generate.WorldGenMinableCustom;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenBamboo;
+import ganymedes01.etfuturum.world.generate.decorate.WorldGenCaveVines;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenCherryTrees;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenGlowLichen;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenPinkPetals;
@@ -63,6 +64,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	protected WorldGenerator pinkPetalsGen;
 	protected WorldGenerator bambooGen;
 	protected WorldGenerator glowLichenGen;
+	protected WorldGenerator caveVineGen;
 	protected WorldGenerator mudGen;
 
 	private List<BiomeGenBase> fossilBiomes;
@@ -138,12 +140,16 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			bambooGen = new WorldGenBamboo(ModBlocks.BAMBOO.get());
 			bambooBiomes = Arrays.asList(Utils.excludeBiomesFromTypesWithDefaults(BiomeDictionary.getBiomesForType(Type.JUNGLE)));
 		}
-		
+
 		if (ModBlocks.GLOW_LICHEN.isEnabled())
 		{
 			glowLichenGen = new WorldGenGlowLichen(ModBlocks.GLOW_LICHEN.get());
 		}
-		
+
+		if (ModBlocks.CAVE_VINE.isEnabled())
+		{
+			caveVineGen = new WorldGenCaveVines(ModBlocks.CAVE_VINE.get());
+		}
 		if (ModBlocks.CHERRY_LOG.isEnabled() && ModBlocks.LEAVES.isEnabled()) {
 			BiomeGenBase[] cherryBiomeArray = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
 			cherryBiomeArray = Utils.excludeBiomesFromTypesWithDefaults(cherryBiomeArray, Type.SNOWY, Type.HOT, Type.SANDY, Type.MESA, Type.SPARSE, Type.JUNGLE);
@@ -238,12 +244,12 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					}
 				}
 			}
-			
+
 			if (glowLichenGen != null)
 			{
 				x = (chunkX << 4) + rand.nextInt(16) + 8;
 				z = (chunkZ << 4) + rand.nextInt(16) + 8;
-				
+
 				for (int tries = 0; tries < 40; tries++) {
 					int xoff = x + rand.nextInt(10) - rand.nextInt(10);
 					int yoff = rand.nextInt(128);
@@ -251,7 +257,20 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					glowLichenGen.generate(world, rand, xoff, yoff, zoff);
 				}
 			}
-			
+
+			if (caveVineGen != null)
+			{
+				x = (chunkX << 4) + rand.nextInt(16) + 8;
+				z = (chunkZ << 4) + rand.nextInt(16) + 8;
+
+				for (int tries = 0; tries < 20; tries++) {
+					int xoff = x + rand.nextInt(10) - rand.nextInt(10);
+					int yoff = rand.nextInt(128);
+					int zoff = z + rand.nextInt(10) - rand.nextInt(10);
+					caveVineGen.generate(world, rand, xoff, yoff, zoff);
+				}
+			}
+
 			if (cherryTreeGen != null) {
 				x = (chunkX << 4) + rand.nextInt(16) + 8;
 				z = (chunkZ << 4) + rand.nextInt(16) + 8;

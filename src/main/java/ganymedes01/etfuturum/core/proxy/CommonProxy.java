@@ -108,6 +108,9 @@ public class CommonProxy implements IGuiHandler {
 		if (ModBlocks.GLOW_LICHEN.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityGlowLichen.class, Utils.getUnlocalisedName("glow_lichen"));
 		}
+		if (ModBlocks.CAVE_VINE.isEnabled()) {
+			GameRegistry.registerTileEntity(TileEntityCaveVines.class, Utils.getUnlocalisedName("cave_vines"));
+		}
 		if (ConfigEntities.enableRabbit) {
 			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", 3, EtFuturum.instance, 80, 3, true, 0x995F40, 0x734831);
 

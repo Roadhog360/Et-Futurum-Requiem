@@ -7,7 +7,6 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.lib.RenderIDs;
-import ganymedes01.etfuturum.lib.WorldLocation;
 import ganymedes01.etfuturum.tileentities.TileEntityGlowLichen;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -69,19 +68,19 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
     public String getHarvestTool(int metadata) {
         return "shears";
     }
-    
+
     @Override
     public Item getItemDropped(int meta, Random random, int fortune)
     {
         return null;
     }
-    
+
     @Override
     public boolean isOpaqueCube()
     {
         return false;
     }
-    
+
     @Override
     public boolean renderAsNormalBlock()
     {
@@ -89,16 +88,17 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) 
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side)
     {
         return true;
     }
-    
+
     @Override
     public int getRenderType()
     {
         return RenderIDs.GLOW_LICHEN;
     }
+
     @SideOnly(Side.CLIENT)
     @Override
     public IIcon getIcon(int side, int meta)
@@ -111,17 +111,17 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
     public void registerBlockIcons(IIconRegister reg) {
         this.blockIcon = reg.registerIcon(getTextureName());
     }
-    
+
     @Override
     public String getItemIconName() {
         return "glow_lichen";
     }
-    
+
     @Override
     public boolean hasTileEntity(int metadata) {
         return true;
     }
-    
+
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityGlowLichen();
@@ -135,7 +135,7 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
             if (!world.isRemote) {
                 TileEntity te = world.getTileEntity(x, y, z);
                 if (te instanceof TileEntityGlowLichen glowLichen) {
-                    
+
                     if (grow(world, glowLichen, x, y, z))
                     {
                         world.playAuxSFX(2005, x, y, z, 0);
@@ -149,13 +149,13 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
         }
         return false;
     }
-    
+
     public boolean grow(World world, TileEntityGlowLichen te, int x, int y, int z)
     {
         int sideMap = te.getSideMap();
         ArrayList<Pair<BlockPos, ForgeDirection>> validSpots = new ArrayList<>();
         for (int i = 0; i < ForgeDirection.values().length; i++) {
-            if ((sideMap & (1 << i)) != 0) 
+            if ((sideMap & (1 << i)) != 0)
             {
                 // directions that aren't valid are the current side and the opposite
                 int validMap = 63 & ~((1 << i) | (1 << ForgeDirection.OPPOSITES[i]));
@@ -163,42 +163,42 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
                 {
                     if ((validMap & (1 << j)) != 0)
                     {
-                        WorldLocation loc = new WorldLocation(x, y, z);
-                        loc.moveInDirection(j);
-                        if (world.isAirBlock(loc.x, loc.y, loc.z))
+                        BlockPos loc = new BlockPos(x, y, z);
+                        loc = loc.offset(ForgeDirection.getOrientation(j));
+                        if (world.isAirBlock(loc.getX(), loc.getY(), loc.getY()))
                         {
-                            if (isDirectionSolid(world, loc.x, loc.y, loc.z, ForgeDirection.getOrientation(i)))
+                            if (isDirectionSolid(world, loc.getX(), loc.getY(), loc.getZ(), ForgeDirection.getOrientation(i)))
                             {
-                                validSpots.add(Pair.of(new BlockPos(loc.x, loc.y, loc.z), ForgeDirection.getOrientation(i)));
+                                validSpots.add(Pair.of(new BlockPos(loc.getX(), loc.getY(), loc.getZ()), ForgeDirection.getOrientation(i)));
                             }
                             else
                             {
-                                loc.moveInDirection(i);
-                                if (world.isAirBlock(loc.x, loc.y, loc.z) && isDirectionSolid(world, loc.x, loc.y, loc.z, ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[j])))
+                                loc = loc.offset(ForgeDirection.getOrientation(i));
+                                if (world.isAirBlock(loc.getX(), loc.getY(), loc.getZ()) && isDirectionSolid(world, loc.getX(), loc.getY(), loc.getZ(), ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[j])))
                                 {
-                                    validSpots.add(Pair.of(new BlockPos(loc.x, loc.y, loc.z), ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[j])));
+                                    validSpots.add(Pair.of(new BlockPos(loc.getX(), loc.getY(), loc.getZ()), ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[j])));
                                 }
-                                else if (world.getBlock(loc.x, loc.y, loc.z) instanceof BlockGlowLichen && isDirectionSolid(world, loc.x, loc.y, loc.z, ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[j])))
+                                else if (world.getBlock(loc.getX(), loc.getY(), loc.getZ()) instanceof BlockGlowLichen && isDirectionSolid(world, loc.getX(), loc.getY(), loc.getZ(), ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[j])))
                                 {
-                                    if (world.getTileEntity(loc.x, loc.y, loc.z) instanceof TileEntityGlowLichen offsetTE)
+                                    if (world.getTileEntity(loc.getX(), loc.getY(), loc.getZ()) instanceof TileEntityGlowLichen offsetTE)
                                     {
                                         int offsetSideMap = offsetTE.getSideMap();
                                         if ((offsetSideMap & (1 << ForgeDirection.OPPOSITES[j])) == 0)
                                         {
-                                            validSpots.add(Pair.of(new BlockPos(loc.x, loc.y, loc.z), ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[j])));
+                                            validSpots.add(Pair.of(new BlockPos(loc.getX(), loc.getY(), loc.getZ()), ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[j])));
                                         }
                                     }
                                 }
                             }
                         }
-                        else if (world.getBlock(loc.x, loc.y, loc.z) instanceof BlockGlowLichen && isDirectionSolid(world, loc.x, loc.y, loc.z, ForgeDirection.getOrientation(i)))
+                        else if (world.getBlock(loc.getX(), loc.getY(), loc.getZ()) instanceof BlockGlowLichen && isDirectionSolid(world, loc.getX(), loc.getY(), loc.getZ(), ForgeDirection.getOrientation(i)))
                         {
-                            if (world.getTileEntity(loc.x, loc.y, loc.z) instanceof TileEntityGlowLichen offsetTE)
+                            if (world.getTileEntity(loc.getX(), loc.getY(), loc.getZ()) instanceof TileEntityGlowLichen offsetTE)
                             {
                                 int offsetSideMap = offsetTE.getSideMap();
                                 if ((offsetSideMap & (1 << i)) == 0)
                                 {
-                                    validSpots.add(Pair.of(new BlockPos(loc.x, loc.y, loc.z), ForgeDirection.getOrientation(i)));
+                                    validSpots.add(Pair.of(new BlockPos(loc.getX(), loc.getY(), loc.getZ()), ForgeDirection.getOrientation(i)));
                                 }
                             }
                         }
@@ -244,7 +244,7 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
         }
         return false;
     }
-    
+
     @Override
     public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
     {
@@ -261,20 +261,20 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
             glowLichen.setSideMap(glowLichen.getSideMap() | sideBit);
         }
     }
-    
+
     @Override
     public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
         return ForgeDirection.OPPOSITES[side];
     }
-    
+
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z)
     {
         return null;
     }
-    
+
     @Override
-    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec) 
+    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec)
     {
         TileEntity te = world.getTileEntity(x, y, z);
         if (!(te instanceof TileEntityGlowLichen)) {
@@ -315,7 +315,7 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
         }
         return closestHit;
     }
-    
+
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor)
     {
@@ -337,7 +337,7 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
             }
         }
     }
-    
+
     private boolean isDirectionSolid(World world, int x, int y, int z, ForgeDirection direction)
     {
         return switch (direction) {
@@ -357,7 +357,7 @@ public class BlockGlowLichen extends BlockContainer implements IShearable {
     }
 
     @Override
-    public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, int x, int y, int z, int fortune) 
+    public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, int x, int y, int z, int fortune)
     {
         ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
         ret.add(new ItemStack(ModBlocks.GLOW_LICHEN.getItem()));
