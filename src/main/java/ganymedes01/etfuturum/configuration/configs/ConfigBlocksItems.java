@@ -118,6 +118,8 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableChain;
 	public static boolean enableBlackstone;
 	public static boolean enableBasalt;
+	public static boolean enableGlowLichen;
+	public static boolean enableGlowBerries;
 	public static boolean enableSoulSoil;
 	public static boolean enableSoulLighting;
 
@@ -203,7 +205,8 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableSoulSoil = getBoolean("enableSoulSoil", catBlockNatural, true, "Not required for the Soul Sand Valley to generate.");
 		enableSoulLighting = getBoolean("enableSoulLighting", catBlockNatural, true, "Soul torches and soul lanterns.");
 		enableBasalt = getBoolean("enableBasalt", catBlockNatural, true, "This must be on for the basalt deltas biome to generate unless Netherlicious is installed.");
-
+		enableGlowLichen = getBoolean("enableGlowLichen", catBlockNatural, true, "");
+		enableGlowBerries = getBoolean("enableGlowBerries", catBlockNatural, true, "");
 		if (ConfigExperiments.enableCrimsonBlocks) {
 			enableNetherwartBlock = true;
 		}
