@@ -272,6 +272,11 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("playerssleepingpercentage.MixinWorldServer");
 		}
 
+		if (ConfigEntities.enableFoxes) {
+			mixins.add("foxes.MixinEntityLivingBase");
+			mixins.add("foxes.MixinEntityWolf");
+		}
+
 		return mixins;
 	}
 
