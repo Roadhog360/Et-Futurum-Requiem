@@ -138,6 +138,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityShulkerBullet.class, new ShulkerBulletRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(EntityBee.class, new BeeRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNewSnowGolem.class, new NewSnowGolemRenderer());
+		RenderingRegistry.registerEntityRenderingHandler(EntityFox.class, new FoxRenderer());
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityPig.class, new TechnobladeCrownRenderer());
 
