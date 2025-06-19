@@ -273,7 +273,7 @@ subtitle.ambient.weather.thunder=Гром
 
 # Сущности (Entities)
 entity.etfuturum.endermite.name=Чешуйница Края
-entity.etfuturum.armor_stand.name=Стойка для брони
+entity.etfuturum.wooden_armorstand.name=Стойка для брони
 entity.etfuturum.rabbit.name=Кролик
 entity.etfuturum.villager_zombie.name=Зомби-житель
 entity.etfuturum.end_crystal.name=Кристалл Края
