@@ -45,6 +45,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean thinPanes;
 	public static boolean colorGrassBlockItemSides;
 	public static boolean enablePlayersSleepingPecentageGamerule;
+	public static boolean adjustedLiquidPhysics;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -109,6 +110,7 @@ public class ConfigMixins extends ConfigBase {
 				"\nModified Client Classes: net.minecraft.client.renderer.RenderBlocks");
 		colorGrassBlockItemSides = getBoolean("colorGrassBlockItemSides", catBackport, true, "Grass block sides are colored in the player's inventory" +
 				"\nModified Client Classes: net.minecraft.client.renderer.RenderBlocks");
+		adjustedLiquidPhysics = getBoolean("adjustedLiquidPhysics", catBackport, true, "Moves entities in lava, speeds up items in all liquids, changes some other liquid to entity interactions.");
 
 		stepHeightFix = getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
 		arrowFallingFix = getBoolean("arrowFallingFix", catFixes, true, "Prevents arrows from falling off of blocks too easily\nModified classes: net.minecraft.entity.EntityArrow");

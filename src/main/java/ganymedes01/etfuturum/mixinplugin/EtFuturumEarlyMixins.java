@@ -228,6 +228,11 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("uninflammableitem.MixinEntityItem");
 		}
 
+		if (ConfigMixins.adjustedLiquidPhysics) {
+			mixins.add("liquidphysics.MixinEntity");
+			mixins.add("liquidphysics.MixinWorld");
+		}
+
 		if (false) { //Does not work for some reason, investigate in 2.6.1
 			mixins.add("darkspawns.MixinEntityMob");
 		}
