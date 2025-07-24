@@ -85,7 +85,7 @@ public class BaseCaveVines extends Block implements IGrowable
     @Override
     public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player)
     {
-        return ModItems.GLOW_BERRIES.newItemStack();
+        return ModItems.GLOW_BERRIES_ITEM.newItemStack();
     }
 
     protected boolean onBlockActivatedShared(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
@@ -95,7 +95,7 @@ public class BaseCaveVines extends Block implements IGrowable
             world.updateLightByType(EnumSkyBlock.Block, x, y, z);
             if (!world.isRemote)
             {
-                world.spawnEntityInWorld(new EntityItem(world, x, y, z, ModItems.GLOW_BERRIES.newItemStack(1)));
+                world.spawnEntityInWorld(new EntityItem(world, x, y, z, ModItems.GLOW_BERRIES_ITEM.newItemStack(1)));
             }
             return true;
         }

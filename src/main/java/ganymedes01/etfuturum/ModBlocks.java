@@ -531,7 +531,8 @@ public enum ModBlocks {
 	DEEPSLATE_DQ_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_QUEST), new BlockDeepslateDragonQuestOre()),
 	GLOW_LICHEN(ConfigBlocksItems.enableGlowLichen, new BlockGlowLichen(), ItemBlockGlowLichen.class),
 	CAVE_VINE_PLANT(ConfigBlocksItems.enableGlowBerries, new BlockCaveVinesPlant()),
-	CAVE_VINE(ConfigBlocksItems.enableGlowBerries, new BlockCaveVines())
+	CAVE_VINE(ConfigBlocksItems.enableGlowBerries, new BlockCaveVines()),
+	GLOW_BERRIES(true, new BlockDummy());
 	;
 
 	public static final ModBlocks[] DOORS = new ModBlocks[]{DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK, CRIMSON_DOOR, WARPED_DOOR, MANGROVE_DOOR, CHERRY_DOOR, BAMBOO_DOOR};
@@ -570,7 +571,6 @@ public enum ModBlocks {
 	public static final Block red_sandstone = RED_SANDSTONE.get();
 
 	public static final ModBlocks[] VALUES = values();
-
 	public static void init() {
 		for (ModBlocks block : VALUES) {
 			if (block.isEnabled()) {
