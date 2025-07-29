@@ -136,6 +136,16 @@ subtitle.entity.witch.death=Witch dies
 subtitle.entity.squid.ambient=Squid swims
 subtitle.entity.squid.hurt=Squid takes damage
 subtitle.entity.squid.death=Squid dies
+subtitle.entity.fox.ambient=Fox squeaks
+subtitle.entity.fox.screech=Fox screeches
+subtitle.entity.fox.sleep=Fox snores
+subtitle.entity.fox.aggro=Fox angers
+subtitle.entity.fox.bite=Fox bites
+subtitle.entity.fox.death=Fox dies
+subtitle.entity.fox.eat=Fox eats
+subtitle.entity.fox.hurt=Fox hurts
+subtitle.entity.fox.sniff=Fox sniffs
+subtitle.entity.fox.spit=Fox spits
 
 subtitle.entity.boat.paddle_water=Paddles smack the water
 subtitle.entity.boat.paddle_land=Paddles hit the ground
@@ -332,6 +342,7 @@ entity.etfuturum.guardian.name=Guardian
 entity.etfuturum.elder_guardian.name=Elder Guardian
 entity.etfuturum.polar_bear.name=Polar Bear
 entity.etfuturum.bee.name=Bee
+entity.etfuturum.fox.name=Fox
 
 # Items
 item.etfuturum.mutton.name=Raw Mutton
