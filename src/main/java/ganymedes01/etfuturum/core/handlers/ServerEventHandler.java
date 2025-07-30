@@ -1163,8 +1163,10 @@ public class ServerEventHandler {
 	public void teleportEvent(EnderTeleportEvent event) {
 		EntityLivingBase entity = event.entityLiving;
 		if (entity instanceof EntityPlayerMP) {
-			if (ConfigEntities.enableEndermite) {
-				if (entity.getRNG().nextFloat() < 0.05F && entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobSpawning")) {
+			if (ConfigEntities.enableEndermite && entity.getRNG().nextFloat() < 0.05F) {
+				boolean doMobSpawning = entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobSpawning");
+				boolean spawnHostileMobs = entity.worldObj.spawnHostileMobs;
+				if (doMobSpawning && spawnHostileMobs) {
 					EntityEndermite entityendermite = new EntityEndermite(entity.worldObj);
 					entityendermite.setLocationAndAngles(event.targetX, event.targetY, event.targetZ, entity.rotationYaw, entity.rotationPitch);
 					entity.worldObj.spawnEntityInWorld(entityendermite);
