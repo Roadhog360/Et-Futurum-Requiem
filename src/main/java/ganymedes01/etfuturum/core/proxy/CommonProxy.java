@@ -74,7 +74,9 @@ public class CommonProxy implements IGuiHandler {
 		if (ModBlocks.BEACON.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityNewBeacon.class, Utils.getUnlocalisedName("beacon"));
 		}
-
+		if (ModBlocks.BARREL.isEnabled()) {
+			GameRegistry.registerTileEntity(TileEntityBarrel.class, Utils.getUnlocalisedName("barrel"));
+		}
 		if (ModBlocks.SMOKER.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntitySmoker.class, Utils.getUnlocalisedName("smoker"));
 		}
