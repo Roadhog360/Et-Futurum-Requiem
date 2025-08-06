@@ -541,9 +541,6 @@ public class EtFuturum {
 			if (mapping.name.equals("etfuturum:glow_berries")) {
 				mapping.ignore();
 			}
-			if (mapping.name.equals("etfuturum:barrel")) {
-				mapping.ignore();
-			}
 		}
 	}
 
