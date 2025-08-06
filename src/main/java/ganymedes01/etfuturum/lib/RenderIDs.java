@@ -32,7 +32,7 @@ public class RenderIDs {
 	public static final int PINK_PETALS = RenderingRegistry.getNextAvailableRenderId();
 	public static final int BAMBOO = RenderingRegistry.getNextAvailableRenderId();
 	public static final int BUBBLE_COLUMN = RenderingRegistry.getNextAvailableRenderId();
-
+	public static final int GLOW_LICHEN = RenderingRegistry.getNextAvailableRenderId();
 	public static final int EXTENDED_CROSSED_SQUARES = RenderingRegistry.getNextAvailableRenderId();
 	public static final int FENCE = RenderingRegistry.getNextAvailableRenderId();
 }

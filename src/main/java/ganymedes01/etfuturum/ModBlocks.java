@@ -12,6 +12,7 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -277,7 +278,6 @@ public enum ModBlocks {
 
 	IRON_TRAPDOOR(ConfigBlocksItems.enableIronTrapdoor, new BlockIronTrapdoor()),
 	MAGMA(ConfigBlocksItems.enableMagmaBlock, new BlockMagma()),
-	BARREL(ConfigBlocksItems.enableBarrel, new BlockBarrel()),
 	LANTERN(ConfigBlocksItems.enableLantern, new BlockLantern("lantern", 15)),
 	SOUL_LANTERN(ConfigBlocksItems.enableLantern && ConfigBlocksItems.enableSoulLighting, new BlockLantern("soul_lantern", 10)),
 	SOUL_TORCH(ConfigBlocksItems.enableSoulLighting, new BlockSoulTorch()),
@@ -529,6 +529,9 @@ public enum ModBlocks {
 	DEEPSLATE_BLUEPOWER_ORE(Utils.enableModdedDeepslateOres(ModsList.BLUEPOWER), new BlockDeepslateBluePowerOre()),
 	DEEPSLATE_DBC_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_BLOCK_C), new BlockDeepslateDragonBlockOre()),
 	DEEPSLATE_DQ_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_QUEST), new BlockDeepslateDragonQuestOre()),
+	GLOW_LICHEN(ConfigBlocksItems.enableGlowLichen, new BlockGlowLichen(), ItemBlockGlowLichen.class),
+	CAVE_VINE_PLANT(ConfigBlocksItems.enableGlowBerries, new BlockCaveVinesPlant()),
+	CAVE_VINE(ConfigBlocksItems.enableGlowBerries, new BlockCaveVines())
 	;
 
 	public static final ModBlocks[] DOORS = new ModBlocks[]{DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK, CRIMSON_DOOR, WARPED_DOOR, MANGROVE_DOOR, CHERRY_DOOR, BAMBOO_DOOR};
@@ -567,7 +570,6 @@ public enum ModBlocks {
 	public static final Block red_sandstone = RED_SANDSTONE.get();
 
 	public static final ModBlocks[] VALUES = values();
-
 	public static void init() {
 		for (ModBlocks block : VALUES) {
 			if (block.isEnabled()) {

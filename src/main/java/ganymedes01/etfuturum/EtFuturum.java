@@ -447,6 +447,9 @@ public class EtFuturum {
 					ReflectionHelper.setPrivateValue(FMLMissingMappingsEvent.MissingMapping.class, mapping, FMLMissingMappingsEvent.Action.BLOCKONLY, "action");
 				}
 			}
+			if (mapping.name.equals("etfuturum:glow_berries")) {
+				mapping.ignore();
+			}
 		}
 	}
 
