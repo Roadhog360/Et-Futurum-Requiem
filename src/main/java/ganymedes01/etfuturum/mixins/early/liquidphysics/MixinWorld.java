@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.mixins.early.liquidphysics;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -13,9 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(World.class)
 public class MixinWorld {
@@ -26,7 +23,7 @@ public class MixinWorld {
     private double speedupItemsInLiquids(double in, AxisAlignedBB boundingBox, Material liquid, Entity entity) {
         // Speedup items
         if (entity instanceof EntityItem) {
-            return in * 2.5;
+            return in * 4.0;
         }
         return in;
     }
@@ -43,11 +40,5 @@ public class MixinWorld {
         Vec3 normalized = instance.normalize();
         double length = Math.min(instance.lengthVector(), 1.15);
         return Vec3.createVectorHelper(normalized.xCoord * length, normalized.yCoord, normalized.zCoord * length);
-        //return original.call(instance);
     }
-
-//    @Inject(method = "handleMaterialAcceleration", at = @At("RETURN"))
-//    public void debugThing(AxisAlignedBB p_72918_1_, Material p_72918_2_, Entity entity, CallbackInfoReturnable<Boolean> cir) {
-//        if (cir.getReturnValue() && !((World) (Object) this).isRemote) Logger.debug("return velo " + Vec3.createVectorHelper(entity.motionX, entity.motionY, entity.motionZ));
-//    }
 }
