@@ -46,6 +46,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean colorGrassBlockItemSides;
 	public static boolean enablePlayersSleepingPecentageGamerule;
 	public static boolean adjustedLiquidPhysics;
+	public static boolean liquidItemFloat;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -110,7 +111,8 @@ public class ConfigMixins extends ConfigBase {
 				"\nModified Client Classes: net.minecraft.client.renderer.RenderBlocks");
 		colorGrassBlockItemSides = getBoolean("colorGrassBlockItemSides", catBackport, true, "Grass block sides are colored in the player's inventory" +
 				"\nModified Client Classes: net.minecraft.client.renderer.RenderBlocks");
-		adjustedLiquidPhysics = getBoolean("adjustedLiquidPhysics", catBackport, true, "Moves entities in lava, speeds up items in all liquids, floats items in liquids, changes some other liquid to entity interactions.\nModified Classes: net.minecraft.world.World net.minecraft.entity.Entity net.minecraft.entity.item.EntityItem net.minecraft.block.BlockLiquid");
+		adjustedLiquidPhysics = getBoolean("adjustedLiquidPhysics", catBackport, true, "Moves entities in lava, speeds up items in all liquids, floats items in liquids, changes some other liquid to entity interactions.\nModified Classes: net.minecraft.world.World net.minecraft.entity.Entity net.minecraft.block.BlockLiquid");
+		liquidItemFloat = getBoolean("liquidItemFloat", catBackport, true, "Floats items upwards in liquids.\nModified Classes: net.minecraft.entity.item.EntityItem");
 
 		stepHeightFix = getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
 		arrowFallingFix = getBoolean("arrowFallingFix", catFixes, true, "Prevents arrows from falling off of blocks too easily\nModified classes: net.minecraft.entity.EntityArrow");
