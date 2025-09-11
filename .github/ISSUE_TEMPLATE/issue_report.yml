@@ -25,8 +25,8 @@ body:
   id: version
   attributes:
     label: Mod Version
-    description: What version of the mod are you using? Give an actual version number or jar name, not "latest". Speaking of which, if you are not on the latest jar, try updating first. If you're using the nomixin jar, share that information please.
-    placeholder: "2.6.0 snapshot+nomixin, and/or Et_Futurum_Requiem-2.6.0-SNAPSHOT-6f26e20e+nomixin.jar"
+    description: What version of the mod are you using? Give an actual version number or jar name, not "latest". Speaking of which, if you are not on the latest jar, try updating first.
+    placeholder: "2.6.0 snapshot 6f26e20e, and/or Et_Futurum_Requiem-2.6.0-SNAPSHOT-6f26e20e.jar, Et_Futurum_Requiem-2.6.0.jar, etc"
   validations:
     required: true
 - type: textarea
