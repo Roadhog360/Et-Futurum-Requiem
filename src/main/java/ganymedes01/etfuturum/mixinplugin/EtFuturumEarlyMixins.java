@@ -238,6 +238,7 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("liquidphysics.MixinEntity");
 			mixins.add("liquidphysics.MixinWorld");
 			mixins.add("liquidphysics.MixinBlockLiquid");
+			mixins.add("liquidphysics.MixinEntityItem");
 		}
 
 		if (false) { //Does not work for some reason, investigate in 2.6.1
