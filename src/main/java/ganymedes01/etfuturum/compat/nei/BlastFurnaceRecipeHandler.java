@@ -2,11 +2,13 @@ package ganymedes01.etfuturum.compat.nei;
 
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.recipe.FurnaceRecipeHandler;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.gui.inventory.GuiBlastFurnace;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 
@@ -80,6 +82,11 @@ public class BlastFurnaceRecipeHandler extends FurnaceRecipeHandler {
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
+		if (ingredient != null && ingredient.getItem() == Item.getItemFromBlock(ModBlocks.BLAST_FURNACE.get()))
+		{
+			loadCraftingRecipes(getOverlayIdentifier());
+			return;
+		}
 		if (usagecache.isEmpty()) {
 			Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
 			ItemStackMap<ItemStack> recipes = new ItemStackMap<>();

@@ -13,7 +13,6 @@ import ganymedes01.etfuturum.*;
 import ganymedes01.etfuturum.api.RawOreRegistry;
 import ganymedes01.etfuturum.api.StrippedLogRegistry;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BlockHoney;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -96,7 +95,9 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.mutable.MutableFloat;
-import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.blocksanditems.utils.BlockMetaPair;
+import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
+import roadhog360.hogutils.api.utils.RecipeHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -472,7 +473,7 @@ public class ServerEventHandler {
 					//For some reason this list is always empty for items which were added during the event being fired
 					RawOreDropMapping mapping = RawOreRegistry.getOreMap().get(oreName);
 					if (mapping != null && stack != null && !EtFuturum.dictTagsStartWith(stack, "raw")) {
-						event.drops.set(i, new ItemStack(mapping.getObject(), mapping.getDropAmount(event.world.rand, event.fortuneLevel), mapping.getMeta()));
+						event.drops.set(i, new ItemStack(mapping.get(), mapping.getDropAmount(event.world.rand, event.fortuneLevel), mapping.getMeta()));
 						break;
 					}
 				}
@@ -506,7 +507,7 @@ public class ServerEventHandler {
 		float toolSpeed = 0;
 		float speedModifier = 0;
 		if (ConfigFunctions.enableHoeMining) {
-			boolean result = HogTagsHelper.BlockTags.hasAnyTag(event.block, event.metadata, "minecraft:mineable/hoe");
+			boolean result = BlockTags.hasTag(event.block, event.metadata, "minecraft:mineable/hoe");
 			if (result) {
 				ItemStack stack = event.entityPlayer.getHeldItem();
 				if (stack != null && stack.getItem() instanceof ItemHoe hoe) {
@@ -969,11 +970,11 @@ public class ServerEventHandler {
 										world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Tags.MC_ASSET_VER + ":item.shovel.flatten", 1.0F, 1.0F);
 									}
 								} else if (ConfigBlocksItems.enableStrippedLogs && toolClasses.contains("axe")) {
-									RegistryMapping<Block> newBlock = StrippedLogRegistry.getLog(oldBlock, world.getBlockMetadata(x, y, z) % 4);
+									BlockMetaPair newBlock = StrippedLogRegistry.getLog(oldBlock, world.getBlockMetadata(x, y, z) % 4);
 									if (newBlock != null) {
 										player.swingItem();
 										if (!world.isRemote) {
-											world.setBlock(x, y, z, newBlock.getObject(), newBlock.getMeta() + ((meta / 4) * 4), 2);
+											world.setBlock(x, y, z, newBlock.get(), newBlock.getMeta() + ((meta / 4) * 4), 2);
 											heldStack.damageItem(1, player);
 											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Tags.MC_ASSET_VER + ":item.axe.strip", 1.0F, 0.8F);
 										}
@@ -1163,8 +1164,10 @@ public class ServerEventHandler {
 	public void teleportEvent(EnderTeleportEvent event) {
 		EntityLivingBase entity = event.entityLiving;
 		if (entity instanceof EntityPlayerMP) {
-			if (ConfigEntities.enableEndermite) {
-				if (entity.getRNG().nextFloat() < 0.05F && entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobSpawning")) {
+			if (ConfigEntities.enableEndermite && entity.getRNG().nextFloat() < 0.05F) {
+				boolean doMobSpawning = entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobSpawning");
+				boolean spawnHostileMobs = entity.worldObj.spawnHostileMobs;
+				if (doMobSpawning && spawnHostileMobs) {
 					EntityEndermite entityendermite = new EntityEndermite(entity.worldObj);
 					entityendermite.setLocationAndAngles(event.targetX, event.targetY, event.targetZ, entity.rotationYaw, entity.rotationPitch);
 					entity.worldObj.spawnEntityInWorld(entityendermite);
@@ -1909,7 +1912,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void fuelBurnTime(FuelBurnTimeEvent e) {
-		if (e.fuel == null || e.fuel.getItem() == null || Item.itemRegistry.getNameForObject(e.fuel.getItem()) == null)
+		if (RecipeHelper.validateItems(e.fuel))
 			return;
 
 		initFurnaceModifiers();

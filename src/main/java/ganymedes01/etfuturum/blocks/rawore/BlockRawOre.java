@@ -2,13 +2,13 @@ package ganymedes01.etfuturum.blocks.rawore;
 
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
-import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import roadhog360.hogutils.api.world.DummyWorld;
 
 public class BlockRawOre extends BaseSubtypesBlock implements IInitAction {
 	public BlockRawOre() {
@@ -26,7 +26,7 @@ public class BlockRawOre extends BaseSubtypesBlock implements IInitAction {
 		if (!ModItems.COPPER_INGOT.isEnabled() && !OreDictionary.getOres("blockCopper").isEmpty()) {
 			//If EFR copper ore isn't enabled, find another mod copper to pull stats from. Fallback to EFR copper stats if nothing is available.
 			ItemStack stack = Utils.getFirstBlockFromTag("blockCopper", null);
-			DummyWorld world = DummyWorld.GLOBAL_DUMMY_WORLD;
+			DummyWorld world = DummyWorld.getGlobalInstance();
 			try {
 				Block block = Block.getBlockFromItem(stack.getItem());
 				//See BlockGeneralModdedDeepslateOre for a comment on why we do this cursed stuff
@@ -40,7 +40,7 @@ public class BlockRawOre extends BaseSubtypesBlock implements IInitAction {
 				blockHardness = 5;
 				blockResistance = 6;
 			}
-			world.clearBlocksCache();
+			world.clearFakeData();
 		}
 	}
 }

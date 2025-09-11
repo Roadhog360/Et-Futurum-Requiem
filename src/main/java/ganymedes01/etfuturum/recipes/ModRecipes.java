@@ -29,7 +29,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeFireworks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -65,8 +64,6 @@ public class ModRecipes {
 			RecipeSorter.register(Tags.MOD_ID + ".RecipeDuplicatePattern", RecipeDuplicatePattern.class, Category.SHAPELESS, "after:minecraft:shapeless");
 			RecipeSorter.register(Tags.MOD_ID + ".RecipeAddPattern", RecipeAddPattern.class, Category.SHAPED, "after:minecraft:shaped");
 		}
-		RecipeSorter.register(Tags.MOD_ID + ":shaped", ShapedEtFuturumRecipe.class, RecipeSorter.Category.SHAPED, "before:minecraft:shaped");
-		RecipeSorter.register(Tags.MOD_ID + ":shapeless", ShapelessEtFuturumRecipe.class, RecipeSorter.Category.SHAPELESS, "before:minecraft:shapeless");
 
 		modernWoodTypesEnabled[0] = ConfigExperiments.enableCrimsonBlocks;
 		modernWoodTypesEnabled[1] = ConfigExperiments.enableWarpedBlocks;
@@ -96,7 +93,7 @@ public class ModRecipes {
 	@SuppressWarnings("unchecked")
 	private static void tweakRecipes() {
 		if (ConfigBlocksItems.enableExtraVanillaSlabs && !ModsList.GTNH.isLoaded()) {
-			removeFirstRecipeFor(Blocks.stone_slab, 0);
+			RecipeHelper.removeFirstRecipeWithOutput(Blocks.stone_slab, 0, false);
 		}
 
 		if (ConfigBlocksItems.enableVanillaDoors) {
@@ -105,20 +102,20 @@ public class ModRecipes {
 		}
 
 		if (ConfigFunctions.enableDoorRecipeBuffs && !ModsList.GTNH.isLoaded()) {
-			removeFirstRecipeFor(Items.wooden_door);
+			RecipeHelper.removeFirstRecipeWithOutput(Items.wooden_door, 0, false);
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.wooden_door, 3), "xx", "xx", "xx", 'x', "plankWood"));
-			removeFirstRecipeFor(Items.iron_door);
+			RecipeHelper.removeFirstRecipeWithOutput(Items.iron_door, 0, false);
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.iron_door, 3), "xx", "xx", "xx", 'x', "ingotIron"));
 		}
 
 		if (ConfigBlocksItems.enableVanillaFences && !ModsList.GTNH.isLoaded()) {
-			removeFirstRecipeFor(Blocks.fence);
-			removeFirstRecipeFor(Blocks.nether_brick_fence);
+			RecipeHelper.removeFirstRecipeWithOutput(Blocks.fence, 0, false);
+			RecipeHelper.removeFirstRecipeWithOutput(Blocks.nether_brick_fence, 0, false);
 		}
 
 		if (ConfigBlocksItems.replaceOldBoats && ConfigBlocksItems.enableNewBoats) {
 			if (!ModsList.GTNH.isLoaded()) {
-				removeFirstRecipeFor(Items.boat);
+				RecipeHelper.removeFirstRecipeWithOutput(Items.boat, 0, false);
 			}
 			Items.boat.setTextureName("oak_boat");
 		}
@@ -163,15 +160,15 @@ public class ModRecipes {
 		}
 
 		if (ConfigFunctions.enableStoneBrickRecipes && !ModsList.GTNH.isLoaded()) {
-			GameRegistry.addShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.vine));
-			GameRegistry.addShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.vine));
-			GameRegistry.addShapedRecipe(new ItemStack(Blocks.stonebrick, 1, 3), "x", "x", 'x', new ItemStack(Blocks.stone_slab, 1, 5));
-			GameRegistry.addSmelting(new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.stonebrick, 1, 2), 0.0F);
+			RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.vine));
+			RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.vine));
+			RecipeHelper.addHighPriorityShapedRecipe(new ItemStack(Blocks.stonebrick, 1, 3), "x", "x", 'x', new ItemStack(Blocks.stone_slab, 1, 5));
+			RecipeHelper.addSmelting(new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.stonebrick, 1, 2), 0.0F);
 		}
 
 		if (!ModsList.GTNH.isLoaded()) {
-			GameRegistry.addShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), ModBlocks.MOSS_BLOCK.newItemStack());
-			GameRegistry.addShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), ModBlocks.MOSS_BLOCK.newItemStack());
+			RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), ModBlocks.MOSS_BLOCK.newItemStack());
+			RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), ModBlocks.MOSS_BLOCK.newItemStack());
 		}
 
 		if (ConfigFunctions.enableRecipeForTotem) {
@@ -1231,7 +1228,7 @@ public class ModRecipes {
 			Object[] objects1 = new Object[]{"xx", "xx", "xx", 'x', ModItems.COPPER_INGOT.newItemStack()};
 			RecipeHelper.addHighPriorityShapedRecipe(output5, objects1);
 			ItemStack output3 = ModBlocks.COPPER_TRAPDOOR.newItemStack(2);
-			Object[] objects = new Object[]{"xxX", "xxX", 'x', ModItems.COPPER_INGOT.newItemStack()};
+			Object[] objects = new Object[]{"xx", "xx", 'x', ModItems.COPPER_INGOT.newItemStack()};
 			RecipeHelper.addHighPriorityShapedRecipe(output3, objects);
 		}
 
@@ -1586,22 +1583,22 @@ public class ModRecipes {
 			//We keep the original enabled checks inside of the booleans and use the original addShapedRecipe function because we need to check it anyways for recipe removal
 			if (ModBlocks.ANVIL.isEnabled()) {
 				GameRegistry.addShapedRecipe(ModBlocks.ANVIL.newItemStack(), "BBB", " I ", "III", 'I', new ItemStack(Items.iron_ingot), 'B', new ItemStack(Blocks.iron_block));
-				removeFirstRecipeFor(Blocks.anvil);
+				RecipeHelper.removeFirstRecipeWithOutput(Blocks.anvil, 0, false);
 			}
 
 			if (ModBlocks.BREWING_STAND.isEnabled()) {
 				GameRegistry.addShapedRecipe(ModBlocks.BREWING_STAND.newItemStack(), " B ", "CCC", 'C', new ItemStack(Blocks.cobblestone), 'B', new ItemStack(Items.blaze_rod));
-				removeFirstRecipeFor(Blocks.brewing_stand);
+				RecipeHelper.removeFirstRecipeWithOutput(Blocks.brewing_stand, 0, false);
 			}
 
 			if (ModBlocks.BEACON.isEnabled()) {
 				GameRegistry.addShapedRecipe(ModBlocks.BEACON.newItemStack(), "GGG", "GNG", "OOO", 'G', new ItemStack(Blocks.glass), 'N', new ItemStack(Items.nether_star), 'O', new ItemStack(Blocks.obsidian));
-				removeFirstRecipeFor(Blocks.beacon);
+				RecipeHelper.removeFirstRecipeWithOutput(Blocks.beacon, 0, false);
 			}
 
 			if (ModBlocks.ENCHANTMENT_TABLE.isEnabled()) {
 				GameRegistry.addRecipe(new ShapedOreRecipe(ModBlocks.ENCHANTMENT_TABLE.newItemStack(), " B ", "D#D", "###", '#', Blocks.obsidian, 'B', Items.book, 'D', "gemDiamond"));
-				removeFirstRecipeFor(Blocks.enchanting_table);
+				RecipeHelper.removeFirstRecipeWithOutput(Blocks.enchanting_table, 0, false);
 			}
 
 			if (ModBlocks.SPONGE.isEnabled()) {
@@ -2038,32 +2035,6 @@ public class ModRecipes {
 			if (input.getItem() == setInput.getItem() && (input.getItemDamage() == wildcard || setInput.getItemDamage() == wildcard || (input.getItemDamage() == setInput.getItemDamage()))) {
 				if (output.getItem() == setOutput.getItem() && (output.getItemDamage() == wildcard || setOutput.getItemDamage() == wildcard || (output.getItemDamage() == setOutput.getItemDamage()))) {
 					FurnaceRecipes.smelting().getSmeltingList().remove(setInput, setOutput);
-					return;
-				}
-			}
-		}
-	}
-
-	private static void removeFirstRecipeFor(Block block) {
-		removeFirstRecipeFor(Item.getItemFromBlock(block));
-	}
-
-	private static void removeFirstRecipeFor(Block block, int meta) {
-		removeFirstRecipeFor(Item.getItemFromBlock(block), meta);
-	}
-
-	private static void removeFirstRecipeFor(Item item) {
-		removeFirstRecipeFor(item, OreDictionary.WILDCARD_VALUE);
-	}
-
-	private static void removeFirstRecipeFor(Item item, int meta) {
-		Iterator<IRecipe> iterator = CraftingManager.getInstance().getRecipeList().iterator();
-		while (iterator.hasNext()) {
-			IRecipe recipe = iterator.next();
-			if (recipe != null) {
-				ItemStack stack = recipe.getRecipeOutput();
-				if (stack != null && stack.getItem() != null && stack.getItem() == item && (meta == OreDictionary.WILDCARD_VALUE || meta == stack.getItemDamage())) {
-					iterator.remove();
 					return;
 				}
 			}

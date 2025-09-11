@@ -5,7 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.item.Item;
 import net.minecraftforge.oredict.OreDictionary;
-import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
+import roadhog360.hogutils.api.hogtags.helpers.ItemTags;
 
 @Deprecated
 public class BeePlantRegistry {
@@ -14,10 +15,10 @@ public class BeePlantRegistry {
 	/// Tags: `minecraft:bee_food` (item) and `minecraft:bee_attractive` (block)
 	@Deprecated
 	public static void addFlower(Block block, int meta) {
-		HogTagsHelper.BlockTags.addTags(block, meta, "minecraft:bee_attractive");
+		BlockTags.addTags(block, meta, "minecraft:bee_attractive");
 		Item item = Item.getItemFromBlock(block);
 		if(item != null) {
-			HogTagsHelper.ItemTags.addTags(item, meta, "minecraft:bee_food");
+			ItemTags.addTags(item, meta, "minecraft:bee_food");
 		}
 	}
 
@@ -27,7 +28,7 @@ public class BeePlantRegistry {
 		if (!(block instanceof IGrowable)) {
 			Logger.warn("Bee crops can only be instance of IGrowable; this entry will do nothing!");
 		}
-		HogTagsHelper.BlockTags.addTags(block, OreDictionary.WILDCARD_VALUE, "minecraft:bee_growables");
+		BlockTags.addTags(block, OreDictionary.WILDCARD_VALUE, "minecraft:bee_growables");
 	}
 
 	/// Deprecated; Use HogUtils tagging
@@ -35,17 +36,17 @@ public class BeePlantRegistry {
 	/// Tags: `minecraft:bee_food` (item) and `minecraft:bee_attractive` (block)
 	@Deprecated
 	public static void removeFlower(Block block, int meta) {
-		HogTagsHelper.BlockTags.removeTags(block, meta, "minecraft:bee_attractive");
+		BlockTags.removeTags(block, meta, "minecraft:bee_attractive");
 		Item item = Item.getItemFromBlock(block);
 		if(item != null) {
-			HogTagsHelper.ItemTags.removeTags(item, meta, "minecraft:bee_food");
+			ItemTags.removeTags(item, meta, "minecraft:bee_food");
 		}
 	}
 
 	/// Deprecated; Use HogUtils tagging
 	@Deprecated
 	public static void removeCrop(Block block) {
-		HogTagsHelper.BlockTags.removeTags(block, OreDictionary.WILDCARD_VALUE, "minecraft:bee_growables");
+		BlockTags.removeTags(block, OreDictionary.WILDCARD_VALUE, "minecraft:bee_growables");
 	}
 
 	/// Deprecated; Use HogUtils tagging
@@ -56,16 +57,16 @@ public class BeePlantRegistry {
 	@Deprecated
 	public static boolean isFlower(Block block, int meta) {
 		Item item = Item.getItemFromBlock(block);
-		if(item != null && HogTagsHelper.ItemTags.getTags(item, meta).contains("minecraft:bee_food")) {
+		if(item != null && ItemTags.getTags(item, meta).contains("minecraft:bee_food")) {
 			return true;
 		}
-		return HogTagsHelper.BlockTags.getTags(block, meta).contains("minecraft:bee_attractive");
+		return BlockTags.getTags(block, meta).contains("minecraft:bee_attractive");
 	}
 
 	/// Deprecated; Use HogUtils tagging
 	@Deprecated
 	public static boolean isCrop(Block block) {
-		return HogTagsHelper.BlockTags.getTags(block, OreDictionary.WILDCARD_VALUE).contains("minecraft:bee_growables");
+		return BlockTags.getTags(block, OreDictionary.WILDCARD_VALUE).contains("minecraft:bee_growables");
 	}
 
 	@Deprecated

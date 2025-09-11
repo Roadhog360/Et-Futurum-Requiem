@@ -15,7 +15,7 @@ import net.minecraft.potion.PotionHelper;
 import net.minecraft.tileentity.TileEntityBrewingStand;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.ForgeEventFactory;
-import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.hogtags.helpers.ItemTags;
 
 import java.util.List;
 
@@ -231,7 +231,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		if (slot == 4)
-			return HogTagsHelper.ItemTags.hasAnyTag(stack.getItem(), stack.getItemDamage(), "minecraft:brewing_fuel");
+			return ItemTags.hasTag(stack.getItem(), stack.getItemDamage(), "minecraft:brewing_fuel");
 		else if (slot == 3)
 			return stack.getItem().isPotionIngredient(stack);
 		else

@@ -1,13 +1,13 @@
 package ganymedes01.etfuturum.blocks.rawore;
 
 import ganymedes01.etfuturum.Tags;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BaseBlock;
-import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import roadhog360.hogutils.api.blocksanditems.utils.BlockMetaPair;
+import roadhog360.hogutils.api.world.DummyWorld;
 
 public abstract class BaseRawOreBlock extends BaseBlock implements IInitAction {
 	public BaseRawOreBlock(Material materialIn) {
@@ -32,9 +32,9 @@ public abstract class BaseRawOreBlock extends BaseBlock implements IInitAction {
 
 	@Override
 	public void onLoadAction() {
-		DummyWorld world = DummyWorld.GLOBAL_DUMMY_WORLD;
-		RegistryMapping<Block> mapping = new RegistryMapping<>(getBase(), getBaseMeta());
-		Block block = mapping.getObject();
+		DummyWorld world = DummyWorld.getGlobalInstance();
+		BlockMetaPair mapping = new BlockMetaPair(getBase(), getBaseMeta());
+		Block block = mapping.get();
 		//See BlockGeneralModdedDeepslateOre for a comment on why we do this cursed stuff
 		world.setBlock(0, 0, 0, block, mapping.getMeta(), 0);
 		try {
@@ -48,6 +48,6 @@ public abstract class BaseRawOreBlock extends BaseBlock implements IInitAction {
 			blockHardness = Blocks.iron_block.blockHardness;
 			blockResistance = Blocks.iron_block.blockResistance;
 		}
-		world.clearBlocksCache();
+		world.clearFakeData();
 	}
 }

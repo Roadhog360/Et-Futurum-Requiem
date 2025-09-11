@@ -273,7 +273,7 @@ subtitle.ambient.weather.thunder=电闪雷鸣
 
 # Entities
 entity.etfuturum.endermite.name=末影螨
-entity.etfuturum.armor_stand.name=盔甲架
+entity.etfuturum.wooden_armorstand.name=盔甲架
 entity.etfuturum.rabbit.name=兔子
 entity.etfuturum.villager_zombie.name=僵尸村民
 entity.etfuturum.end_crystal.name=末地水晶

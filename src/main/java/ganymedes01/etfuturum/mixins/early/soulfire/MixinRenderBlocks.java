@@ -22,7 +22,7 @@ public abstract class MixinRenderBlocks {
 	private IIcon getFireIcon(BlockFire instance, int p_149840_1_, Operation<IIcon> original,
 							  @Local(ordinal = 0, argsOnly = true) int x, @Local(ordinal = 1, argsOnly = true) int y, @Local(ordinal = 2, argsOnly = true) int z) {
 		if (instance == Blocks.fire && instance instanceof ISoulFireInfo) { //Only apply to vanilla fires
-			if (((ISoulFireInfo) instance).isSoulFire(blockAccess, x, y, z)) {
+			if (((ISoulFireInfo) instance).efr$isSoulFire(blockAccess, x, y, z)) {
 				return ((ISoulFireInfo) instance).getSoulFireIcon(p_149840_1_);
 			}
 		}

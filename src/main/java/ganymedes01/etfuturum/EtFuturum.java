@@ -37,6 +37,7 @@ import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.ModTagging;
 import ganymedes01.etfuturum.recipes.SmithingTableRecipes;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
+import ganymedes01.etfuturum.world.EtFuturumEarlyWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEFREnd;
@@ -191,6 +192,7 @@ public class EtFuturum {
 			e.printStackTrace();
 		}
 
+
 		for (ModBlocks block : ModBlocks.values()) {
 			if (block.isEnabled() && block.get() instanceof IInitAction) {
 				((IInitAction) block.get()).preInitAction();
@@ -223,6 +225,7 @@ public class EtFuturum {
 			NetherBiomeManager.init();
 		}
 
+		GameRegistry.registerWorldGenerator(EtFuturumEarlyWorldGenerator.INSTANCE, Integer.MIN_VALUE);
 		GameRegistry.registerWorldGenerator(EtFuturumWorldGenerator.INSTANCE, 0);
 		GameRegistry.registerWorldGenerator(EtFuturumLateWorldGenerator.INSTANCE, Integer.MAX_VALUE);
 

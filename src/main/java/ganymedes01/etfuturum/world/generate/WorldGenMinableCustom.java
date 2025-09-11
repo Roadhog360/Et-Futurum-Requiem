@@ -38,13 +38,12 @@ public class WorldGenMinableCustom extends WorldGenMinable {
 
 		shouldAirGen = ConfigWorld.enableAirDebris || block != ModBlocks.ANCIENT_DEBRIS.get();
 		hardAmountCap = block == ModBlocks.ANCIENT_DEBRIS.get();
-		//TODO Mesa gen, block cap
 	}
 
 	@Override
 	public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_) {
 		if (ConfigWorld.deepslateReplacesStones && field_150519_a == ModBlocks.STONE.get() && p_76484_1_.getBlock(p_76484_3_, p_76484_4_, p_76484_5_) == ModBlocks.DEEPSLATE.get()) {
-			return false; //Don't even try to generate this vein if it starts in deepslate
+			return false; //Don't even try to generate this vein if it starts in deepslate and this is a bountiful stone
 		}
 		float f = p_76484_2_.nextFloat() * (float) Math.PI;
 		double d0 = p_76484_3_ + 8 + MathHelper.sin(f) * this.numberOfBlocks / 8.0F;

@@ -28,43 +28,41 @@ public class IMCSenderGTNH {
 		}
 
 		if (ModBlocks.COMPOSTER.isEnabled()) {
-			sendHandler("ganymedes01.etfuturum.compat.nei.ComposterHandler", "etfuturum:composter", 1);
+			sendHandler("ganymedes01.etfuturum.compat.nei.ComposterHandler", "etfuturum:composter", 1, false);
 			sendCatalyst("etfuturum.composter", "etfuturum:composter");
 		}
 	}
 
 	/*
-	 * These were copied from GTNewHorizons/GoodGenerator (Fork of GlodBlock/GoodGenerator)
+	 * These are based on methods from GTNewHorizons/GoodGenerator (Fork of GlodBlock/GoodGenerator)
 	 * Author: GlodBlock
 	 */
 
-	private static void sendHandler(String aName, String aBlock) {
-		sendHandler(aName, aBlock, 5);
+	private static void sendHandler(String name, String block) {
+		sendHandler(name, block, 5, true);
 	}
 
-	private static void sendHandler(String aName, String aBlock, int maxRecipesPerPage) {
-		NBTTagCompound aNBT = new NBTTagCompound();
-		aNBT.setString("handler", aName);
-		aNBT.setString("modName", Tags.MOD_NAME);
-		aNBT.setString("modId", Tags.MOD_ID);
-		aNBT.setBoolean("modRequired", true);
-		aNBT.setString("itemName", aBlock);
-		aNBT.setInteger("handlerHeight", 65);
-		aNBT.setInteger("handlerWidth", 166);
-		aNBT.setInteger("maxRecipesPerPage", maxRecipesPerPage);
-		aNBT.setInteger("yShift", 6);
-		FMLInterModComms.sendMessage("NotEnoughItems", "registerHandlerInfo", aNBT);
+	private static void sendHandler(String name, String block, int maxRecipesPerPage, boolean showButtons) {
+		NBTTagCompound nbt = new NBTTagCompound();
+		nbt.setString("handler", name);
+		nbt.setString("modName", Tags.MOD_NAME);
+		nbt.setString("modId", Tags.MOD_ID);
+		nbt.setBoolean("modRequired", true);
+		nbt.setString("itemName", block);
+		nbt.setInteger("handlerHeight", 65);
+		nbt.setInteger("handlerWidth", 166);
+		nbt.setInteger("maxRecipesPerPage", maxRecipesPerPage);
+		nbt.setInteger("yShift", 6);
+		nbt.setBoolean("showFavoritesButton", showButtons);
+		nbt.setBoolean("showOverlayButton", showButtons);
+		FMLInterModComms.sendMessage("NotEnoughItems", "registerHandlerInfo", nbt);
 	}
 
-	private static void sendCatalyst(String aName, String aStack, int aPriority) {
-		NBTTagCompound aNBT = new NBTTagCompound();
-		aNBT.setString("handlerID", aName);
-		aNBT.setString("itemName", aStack);
-		aNBT.setInteger("priority", aPriority);
-		FMLInterModComms.sendMessage("NotEnoughItems", "registerCatalystInfo", aNBT);
-	}
-
-	private static void sendCatalyst(String aName, String aStack) {
-		sendCatalyst(aName, aStack, 0);
+	private static void sendCatalyst(String name, String stack) {
+		NBTTagCompound nbt = new NBTTagCompound();
+		nbt.setString("handlerID", name);
+		nbt.setString("itemName", stack);
+		nbt.setInteger("priority", 0);
+		FMLInterModComms.sendMessage("NotEnoughItems", "registerCatalystInfo", nbt);
 	}
 }

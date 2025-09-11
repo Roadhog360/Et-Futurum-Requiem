@@ -314,7 +314,7 @@ subtitle.ambient.weather.thunder=Thunder strikes
 
 # Entities
 entity.etfuturum.endermite.name=Endermite
-entity.etfuturum.armor_stand.name=Armor Stand
+entity.etfuturum.wooden_armorstand.name=Armor Stand
 entity.etfuturum.rabbit.name=Rabbit
 entity.etfuturum.villager_zombie.name=Villager Zombie
 entity.etfuturum.end_crystal.name=End Crystal

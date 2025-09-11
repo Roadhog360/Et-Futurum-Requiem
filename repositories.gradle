@@ -1,6 +1,7 @@
 // Add any additional repositories for your dependencies here.
 
 repositories {
+    mavenLocal()
     maven {
         name = "gt"
         url = "https://gregtech.mechaenetia.com/"

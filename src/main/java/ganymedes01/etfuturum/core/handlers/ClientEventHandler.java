@@ -335,7 +335,7 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	public void toolTipEvent(ItemTooltipEvent event) {
 //		if (event.itemStack.getItem() instanceof ItemBlock) {
-//			DummyWorld dummyWorld = DummyWorld.GLOBAL_DUMMY_WORLD;
+//			DummyWorld dummyWorld = DummyWorld.getGlobalInstance();
 //			try {
 //				Block block = Block.getBlockFromItem(event.itemStack.getItem());
 //				dummyWorld.setBlock(0, 0, 0, block, event.itemStack.itemDamage, 0);
@@ -346,8 +346,8 @@ public class ClientEventHandler {
 //				//It keeps crashing when I go to item search, I give up
 //			}
 //		}
-		if (ConfigFunctions.enableExtraF3HTooltips && event.showAdvancedItemTooltips) {
-			event.toolTip.add("\u00a78" + Item.itemRegistry.getNameForObject(event.itemStack.getItem()));
+		if (ConfigFunctions.enableExtraF3HTooltips && event.showAdvancedItemTooltips && event.itemStack.getItem() != null) {
+			event.toolTip.add("\u00a78" + event.itemStack.getItem().delegate.name());
 			if (event.itemStack.stackTagCompound != null && !event.itemStack.stackTagCompound.hasNoTags()) {
 				event.toolTip.add("\u00a78NBT: " + event.itemStack.stackTagCompound.func_150296_c/*getKeySet*/().size() + " Tag(s)");
 			}
@@ -430,7 +430,7 @@ public class ClientEventHandler {
 			}
 			if (ConfigSounds.chestOpenClose && event.name.contains("random.chest")) {
 				String s = event.name;
-				String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
+				String blockID = block.delegate.name().split(":")[1].toLowerCase();
 				if (blockID.contains("chest") && (event.name.contains("open") || event.name.contains("close"))) {
 					if ((blockID.contains("ender") && block.getMaterial().equals(Material.rock)))
 						s = Tags.MC_ASSET_VER + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");

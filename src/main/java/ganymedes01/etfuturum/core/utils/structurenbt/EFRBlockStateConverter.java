@@ -15,7 +15,7 @@ public class EFRBlockStateConverter extends BlockStateConverter {
 	@Override
 	public int getMetaFromState(String blockName, Map<String, String> blockStates, ForgeDirection dir) {
 		if (blockName.equals("minecraft:bone_block") && ConfigWorld.fossilBlock != null) {
-			if (ConfigWorld.fossilBlock.getObject() == Blocks.quartz_block && ConfigWorld.fossilBlock.getMeta() == 2) {
+			if (ConfigWorld.fossilBlock.get() == Blocks.quartz_block && ConfigWorld.fossilBlock.getMeta() == 2) {
 				return super.getMetaFromState("minecraft:quartz_pillar", blockStates, dir);
 			}
 		}
@@ -30,7 +30,7 @@ public class EFRBlockStateConverter extends BlockStateConverter {
 		switch (truncatedName) {
 			case "bone_block":
 				if (ConfigWorld.fossilBlock != null) {
-					if (ConfigWorld.fossilBlock.getObject() == Blocks.quartz_block && ConfigWorld.fossilBlock.getMeta() == 2) {
+					if (ConfigWorld.fossilBlock.get() == Blocks.quartz_block && ConfigWorld.fossilBlock.getMeta() == 2) {
 						return meta;
 					}
 					return meta + ConfigWorld.fossilBlock.getMeta();
@@ -58,7 +58,7 @@ public class EFRBlockStateConverter extends BlockStateConverter {
 				return Blocks.stone;
 			case "bone_block":
 				if (ConfigWorld.fossilBlock != null) {
-					return ConfigWorld.fossilBlock.getObject();
+					return ConfigWorld.fossilBlock.get();
 				}
 				break;
 			case "end_stone_bricks":

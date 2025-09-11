@@ -9,7 +9,7 @@ import net.minecraft.world.IBlockAccess;
 
 public interface ISoulFireInfo {
 
-	default boolean isSoulFire(IBlockAccess world, int x, int y, int z) {
+	default boolean efr$isSoulFire(IBlockAccess world, int x, int y, int z) {
 		Block block = world.getBlock(x, y - 1, z);
 		return block == Blocks.soul_sand || block == ModBlocks.SOUL_SOIL.get() || block == ExternalContent.Blocks.NETHERLICIOUS_SOUL_SOIL.get();
 	}

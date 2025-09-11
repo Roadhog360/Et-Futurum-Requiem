@@ -26,7 +26,7 @@ public class CompatTinkersConstruct {
 		for (Entry<String, RawOreDropMapping> kvp : oreMap.entrySet()) {
 			String oreDictName = kvp.getKey();
 			RawOreDropMapping mapping = kvp.getValue();
-			ItemStack melting = new ItemStack(mapping.getObject(), 1, mapping.getMeta());
+			ItemStack melting = new ItemStack(mapping.get(), 1, mapping.getMeta());
 			List<ItemStack> allOres = OreDictionary.getOres(oreDictName);
 			List<ItemStack> rawOreBlocks = OreDictionary.getOres(oreDictName.replace("ore", "blockRaw"));
 			ItemStack oreBlock = null;

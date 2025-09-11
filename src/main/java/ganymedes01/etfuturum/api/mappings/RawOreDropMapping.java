@@ -1,10 +1,11 @@
 package ganymedes01.etfuturum.api.mappings;
 
 import net.minecraft.item.Item;
+import roadhog360.hogutils.api.blocksanditems.utils.ItemMetaPair;
 
 import java.util.Random;
 
-public class RawOreDropMapping extends RegistryMapping<Item> {
+public class RawOreDropMapping extends ItemMetaPair {
 
 	private boolean exdrops;
 

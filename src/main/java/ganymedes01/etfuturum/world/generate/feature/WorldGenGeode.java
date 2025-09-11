@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.world.generate.feature;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.helpers.DoublePerlinNoiseSampler;
@@ -13,6 +12,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import org.apache.commons.lang3.tuple.Pair;
+import roadhog360.hogutils.api.blocksanditems.utils.BlockMetaPair;
 
 import java.util.Iterator;
 import java.util.List;
@@ -33,23 +33,23 @@ public class WorldGenGeode extends WorldGenerator {
 	private final double buddingAmethystChance;//Formerly known as geodeFeatureConfig.useAlternateLayer0Chance
 	private final double usePotentialPlacementsChance;//geodeFeatureConfig.usePotentialPlacementsChance
 
-	private final RegistryMapping<Block> outerBlock;
-	private final RegistryMapping<Block> middleBlock;
+	private final BlockMetaPair outerBlock;
+	private final BlockMetaPair middleBlock;
 	private final List<Block> budBlocks;
 	private final Block innerBlock;
 	private final Block innerBuddingBlock;
 
-	public WorldGenGeode(RegistryMapping<Block> outerBlock, RegistryMapping<Block> middleBlock, Block innerBlock, Block innerBuddingBlock, Block bud1, Block bud2) {
+	public WorldGenGeode(BlockMetaPair outerBlock, BlockMetaPair middleBlock, Block innerBlock, Block innerBuddingBlock, Block bud1, Block bud2) {
 		this(-16, 16, 1, new int[]{3, 4}, new int[]{4, 5, 6}, 1.7D, 2.2D, 3.2D, 4.2D, new int[]{1, 2}, 0.95D, 2.0D, 2, 0.05D, 0.083D, 0.35D,
 				outerBlock, middleBlock, innerBlock, innerBuddingBlock, bud1, bud2);
 	}
 
-	public WorldGenGeode(RegistryMapping<Block> outerBlock, RegistryMapping<Block> middleBlock) {
+	public WorldGenGeode(BlockMetaPair outerBlock, BlockMetaPair middleBlock) {
 		this(outerBlock, middleBlock, ModBlocks.AMETHYST_BLOCK.get(), ModBlocks.BUDDING_AMETHYST.get(), ModBlocks.AMETHYST_CLUSTER_1.get(), ModBlocks.AMETHYST_CLUSTER_2.get());
 	}
 
 	private WorldGenGeode(int minOffset, int maxOffset, int invalidMax, int[] distPoints, int[] outerWallDist, double fill, double inner, double middle, double outer, int[] pointOff, double crackChance, double baseCrack, int crackPointOff, double noiseAmp, double budChance, double potentialPlaceChance,
-						  RegistryMapping<Block> outerBlock, RegistryMapping<Block> middleBlock, Block innerBlock, Block innerBuddingBlock, Block bud1, Block bud2) {
+						  BlockMetaPair outerBlock, BlockMetaPair middleBlock, Block innerBlock, Block innerBuddingBlock, Block bud1, Block bud2) {
 		this.outerBlock = outerBlock;
 		this.middleBlock = middleBlock;
 		this.innerBlock = innerBlock;
@@ -212,9 +212,9 @@ public class WorldGenGeode extends WorldGenerator {
 						buddingList.add(new BlockPos(blockPos3));
 					}
 				} else if (currentLayerSqrt >= middleLayerSqrt) {
-					world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), middleBlock.getObject(), middleBlock.getMeta(), 2);//MiddleLayerProvider also TODO I need to make this layer configurable
+					world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), middleBlock.get(), middleBlock.getMeta(), 2);//MiddleLayerProvider also TODO I need to make this layer configurable
 				} else if (currentLayerSqrt >= outerLayerSqrt) {
-					world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), outerBlock.getObject(), outerBlock.getMeta(), 2);//OuterLayerProvider
+					world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), outerBlock.get(), outerBlock.getMeta(), 2);//OuterLayerProvider
 				}
 			}
 		}

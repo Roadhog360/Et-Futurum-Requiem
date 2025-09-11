@@ -6,7 +6,6 @@ import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -21,6 +20,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import roadhog360.hogutils.api.world.DummyWorld;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -244,7 +244,7 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 
 	@Override
 	public void onLoadAction() {
-		DummyWorld world = DummyWorld.GLOBAL_DUMMY_WORLD;
+		DummyWorld world = DummyWorld.getGlobalInstance();
 		for (int i = 0; i < getTypes().length; i++) {
 			Block block = getBase(i);
 			//See BlockGeneralModdedDeepslateOre for a comment on why we do this cursed stuff
@@ -261,6 +261,6 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 				setResistanceValues(Blocks.iron_ore.blockResistance, i);
 			}
 		}
-		world.clearBlocksCache();
+		world.clearFakeData();
 	}
 }

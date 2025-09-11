@@ -1,16 +1,13 @@
 package ganymedes01.etfuturum.spectator;
 
-import com.google.common.collect.Sets;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
-import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.resources.I18n;
@@ -26,21 +23,19 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityEnderChest;
-import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.world.BlockEvent;
+import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.WeakHashMap;
 
 public class SpectatorMode {
 	public static final SpectatorMode INSTANCE = new SpectatorMode();
 	public static final IEntitySelector EXCEPT_SPECTATING;
-	public static final Set<Block> SPECTATOR_INTERACT_BLACKLIST = Sets.newHashSet();
 	protected static final Map<EntityPlayer, Entity> SPECTATING_ENTITIES = new WeakHashMap<>();
 
 	//TODO: DO NOT MAKE THIS A LAMBDA! INTELLIJ SUGGESTS IT BUT FOR SOME REASON IT CAUSES AN INITIALIZER EXCEPTION SPECIFICALLY IN THE LIVE GAME AND NOT IN DEV!
@@ -64,11 +59,6 @@ public class SpectatorMode {
 		if (ConfigMixins.enableSpectatorMode) {
 			SPECTATOR_GAMETYPE = SafeEnumHelperClient.addGameType("spectator", 3, "Spectator");
 		}
-
-		SPECTATOR_INTERACT_BLACKLIST.add(ExternalContent.Blocks.GREGTECH_MACHINE.get());
-		SPECTATOR_INTERACT_BLACKLIST.add(ExternalContent.Blocks.TCON_SEARED_BLOCK.get());
-		SPECTATOR_INTERACT_BLACKLIST.add(ExternalContent.Blocks.TCON_SMELTERY.get());
-		SPECTATOR_INTERACT_BLACKLIST.add(ExternalContent.Blocks.THAUMCRAFT_TABLE.get());
 	}
 
 	public static boolean isSpectator(EntityPlayer player) {
@@ -93,7 +83,7 @@ public class SpectatorMode {
 					return;
 				}
 				TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
-				if (!canSpectatorSelect(te) || SPECTATOR_INTERACT_BLACKLIST.contains(event.world.getBlock(event.x, event.y, event.z))) {
+				if (!canSpectatorSelect(te)) {
 					event.setCanceled(true);
 				}
 			}
@@ -246,6 +236,6 @@ public class SpectatorMode {
 	}
 
 	public static boolean canSpectatorSelect(TileEntity te) {
-		return te instanceof IInventory || te instanceof TileEntityEnderChest;
+		return (te instanceof IInventory || te instanceof TileEntityEnderChest) && !BlockTags.hasTag(te.getBlockType(), te.getBlockMetadata(), "etfuturum:spectators_cannot_interact");
 	}
 }

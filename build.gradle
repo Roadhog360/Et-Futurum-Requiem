@@ -48,15 +48,11 @@ minecraft {
     injectedTags.put("MOD_GROUP", project.modGroup)
 
     //Returns true if this build is in a dev env or has a commit hash (typically used by CI), false if otherwise
-    injectedTags.put("CI_BUILD", !noCommitHash)
+    injectedTags.put("CI_BUILD", false)
     //Returns true if this build is the above or has key words in its name that indicate it may not be a release build
-    injectedTags.put("SNAPSHOT_BUILD", !noCommitHash
-                || NEXT_VERSION.contains("snapshot")
-                || NEXT_VERSION.contains("nightly")
-                || NEXT_VERSION.contains("alpha")
-                || NEXT_VERSION.contains("beta")
-                || NEXT_VERSION.contains("rc")
-                || (NEXT_VERSION.contains("release") && NEXT_VERSION.contains("candidate")))
+    injectedTags.put("SNAPSHOT_BUILD", false)
+}
 
+minecraft {
     injectedTags.put("MC_ASSET_VER", "minecraft_1.21")
 }

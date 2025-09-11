@@ -3,12 +3,13 @@ package ganymedes01.etfuturum.api;
 import com.google.common.collect.Maps;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.oredict.OreDictionary;
+import roadhog360.hogutils.api.blocksanditems.utils.BlockMetaPair;
+import roadhog360.hogutils.api.blocksanditems.utils.base.ObjMetaPair;
 
 import java.util.Map;
 
@@ -16,8 +17,8 @@ public class PistonBehaviorRegistry {
 	/**
 	 * These blocks will stick to sticky pistons and allow you to push clusters of blocks. They won't stick to each other however.
 	 */
-	private static final Map<RegistryMapping<Block>, PistonAction> BEHAVIOR_REGISTRY = Maps.newHashMap();
-//  private static final List<RegistryMapping<Block>> BEE_FLOWERS = Lists.newArrayList();
+	private static final Map<BlockMetaPair, PistonAction> BEHAVIOR_REGISTRY = Maps.newHashMap();
+//  private static final List<BlockMetaPair> BEE_FLOWERS = Lists.newArrayList();
 
 	public static void addPistonBehavior(Block block, PistonAction action) {
 		addPistonBehavior(block, OreDictionary.WILDCARD_VALUE, action);
@@ -28,7 +29,7 @@ public class PistonBehaviorRegistry {
 			throw new IllegalArgumentException("Meta must be between 0 and 15 (inclusive)");
 		}
 		if (block != null && block != Blocks.air) {
-			BEHAVIOR_REGISTRY.put(new RegistryMapping<>(block, meta), action);
+			BEHAVIOR_REGISTRY.put(new BlockMetaPair(block, meta), action);
 		}
 	}
 
@@ -44,24 +45,24 @@ public class PistonBehaviorRegistry {
 	}
 
 	public static void remove(Block block, int meta) {
-		BEHAVIOR_REGISTRY.remove(new RegistryMapping<>(block, meta));
+		BEHAVIOR_REGISTRY.remove(new ObjMetaPair(block, meta));
 	}
 
 	public static boolean isNonStickyBlock(Block block, int meta) {
-		return BEHAVIOR_REGISTRY.get(new RegistryMapping<>(block, meta)) == PistonAction.NON_STICKY;
+		return BEHAVIOR_REGISTRY.get(new ObjMetaPair(block, meta)) == PistonAction.NON_STICKY;
 	}
 
 	public static boolean isStickyBlock(Block block, int meta) {
-		PistonAction action = BEHAVIOR_REGISTRY.get(new RegistryMapping<>(block, meta));
+		PistonAction action = BEHAVIOR_REGISTRY.get(new ObjMetaPair(block, meta));
 		return action == PistonAction.BOUNCES_ENTITIES || action == PistonAction.PULLS_ENTITIES;
 	}
 
 	public static boolean pullsEntities(Block block, int meta) {
-		return BEHAVIOR_REGISTRY.get(new RegistryMapping<>(block, meta)) == PistonAction.PULLS_ENTITIES;
+		return BEHAVIOR_REGISTRY.get(new ObjMetaPair(block, meta)) == PistonAction.PULLS_ENTITIES;
 	}
 
 	public static boolean bouncesEntities(Block block, int meta) {
-		return BEHAVIOR_REGISTRY.get(new RegistryMapping<>(block, meta)) == PistonAction.BOUNCES_ENTITIES;
+		return BEHAVIOR_REGISTRY.get(new ObjMetaPair(block, meta)) == PistonAction.BOUNCES_ENTITIES;
 	}
 
 	public static void init() {

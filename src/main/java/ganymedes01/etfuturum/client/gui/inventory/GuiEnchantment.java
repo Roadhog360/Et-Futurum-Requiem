@@ -5,6 +5,7 @@ import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -18,8 +19,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import org.lwjgl.util.glu.Project;
-import roadhog360.hogutils.api.hogtags.HogTagsHelper;
-import roadhog360.hogutils.api.hogtags.mappings.ItemTagMapping;
+import roadhog360.hogutils.api.blocksanditems.utils.ItemMetaPair;
+import roadhog360.hogutils.api.hogtags.helpers.ItemTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class GuiEnchantment extends GuiContainer {
 	 */
 	private int viewingTicks = 0;
 	private ItemStack displayItem;
-	private final List<ItemTagMapping> displayStacks; //Stores the stacks in an array so we can more easily pick random elements and stuff
+	private final List<ItemMetaPair> displayStacks;
 	private final Random displayRand = new Random();
 	private static final ItemStack LAPIS = new ItemStack(Items.dye, 1, 4); //This is used to match with lapis to put it at the front of the list
 
@@ -77,11 +78,11 @@ public class GuiEnchantment extends GuiContainer {
 				container.noFuel ? "textures/gui/container/enchanting_table.png" :
 						Tags.MOD_ID + ":textures/gui/container/enchanting_table.png");
 
-		displayStacks = HogTagsHelper.ItemTags.getInTag(Tags.MOD_ID + ":enchantment_fuel");
+		displayStacks = new ObjectArrayList<>(ItemTags.getInTag(Tags.MOD_ID + ":enchantment_fuel"));
 		if (displayStacks.size() > 1) {
 			for (int i = 1; i < displayStacks.size(); i++) {
-				ItemTagMapping mapping = displayStacks.get(i);
-				if (mapping.getMeta() == 4 && mapping.getObject() == Items.dye) {
+				ItemMetaPair mapping = displayStacks.get(i);
+				if (mapping.getMeta() == 4 && mapping.get() == Items.dye) {
 					displayStacks.remove(i);
 					displayStacks.add(0, mapping);
 					break;
@@ -273,7 +274,7 @@ public class GuiEnchantment extends GuiContainer {
 							if (viewingTicks > 40) {
 								viewingTicks = 0;
 								ArrayList<ItemStack> tempList = new ArrayList<>();
-								for(ItemTagMapping mapping : displayStacks) {
+								for(ItemMetaPair mapping : displayStacks) {
 									ItemStack stack = mapping.newItemStack();
 									if(stack.isItemEqual(displayItem)) {
 										tempList.add(stack);

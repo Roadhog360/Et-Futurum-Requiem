@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
@@ -92,6 +93,8 @@ public class ModEnchantments {
 
 		for (ItemStack stack : stacks)
 			if (stack != null && stack.getItemDamage() > 0 && EnchantmentHelper.getEnchantmentLevel(mending.effectId, stack) > 0) {
+				Item item = stack.getItem();
+				if (item == null || !item.isRepairable()) continue;
 				int xp = orb.xpValue;
 				while (xp > 0 && stack.getItemDamage() > 0) {
 					stack.setItemDamage(stack.getItemDamage() - 2);

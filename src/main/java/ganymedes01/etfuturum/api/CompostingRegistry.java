@@ -13,6 +13,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import org.jetbrains.annotations.ApiStatus;
 import roadhog360.hogutils.api.utils.RecipeHelper;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class CompostingRegistry {
 
 	private static final ItemStackMap<Integer> COMPOSTING_REGISTRY = new ItemStackMap<>();
 
+	@ApiStatus.AvailableSince("2.4.4")
 	public static void init() {
 		if (!ConfigFunctions.enableAutoAddComposter) {
 			return;
@@ -119,6 +121,7 @@ public class CompostingRegistry {
 	 * A fill chance of 150 will fill one layer and then has a 50% chance of filling another layer.
 	 * A fill chance of 200 is a 100% chance to fill two layers.
 	 */
+	@ApiStatus.AvailableSince("2.4.4")
 	public static void registerCompostable(Object itemObj, int percent) {
 		if (percent <= 0 || percent > BlockComposter.FULL_META * 100) {
 			throw new IllegalArgumentException("Tried to add a composter entry with percent value " + percent + " which is not allowed, should be above 0 and equal to or below" + (BlockComposter.FULL_META * 100) + "!");
@@ -142,24 +145,29 @@ public class CompostingRegistry {
 		}
 	}
 
+	@ApiStatus.AvailableSince("2.4.4")
 	public static void registerCompostable(List<Object> list, int percent) {
 		list.forEach(o -> registerCompostable(o, percent));
 	}
 
+	@ApiStatus.AvailableSince("2.4.4")
 	public static ItemStackMap<Integer> getComposts() {
 		return COMPOSTING_REGISTRY;
 	}
 
+	@ApiStatus.AvailableSince("2.4.4")
 	public static void remove(String stackOreDict) {
 		for (ItemStack stack : OreDictionary.getOres(stackOreDict)) {
 			remove(stack);
 		}
 	}
 
+	@ApiStatus.AvailableSince("2.4.4")
 	public static void remove(ItemStack stack) {
 		COMPOSTING_REGISTRY.remove(stack);
 	}
 
+	@ApiStatus.AvailableSince("2.4.4")
 	public static boolean isCompostable(String stackOreDict) {
 		for (ItemStack stack : OreDictionary.getOres(stackOreDict)) {
 			if (isCompostable(stack)) return true;
@@ -167,10 +175,12 @@ public class CompostingRegistry {
 		return false;
 	}
 
+	@ApiStatus.AvailableSince("2.4.4")
 	public static boolean isCompostable(ItemStack stack) {
 		return getCompostChance(stack) > 0;
 	}
 
+	@ApiStatus.AvailableSince("2.4.4")
 	public static int getCompostChance(ItemStack stack) {
 		Integer percent = COMPOSTING_REGISTRY.get(stack);
 		if (percent != null) {
@@ -183,8 +193,9 @@ public class CompostingRegistry {
 	/**
 	 * Print all entries in composting registry. Used for debugging purposes.
 	 */
+	@ApiStatus.AvailableSince("2.4.4")
 	public void printCompostables() {
-		getComposts().forEach((key, value) -> Logger.info("Composter entry: " + Item.itemRegistry.getNameForObject(key.getItem()) + " Meta: " + (key.getItemDamage() == OreDictionary.WILDCARD_VALUE ? "any" : key.getItemDamage())));
+		getComposts().forEach((key, value) -> Logger.info("Composter entry: " + key.getItem().delegate.name() + " Meta: " + (key.getItemDamage() == OreDictionary.WILDCARD_VALUE ? "any" : key.getItemDamage())));
 	}
 
 }

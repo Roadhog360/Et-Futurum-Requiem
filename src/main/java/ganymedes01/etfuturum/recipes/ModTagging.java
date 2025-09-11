@@ -4,21 +4,24 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.Tags;
-import ganymedes01.etfuturum.blocks.*;
-import ganymedes01.etfuturum.compat.ExternalContent;
+import ganymedes01.etfuturum.api.crops.IBeeGrowable;
+import ganymedes01.etfuturum.blocks.BlockBerryBush;
+import ganymedes01.etfuturum.blocks.IDegradable;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.items.ItemNewBoat;
-import net.minecraft.block.BlockSponge;
 import net.minecraft.block.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
+import roadhog360.hogutils.api.hogtags.helpers.ItemTags;
+import roadhog360.hogutils.api.utils.GenericUtils;
 import roadhog360.hogutils.api.utils.RecipeHelper;
 
 import java.util.Map;
@@ -27,23 +30,24 @@ public class ModTagging {
 
 	public static void registerBlockTagsDynamic(Block block) {
 		// HOE MINING DYNAMIC TAGS
-		if (block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart
-				|| block instanceof BlockSculk || block instanceof BlockSculkCatalyst || block instanceof BlockTarget) {
-			HogTagsHelper.BlockTags.addTags(block, "minecraft:mineable/hoe");
+		if (block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart) {
+			BlockTags.addTags(block, "minecraft:mineable/hoe");
 		}
 
 		// BEE FLOWER DYNAMIC TAGS
 		if (block instanceof BlockFlower) {
-			HogTagsHelper.BlockTags.addTags(block, "minecraft:bee_attractive");
-			//TODO: ISSUE: Tags don't show up on F3 but apparently bees still know them so they're on the server
-			//When I had instanceof BlockChorusFlower here (and not below) though that block worked fine. Why doesn't BlockFlower work?
+			BlockTags.addTags(block, "minecraft:bee_attractive");
 			if(Item.getItemFromBlock(block) != null) {
-				HogTagsHelper.ItemTags.addTags(Item.getItemFromBlock(block), "minecraft:bee_food");
+				ItemTags.addTags(Item.getItemFromBlock(block), "minecraft:bee_food");
 			}
 		}
-		if (block instanceof BlockCrops || block instanceof BlockStem || block instanceof BlockBerryBush) {
-			HogTagsHelper.BlockTags.addTags(block, OreDictionary.WILDCARD_VALUE, "minecraft:bee_growables");
+		if (block instanceof BlockCrops || block instanceof BlockStem || block instanceof BlockBerryBush || block instanceof IBeeGrowable) {
+			BlockTags.addTags(block, OreDictionary.WILDCARD_VALUE, "minecraft:bee_growables");
 			//TODO: Add cave vines as a pollinatable crop, when they get added
+		}
+
+		if (ModSounds.soundAmethystBlock == block.stepSound) {
+			BlockTags.addTags(block, "minecraft:crystal_sound_blocks");
 		}
 	}
 
@@ -51,69 +55,107 @@ public class ModTagging {
 	}
 
 	public static void registerEarlyHogTags() {
-		HogTagsHelper.ItemTags.addTags(Items.blaze_powder, "minecraft:brewing_fuel");
-		HogTagsHelper.ItemTags.addTags(Items.dye, 4, Tags.MOD_ID + ":enchantment_fuel");
+		ItemTags.addTags(Items.blaze_powder, "minecraft:brewing_fuel");
+		ItemTags.addTags(Items.dye, 4, Tags.MOD_ID + ":enchantment_fuel");
 
-		HogTagsHelper.BlockTags.addInheritors("minecraft:campfires", Tags.MOD_ID + ":bee_hive_fumigator");
+		BlockTags.addInheritors("minecraft:campfires", Tags.MOD_ID + ":bee_hive_fumigator");
 	}
 
 	@SuppressWarnings("unchecked")
 	static void registerHogTags() {
-		HogTagsHelper.BlockTags.addTags(ModBlocks.SHROOMLIGHT.get(), "minecraft:mineable/hoe");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.SPONGE.get(), "minecraft:mineable/hoe");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.TARGET.get(), "minecraft:mineable/hoe");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.NETHER_WART.get(), "minecraft:mineable/hoe");
+		BlockTags.addTags(ModBlocks.SHROOMLIGHT.get(), "minecraft:mineable/hoe");
+		BlockTags.addTags(ModBlocks.SPONGE.get(), "minecraft:mineable/hoe");
+		BlockTags.addTags(ModBlocks.TARGET.get(), "minecraft:mineable/hoe");
+		BlockTags.addTags(ModBlocks.NETHER_WART.get(), "minecraft:mineable/hoe");
+		BlockTags.addTags(ModBlocks.SCULK.get(), "minecraft:mineable/hoe");
+		BlockTags.addTags(ModBlocks.SCULK_CATALYST.get(), "minecraft:mineable/hoe");
+		BlockTags.addTags(ModBlocks.TARGET.get(), "minecraft:mineable/hoe");
+
+		BlockTags.addTags(ModBlocks.DEEPSLATE.get(), "minecraft:deepslate_ore_replaceables");
+		BlockTags.addTags(ModBlocks.TUFF.get(), 0, "minecraft:deepslate_ore_replaceables");
+
+		BlockTags.addTagsByID("Gregtech", "gt.blockmachines", "etfuturum:spectators_cannot_interact");
+		BlockTags.addTagsByID("TConstruct", "SearedBlock", "etfuturum:spectators_cannot_interact");
+		BlockTags.addTagsByID("TConstruct", "Smeltery", "etfuturum:spectators_cannot_interact");
+//		BlockTags.addTagsByID("Thaumcraft", "blockTable", "etfuturum:spectators_cannot_interact"); //Found no interaction faults, keeping as a comment for note-taking purposes
 
 		doBeeTags();
+		doPistonTags();
 	}
 
 	private static void doBeeTags() {
-		HogTagsHelper.ItemTags.addTags(Item.getItemFromBlock(Blocks.double_plant), 0, "minecraft:bee_food");
-		HogTagsHelper.ItemTags.addTags(Item.getItemFromBlock(Blocks.double_plant), 1, "minecraft:bee_food");
-		HogTagsHelper.ItemTags.addTags(Item.getItemFromBlock(Blocks.double_plant), 4, "minecraft:bee_food");
-		HogTagsHelper.ItemTags.addTags(Item.getItemFromBlock(Blocks.double_plant), 5, "minecraft:bee_food");
-		HogTagsHelper.BlockTags.addTags(Blocks.double_plant, 0, "minecraft:bee_attractive");
-		HogTagsHelper.BlockTags.addTags(Blocks.double_plant, 1, "minecraft:bee_attractive");
-		HogTagsHelper.BlockTags.addTags(Blocks.double_plant, 4, "minecraft:bee_attractive");
-		HogTagsHelper.BlockTags.addTags(Blocks.double_plant, 5, "minecraft:bee_attractive");
+		ItemTags.addTags(Item.getItemFromBlock(Blocks.double_plant), 0, "minecraft:bee_food");
+		ItemTags.addTags(Item.getItemFromBlock(Blocks.double_plant), 1, "minecraft:bee_food");
+		ItemTags.addTags(Item.getItemFromBlock(Blocks.double_plant), 4, "minecraft:bee_food");
+		ItemTags.addTags(Item.getItemFromBlock(Blocks.double_plant), 5, "minecraft:bee_food");
+		BlockTags.addTags(Blocks.double_plant, 0, "minecraft:bee_attractive");
+		BlockTags.addTags(Blocks.double_plant, 1, "minecraft:bee_attractive");
+		BlockTags.addTags(Blocks.double_plant, 4, "minecraft:bee_attractive");
+		BlockTags.addTags(Blocks.double_plant, 5, "minecraft:bee_attractive");
 
-		HogTagsHelper.ItemTags.addTags(ModBlocks.AZALEA.getItem(), 0, "minecraft:bee_food");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.AZALEA.get(), 1, "minecraft:bee_attractive");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.AZALEA.get(), 9, "minecraft:bee_attractive");
+		ItemTags.addTags(ModBlocks.AZALEA.newItemStack(1, 1), "minecraft:bee_food");
+		BlockTags.addTags(ModBlocks.AZALEA.get(), 1, "minecraft:bee_attractive");
+		BlockTags.addTags(ModBlocks.AZALEA.get(), 9, "minecraft:bee_attractive");
 
-		HogTagsHelper.ItemTags.addTags(ModBlocks.AZALEA_LEAVES.getItem(), 1, "minecraft:bee_food");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.AZALEA_LEAVES.get(), 1, "minecraft:bee_attractive");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.AZALEA_LEAVES.get(), 5, "minecraft:bee_attractive");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.AZALEA_LEAVES.get(), 9, "minecraft:bee_attractive");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.AZALEA_LEAVES.get(), 13, "minecraft:bee_attractive");
+		ItemTags.addTags(ModBlocks.AZALEA_LEAVES.newItemStack(1, 1), "minecraft:bee_food");
+		BlockTags.addTags(ModBlocks.AZALEA_LEAVES.get(), 1, "minecraft:bee_attractive");
+		BlockTags.addTags(ModBlocks.AZALEA_LEAVES.get(), 5, "minecraft:bee_attractive");
+		BlockTags.addTags(ModBlocks.AZALEA_LEAVES.get(), 9, "minecraft:bee_attractive");
+		BlockTags.addTags(ModBlocks.AZALEA_LEAVES.get(), 13, "minecraft:bee_attractive");
 
 		//Mangrove propagule
-		HogTagsHelper.ItemTags.addTags(ModBlocks.SAPLING.getItem(), 0, "minecraft:bee_food");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.SAPLING.get(), 0, "minecraft:bee_attractive");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.SAPLING.get(), 8, "minecraft:bee_attractive");
+		ItemTags.addTags(ModBlocks.SAPLING.newItemStack(), "minecraft:bee_food");
+		BlockTags.addTags(ModBlocks.SAPLING.get(), 0, "minecraft:bee_attractive");
+		BlockTags.addTags(ModBlocks.SAPLING.get(), 8, "minecraft:bee_attractive");
 
 		//Cherry leaves
-		HogTagsHelper.ItemTags.addTags(ModBlocks.LEAVES.getItem(), 1, "minecraft:bee_food");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.LEAVES.get(), 1, "minecraft:bee_attractive");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.LEAVES.get(), 5, "minecraft:bee_attractive");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.LEAVES.get(), 9, "minecraft:bee_attractive");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.LEAVES.get(), 13, "minecraft:bee_attractive");
+		ItemTags.addTags(ModBlocks.LEAVES.newItemStack(1, 1), "minecraft:bee_food");
+		BlockTags.addTags(ModBlocks.LEAVES.get(), 1, "minecraft:bee_attractive");
+		BlockTags.addTags(ModBlocks.LEAVES.get(), 5, "minecraft:bee_attractive");
+		BlockTags.addTags(ModBlocks.LEAVES.get(), 9, "minecraft:bee_attractive");
+		BlockTags.addTags(ModBlocks.LEAVES.get(), 13, "minecraft:bee_attractive");
 
-		HogTagsHelper.ItemTags.addTags(ModBlocks.PINK_PETALS.getItem(), "minecraft:bee_food");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.PINK_PETALS.get(), "minecraft:bee_attractive");
+		ItemTags.addTags(ModBlocks.PINK_PETALS.newItemStack(), "minecraft:bee_food");
+		BlockTags.addTags(ModBlocks.PINK_PETALS.get(), "minecraft:bee_attractive");
 
-		HogTagsHelper.ItemTags.addTags(ModBlocks.CHORUS_FLOWER.getItem(), "minecraft:bee_food");
-		HogTagsHelper.BlockTags.addTags(ModBlocks.CHORUS_FLOWER.get(), "minecraft:bee_attractive");
+		ItemTags.addTags(ModBlocks.CHORUS_FLOWER.newItemStack(), "minecraft:bee_food");
+		BlockTags.addTags(ModBlocks.CHORUS_FLOWER.get(), "minecraft:bee_attractive");
 
-		HogTagsHelper.BlockTags.addTags(ExternalContent.Blocks.CFB_CAMPFIRE.get(), "minecraft:campfires");
-		HogTagsHelper.BlockTags.addTags(ExternalContent.Blocks.CFB_SOUL_CAMPFIRE.get(), "minecraft:campfires");
-		HogTagsHelper.BlockTags.addTags(ExternalContent.Blocks.CFB_FOXFIRE_CAMPFIRE.get(), "minecraft:campfires");
-		HogTagsHelper.BlockTags.addTags(ExternalContent.Blocks.CFB_SHADOW_CAMPFIRE.get(), "minecraft:campfires");
-
-		HogTagsHelper.BlockTags.addTags(ExternalContent.Blocks.BAMBOO_CAMPFIRE.get(), "minecraft:campfires");
-		HogTagsHelper.BlockTags.addTags(ExternalContent.Blocks.ECRU_LEAVES_FIRE.get(), Tags.MOD_ID + ":bee_hive_fumigator");
-		HogTagsHelper.BlockTags.addTags(ExternalContent.Blocks.THAUMCRAFT_AIRY.get(), Tags.MOD_ID + ":bee_hive_fumigator");
+		BlockTags.addTagsByID("campfirebackport", "campfire", "minecraft:campfires");
+		BlockTags.addTagsByID("campfirebackport", "soul_campfire", "minecraft:campfires");
+		BlockTags.addTagsByID("campfirebackport", "foxfire_campfire", "minecraft:campfires");
+		BlockTags.addTagsByID("campfirebackport", "shadow_campfire", "minecraft:campfires");
+		BlockTags.addTagsByID("BambooMod", "campfire", "minecraft:campfires");
+		BlockTags.addTagsByID("mod_ecru_MapleTree", "ecru_BlockFallenLeavesFire", Tags.MOD_ID + ":bee_hive_fumigator");
+		BlockTags.addTagsByID("Thaumcraft", "blockAiry", Tags.MOD_ID + ":bee_hive_fumigator");
 		//TODO: And spore blossoms, when added
+	}
+
+	private static void doPistonTags() {
+		BlockTags.addTags(ModBlocks.SLIME.get(), Tags.MOD_ID + ":piston_slime_blocks");
+		BlockTags.addTags(ModBlocks.HONEY_BLOCK.get(), Tags.MOD_ID + ":piston_honey_blocks");
+		for (ModBlocks mb : ModBlocks.TERRACOTTA) {
+			if (mb.isEnabled()) {
+				BlockTags.addTags(mb.get(), Tags.MOD_ID + ":piston_slick_blocks");
+			}
+		}
+
+		//Begin mod blocks
+		BlockTags.addTagsByID("VillageNames", "glazedTerracotta", Tags.MOD_ID + ":piston_slick_blocks");
+		BlockTags.addTagsByID("VillageNames", "glazedTerracotta2", Tags.MOD_ID + ":piston_slick_blocks");
+		BlockTags.addTagsByID("VillageNames", "glazedTerracotta3", Tags.MOD_ID + ":piston_slick_blocks");
+		BlockTags.addTagsByID("VillageNames", "glazedTerracotta4", Tags.MOD_ID + ":piston_slick_blocks");
+
+		for (String color : GenericUtils.Constants.MODERN_COLORS_SNAKE_CASE) {
+			BlockTags.addTagsByID("uptodate", "glazed_terracotta_" + color, Tags.MOD_ID + ":piston_slick_blocks");
+		}
+
+		BlockTags.addTagsByID("TConstruct", "slime.gel",Tags.MOD_ID + ":piston_slime_blocks");
+		BlockTags.addTagsByID("TConstruct", "GlueBlock", Tags.MOD_ID + ":piston_honey_blocks");
+
+		BlockTags.addTagsByID("MineFactoryReloaded", "pinkslime.block", Tags.MOD_ID + ":piston_slime_blocks");
+
+		BlockTags.addTagsByID("BiomesOPlenty", "honeyBlock", Tags.MOD_ID + ":piston_honey_blocks");
 	}
 
 	static void registerOreDictionary() {

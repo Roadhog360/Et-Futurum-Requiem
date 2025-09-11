@@ -46,14 +46,7 @@ public class BlockTuff extends BaseSubtypesBlock {
 
 	@Override
 	public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
-		boolean flag = this == target;
-		if (world.getBlockMetadata(x, y, z) == 0 && world.getBlock(x, y, z) == this) {
-			flag |= target == Blocks.stone || target == ModBlocks.DEEPSLATE.get();
-			if (flag) {
-				BlockDeepslate.doDeepslateRedoCheck(world, x, y, z);
-			}
-		}
-		return flag;
+		return (super.isReplaceableOreGen(world, x, y, z, target) || target == Blocks.stone || target == ModBlocks.DEEPSLATE.get()) && world.getBlockMetadata(x, y, z) == 0;
 	}
 
 }

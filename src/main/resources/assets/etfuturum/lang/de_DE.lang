@@ -275,7 +275,7 @@ subtitle.ambient.weather.thunder=Donner grollt
 
 # Objekte
 entity.etfuturum.endermite.name=Endermite
-entity.etfuturum.armor_stand.name=Rüstungsständer
+entity.etfuturum.wooden_armorstand.name=Rüstungsständer
 entity.etfuturum.rabbit.name=Kaninchen
 entity.etfuturum.villager_zombie.name=Zombiedorfbewohner
 entity.etfuturum.end_crystal.name=Enderkristall

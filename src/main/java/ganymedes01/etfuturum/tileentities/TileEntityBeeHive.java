@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.tileentities;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.EntityBee;
 import net.minecraft.block.Block;
@@ -17,7 +18,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
-import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
 
 import java.util.Iterator;
 import java.util.List;
@@ -116,8 +117,8 @@ public class TileEntityBeeHive extends TileEntity {
 			if (block.isAir(world, x, y - i, z)) continue;
 
 			int meta = world.getBlockMetadata(x, y - i, z);
-			if ((HogTagsHelper.BlockTags.getInTag(Tags.MOD_ID + ":bee_hive_fumigator").isEmpty() && block.getMaterial() == Material.fire)
-					|| HogTagsHelper.BlockTags.hasAnyTag(block, meta, Tags.MOD_ID + ":bee_hive_fumigator")) {
+			if ((BlockTags.getInTag(Tags.MOD_ID + ":bee_hive_fumigator").isEmpty() && block.getMaterial() == Material.fire)
+					|| BlockTags.hasTag(block, meta, Tags.MOD_ID + ":bee_hive_fumigator")) {
 				return true;
 			}
 		}
@@ -131,7 +132,8 @@ public class TileEntityBeeHive extends TileEntity {
 
 	@Deprecated
 	public static void addSmokeBlock(Block block, int meta) {
-		HogTagsHelper.BlockTags.addTags(block, meta, Tags.MOD_ID + ":bee_hive_fumigator");
+		BlockTags.addTags(block, meta, Tags.MOD_ID + ":bee_hive_fumigator");
+		Logger.info("Hey yogurt guy update Glue already you Dork");
 	}
 
 	public void tryEnterHive(Entity p_226962_1_, boolean p_226962_2_, int p_226962_3_) {

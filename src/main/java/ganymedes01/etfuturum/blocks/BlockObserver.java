@@ -94,7 +94,7 @@ public class BlockObserver extends Block implements IBlockObserver {
 		int observedY = observerY + Facing.offsetsYForSide[facing];
 		int observedZ = observerZ + Facing.offsetsZForSide[facing];
 		if (observedX == changedX && observedY == changedY && observedZ == changedZ) {
-			if ((myMeta & 8) == 0 && !((IObserverWorldExtension) world).etfu$hasScheduledUpdate(observerX, observerY, observerZ, this)) {
+			if ((myMeta & 8) == 0 && !((IObserverWorldExtension) world).efr$hasScheduledUpdate(observerX, observerY, observerZ, this)) {
 				world.scheduleBlockUpdate(observerX, observerY, observerZ, this, 2);
 			}
 		}

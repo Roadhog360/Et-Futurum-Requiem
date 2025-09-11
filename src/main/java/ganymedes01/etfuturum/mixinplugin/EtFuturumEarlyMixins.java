@@ -24,6 +24,11 @@ import java.util.Set;
 @IFMLLoadingPlugin.MCVersion("1.7.10")
 public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
+	static
+	{
+
+	}
+
 	public static final MixinEnvironment.Side side = MixinEnvironment.getCurrentEnvironment().getSide();
 
 	public void initConfigs() {
@@ -93,6 +98,7 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("spectator.MixinInventoryPlayer");
 			mixins.add("spectator.MixinContainerChest");
 			mixins.add("spectator.MixinSlot");
+			mixins.add("spectator.MixinCommandGameMode");
 			if (side == MixinEnvironment.Side.CLIENT) {
 				mixins.add("spectator.client.MixinEntityRenderer");
 				mixins.add("spectator.client.MixinEntityPlayer");
@@ -278,6 +284,8 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 		if (ConfigMixins.enablePlayersSleepingPecentageGamerule) {
 			mixins.add("playerssleepingpercentage.MixinWorldServer");
 		}
+
+		mixins.add("deepslateores.MixinChunk");
 
 		return mixins;
 	}

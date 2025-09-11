@@ -1,9 +1,10 @@
 package ganymedes01.etfuturum.api.mappings;
 
 import net.minecraft.item.Item;
+import roadhog360.hogutils.api.blocksanditems.utils.ItemMetaPair;
 
 @Deprecated
-public class ItemAndMetadataMapping extends RegistryMapping<Item> {
+public class ItemAndMetadataMapping extends ItemMetaPair {
 
 	@Deprecated
 	public ItemAndMetadataMapping(Item ore, int meta) {
@@ -11,6 +12,6 @@ public class ItemAndMetadataMapping extends RegistryMapping<Item> {
 	}
 
 	public Item getItem() {
-		return super.getObject();
+		return super.get();
 	}
 }

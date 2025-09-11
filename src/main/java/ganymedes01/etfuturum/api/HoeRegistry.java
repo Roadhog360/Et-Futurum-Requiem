@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.api;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.oredict.OreDictionary;
-import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
 
 import java.util.ArrayList;
 
@@ -11,12 +11,12 @@ public class HoeRegistry {
 
 	@Deprecated
 	public static void addToHoeArray(Block block) {
-		HogTagsHelper.BlockTags.addTags(block, "minecraft:mineable/hoe");
+		BlockTags.addTags(block, "minecraft:mineable/hoe");
 	}
 
 	@Deprecated
 	public static boolean hoeArrayHas(Block block) {
-		return HogTagsHelper.BlockTags.hasAnyTag(block, OreDictionary.WILDCARD_VALUE,"minecraft:mineable/hoe");
+		return BlockTags.hasTag(block, OreDictionary.WILDCARD_VALUE,"minecraft:mineable/hoe");
 	}
 
 	/// No longer works. TODO: Make it work maybe

@@ -12,7 +12,7 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
-import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.hogtags.helpers.ItemTags;
 
 import java.util.List;
 import java.util.Random;
@@ -60,7 +60,7 @@ public class ContainerEnchantment extends Container {
 		enchantmentIds = new int[]{-1, -1, -1};
 		this.world = world;
 		enchantmentSeed = getEnchantSeed(inventory.player);
-		noFuel = HogTagsHelper.ItemTags.getInTag(Tags.MOD_ID + ":enchantment_fuel").isEmpty();
+		noFuel = ItemTags.getInTag(Tags.MOD_ID + ":enchantment_fuel").isEmpty();
 		addSlotToContainer(new Slot(tableInventory, 0, noFuel ? 25 : 15, 47) {
 
 			@Override
@@ -72,7 +72,7 @@ public class ContainerEnchantment extends Container {
 			addSlotToContainer(new Slot(tableInventory, 1, 35, 47) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					return HogTagsHelper.ItemTags.hasAnyTag(stack.getItem(), stack.getItemDamage(), Tags.MOD_ID + ":enchantment_fuel");
+					return ItemTags.hasTag(stack.getItem(), stack.getItemDamage(), Tags.MOD_ID + ":enchantment_fuel");
 				}
 			});
 		}
@@ -309,7 +309,7 @@ public class ContainerEnchantment extends Container {
 			} else if (!noFuel && index == 1) {
 				if (!mergeItemStack(var5, 2, 38, true))
 					return null;
-			} else if (!noFuel && HogTagsHelper.ItemTags.hasAnyTag(var5.getItem(), var5.getItemDamage(), Tags.MOD_ID + ":enchantment_fuel")) {
+			} else if (!noFuel && ItemTags.hasTag(var5.getItem(), var5.getItemDamage(), Tags.MOD_ID + ":enchantment_fuel")) {
 				if (!mergeItemStack(var5, 1, 2, true))
 					return null;
 			} else {

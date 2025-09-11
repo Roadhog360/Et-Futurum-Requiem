@@ -16,7 +16,7 @@ public class MixinWorldServer implements IObserverWorldExtension {
 	private Set<NextTickListEntry> pendingTickListEntriesHashSet;
 
 	@Override
-	public boolean etfu$hasScheduledUpdate(int x, int y, int z, Block block) {
+	public boolean efr$hasScheduledUpdate(int x, int y, int z, Block block) {
 		return this.pendingTickListEntriesHashSet.contains(new NextTickListEntry(x, y, z, block));
 	}
 }

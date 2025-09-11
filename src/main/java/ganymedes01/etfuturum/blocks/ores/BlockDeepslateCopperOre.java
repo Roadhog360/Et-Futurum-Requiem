@@ -2,12 +2,12 @@ package ganymedes01.etfuturum.blocks.ores;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import roadhog360.hogutils.api.world.DummyWorld;
 
 public class BlockDeepslateCopperOre extends BlockDeepslateOre implements IInitAction {
 
@@ -19,7 +19,7 @@ public class BlockDeepslateCopperOre extends BlockDeepslateOre implements IInitA
 	public void onLoadAction() {
 		if (!ModBlocks.COPPER_ORE.isEnabled() && !OreDictionary.getOres("oreCopper").isEmpty()) {
 			//If EFR copper ore isn't enabled, find another mod copper to pull stats from. Fallback to EFR copper stats if nothing is available.
-			DummyWorld world = DummyWorld.GLOBAL_DUMMY_WORLD;
+			DummyWorld world = DummyWorld.getGlobalInstance();
 			ItemStack stack = Utils.getFirstNonDeepslateBlockFromTag("oreCopper", ModBlocks.COPPER_ORE.newItemStack());
 			try {
 				Block block = Block.getBlockFromItem(stack.getItem());
@@ -37,7 +37,7 @@ public class BlockDeepslateCopperOre extends BlockDeepslateOre implements IInitA
 				blockHardness = ConfigFunctions.useStoneHardnessForDeepslate ? ModBlocks.COPPER_ORE.get().blockHardness : ModBlocks.COPPER_ORE.get().blockHardness * 1.5F;
 				blockResistance = ModBlocks.COPPER_ORE.get().blockResistance;
 			}
-			world.clearBlocksCache();
+			world.clearFakeData();
 		}
 	}
 }

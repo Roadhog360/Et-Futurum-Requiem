@@ -36,7 +36,7 @@ public abstract class MixinBlockFireRPLE extends Block implements ISoulFireInfo,
 
 	@Override
 	public short rple$getCustomBrightnessColor(@NotNull IBlockAccess world, int blockMeta, int posX, int posY, int posZ) {
-		if(etfuturum$isVanillaFire() && isSoulFire(world, posX, posY, posZ)) {
+		if(etfuturum$isVanillaFire() && efr$isSoulFire(world, posX, posY, posZ)) {
 			return ConfigModCompat.soulFireColor;
 		}
 		return rple$getCustomBrightnessColor(blockMeta);

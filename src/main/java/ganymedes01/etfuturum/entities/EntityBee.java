@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.entities;
 
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.Tags;
+import ganymedes01.etfuturum.api.crops.IBeeGrowable;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
@@ -31,7 +32,8 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
+import roadhog360.hogutils.api.hogtags.helpers.ItemTags;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -413,7 +415,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	private boolean isBreedingFlower(Item item, int meta) {
-		return HogTagsHelper.ItemTags.hasAnyTag(item, meta, "minecraft:bee_food");
+		return ItemTags.hasTag(item, meta, "minecraft:bee_food");
 	}
 
 	//TODO: Maybe fix [https://bugs.mojang.com/browse/MC-168267](MC-168267) and evaluate the contents of flower pots?
@@ -422,10 +424,10 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		Block block = world.getBlock(x, y, z);
 		int meta = world.getBlockMetadata(x, y, z);
 		if (block instanceof BlockDoublePlant && BlockDoublePlant.func_149887_c(meta)) {
-			return HogTagsHelper.BlockTags.hasAnyTag(
+			return BlockTags.hasTag(
 					world.getBlock(x, y - 1, z), world.getBlockMetadata(x, y - 1, z), "minecraft:bee_attractive");
 		}
-		return HogTagsHelper.BlockTags.hasAnyTag(block, meta, "minecraft:bee_attractive");
+		return BlockTags.hasTag(block, meta, "minecraft:bee_attractive");
 	}
 
 	public BlockPos getFlowerPos() {
@@ -1098,8 +1100,13 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 					int y = (int) posY - i;
 					int z = (int) posZ;
 					Block block = worldObj.getBlock(x, y, z);
-					if (block instanceof IGrowable growable) {
-						if (HogTagsHelper.BlockTags.hasAnyTag(block, worldObj.getBlockMetadata(x, y, z))
+					if(BlockTags.hasTag(block, worldObj.getBlockMetadata(x, y, z), "minecraft:bee_growables")) {
+						if (block instanceof IBeeGrowable beeGrowable) {
+							if(beeGrowable.canBeeGrow(worldObj, worldObj.rand, x, y, z)) {
+								beeGrowable.onBeeGrow(worldObj, worldObj.rand, x, y, z);
+								addCropCounter();
+							}
+						} else if (block instanceof IGrowable growable
 								&& growable.func_149851_a/*canFertilize*/(worldObj, x, y, z, false)
 								&& growable.func_149852_a/*shouldFertilize*/(worldObj, worldObj.rand, x, y, z)) {
 							//BlockCrops, BlockStem and BlockBerryBush should use the next meta for growth stage.

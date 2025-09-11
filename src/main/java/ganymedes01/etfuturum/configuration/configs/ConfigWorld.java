@@ -2,13 +2,12 @@ package ganymedes01.etfuturum.configuration.configs;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.core.utils.Logger;
-import net.minecraft.block.Block;
 import net.minecraftforge.common.config.Property;
+import roadhog360.hogutils.api.blocksanditems.utils.BlockMetaPair;
 
 import java.io.File;
 
@@ -20,9 +19,9 @@ public class ConfigWorld extends ConfigBase {
 	public static String fossilBlockID;
 	public static String amethystOuterBlockID;
 	public static String amethystMiddleBlockID;
-	public static RegistryMapping<Block> fossilBlock;
-	public static RegistryMapping<Block> amethystOuterBlock;
-	public static RegistryMapping<Block> amethystMiddleBlock;
+	public static BlockMetaPair fossilBlock;
+	public static BlockMetaPair amethystOuterBlock;
+	public static BlockMetaPair amethystMiddleBlock;
 
 	public static boolean enableDmgIndicator;
 	public static boolean enableAirDebris;
@@ -197,7 +196,7 @@ public class ConfigWorld extends ConfigBase {
 	protected void initValues() {
 		if (enableFossils) {
 			if (ModsList.NETHERLICIOUS.isLoaded() && fossilBlockID.equals("etfuturum:bone_block") && !ModBlocks.BONE.isEnabled()) {
-				fossilBlock = new RegistryMapping<>(ExternalContent.Blocks.NETHERLICIOUS_BONE_BLOCK.get(), 0);
+				fossilBlock = new BlockMetaPair(ExternalContent.Blocks.NETHERLICIOUS_BONE_BLOCK.get(), 0);
 			} else {
 				String[] fossilBlockArray = fossilBlockID.split(":");
 				if ((fossilBlockArray.length == 2 || fossilBlockArray.length == 3) && GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]) != null) {
@@ -215,7 +214,7 @@ public class ConfigWorld extends ConfigBase {
 							meta = 0;
 						}
 					}
-					fossilBlock = new RegistryMapping<>(GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]), meta);
+					fossilBlock = new BlockMetaPair(GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]), meta);
 				} else {
 					Logger.error("Fossil block " + fossilBlockID + " does not exist or is malformed, therefore fossils will not generate!");
 				}
@@ -239,7 +238,7 @@ public class ConfigWorld extends ConfigBase {
 						meta = 0;
 					}
 				}
-				amethystOuterBlock = new RegistryMapping<>(GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]), meta);
+				amethystOuterBlock = new BlockMetaPair(GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]), meta);
 			}
 
 			String[] amethystMiddleBlockArray = amethystMiddleBlockID.split(":");
@@ -258,7 +257,7 @@ public class ConfigWorld extends ConfigBase {
 						meta = 0;
 					}
 				}
-				amethystMiddleBlock = new RegistryMapping<>(GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]), meta);
+				amethystMiddleBlock = new BlockMetaPair(GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]), meta);
 			}
 		}
 	}

@@ -11,7 +11,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.AchievementList;
-import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.hogtags.helpers.ItemTags;
 
 public class ContainerNewBrewingStand extends Container {
 
@@ -134,7 +134,7 @@ public class ContainerNewBrewingStand extends Container {
 
 		@Override
 		public boolean isItemValid(ItemStack stack) {
-			return HogTagsHelper.ItemTags.hasAnyTag(stack.getItem(), stack.getItemDamage(), "minecraft:brewing_fuel");
+			return ItemTags.hasTag(stack.getItem(), stack.getItemDamage(), "minecraft:brewing_fuel");
 		}
 	}
 

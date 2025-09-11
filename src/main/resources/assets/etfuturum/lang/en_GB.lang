@@ -7,7 +7,7 @@ subtitle.item.armor.equip_diamond=Diamond armour equipped
 subtitle.item.armor.equip_netherite=Netherite armour equipped
 
 # Entities
-entity.etfuturum.armor_stand.name=Armour Stand
+entity.etfuturum.wooden_armorstand.name=Armour Stand
 
 # Items
 item.etfuturum.armor_stand.name=Armour Stand

@@ -7,7 +7,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.event.PostTreeGenerateEvent;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
@@ -34,7 +33,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import org.apache.commons.lang3.ArrayUtils;
-import roadhog360.hogutils.api.hogtags.HogTagsHelper;
+import roadhog360.hogutils.api.blocksanditems.utils.BlockMetaPair;
+import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
@@ -48,11 +48,11 @@ public class WorldEventHandler {
 		WeightedRandomList<WorldGenerator> oakSaplingTrees = new WeightedRandomList<>();
 		oakSaplingTrees.addEntry(new WorldGenTrees(false), 0.9D);
 		oakSaplingTrees.addEntry(new WorldGenBigTree(false), 0.1D);
-		BEE_NEST_SAPLINGS.put(new RegistryMapping<>(Blocks.sapling, 0), oakSaplingTrees);
+		BEE_NEST_SAPLINGS.put(new BlockMetaPair(Blocks.sapling, 0), oakSaplingTrees);
 
 		WeightedRandomList<WorldGenerator> birchSaplingTrees = new WeightedRandomList<>();
 		birchSaplingTrees.addEntry(new WorldGenForest(true, false), 0.0D); //It's the only entry in the list, it does not need a weight.
-		BEE_NEST_SAPLINGS.put(new RegistryMapping<>(Blocks.sapling, 2), birchSaplingTrees); //Also yes that is really the name of the birch tree gen class lol
+		BEE_NEST_SAPLINGS.put(new BlockMetaPair(Blocks.sapling, 2), birchSaplingTrees); //Also yes that is really the name of the birch tree gen class lol
 
 		if (ModsList.NATURA.isLoaded()) {
 			try {
@@ -60,17 +60,17 @@ public class WorldEventHandler {
 				WeightedRandomList<WorldGenerator> sakuraSaplingTrees = new WeightedRandomList<>();
 				constructor = ReflectionHelper.getClass(CommonProxy.class.getClassLoader(), "mods.natura.worldgen.SakuraTreeGen").getConstructor(boolean.class, int.class, int.class);
 				sakuraSaplingTrees.addEntry((WorldGenerator) constructor.newInstance(true, 1, 0), 0.0D);
-				BEE_NEST_SAPLINGS.put(new RegistryMapping<>(GameRegistry.findBlock("Natura", "florasapling"), 3), sakuraSaplingTrees);
+				BEE_NEST_SAPLINGS.put(new BlockMetaPair(GameRegistry.findBlock("Natura", "florasapling"), 3), sakuraSaplingTrees);
 
 				WeightedRandomList<WorldGenerator> mapleSaplingTrees = new WeightedRandomList<>();
 				constructor = ReflectionHelper.getClass(CommonProxy.class.getClassLoader(), "mods.natura.worldgen.RareTreeGen").getConstructor(boolean.class, int.class, int.class, int.class, int.class);
 				mapleSaplingTrees.addEntry((WorldGenerator) constructor.newInstance(true, 4, 2, 0, 0), 0.0D);
-				BEE_NEST_SAPLINGS.put(new RegistryMapping<>(GameRegistry.findBlock("Natura", "Rare Sapling"), 0), mapleSaplingTrees);
+				BEE_NEST_SAPLINGS.put(new BlockMetaPair(GameRegistry.findBlock("Natura", "Rare Sapling"), 0), mapleSaplingTrees);
 
 				WeightedRandomList<WorldGenerator> willowSaplingTrees = new WeightedRandomList<>();
 				constructor = ReflectionHelper.getClass(CommonProxy.class.getClassLoader(), "mods.natura.worldgen.WillowGen").getConstructor(boolean.class);
 				willowSaplingTrees.addEntry((WorldGenerator) constructor.newInstance(true), 0.0D);
-				BEE_NEST_SAPLINGS.put(new RegistryMapping<>(GameRegistry.findBlock("Natura", "Rare Sapling"), 4), willowSaplingTrees);
+				BEE_NEST_SAPLINGS.put(new BlockMetaPair(GameRegistry.findBlock("Natura", "Rare Sapling"), 4), willowSaplingTrees);
 			} catch (Exception e) {
 				Logger.error("Could not add Natura saplings to the beehive grow list!");
 				e.printStackTrace();
@@ -109,7 +109,7 @@ public class WorldEventHandler {
 	}
 
 	private final Map<BiomeGenBase, Float> BEE_NEST_BIOMES = Maps.newHashMap();
-	private final Map<RegistryMapping<Block>, WeightedRandomList<WorldGenerator>> BEE_NEST_SAPLINGS = Maps.newHashMap();
+	private final Map<BlockMetaPair, WeightedRandomList<WorldGenerator>> BEE_NEST_SAPLINGS = Maps.newHashMap();
 
 	@SubscribeEvent
 	public void onSaplingGrow(SaplingGrowTreeEvent event) {//5% chance to run this logic.
@@ -117,7 +117,7 @@ public class WorldEventHandler {
 			//TODO: Mangrove and cherry trees should be here when they are added. Maybe support modded saplings too
 			Block sapling = event.world.getBlock(event.x, event.y, event.z);
 			int saplingMeta = event.world.getBlockMetadata(event.x, event.y, event.z);
-			WeightedRandomList<WorldGenerator> treesForSapling = BEE_NEST_SAPLINGS.get(RegistryMapping.getKeyFor(sapling, saplingMeta % 8));
+			WeightedRandomList<WorldGenerator> treesForSapling = BEE_NEST_SAPLINGS.get(BlockMetaPair.intern(sapling, saplingMeta % 8));
 			if (treesForSapling != null) {
 				event.world.setBlockToAir(event.x, event.y, event.z);
 				if (treesForSapling.getRandom(event.rand).generate(event.world, event.rand, event.x, event.y, event.z)) {
@@ -139,7 +139,7 @@ public class WorldEventHandler {
 				if (z1 != 0 || x1 != 0) {
 					Block block = world.getBlock(x + x1, y, z + z1);
 					int meta = world.getBlockMetadata(x + x1, y, z + z1);
-					if (HogTagsHelper.BlockTags.hasAnyTag(block, meta, "minecraft:bee_attractive")) {
+					if (BlockTags.hasTag(block, meta, "minecraft:bee_attractive")) {
 						return true;
 					}
 				}

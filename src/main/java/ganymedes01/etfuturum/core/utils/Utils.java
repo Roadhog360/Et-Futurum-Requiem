@@ -384,41 +384,6 @@ public class Utils {
 		return list;
 	}
 
-	private static Integer maxMeta;
-	private static Integer minMeta;
-
-	public static int getMaxMetadata() {
-		if (maxMeta == null) {
-			if (ModsList.NOT_ENOUGH_IDS.isLoaded() && ModsList.NOT_ENOUGH_IDS.isVersionNewerOrEqual("2.0.0")) {
-				maxMeta = (int) Short.MAX_VALUE;
-			} else if (ModsList.ENDLESS_IDS_BLOCKITEM.isLoaded()) {
-				maxMeta = 65536;
-			} else {
-				maxMeta = 15;
-			}
-		}
-		return maxMeta;
-	}
-
-	public static int getMinMetadata() {
-		if (minMeta == null) {
-			if (ModsList.NOT_ENOUGH_IDS.isLoaded() && ModsList.NOT_ENOUGH_IDS.isVersionNewerOrEqual("2.0.0")) {
-				minMeta = (int) Short.MIN_VALUE;
-			} else { //EIDs has min meta 0 too, so we don't need to check for it
-				minMeta = 0;
-			}
-		}
-		return minMeta;
-	}
-
-	public static boolean isMetaInBlockBounds(int meta) {
-		return meta <= getMaxMetadata() && meta >= getMinMetadata();
-	}
-
-	public static boolean isMetaInBlockBoundsIgnoreWildcard(int meta) {
-		return meta == OreDictionary.WILDCARD_VALUE || isMetaInBlockBounds(meta);
-	}
-
 	public static void copyAttribs(Block to, Block from) {
 		to.setHardness(from.blockHardness);
 		to.setResistance(from.blockResistance);
