@@ -17,8 +17,6 @@ public abstract class MixinBlockLiquid {
         /* (Normal) Liquid levels go from 0 to 8, where 8 is flowing down
          * This changes nothing for liquids flowing down, but for levels between 0 and 7 it does:
          * Inverse linear mapping from [0,7] to [minSpeed,maxSpeed]
-         * TODO: Once we decide on a min & max speed that fits we should
-         *  precomupte that contstant to reduce future performance costs
          */
 
         double minSpeed = 0.1;
