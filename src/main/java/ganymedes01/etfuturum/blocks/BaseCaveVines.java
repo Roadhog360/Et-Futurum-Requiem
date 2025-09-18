@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -223,5 +224,11 @@ public class BaseCaveVines extends Block implements IGrowable
             }
             player.fallDistance = 0.0F;
         }
+    }
+
+    @Override
+    public Item getItemDropped(int meta, Random random, int fortune)
+    {
+        return null;
     }
 }

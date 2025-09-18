@@ -5,6 +5,7 @@ import ganymedes01.etfuturum.tileentities.TileEntityCaveVines;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -77,7 +78,7 @@ public class BlockCaveVines extends BaseCaveVines implements IShearable, ITileEn
         {
             teCaveVines.setTipSheared(true);
         }
-        return null;
+        return new ArrayList<>();
     }
 
     // Just grabbing the block container behavior since I really want to have a base class between cave vines.
