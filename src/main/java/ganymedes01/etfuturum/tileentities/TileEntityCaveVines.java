@@ -63,4 +63,10 @@ public class TileEntityCaveVines extends TileEntity
         this.readFromNBT(pkt.func_148857_g());
         worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
     }
+
+    @Override
+    public boolean canUpdate()
+    {
+        return false;
+    }
 }

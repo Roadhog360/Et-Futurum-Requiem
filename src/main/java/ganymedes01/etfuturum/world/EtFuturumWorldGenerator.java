@@ -150,6 +150,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		{
 			caveVineGen = new WorldGenCaveVines(ModBlocks.CAVE_VINE.get());
 		}
+        
 		if (ModBlocks.CHERRY_LOG.isEnabled() && ModBlocks.LEAVES.isEnabled()) {
 			BiomeGenBase[] cherryBiomeArray = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
 			cherryBiomeArray = Utils.excludeBiomesFromTypesWithDefaults(cherryBiomeArray, Type.SNOWY, Type.HOT, Type.SANDY, Type.MESA, Type.SPARSE, Type.JUNGLE);
@@ -250,25 +251,29 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				x = (chunkX << 4) + rand.nextInt(16) + 8;
 				z = (chunkZ << 4) + rand.nextInt(16) + 8;
 
-				for (int tries = 0; tries < 40; tries++) {
-					int xoff = x + rand.nextInt(10) - rand.nextInt(10);
-					int yoff = rand.nextInt(128);
-					int zoff = z + rand.nextInt(10) - rand.nextInt(10);
-					glowLichenGen.generate(world, rand, xoff, yoff, zoff);
-				}
+                if (world.provider.dimensionId == 0) {
+                    for (int tries = 0; tries < 40; tries++) {
+                        int xoff = x + rand.nextInt(10) - rand.nextInt(10);
+                        int yoff = rand.nextInt(128);
+                        int zoff = z + rand.nextInt(10) - rand.nextInt(10);
+                        glowLichenGen.generate(world, rand, xoff, yoff, zoff);
+                    }
+                }
 			}
 
 			if (caveVineGen != null)
 			{
 				x = (chunkX << 4) + rand.nextInt(16) + 8;
 				z = (chunkZ << 4) + rand.nextInt(16) + 8;
-
-				for (int tries = 0; tries < 20; tries++) {
-					int xoff = x + rand.nextInt(10) - rand.nextInt(10);
-					int yoff = rand.nextInt(128);
-					int zoff = z + rand.nextInt(10) - rand.nextInt(10);
-					caveVineGen.generate(world, rand, xoff, yoff, zoff);
-				}
+                if (world.provider.dimensionId == 0)
+                {
+                    for (int tries = 0; tries < 20; tries++) {
+                        int xoff = x + rand.nextInt(10) - rand.nextInt(10);
+                        int yoff = rand.nextInt(128);
+                        int zoff = z + rand.nextInt(10) - rand.nextInt(10);
+                        caveVineGen.generate(world, rand, xoff, yoff, zoff);
+                    }
+                }
 			}
 
 			if (cherryTreeGen != null) {
