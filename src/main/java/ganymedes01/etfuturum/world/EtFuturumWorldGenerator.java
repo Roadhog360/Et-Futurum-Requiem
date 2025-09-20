@@ -246,33 +246,27 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				}
 			}
 
-			if (glowLichenGen != null)
+			if (glowLichenGen != null && world.provider.dimensionId == 0)
 			{
 				x = (chunkX << 4) + rand.nextInt(16) + 8;
 				z = (chunkZ << 4) + rand.nextInt(16) + 8;
-
-                if (world.provider.dimensionId == 0) {
-                    for (int tries = 0; tries < 40; tries++) {
-                        int xoff = x + rand.nextInt(10) - rand.nextInt(10);
-                        int yoff = rand.nextInt(128);
-                        int zoff = z + rand.nextInt(10) - rand.nextInt(10);
-                        glowLichenGen.generate(world, rand, xoff, yoff, zoff);
-                    }
+                for (int tries = 0; tries < 40; tries++) {
+                    int xoff = x + rand.nextInt(10) - rand.nextInt(10);
+                    int yoff = rand.nextInt(128);
+                    int zoff = z + rand.nextInt(10) - rand.nextInt(10);
+                    glowLichenGen.generate(world, rand, xoff, yoff, zoff);
                 }
 			}
 
-			if (caveVineGen != null)
+			if (caveVineGen != null && world.provider.dimensionId == 0)
 			{
 				x = (chunkX << 4) + rand.nextInt(16) + 8;
 				z = (chunkZ << 4) + rand.nextInt(16) + 8;
-                if (world.provider.dimensionId == 0)
-                {
-                    for (int tries = 0; tries < 20; tries++) {
-                        int xoff = x + rand.nextInt(10) - rand.nextInt(10);
-                        int yoff = rand.nextInt(128);
-                        int zoff = z + rand.nextInt(10) - rand.nextInt(10);
-                        caveVineGen.generate(world, rand, xoff, yoff, zoff);
-                    }
+                for (int tries = 0; tries < 20; tries++) {
+                    int xoff = x + rand.nextInt(10) - rand.nextInt(10);
+                    int yoff = rand.nextInt(128);
+                    int zoff = z + rand.nextInt(10) - rand.nextInt(10);
+                    caveVineGen.generate(world, rand, xoff, yoff, zoff);
                 }
 			}
 
