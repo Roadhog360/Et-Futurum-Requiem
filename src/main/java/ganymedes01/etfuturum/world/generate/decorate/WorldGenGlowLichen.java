@@ -44,7 +44,7 @@ public class WorldGenGlowLichen extends WorldGenerator {
                             ((TileEntityGlowLichen) te).setSideMap(meta);
                             for (int i = 0; i < rand.nextInt(7); i++)
                             {
-                                lichen.grow(world, teLichen, x,y,z);
+                                lichen.func_149853_b(world, rand, x,y,z);
                             }
                         }
                     }

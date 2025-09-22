@@ -26,7 +26,7 @@ public class ItemBlockGlowLichen extends ItemBlock
             if (tileEntity instanceof TileEntityGlowLichen glowLichen) 
             {
                 int sideBit = 1 << ForgeDirection.OPPOSITES[side];
-                if ((glowLichen.getSideMap() | sideBit) == glowLichen.getSideMap())
+                if ((glowLichen.getSideMap() & sideBit) != 0)
                 {
                     return false;
                 }

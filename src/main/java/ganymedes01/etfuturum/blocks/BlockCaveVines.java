@@ -5,7 +5,6 @@ import ganymedes01.etfuturum.tileentities.TileEntityCaveVines;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -37,15 +36,18 @@ public class BlockCaveVines extends BaseCaveVines implements IShearable, ITileEn
 
     // Only call after making sure the block is clear to grow!
     public void growVine(World world, int x, int y, int z, boolean manualPlace) {
-        Random rand = new Random();
         TileEntity oldTE = world.getTileEntity(x, y, z);
-        int maxLength = rand.nextInt(26) + 2;
+        int maxLength;
         if (oldTE instanceof TileEntityCaveVines)
         {
             maxLength = ((TileEntityCaveVines) oldTE).getMaxLength();
         }
+        else
+        {
+            maxLength = world.rand.nextInt(26) + 2;
+        }
         world.setBlock(x, y, z, ModBlocks.CAVE_VINE_PLANT.get(), world.getBlockMetadata(x, y, z), 3);
-        if (!manualPlace && rand.nextInt(9) == 0)
+        if (!manualPlace && world.rand.nextInt(9) == 0)
         {
             world.setBlock(x, y - 1, z, this, 1, 3);
             world.updateLightByType(EnumSkyBlock.Block, x, y, z);
@@ -81,13 +83,6 @@ public class BlockCaveVines extends BaseCaveVines implements IShearable, ITileEn
         return new ArrayList<>();
     }
 
-    // Just grabbing the block container behavior since I really want to have a base class between cave vines.
-    @Override
-    public void onBlockAdded(World worldIn, int x, int y, int z)
-    {
-        super.onBlockAdded(worldIn, x, y, z);
-    }
-
     @Override
     public void breakBlock(World worldIn, int x, int y, int z, Block blockBroken, int meta)
     {
@@ -106,11 +101,6 @@ public class BlockCaveVines extends BaseCaveVines implements IShearable, ITileEn
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
     {
-        if (world.getTileEntity(x, y, z) instanceof TileEntityCaveVines teCaveVine)
-        {
-            System.out.println("Tip Sheared:  " + teCaveVine.getTipSheared());
-            System.out.println("Max Length:" + teCaveVine.getMaxLength());
-        }
         if (onBlockActivatedShared(world, x, y, z, player, side, hitX, hitY, hitZ)) return true;
 
         ItemStack heldItem = player.getHeldItem();
@@ -119,7 +109,8 @@ public class BlockCaveVines extends BaseCaveVines implements IShearable, ITileEn
             if (heldItem.getItem() instanceof ItemShears && isShearable(heldItem, world, x, y, z))
             {
                 onSheared(heldItem, world, x, y, z, 0);
-                world.playSoundAtEntity(player, "mob.sheep.shear", 1.0F, 1.0F);
+                heldItem.damageItem(1, player);
+                world.playSoundAtEntity(player, "etfuturum:block.cave_vines.shear", 1.0F, 1.0F);
                 return true;
             }
         }

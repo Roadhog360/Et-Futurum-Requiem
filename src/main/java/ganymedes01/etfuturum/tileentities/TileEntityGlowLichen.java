@@ -7,6 +7,8 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityGlowLichen extends TileEntity
 {
+    
+    public static final int fullSideMap = 0b111111;
     // A 6 bit bitmap representing if there is a piece of glowlichen on the represented side.
     private int sideMap;
     public TileEntityGlowLichen() {}

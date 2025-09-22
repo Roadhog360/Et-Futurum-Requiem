@@ -76,7 +76,6 @@ public class BaseCaveVines extends Block implements IGrowable
         return false;
     }
 
-    // TODO
     @Override
     public boolean canBlockStay(World worldIn, int x, int y, int z)
     {
@@ -86,9 +85,15 @@ public class BaseCaveVines extends Block implements IGrowable
     @Override
     public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player)
     {
+        return getPickBlock(target, world, x, y, z);
+    }
+    
+    @Override
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
+    {
         return ModItems.GLOW_BERRIES_ITEM.newItemStack();
     }
-
+    
     protected boolean onBlockActivatedShared(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if (world.getBlockMetadata(x, y, z) == 1)
         {
@@ -97,15 +102,6 @@ public class BaseCaveVines extends Block implements IGrowable
             if (!world.isRemote)
             {
                 world.spawnEntityInWorld(new EntityItem(world, x, y, z, ModItems.GLOW_BERRIES_ITEM.newItemStack(1)));
-            }
-            return true;
-        }
-        ItemStack heldItem = player.getHeldItem();
-        if (heldItem != null && heldItem.getItem() == Items.dye && heldItem.getItemDamage() == 15) {
-            if (!world.isRemote) {
-                func_149853_b(world, null, x, y, z);
-                world.playAuxSFX(2005, x, y, z, 0); // bonemeal particles
-                heldItem.stackSize--;
             }
             return true;
         }
@@ -158,7 +154,6 @@ public class BaseCaveVines extends Block implements IGrowable
         int i = world.getBlockMetadata(x, y, z);
         if (i == 0) {
             world.setBlockMetadataWithNotify(x, y, z, 1, 3);
-            // world.markBlockForUpdate(x, y, z);
             world.updateLightByType(EnumSkyBlock.Block, x, y, z);
         }
     }
@@ -229,6 +224,10 @@ public class BaseCaveVines extends Block implements IGrowable
     @Override
     public Item getItemDropped(int meta, Random random, int fortune)
     {
+        if (meta == 1)
+        {
+            return ModItems.GLOW_BERRIES_ITEM.get();
+        }
         return null;
     }
 }

@@ -19,7 +19,7 @@ public class ItemGlowBerries extends BaseFood {
     }
 
     @Override
-    public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float subValueX, float subValueY, float subValueZ) {
         Block block = world.getBlock(x, y, z);
 
         if (block == Blocks.snow_layer && (world.getBlockMetadata(x, y, z) & 7) < 1)
@@ -69,14 +69,14 @@ public class ItemGlowBerries extends BaseFood {
         }
         else if (world.canPlaceEntityOnSide(ModBlocks.CAVE_VINE.get(), x, y, z, false, side, null, itemStack)) {
 
-            if (placeBlockAt(itemStack, player, world, x, y, z, side, p_77648_8_, p_77648_9_, p_77648_10_)) {
+            if (placeBlockAt(itemStack, player, world, x, y, z, side, subValueX, subValueY, subValueZ)) {
                 world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, ModBlocks.CAVE_VINE.get().stepSound.func_150496_b()/*getPlaceSound*/, (ModBlocks.CAVE_VINE.get().stepSound.getVolume() + 1.0F) / 2.0F, ModBlocks.CAVE_VINE.get().stepSound.getPitch() * 0.8F);
                 --itemStack.stackSize;
             }
 
             return true;
         } else {
-            return super.onItemUse(itemStack, player, world, x, y, z, side, p_77648_8_, p_77648_9_, p_77648_10_);
+            return super.onItemUse(itemStack, player, world, x, y, z, side, subValueX, subValueY, subValueZ);
         }
     }
 

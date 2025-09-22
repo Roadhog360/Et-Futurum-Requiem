@@ -26,6 +26,7 @@ public class TileEntityCaveVines extends TileEntity
     public void setMaxLength(int length)
     {
         maxLength = length;
+        this.markDirty();
     }
     public boolean getTipSheared()
     {
@@ -34,6 +35,7 @@ public class TileEntityCaveVines extends TileEntity
     public void setTipSheared(boolean value)
     {
         tipSheared = value;
+        this.markDirty();
     }
 
     // Save and load state from NBT
@@ -49,19 +51,6 @@ public class TileEntityCaveVines extends TileEntity
         super.readFromNBT(compound);
         this.maxLength = compound.getInteger("MaxLength");
         this.tipSheared = compound.getBoolean("TipSheared");
-    }
-
-    @Override
-    public Packet getDescriptionPacket() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-        this.readFromNBT(pkt.func_148857_g());
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
     }
 
     @Override

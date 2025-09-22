@@ -1,0 +1,10 @@
+{
+  "block.cave_vines.shear": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "minecraft:mob/sheep/shear"
+      }
+    ]
+  }
+}

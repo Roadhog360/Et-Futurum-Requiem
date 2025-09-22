@@ -26,7 +26,7 @@ public class GlowLichenHighlightEvent
             if (!(block instanceof BlockGlowLichen)) return;
             if (world.getTileEntity(x, y, z) instanceof TileEntityGlowLichen glowLichenTE) {
                 event.setCanceled(true);
-                boxRenderer.Render(glowLichenTE, x, y, z, event.player, event.partialTicks);
+                boxRenderer.render(glowLichenTE, x, y, z, event.player, event.partialTicks);
             }
         }
     }

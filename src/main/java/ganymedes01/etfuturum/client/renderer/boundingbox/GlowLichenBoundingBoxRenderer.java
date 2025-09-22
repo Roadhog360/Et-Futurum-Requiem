@@ -13,7 +13,7 @@ public class GlowLichenBoundingBoxRenderer
     // This is all hard coded. If someone wants to figure out an efficient way to do this for an arbitrary shape that would be nice,
     // that was too much work for this and I just was able to code this up in like 2 hours rather than figuring out how to do
     // it in all cases. Vanilla does it in a pretty complex way, but I'm sure it's possible to reverse engineer.
-    public void Render(TileEntityGlowLichen te, int x, int y, int z, EntityPlayer player,
+    public void render(TileEntityGlowLichen te, int x, int y, int z, EntityPlayer player,
                        float partialTicks)
     {
         GL11.glEnable(GL11.GL_BLEND);
