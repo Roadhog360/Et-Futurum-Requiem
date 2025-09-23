@@ -20,7 +20,7 @@ import net.minecraftforge.common.IShearable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BlockWeepingVines extends BaseBlock implements IShearable, IClimbableWithoutWall {
+public class BlockWeepingVines extends BaseBlock implements IShearable {
 
 	private IIcon topIcon;
 

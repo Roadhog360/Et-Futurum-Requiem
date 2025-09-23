@@ -228,7 +228,7 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("uninflammableitem.MixinEntityItem");
 		}
         
-        if (ConfigMixins.enableClimbingPlants)
+        if (ConfigMixins.enableJumpClimbing)
         {
             mixins.add("isLadderFix.MixinEntityLivingBase");
         }
