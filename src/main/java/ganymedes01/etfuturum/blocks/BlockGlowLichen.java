@@ -254,12 +254,7 @@ public class BlockGlowLichen extends BlockContainer implements IShearable, IGrow
     @Override
     public boolean func_149851_a(World world, int x, int y, int z, boolean unused) 
     {
-        TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof TileEntityGlowLichen glowLichen)
-        {
-            return (glowLichen.getSideMap() != TileEntityGlowLichen.fullSideMap);
-        }
-        return false;
+        return !findValidSpots(world, x, y, z).isEmpty();
     }
 
     /**
@@ -275,13 +270,37 @@ public class BlockGlowLichen extends BlockContainer implements IShearable, IGrow
      */
     @Override
     public void func_149853_b(World world, Random rand, int x, int y, int z) {
-        TileEntity te = world.getTileEntity(x, y, z);
-        if (!(te instanceof TileEntityGlowLichen glowLichen)) 
+        ArrayList<Pair<BlockPos, ForgeDirection>> validSpots = findValidSpots(world, x, y, z);
+        if (!validSpots.isEmpty())
         {
-            return;
+            Pair<BlockPos, ForgeDirection> chosenSpot = validSpots.get(rand.nextInt(validSpots.size()));
+            if (world.getBlock(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ()) instanceof BlockGlowLichen)
+            {
+                if (world.getTileEntity(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ()) instanceof TileEntityGlowLichen teToGrowOn)
+                {
+                    teToGrowOn.setSideMap(teToGrowOn.getSideMap() | (1 << chosenSpot.getRight().ordinal()));
+                }
+            }
+            else
+            {
+                world.setBlock(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ(), ModBlocks.GLOW_LICHEN.get());
+                if (world.getTileEntity(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ()) instanceof TileEntityGlowLichen teToMake)
+                {
+                    teToMake.setSideMap((1 << chosenSpot.getRight().ordinal()));
+                }
+            }
+        }
+    }
+
+    private ArrayList<Pair<BlockPos, ForgeDirection>> findValidSpots(World world, int x, int y, int z)
+    {
+        ArrayList<Pair<BlockPos, ForgeDirection>> validSpots = new ArrayList<>();
+        TileEntity te = world.getTileEntity(x, y, z);
+        if (!(te instanceof TileEntityGlowLichen glowLichen))
+        {
+            return validSpots;
         }
         int sideMap = glowLichen.getSideMap();
-        ArrayList<Pair<BlockPos, ForgeDirection>> validSpots = new ArrayList<>();
         for (int i = 0; i < ForgeDirection.values().length; i++) {
             if ((sideMap & (1 << i)) != 0)
             {
@@ -321,9 +340,9 @@ public class BlockGlowLichen extends BlockContainer implements IShearable, IGrow
                         }
                         else if (world.getBlock(loc.getX(), loc.getY(), loc.getZ()) instanceof BlockGlowLichen)
                         {
-                            if (isDirectionSolid(world, loc.getX(), loc.getY(), loc.getZ(), ForgeDirection.getOrientation(i))) 
+                            if (isDirectionSolid(world, loc.getX(), loc.getY(), loc.getZ(), ForgeDirection.getOrientation(i)))
                             {
-                                if (world.getTileEntity(loc.getX(), loc.getY(), loc.getZ()) instanceof TileEntityGlowLichen offsetTE) 
+                                if (world.getTileEntity(loc.getX(), loc.getY(), loc.getZ()) instanceof TileEntityGlowLichen offsetTE)
                                 {
                                     int offsetSideMap = offsetTE.getSideMap();
                                     if ((offsetSideMap & (1 << i)) == 0) {
@@ -370,24 +389,6 @@ public class BlockGlowLichen extends BlockContainer implements IShearable, IGrow
                 }
             }
         }
-        if (!validSpots.isEmpty())
-        {
-            Pair<BlockPos, ForgeDirection> chosenSpot = validSpots.get(rand.nextInt(validSpots.size()));
-            if (world.getBlock(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ()) instanceof BlockGlowLichen)
-            {
-                if (world.getTileEntity(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ()) instanceof TileEntityGlowLichen teToGrowOn)
-                {
-                    teToGrowOn.setSideMap(teToGrowOn.getSideMap() | (1 << chosenSpot.getRight().ordinal()));
-                }
-            }
-            else
-            {
-                world.setBlock(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ(), ModBlocks.GLOW_LICHEN.get());
-                if (world.getTileEntity(chosenSpot.getLeft().getX(), chosenSpot.getLeft().getY(), chosenSpot.getLeft().getZ()) instanceof TileEntityGlowLichen teToMake)
-                {
-                    teToMake.setSideMap((1 << chosenSpot.getRight().ordinal()));
-                }
-            }
-        }
+        return validSpots;
     }
 }

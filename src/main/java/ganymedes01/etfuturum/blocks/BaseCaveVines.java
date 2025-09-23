@@ -11,6 +11,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -26,7 +27,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
-public class BaseCaveVines extends Block implements IGrowable
+public class BaseCaveVines extends Block implements IGrowable, IClimbableWithoutWall
 {
     private final IIcon[] iicons = new IIcon[2];
     private final String[] iconNames;
@@ -172,55 +173,11 @@ public class BaseCaveVines extends Block implements IGrowable
         return null;
     }
 
-    // This function needs to be like this because normal ladders don't work how cave vines are supposed to
     @Override
-    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-        if (entity instanceof EntityPlayer player)
-        {
-            final double maxHorizontalSpeed = 0.15D;
-            if (!world.isRemote) // Server logic
-            {
-                if (player.motionY > 0.2D) player.motionY = 0.2D;
-                if (player.motionY < -0.15D) player.motionY = -0.15D;
-
-            }
-            else // Client logic
-            {
-                if (Minecraft.getMinecraft().gameSettings.keyBindJump.getIsKeyPressed())
-                {
-                    player.motionY = 0.2D;
-                }
-                else if (Minecraft.getMinecraft().gameSettings.keyBindSneak.getIsKeyPressed())
-                {
-                    player.motionY = 0.08D; // counteracts gravity. Kinda silly, but this works perfectly.
-                }
-                else
-                {
-                    player.motionY = -0.15D;
-                }
-
-            }
-            // shared logic
-            if (player.motionX < -maxHorizontalSpeed)
-            {
-                player.motionX = -maxHorizontalSpeed;
-            }
-            if (player.motionX > maxHorizontalSpeed)
-            {
-                player.motionX = maxHorizontalSpeed;
-            }
-            if (player.motionZ < -maxHorizontalSpeed)
-            {
-                player.motionZ = -maxHorizontalSpeed;
-            }
-            if (player.motionZ > maxHorizontalSpeed)
-            {
-                player.motionZ = maxHorizontalSpeed;
-            }
-            player.fallDistance = 0.0F;
-        }
+    public boolean isLadder(IBlockAccess world, int x, int y, int z, EntityLivingBase entity) {
+        return true;
     }
-
+    
     @Override
     public Item getItemDropped(int meta, Random random, int fortune)
     {
