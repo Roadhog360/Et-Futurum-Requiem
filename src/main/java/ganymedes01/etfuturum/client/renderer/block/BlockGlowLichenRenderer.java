@@ -32,44 +32,47 @@ public class BlockGlowLichenRenderer extends BlockModelBase {
         if (te instanceof TileEntityGlowLichen glowLichenTe)
         {
             int sideGrowth = glowLichenTe.getSideMap();
-            for (int i = 0; i < ForgeDirection.values().length; i++)
-            {
-                if ((sideGrowth & (1 << i)) != 0)
-                {
-                    switch (ForgeDirection.getOrientation(i))
-                    {
-                        case UP:
-                            renderer.setRenderBounds(0.0F, 1.0F - blockOffset, 0.0F, 1.0F, 1.0F - blockOffset, 1.0F);
-                            renderer.renderFaceYPos(block, x, y, z, blockIcon);
-                            renderer.renderFaceYNeg(block, x, y, z, blockIcon);
-                            break;
-                        case DOWN:
-                            renderer.setRenderBounds(0.0F, blockOffset, 0.0F, 1.0F, blockOffset, 1.0F);
-                            renderer.renderFaceYPos(block, x, y, z, blockIcon);
-                            renderer.renderFaceYNeg(block, x, y, z, blockIcon);
-                            break;
-                        case NORTH:
-                            renderer.setRenderBounds(0.0F, 0.0F, blockOffset, 1.0F, 1.0F, blockOffset);
-                            renderer.renderFaceZPos(block, x, y, z, blockIcon);
-                            renderer.renderFaceZNeg(block, x, y, z, blockIcon);
-                            break;
-                        case SOUTH:
-                            renderer.setRenderBounds(0.0F, 0.0F, 1.0F - blockOffset, 1.0F, 1.0F, 1.0F - blockOffset);
-                            renderer.renderFaceZPos(block, x, y, z, blockIcon);
-                            renderer.renderFaceZNeg(block, x, y, z, blockIcon);
-                            break;
-                        case EAST:
-                            renderer.setRenderBounds(1.0F - blockOffset, 0.0F, 0.0F, 1.0F - blockOffset, 1.0F, 1.0F);
-                            renderer.renderFaceXPos(block, x, y, z, blockIcon);
-                            renderer.renderFaceXNeg(block, x, y, z, blockIcon);
-                            break;
-                        case WEST:
-                            renderer.setRenderBounds(blockOffset, 0.0F, 0.0F, blockOffset, 1.0F, 1.0F);
-                            renderer.renderFaceXPos(block, x, y, z, blockIcon);
-                            renderer.renderFaceXNeg(block, x, y, z, blockIcon);
-                            break;
-                    }
-                }
+            
+            // DOWN (ordinal 0)
+            if ((sideGrowth & (1 << ForgeDirection.DOWN.ordinal())) != 0) {
+                renderer.setRenderBounds(0.0F, blockOffset, 0.0F, 1.0F, blockOffset, 1.0F);
+                renderer.renderFaceYPos(block, x, y, z, blockIcon);
+                renderer.renderFaceYNeg(block, x, y, z, blockIcon);
+            }
+
+            // UP (ordinal 1)
+            if ((sideGrowth & (1 << ForgeDirection.UP.ordinal())) != 0) {
+                renderer.setRenderBounds(0.0F, 1.0F - blockOffset, 0.0F, 1.0F, 1.0F - blockOffset, 1.0F);
+                renderer.renderFaceYPos(block, x, y, z, blockIcon);
+                renderer.renderFaceYNeg(block, x, y, z, blockIcon);
+            }
+
+            // NORTH (ordinal 2)
+            if ((sideGrowth & (1 << ForgeDirection.NORTH.ordinal())) != 0) {
+                renderer.setRenderBounds(0.0F, 0.0F, blockOffset, 1.0F, 1.0F, blockOffset);
+                renderer.renderFaceZPos(block, x, y, z, blockIcon);
+                renderer.renderFaceZNeg(block, x, y, z, blockIcon);
+            }
+
+            // SOUTH (ordinal 3)
+            if ((sideGrowth & (1 << ForgeDirection.SOUTH.ordinal())) != 0) {
+                renderer.setRenderBounds(0.0F, 0.0F, 1.0F - blockOffset, 1.0F, 1.0F, 1.0F - blockOffset);
+                renderer.renderFaceZPos(block, x, y, z, blockIcon);
+                renderer.renderFaceZNeg(block, x, y, z, blockIcon);
+            }
+
+            // WEST (ordinal 4)
+            if ((sideGrowth & (1 << ForgeDirection.WEST.ordinal())) != 0) {
+                renderer.setRenderBounds(blockOffset, 0.0F, 0.0F, blockOffset, 1.0F, 1.0F);
+                renderer.renderFaceXPos(block, x, y, z, blockIcon);
+                renderer.renderFaceXNeg(block, x, y, z, blockIcon);
+            }
+
+            // EAST (ordinal 5)
+            if ((sideGrowth & (1 << ForgeDirection.EAST.ordinal())) != 0) {
+                renderer.setRenderBounds(1.0F - blockOffset, 0.0F, 0.0F, 1.0F - blockOffset, 1.0F, 1.0F);
+                renderer.renderFaceXPos(block, x, y, z, blockIcon);
+                renderer.renderFaceXNeg(block, x, y, z, blockIcon);
             }
         }
         return true;
