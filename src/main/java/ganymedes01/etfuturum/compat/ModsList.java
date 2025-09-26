@@ -38,6 +38,7 @@ public enum ModsList {
 	BIG_REACTORS("BigReactors"),
 	FISKS_SUPERHEROES("fiskheroes"),
 	SIMPLEORES("simpleores"),
+	NETHERORES("NetherOres"),
 	DRAGON_QUEST("DQMIIINext"),
 	LOTR("lotr"),
 
