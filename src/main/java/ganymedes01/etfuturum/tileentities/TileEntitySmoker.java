@@ -10,14 +10,13 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 
 /**
  * @author Mojang
  * Code borrowed due to issues directly extending the class.
  */
-public class TileEntitySmoker extends TileEntity implements ISidedInventory {
+public class TileEntitySmoker extends TileEntityFurnace implements ISidedInventory {
 	private static final int[] slotsTop = new int[]{0};
 	private static final int[] slotsBottom = new int[]{2, 1};
 	private static final int[] slotsSides = new int[]{1};
@@ -37,7 +36,6 @@ public class TileEntitySmoker extends TileEntity implements ISidedInventory {
 	 * The number of ticks that the current item has been cooking for
 	 */
 	public int furnaceCookTime;
-	private String furnaceCustomName;
 
 	/**
 	 * Returns the number of slots in the inventory.
@@ -111,19 +109,7 @@ public class TileEntitySmoker extends TileEntity implements ISidedInventory {
 	 */
 	@Override
 	public String getInventoryName() {
-		return this.hasCustomInventoryName() ? this.furnaceCustomName : "container." + Tags.MOD_ID + ".smoker";
-	}
-
-	/**
-	 * Returns if the inventory is named
-	 */
-	@Override
-	public boolean hasCustomInventoryName() {
-		return this.furnaceCustomName != null && this.furnaceCustomName.length() > 0;
-	}
-
-	public void setCustomInventoryName(String p_145951_1_) {
-		this.furnaceCustomName = p_145951_1_;
+		return this.hasCustomInventoryName() ? this.field_145958_o : "container." + Tags.MOD_ID + ".smoker";
 	}
 
 	@Override
@@ -138,7 +124,7 @@ public class TileEntitySmoker extends TileEntity implements ISidedInventory {
 		this.currentItemBurnTime = getItemBurnTime(this.furnaceItemStacks[1]);
 
 		if (compound.hasKey("CustomName", 8)) {
-			this.furnaceCustomName = compound.getString("CustomName");
+			this.field_145958_o = compound.getString("CustomName");
 		}
 	}
 
@@ -151,7 +137,7 @@ public class TileEntitySmoker extends TileEntity implements ISidedInventory {
 		compound.setTag("Items", Utils.writeItemStacksToNBT(this.furnaceItemStacks));
 
 		if (this.hasCustomInventoryName()) {
-			compound.setString("CustomName", this.furnaceCustomName);
+			compound.setString("CustomName", this.field_145958_o);
 		}
 	}
 
