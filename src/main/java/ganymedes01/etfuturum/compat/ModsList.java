@@ -10,6 +10,7 @@ public enum ModsList {
 	AETHER_LEGACY("aether_legacy"),
 	WAILA("Waila"),
 	THAUMCRAFT("Thaumcraft"),
+	FORBIDDEN_MAGIC("ForbiddenMagic"),
 	BLUEPOWER("bluepower"),
 	PROJECT_RED_EXPLORATION("ProjRed|Exploration"),
 	NETHERITEPLUS("netheriteplus"),
