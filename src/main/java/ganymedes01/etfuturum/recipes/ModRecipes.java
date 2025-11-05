@@ -1663,6 +1663,7 @@ public class ModRecipes {
 
 		ItemStack output31 = ModBlocks.HONEY_BLOCK.newItemStack();
 		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output31, "HH", "HH", 'H', ModItems.HONEY_BOTTLE.get());
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, ModItems.HONEY_BOTTLE.newItemStack(4), ModBlocks.HONEY_BLOCK.get(), Items.glass_bottle, Items.glass_bottle, Items.glass_bottle, Items.glass_bottle);
 		ItemStack output30 = ModBlocks.HONEYCOMB_BLOCK.newItemStack();
 		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output30, "HH", "HH", 'H', "materialHoneycomb");
 		ItemStack output29 = ModBlocks.BEEHIVE.newItemStack();
