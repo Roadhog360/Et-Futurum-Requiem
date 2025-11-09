@@ -19,12 +19,16 @@ public class BlockWoodSign extends BlockSign {
 	protected static BlockWoodSign prevSign;
 	private BlockWoodSign wallSign;
 	private final BlockWoodSign standingSign;
+	public final String signTexture;
 
 	private final Block baseBlock;
 	private final int meta;
 	public final String type;
 
 	public final boolean standing;
+
+	String mod;
+	String name;
 
 	public BlockWoodSign(Class<? extends TileEntity> p_i45426_1_, boolean p_i45426_2_, String type, Block block, int meta) {
 		super(p_i45426_1_, p_i45426_2_);
@@ -40,6 +44,9 @@ public class BlockWoodSign extends BlockSign {
 			wallSign = this;
 			prevSign.wallSign = this;
 		}
+		this.mod = Utils.getModName(type);
+		this.name = Utils.getTypeName(type);
+		this.signTexture = mod + "textures/entity/signs/" + type;
 		setHardness(1.0F);
 		disableStats();
 		setBlockName(Utils.getUnlocalisedName(type + "_sign"));
@@ -83,6 +90,6 @@ public class BlockWoodSign extends BlockSign {
 
 	@Override
 	public String getItemIconName() {
-		return type + "_sign";
+		return mod + name + "_sign";
 	}
 }

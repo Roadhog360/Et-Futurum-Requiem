@@ -31,6 +31,7 @@ public enum ModsList {
 	MOREPLAYERMODELS("moreplayermodels"),
 	DRAGON_BLOCK_C("jinryuudragonblockc"),
 	BIOMES_O_PLENTY("BiomesOPlenty"),
+	WITCHERY("witchery"),
 	EXTRA_UTILITIES("ExtraUtilities"),
 	APPLIED_ENERGISTICS_2("appliedenergistics2"),
 	ARS_MAGICA_2("arsmagica2"),

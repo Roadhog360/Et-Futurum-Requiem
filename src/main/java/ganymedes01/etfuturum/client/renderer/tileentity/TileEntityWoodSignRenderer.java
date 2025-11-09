@@ -57,7 +57,7 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(0.0F, -0.3125F, -0.4375F);
 			this.model.signStick.showModel = false;
 		}
-		bindTexture(new ResourceLocation("textures/entity/signs/" + block.type + ".png"));
+		bindTexture(new ResourceLocation(block.signTexture + ".png"));
 		GL11.glPushMatrix();
 		GL11.glScalef(f1, -f1, -f1);
 		this.model.renderSign();
