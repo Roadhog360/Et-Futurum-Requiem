@@ -7,8 +7,8 @@ public class Reference {
 
 	//These are kept around for legacy reasons; mainly if other mods reference them for some reason
 
-	public static final String DEPENDENCIES = "required-after:Forge@[10.13.4.1614,);required-after:hogutils;" +
-			"after:Thaumcraft@[4.2.3.5,);after:TwilightForest;after:HardcoreEnderExpansion;after:bluepower;after:MineTweaker3;after:TConstruct;";
+	public static final String DEPENDENCIES = "required-after:Forge@[10.13.4.1614,);after:Thaumcraft@[4.2.3.5,);required-after:hogutils;" +
+			"after:Thaumcraft@[4.2.3.5,);after:TwilightForest;after:HardcoreEnderExpansion;after:bluepower;after:MineTweaker3;after:TConstruct;after:witchery;after:BiomesOPlenty";
 	public static final boolean TESTING = Boolean.getBoolean("etfuturum.testing");
 	public static final boolean DEV_ENVIRONMENT = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 	public static final String VERSION_URL = System.getProperty("etfuturum.versionUrl",

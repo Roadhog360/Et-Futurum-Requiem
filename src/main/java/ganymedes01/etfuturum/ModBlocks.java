@@ -65,6 +65,24 @@ public enum ModBlocks {
 	BARK2(ConfigBlocksItems.enableBarkLogs, new BlockWoodBarkNew()),
 	WOOD_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ConfigBlocksItems.enableBarkLogs, new BlockStrippedOldWood()),
 	WOOD2_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ConfigBlocksItems.enableBarkLogs, new BlockStrippedNewWood()),
+	BOP_LOG_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_log", false, true, "sacredoak", "cherry", "dark", "fir")),
+	BOP_LOG_STRIPPED2(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_log2", false, true, "ethereal", "magic", "mangrove", "palm")),
+	BOP_LOG_STRIPPED3(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_log3", false, true, "redwood", "willow", "dead", "bigflowerstem")),
+	BOP_LOG_STRIPPED4(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_log4", false, true, "pine", "hellbark", "jacaranda", "mahogany")),
+	BOP_WOOD(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_wood", true, false, "sacredoak", "cherry", "dark", "fir")),
+	BOP_WOOD2(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_wood2", true, false, "ethereal", "magic", "mangrove", "palm")),
+	BOP_WOOD3(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_wood3", true, false, "redwood", "willow", "dead", "bigflowerstem")),
+	BOP_WOOD4(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_wood4", true, false, "pine", "hellbark", "jacaranda", "mahogany")),
+	BOP_WOOD_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_wood", true, true, "sacredoak", "cherry", "dark", "fir")),
+	BOP_WOOD_STRIPPED2(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_wood2", true, true, "ethereal", "magic", "mangrove", "palm")),
+	BOP_WOOD_STRIPPED3(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_wood3", true, true, "redwood", "willow", "dead", "bigflowerstem")),
+	BOP_WOOD_STRIPPED4(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_wood4", true, true, "pine", "hellbark", "jacaranda", "mahogany")),
+	THAUMCRAFT_LOG_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ModsList.THAUMCRAFT.isLoaded(), new BlockStrippedLogCompat("thaumcraft", "thaumcraft_stripped_log", false, true, "greatwood", "silverwood")),
+	THAUMCRAFT_WOOD(ConfigBlocksItems.enableStrippedLogs && ModsList.THAUMCRAFT.isLoaded(), new BlockStrippedLogCompat("thaumcraft", "thaumcraft_wood", true, false, "greatwood", "silverwood")),
+	THAUMCRAFT_WOOD_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ModsList.THAUMCRAFT.isLoaded(), new BlockStrippedLogCompat("thaumcraft", "thaumcraft_stripped_wood", true, true, "greatwood", "silverwood")),
+	WITCHERY_LOG_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ModsList.WITCHERY.isLoaded(), new BlockStrippedLogCompat("witchery", "witchery_stripped_log", false, true, "rowan", "alder", "hawthorn")),
+	WITCHERY_WOOD(ConfigBlocksItems.enableStrippedLogs && ModsList.WITCHERY.isLoaded(), new BlockStrippedLogCompat("witchery", "witchery_wood", true, false, "rowan", "alder", "hawthorn")),
+	WITCHERY_WOOD_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ModsList.WITCHERY.isLoaded(), new BlockStrippedLogCompat("witchery", "witchery_stripped_wood", true, true, "rowan", "alder", "hawthorn")),
 	CONCRETE(ConfigBlocksItems.enableConcrete, new BaseSubtypesBlock(Material.rock, "white_concrete", "orange_concrete", "magenta_concrete", "light_blue_concrete", "yellow_concrete", "lime_concrete", "pink_concrete",
 			"gray_concrete", "light_gray_concrete", "cyan_concrete", "purple_concrete", "blue_concrete", "brown_concrete", "green_concrete", "red_concrete", "black_concrete").setNames("concrete")
 			.setMapColorBaseBlock(Blocks.wool).setHardness(1.8F).setResistance(1.8F),
@@ -383,6 +401,11 @@ public enum ModBlocks {
 	// TODO: Fix Bamboo Fence Rendering
 	WOOD_FENCE(ConfigBlocksItems.woodVariants && ConfigBlocksItems.enableNewFences, new BlockModernWoodFence()),
 
+	//MODDED FENCES
+	BOP_WOOD_FENCE(ConfigBlocksItems.enableVanillaFences && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockModernWoodFenceCompat("bop", GameRegistry.findBlock("BiomesOPlenty", "planks"), "sacredoak", "cherry", "dark", "fir", "ethereal", "magic", "mangrove", "palm", "redwood", "willow", "bamboo", "pine", "hellbark", "jacaranda", "mahogany")),
+	THAUMCRAFT_WOOD_FENCE(ConfigBlocksItems.enableVanillaFences && ModsList.THAUMCRAFT.isLoaded(), new BlockModernWoodFenceCompat("thaumcraft", GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"), "greatwood", "silverwood")),
+	WITCHERY_WOOD_FENCE(ConfigBlocksItems.enableVanillaFences && ModsList.WITCHERY.isLoaded(), new BlockModernWoodFenceCompat("witchery", GameRegistry.findBlock("witchery", "witchwood"), "rowan", "alder", "hawthorn")),
+
 	//legacy buttons
 	BUTTON_SPRUCE(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodButton("spruce", Blocks.planks, 1, true)),
 	BUTTON_BIRCH(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodButton("birch", Blocks.planks, 2, true)),
@@ -396,6 +419,32 @@ public enum ModBlocks {
 	MANGROVE_BUTTON(ConfigExperiments.enableMangroveBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodButton("mangrove", WOOD_PLANKS.get(), 2, true)),
 	CHERRY_BUTTON(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodButton("cherry", WOOD_PLANKS.get(), 3, true)),
 	BAMBOO_BUTTON(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodButton("bamboo", WOOD_PLANKS.get(), 4, true)),
+
+	//BOP WOOD BUTTONS
+	BOP_SACREDOAK_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_sacredoak", GameRegistry.findBlock("BiomesOPlenty", "planks"), 0, true)),
+	BOP_CHERRY_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_cherry", GameRegistry.findBlock("BiomesOPlenty", "planks"), 1, true)),
+	BOP_DARK_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_dark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 2, true)),
+	BOP_FIR_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_fir", GameRegistry.findBlock("BiomesOPlenty", "planks"), 3, true)),
+	BOP_ETHEREAL_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_ethereal", GameRegistry.findBlock("BiomesOPlenty", "planks"), 4, true)),
+	BOP_MAGIC_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_magic", GameRegistry.findBlock("BiomesOPlenty", "planks"), 5, true)),
+	BOP_MANGROVE_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_mangrove", GameRegistry.findBlock("BiomesOPlenty", "planks"), 6, true)),
+	BOP_PALM_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_palm", GameRegistry.findBlock("BiomesOPlenty", "planks"), 7, true)),
+	BOP_REDWOOD_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_redwood", GameRegistry.findBlock("BiomesOPlenty", "planks"), 8, true)),
+	BOP_WILLOW_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_willow", GameRegistry.findBlock("BiomesOPlenty", "planks"), 9, true)),
+	BOP_BAMBOO_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_bamboo", GameRegistry.findBlock("BiomesOPlenty", "planks"), 10, true)),
+	BOP_PINE_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_pine", GameRegistry.findBlock("BiomesOPlenty", "planks"), 11, true)),
+	BOP_HELLBARK_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_hellbark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 12, true)),
+	BOP_JACARANDA_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_jacaranda", GameRegistry.findBlock("BiomesOPlenty", "planks"), 13, true)),
+	BOP_MAHOGANY_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_mahogany", GameRegistry.findBlock("BiomesOPlenty", "planks"), 14, true)),
+
+	//THAUMCRAFT WOOD BUTTONS
+	THAUMCRAFT_GREATWOOD_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.THAUMCRAFT.isLoaded(), new BlockWoodButton("thaumcraft_greatwood", GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"), 6, true)),
+	THAUMCRAFT_SILVERWOOD_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.THAUMCRAFT.isLoaded(), new BlockWoodButton("thaumcraft_silverwood", GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"), 7, true)),
+
+	//WITCHERY WOOD BUTTONS
+	WITCHERY_ROWAN_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.WITCHERY.isLoaded(), new BlockWoodButton("witchery_rowan", GameRegistry.findBlock("witchery", "witchwood"), 0, true)),
+	WITCHERY_ALDER_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.WITCHERY.isLoaded(), new BlockWoodButton("witchery_alder", GameRegistry.findBlock("witchery", "witchwood"), 1, true)),
+	WITCHERY_HAWTHORN_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.WITCHERY.isLoaded(), new BlockWoodButton("witchery_hawthorn", GameRegistry.findBlock("witchery", "witchwood"), 2, true)),
 
 	//legacy pressure plates
 	PRESSURE_PLATE_SPRUCE(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodPressurePlate("spruce", Blocks.planks, 1, true)),
@@ -411,6 +460,32 @@ public enum ModBlocks {
 	CHERRY_PRESSURE_PLATE(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodPressurePlate("cherry", WOOD_PLANKS.get(), 3, true)),
 	BAMBOO_PRESSURE_PLATE(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodPressurePlate("bamboo", WOOD_PLANKS.get(), 4, true)),
 
+	//BOP WOOD PRESSURE PLATE
+	BOP_SACREDOAK_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_sacredoak", GameRegistry.findBlock("BiomesOPlenty", "planks"), 0, true)),
+	BOP_CHERRY_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_cherry", GameRegistry.findBlock("BiomesOPlenty", "planks"), 1, true)),
+	BOP_DARK_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_dark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 2, true)),
+	BOP_FIR_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_fir", GameRegistry.findBlock("BiomesOPlenty", "planks"), 3, true)),
+	BOP_ETHEREAL_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_ethereal", GameRegistry.findBlock("BiomesOPlenty", "planks"), 4, true)),
+	BOP_MAGIC_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_magic", GameRegistry.findBlock("BiomesOPlenty", "planks"), 5, true)),
+	BOP_MANGROVE_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_mangrove", GameRegistry.findBlock("BiomesOPlenty", "planks"), 6, true)),
+	BOP_PALM_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_palm", GameRegistry.findBlock("BiomesOPlenty", "planks"), 7, true)),
+	BOP_REDWOOD_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_redwood", GameRegistry.findBlock("BiomesOPlenty", "planks"), 8, true)),
+	BOP_WILLOW_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_willow", GameRegistry.findBlock("BiomesOPlenty", "planks"), 9, true)),
+	BOP_BAMBOO_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_bamboo", GameRegistry.findBlock("BiomesOPlenty", "planks"), 10, true)),
+	BOP_PINE_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_pine", GameRegistry.findBlock("BiomesOPlenty", "planks"), 11, true)),
+	BOP_HELLBARK_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_hellbark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 12, true)),
+	BOP_JACARANDA_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_jacaranda", GameRegistry.findBlock("BiomesOPlenty", "planks"), 13, true)),
+	BOP_MAHOGANY_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_mahogany", GameRegistry.findBlock("BiomesOPlenty", "planks"), 14, true)),
+
+	//THAUMCRAFT PRESSURE PLATE
+	THAUMCRAFT_GREATWOOD_PRESSURE_PLATE(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.THAUMCRAFT.isLoaded(), new BlockWoodPressurePlate("thaumcraft_greatwood", GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"), 6, true)),
+	THAUMCRAFT_SILVERWOOD_PRESSURE_PLATE(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.THAUMCRAFT.isLoaded(), new BlockWoodPressurePlate("thaumcraft_silverwood", GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"), 7, true)),
+
+	//WITCHERY PRESSURE PLATE
+	WITCHERY_ROWAN_PRESSURE_PLATE(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.WITCHERY.isLoaded(), new BlockWoodPressurePlate("witchery_rowan", GameRegistry.findBlock("witchery", "witchwood"), 0, true)),
+	WITCHERY_ALDER_PRESSURE_PLATE(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.WITCHERY.isLoaded(), new BlockWoodPressurePlate("witchery_alder", GameRegistry.findBlock("witchery", "witchwood"), 1, true)),
+	WITCHERY_HAWTHORN_PRESSURE_PLATE(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.WITCHERY.isLoaded(), new BlockWoodPressurePlate("witchery_hawthorn", GameRegistry.findBlock("witchery", "witchwood"), 2, true)),
+
 	//legacy fence gates
 	FENCE_GATE_SPRUCE(ConfigBlocksItems.enableVanillaGates, new BlockWoodFenceGate("spruce", Blocks.planks, 1, true)),
 	FENCE_GATE_BIRCH(ConfigBlocksItems.enableVanillaGates, new BlockWoodFenceGate("birch", Blocks.planks, 2, true)),
@@ -424,6 +499,32 @@ public enum ModBlocks {
 	MANGROVE_FENCE_GATE(ConfigExperiments.enableMangroveBlocks && ConfigBlocksItems.enableNewGates, new BlockWoodFenceGate("mangrove", WOOD_PLANKS.get(), 2, true)),
 	CHERRY_FENCE_GATE(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewGates, new BlockWoodFenceGate("cherry", WOOD_PLANKS.get(), 3, true)),
 	BAMBOO_FENCE_GATE(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewGates, new BlockWoodFenceGate("bamboo", WOOD_PLANKS.get(), 4, true)),
+
+	//BOP FENCE GATE
+	BOP_SACREDOAK_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_sacredoak", GameRegistry.findBlock("BiomesOPlenty", "planks"), 0, true)),
+	BOP_CHERRY_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_cherry", GameRegistry.findBlock("BiomesOPlenty", "planks"), 1, true)),
+	BOP_DARK_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_dark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 2, true)),
+	BOP_FIR_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_fir", GameRegistry.findBlock("BiomesOPlenty", "planks"), 3, true)),
+	BOP_ETHEREAL_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_ethereal", GameRegistry.findBlock("BiomesOPlenty", "planks"), 4, true)),
+	BOP_MAGIC_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_magic", GameRegistry.findBlock("BiomesOPlenty", "planks"), 5, true)),
+	BOP_MANGROVE_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_mangrove", GameRegistry.findBlock("BiomesOPlenty", "planks"), 6, true)),
+	BOP_PALM_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_palm", GameRegistry.findBlock("BiomesOPlenty", "planks"), 7, true)),
+	BOP_REDWOOD_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_redwood", GameRegistry.findBlock("BiomesOPlenty", "planks"), 8, true)),
+	BOP_WILLOW_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_willow", GameRegistry.findBlock("BiomesOPlenty", "planks"), 9, true)),
+	BOP_BAMBOO_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_bamboo", GameRegistry.findBlock("BiomesOPlenty", "planks"), 10, true)),
+	BOP_PINE_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_pine", GameRegistry.findBlock("BiomesOPlenty", "planks"), 11, true)),
+	BOP_HELLBARK_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_hellbark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 12, true)),
+	BOP_JACARANDA_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_jacaranda", GameRegistry.findBlock("BiomesOPlenty", "planks"), 13, true)),
+	BOP_MAHOGANY_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_mahogany", GameRegistry.findBlock("BiomesOPlenty", "planks"), 14, true)),
+
+	//THAUMCRAFT FENCE GATE
+	THAUMCRAFT_GREATWOOD_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.THAUMCRAFT.isLoaded(), new BlockWoodFenceGate("thaumcraft_greatwood", GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"), 6, true)),
+	THAUMCRAFT_SILVERWOOD_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.THAUMCRAFT.isLoaded(), new BlockWoodFenceGate("thaumcraft_silverwood", GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"), 7, true)),
+
+	//WITCHERY FENCE GATE
+	WITCHERY_ROWAN_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.WITCHERY.isLoaded(), new BlockWoodFenceGate("witchery_rowan", GameRegistry.findBlock("witchery", "witchwood"), 0, true)),
+	WITCHERY_ALDER_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.WITCHERY.isLoaded(), new BlockWoodFenceGate("witchery_alder", GameRegistry.findBlock("witchery", "witchwood"), 1, true)),
+	WITCHERY_HAWTHORN_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.WITCHERY.isLoaded(), new BlockWoodFenceGate("witchery_hawthorn", GameRegistry.findBlock("witchery", "witchwood"), 2, true)),
 
 	//legacy doors
 	DOOR_SPRUCE(ConfigBlocksItems.enableVanillaDoors, new BaseDoor("spruce")),
@@ -439,6 +540,32 @@ public enum ModBlocks {
 	CHERRY_DOOR(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewDoors, new BaseDoor("cherry").setBlockSound(ModSounds.soundCherryWood)),
 	BAMBOO_DOOR(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewDoors, new BaseDoor("bamboo").setBlockSound(ModSounds.soundBambooWood)),
 
+	//BOP DOORS
+	BOP_SACREDOAK_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_sacredoak")),
+	BOP_CHERRY_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_cherry")),
+	BOP_DARK_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_dark")),
+	BOP_FIR_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_fir")),
+	BOP_ETHEREAL_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_ethereal")),
+	BOP_MAGIC_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_magic")),
+	BOP_MANGROVE_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_mangrove")),
+	BOP_PALM_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_palm")),
+	BOP_REDWOOD_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_redwood")),
+	BOP_WILLOW_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_willow")),
+	BOP_BAMBOO_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_bamboo")),
+	BOP_PINE_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_pine")),
+	BOP_HELLBARK_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_hellbark")),
+	BOP_JACARANDA_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_jacaranda")),
+	BOP_MAHOGANY_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_mahogany")),
+
+	//THAUMCRAFT DOORS
+	THAUMCRAFT_GREATWOOD_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.THAUMCRAFT.isLoaded(), new BaseDoor("thaumcraft_greatwood")),
+	THAUMCRAFT_SILVERWOOD_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.THAUMCRAFT.isLoaded(), new BaseDoor("thaumcraft_silverwood")),
+
+	//WITCHERY DOORS
+	WITCHERY_ROWAN_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.WITCHERY.isLoaded(), new BaseDoor("witchery_rowan")),
+	WITCHERY_ALDER_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.WITCHERY.isLoaded(), new BaseDoor("witchery_alder")),
+	WITCHERY_HAWTHORN_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.WITCHERY.isLoaded(), new BaseDoor("witchery_hawthorn")),
+
 	//legacy trapdoors
 	TRAPDOOR_SPRUCE(ConfigBlocksItems.enableVanillaTrapdoors, new BaseTrapdoor("spruce")),
 	TRAPDOOR_BIRCH(ConfigBlocksItems.enableVanillaTrapdoors, new BaseTrapdoor("birch")),
@@ -452,6 +579,32 @@ public enum ModBlocks {
 	MANGROVE_TRAPDOOR(ConfigExperiments.enableMangroveBlocks && ConfigBlocksItems.enableNewTrapdoors, new BaseTrapdoor("mangrove")),
 	CHERRY_TRAPDOOR(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewTrapdoors, new BaseTrapdoor("cherry").setBlockSound(ModSounds.soundCherryWood)),
 	BAMBOO_TRAPDOOR(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewTrapdoors, new BaseTrapdoor("bamboo").setBlockSound(ModSounds.soundBambooWood)),
+
+	//BOP TRAPDOORS
+	BOP_SACREDOAK_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_sacredoak")),
+	BOP_CHERRY_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_cherry")),
+	BOP_DARK_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_dark")),
+	BOP_FIR_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_fir")),
+	BOP_ETHEREAL_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_ethereal")),
+	BOP_MAGIC_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_magic")),
+	BOP_MANGROVE_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_mangrove")),
+	BOP_PALM_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_palm")),
+	BOP_REDWOOD_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_redwood")),
+	BOP_WILLOW_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_willow")),
+	BOP_BAMBOO_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_bamboo")),
+	BOP_PINE_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_pine")),
+	BOP_HELLBARK_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_hellbark")),
+	BOP_JACARANDA_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_jacaranda")),
+	BOP_MAHOGANY_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_mahogany")),
+
+	//THAUMCRAFT TRAPDOORS
+	THAUMCRAFT_GREATWOOD_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.THAUMCRAFT.isLoaded(), new BaseTrapdoor("thaumcraft_greatwood")),
+	THAUMCRAFT_SILVERWOOD_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.THAUMCRAFT.isLoaded(), new BaseTrapdoor("thaumcraft_silverwood")),
+
+	//WITCHERY TRAPDOORS
+	WITCHERY_ROWAN_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.WITCHERY.isLoaded(), new BaseTrapdoor("witchery_rowan")),
+	WITCHERY_ALDER_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.WITCHERY.isLoaded(), new BaseTrapdoor("witchery_alder")),
+	WITCHERY_HAWTHORN_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.WITCHERY.isLoaded(), new BaseTrapdoor("witchery_hawthorn")),
 
 	//legacy signs
 	SIGN_SPRUCE(ConfigBlocksItems.enableVanillaSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "spruce", Blocks.planks, 1), null),
@@ -476,6 +629,51 @@ public enum ModBlocks {
 	CHERRY_WALL_SIGN(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "cherry", WOOD_PLANKS.get(), 3), null),
 	BAMBOO_SIGN(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "bamboo", WOOD_PLANKS.get(), 4), ItemBlockSign.class),
 	BAMBOO_WALL_SIGN(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "bamboo", WOOD_PLANKS.get(), 4), null),
+
+	//BOP WOOD SIGNS
+	BOP_SACREDOAK_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_sacredoak", GameRegistry.findBlock("BiomesOPlenty", "planks"), 0), ItemBlockSign.class),
+	BOP_SACREDOAK_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_sacredoak", GameRegistry.findBlock("BiomesOPlenty", "planks"), 0), null),
+	BOP_CHERRY_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_cherry", GameRegistry.findBlock("BiomesOPlenty", "planks"), 1), ItemBlockSign.class),
+	BOP_CHERRY_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_cherry", GameRegistry.findBlock("BiomesOPlenty", "planks"), 1), null),
+	BOP_DARK_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_dark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 2), ItemBlockSign.class),
+	BOP_DARK_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_dark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 2), null),
+	BOP_FIR_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_fir", GameRegistry.findBlock("BiomesOPlenty", "planks"), 3), ItemBlockSign.class),
+	BOP_FIR_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_fir", GameRegistry.findBlock("BiomesOPlenty", "planks"), 3), null),
+	BOP_ETHEREAL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_ethereal", GameRegistry.findBlock("BiomesOPlenty", "planks"), 4), ItemBlockSign.class),
+	BOP_ETHEREAL_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_ethereal", GameRegistry.findBlock("BiomesOPlenty", "planks"), 4), null),
+	BOP_MAGIC_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_magic", GameRegistry.findBlock("BiomesOPlenty", "planks"), 5), ItemBlockSign.class),
+	BOP_MAGIC_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_magic", GameRegistry.findBlock("BiomesOPlenty", "planks"), 5), null),
+	BOP_MANGROVE_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_mangrove", GameRegistry.findBlock("BiomesOPlenty", "planks"), 6), ItemBlockSign.class),
+	BOP_MANGROVE_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_mangrove", GameRegistry.findBlock("BiomesOPlenty", "planks"), 6), null),
+	BOP_PALM_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_palm", GameRegistry.findBlock("BiomesOPlenty", "planks"), 7), ItemBlockSign.class),
+	BOP_PALM_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_palm", GameRegistry.findBlock("BiomesOPlenty", "planks"), 7), null),
+	BOP_REDWOOD_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_redwood", GameRegistry.findBlock("BiomesOPlenty", "planks"), 8), ItemBlockSign.class),
+	BOP_REDWOOD_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_redwood", GameRegistry.findBlock("BiomesOPlenty", "planks"), 8), null),
+	BOP_WILLOW_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_willow", GameRegistry.findBlock("BiomesOPlenty", "planks"), 9), ItemBlockSign.class),
+	BOP_WILLOW_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_willow", GameRegistry.findBlock("BiomesOPlenty", "planks"), 9), null),
+	BOP_BAMBOO_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_bamboo", GameRegistry.findBlock("BiomesOPlenty", "planks"), 10), ItemBlockSign.class),
+	BOP_BAMBOO_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_bamboo", GameRegistry.findBlock("BiomesOPlenty", "planks"), 10), null),
+	BOP_PINE_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_pine", GameRegistry.findBlock("BiomesOPlenty", "planks"), 11), ItemBlockSign.class),
+	BOP_PINE_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_pine", GameRegistry.findBlock("BiomesOPlenty", "planks"), 11), null),
+	BOP_HELLBARK_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_hellbark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 12), ItemBlockSign.class),
+	BOP_HELLBARK_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_hellbark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 12), null),
+	BOP_JACARANDA_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_jacaranda", GameRegistry.findBlock("BiomesOPlenty", "planks"), 13), ItemBlockSign.class),
+	BOP_JACARANDA_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_jacaranda", GameRegistry.findBlock("BiomesOPlenty", "planks"), 13), null),
+	BOP_MAHOGANY_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_mahogany", GameRegistry.findBlock("BiomesOPlenty", "planks"), 14), ItemBlockSign.class),
+	BOP_MAHOGANY_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_mahogany", GameRegistry.findBlock("BiomesOPlenty", "planks"), 14), null),
+
+	//THAUMCRAFT GREATWOOD SIGN
+	THAUMCRAFT_GREATWOOD_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.THAUMCRAFT.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "thaumcraft_greatwood", GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"), 6), ItemBlockSign.class),
+	THAUMCRAFT_GREATWOOD_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.THAUMCRAFT.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "thaumcraft_greatwood", GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"), 6), null),
+	THAUMCRAFT_SILVERWOOD_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.THAUMCRAFT.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "thaumcraft_silverwood", GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"), 7), ItemBlockSign.class),
+	THAUMCRAFT_SILVERWOOD_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.THAUMCRAFT.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "thaumcraft_silverwood", GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"), 7), null),
+
+	WITCHERY_ROWAN_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.WITCHERY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "witchery_rowan", GameRegistry.findBlock("witchery", "witchwood"), 0), ItemBlockSign.class),
+	WITCHERY_ROWAN_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.WITCHERY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "witchery_rowan", GameRegistry.findBlock("witchery", "witchwood"), 0), null),
+	WITCHERY_ALDER_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.WITCHERY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "witchery_alder", GameRegistry.findBlock("witchery", "witchwood"), 1), ItemBlockSign.class),
+	WITCHERY_ALDER_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.WITCHERY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "witchery_alder", GameRegistry.findBlock("witchery", "witchwood"), 1), null),
+	WITCHERY_HAWTHORN_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.WITCHERY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "witchery_hawthorn", GameRegistry.findBlock("witchery", "witchwood"), 2), ItemBlockSign.class),
+	WITCHERY_HAWTHORN_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.WITCHERY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "witchery_hawthorn", GameRegistry.findBlock("witchery", "witchwood"), 2), null),
 
 	WHITE_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(0), ItemBlockDyedBed.class),
 	ORANGE_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(1), ItemBlockDyedBed.class),

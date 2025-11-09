@@ -47,6 +47,29 @@ public class Utils {
 		return Tags.MOD_ID + "." + name;
 	}
 
+	public static String getModName(String type) {
+		String mod = "";
+		if(type.split("_")[0].equals("bop")) {
+			mod = "biomesoplenty:";
+		} else if(type.split("_")[0].equals("thaumcraft")) {
+			mod = "thaumcraft:";
+		} else if(type.split("_")[0].equals("witchery")) {
+			mod = "witchery:";
+		}
+		return mod;
+	}
+
+	public static String getTypeName(String type) {
+		if(type.split("_")[0].equals("bop")) {
+			type = type.substring(4);
+		} else if(type.split("_")[0].equals("thaumcraft")) {
+			type = type.substring(11);
+		} else if(type.split("_")[0].equals("witchery")) {
+			type = type.substring(9);
+		}
+		return type;
+	}
+
 	public static String getBlockTexture(String name) {
 		return Reference.ITEM_BLOCK_TEXTURE_PATH + name;
 	}

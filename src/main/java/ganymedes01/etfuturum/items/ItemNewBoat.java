@@ -47,6 +47,8 @@ public class ItemNewBoat extends BaseItem {
 		this.name = name;
 		this.domain = domain;
 		this.isChest = isChest;
+		setUnlocalizedName("etfuturum." + (domain.equals("thaumcraft") ? "thaumcraft_" : "") + (domain.equals("witchery") ? "witchery_" : "") + (domain.equals("biomesoplenty") ? "bop_" : "") + name + (isChest ? "_chest" : "") + (isRaft ? "_raft" : "_boat"));
+		setTextureName(domain + ":" + name + (isChest ? "_chest" : "") + (isRaft ? "_raft" : "_boat"));
 		BOAT_INFO.put(domain + ":" + name + (isChest ? "_chest" : ""), new BoatInfo(new ItemStack(this), plank, plankMeta, isRaft));
 		setMaxStackSize(1);
 	}
