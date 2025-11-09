@@ -38,7 +38,7 @@ dependencies {
     compileOnly "com.falsepattern:rple-mc1.7.10:1.1.0"
 
     //My core mod
-    api files("libs/hogutils-0.0.0-nightly-83803d8185-dirty-dev.jar")
+    api files("libs/hogutils-0.0.0-nightly-5782dbbe51-dev.jar")
 
 
     implementation("com.github.GTNewHorizons:GTNHLib:0.6.36")
@@ -58,6 +58,7 @@ dependencies {
     compileOnly 'com.github.GTNewHorizons:ironchest:6.0.87'
     compileOnly 'curse.maven:applied-energistics-2-223794:2296430'
     compileOnly 'curse.maven:mb-battlegear-2-59710:2286765'
+    compileOnly "com.github.GTNewHorizons:ForbiddenMagic:0.9.6-GTNH:dev"
 
     compileOnly("org.projectlombok:lombok:1.18.42") { transitive = false }
     annotationProcessor("org.projectlombok:lombok:1.18.42")
@@ -66,6 +67,10 @@ dependencies {
     compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.12.6-GTNH:dev") {
         transitive = false
     }
+    compileOnly("com.github.GTNewHorizons:Mantle:0.5.1:dev") {
+        transitive = false
+    }
+
 
     compileOnly("com.github.GTNewHorizons:Angelica:1.0.0-beta4:api") {
         transitive = false

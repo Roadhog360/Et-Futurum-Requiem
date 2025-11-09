@@ -20,7 +20,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.ApiStatus;
 import roadhog360.hogutils.api.blocksanditems.utils.BlockMeta2ObjectOpenHashMap;
 import roadhog360.hogutils.api.blocksanditems.utils.BlockMetaPair;
-import roadhog360.hogutils.api.blocksanditems.utils.base.ObjMetaPair;
 import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
 import roadhog360.hogutils.api.utils.GenericUtils;
 import roadhog360.hogutils.api.utils.RecipeHelper;
@@ -204,14 +203,14 @@ public class DeepslateOreRegistry {
 	/// @return The entire deepslate ore mapping, where a [BlockMetaPair] is the key.
 	/// The key's return value is of the class [BlockMetaPair], which just store a Block instance, and a metadata value.
 	/// The map is not modifiable, please use the registry helper functions to add/remove entries.
-	public static Map<ObjMetaPair<Block>, BlockMetaPair> getOreMap() {
+	public static Map<BlockMetaPair, BlockMetaPair> getOreMap() {
 		return Collections.unmodifiableMap(deepslateOres);
 	}
 
 	@ApiStatus.Internal
 	public static void init() {
 		if (ConfigBlocksItems.enableDeepslateOres) { //Copy block settings from deepslate base blocks
-			for (Entry<ObjMetaPair<Block>, BlockMetaPair> entry : getOreMap().entrySet()) {
+			for (Entry<BlockMetaPair, BlockMetaPair> entry : getOreMap().entrySet()) {
 
 				Block oreNorm = entry.getKey().get();
 				Block oreDeep = entry.getValue().get();

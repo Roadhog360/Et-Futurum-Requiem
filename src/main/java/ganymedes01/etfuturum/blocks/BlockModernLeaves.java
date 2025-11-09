@@ -4,19 +4,23 @@ import cpw.mods.fml.client.FMLClientHandler;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
+import lombok.NonNull;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import roadhog360.hogutils.api.blocksanditems.block.IMultiBlockSound;
 
 import java.util.List;
 import java.util.Random;
 
-public class BlockModernLeaves extends BaseLeaves {
+public class BlockModernLeaves extends BaseLeaves implements IMultiBlockSound {
 
 	public BlockModernLeaves() {
 		super("mangrove", "cherry");
@@ -78,5 +82,12 @@ public class BlockModernLeaves extends BaseLeaves {
 			return;
 		}
 		super.randomDisplayTick(world, x, y, z, rand);
+	}
+
+	@Override
+	@NonNull
+	public Block.SoundType getSoundType(World world, int x, int y, int z, SoundMode type) {
+		int meta = world.getBlockMetadata(x, y, z);
+		return meta == 1 || meta == 5 || meta == 9 || meta == 13 ? ModSounds.soundCherryLeaves : stepSound;
 	}
 }

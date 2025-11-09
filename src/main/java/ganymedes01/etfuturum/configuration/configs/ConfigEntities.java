@@ -20,6 +20,7 @@ public class ConfigEntities extends ConfigBase {
 	public static boolean enableShearableSnowGolems;
 	public static boolean enableBees;
 	public static boolean enableSquidInk;
+	public static boolean enableFoxes;
 
 	static final String catHostile = "hostile";
 	static final String catNeutral = "neutral";
@@ -47,6 +48,7 @@ public class ConfigEntities extends ConfigBase {
 		//passive
 		enableRabbit = getBoolean("enableRabbits", catPassive, true, "");
 		enableBrownMooshroom = getBoolean("enableBrownMooshroom", catPassive, true, "Brown mooshroom variant, the red mooshrooms turn into then when they are hit by lightning.");
+		enableFoxes = getBoolean("enableFoxes", catPassive, true, "");
 
 		//neutral
 		enableBees = getBoolean("enableBees", catNeutral, true, "");

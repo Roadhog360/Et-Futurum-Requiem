@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.api.crops.IBeeGrowable;
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.blocks.IDegradable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
@@ -19,6 +20,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.ArrayUtils;
 import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
 import roadhog360.hogutils.api.hogtags.helpers.ItemTags;
 import roadhog360.hogutils.api.utils.GenericUtils;
@@ -51,7 +53,22 @@ public class ModTagging {
 		}
 	}
 
+	/// Avoid alloc spam, should save memory on larger packs.
+	private static final ItemStack DUMMY = new ItemStack(Items.paper);
+	private static final Item[] NOT_PATHING_TOOLS =
+			{ExternalContent.Items.BOTANIA_MANASTEEL_SHOVEL.get(), ExternalContent.Items.THAUMCRAFT_EARTHMOVER_SHOVEL.get()};
+
 	public static void registerItemTagsDynamic(Item item) {
+		DUMMY.func_150996_a(item); // Reassigns the item in the dummy stack
+		var toolClasses = item.getToolClasses(DUMMY);
+		if(toolClasses != null) {
+			if (toolClasses.contains("shovel") && !ArrayUtils.contains(NOT_PATHING_TOOLS, item)) {
+				ItemTags.addTags(item, Tags.MOD_ID + ":dirt_path_tools");
+			}
+			if (toolClasses.contains("axe")) {
+				ItemTags.addTags(item, Tags.MOD_ID + ":stripped_log_tools");
+			}
+		}
 	}
 
 	public static void registerEarlyHogTags() {
@@ -79,8 +96,12 @@ public class ModTagging {
 		BlockTags.addTagsByID("TConstruct", "Smeltery", Tags.MOD_ID + ":spectators_cannot_interact");
 //		BlockTags.addTagsByID("Thaumcraft", "blockTable", Tags.MOD_ID + ":spectators_cannot_interact"); //Found no interaction faults, keeping as a comment for note-taking purposes
 
-		BlockTags.addTags(ModBlocks.MAGMA.get(), Tags.MOD_ID + ":downward_bubble_column_support_blocks");
-		BlockTags.addTags(Blocks.soul_sand, Tags.MOD_ID + ":upward_bubble_column_support_blocks");
+		BlockTags.addTags(ModBlocks.MAGMA.get(), Tags.MOD_ID + ":downward_bubble_column_supports");
+		BlockTags.addTags(Blocks.soul_sand, Tags.MOD_ID + ":upward_bubble_column_supports");
+
+		BlockTags.addTags(Blocks.grass, Tags.MOD_ID + ":pathables");
+		BlockTags.addTags(Blocks.dirt, Tags.MOD_ID + ":pathables");
+		BlockTags.addTags(Blocks.mycelium, Tags.MOD_ID + ":pathables");
 
 		doBeeTags();
 		doPistonTags();

@@ -16,7 +16,9 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.jetbrains.annotations.ApiStatus;
 import roadhog360.hogutils.api.utils.RecipeHelper;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class CompostingRegistry {
 
@@ -151,8 +153,8 @@ public class CompostingRegistry {
 	}
 
 	@ApiStatus.AvailableSince("2.4.4")
-	public static ItemStackMap<Integer> getComposts() {
-		return COMPOSTING_REGISTRY;
+	public static Map<ItemStack, Integer> getComposts() {
+		return Collections.unmodifiableMap(COMPOSTING_REGISTRY);
 	}
 
 	@ApiStatus.AvailableSince("2.4.4")

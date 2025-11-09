@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.api;
 
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -11,6 +12,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 import roadhog360.hogutils.api.utils.RecipeHelper;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +51,7 @@ public class RawOreRegistry {
 	public static void addOre(String oreDict, Item ore, int meta) {
 		if (RecipeHelper.validateItems(ore)) {
 			RawOreDropMapping mapping = new RawOreDropMapping(ore, meta);
-			if (ArrayUtils.contains(ConfigFunctions.extraDropRawOres, oreDict)) {
+			if (ArrayUtils.contains(ConfigFunctions.extraDropRawOres, oreDict.replace("oreNether", "ore"))) {
 				mapping.setDropsExtra(true);
 			}
 			addOre(oreDict, mapping);
@@ -96,24 +98,33 @@ public class RawOreRegistry {
 	 * in case the key changes.
 	 */
 	public static Map<String, RawOreDropMapping> getOreMap() {
-		return rawOreRegistry;
+		return Collections.unmodifiableMap(rawOreRegistry);
 	}
 
 	public static void init() {
 		if (ModItems.RAW_ORE.isEnabled()) {
 			if (ConfigBlocksItems.enableCopper || OreDictionary.doesOreNameExist("ingotCopper")) {
 				addOre("oreCopper", ModItems.RAW_ORE.get());
+				if(ModsList.NETHERORES.isLoaded())
+					addOre("oreNetherCopper", ModItems.RAW_ORE.get());
 			}
 			addOre("oreIron", ModItems.RAW_ORE.get(), 1);
 			addOre("oreGold", ModItems.RAW_ORE.get(), 2);
+			if(ModsList.NETHERORES.isLoaded()) {
+				addOre("oreNetherIron", ModItems.RAW_ORE.get(), 1);
+				addOre("oreNetherGold", ModItems.RAW_ORE.get(), 2);
+			}
 		}
 		if (Utils.enableModdedRawOres()) {
 			for (ItemGeneralModdedRawOre oreItem : ItemGeneralModdedRawOre.loaded) {
 				for (int i = 0; i < oreItem.ores.length; i++) {
 					String type = oreItem.ores[i];
 					for (int j = 0; j < 1; j++) {
-						if (Utils.listGeneralModdedRawOre(type.replace("ingot", "ore"))) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
+						if (Utils.listGeneralModdedRawOre(type)) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
 							addOre(type.replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.get(), i);
+							if(ModsList.NETHERORES.isLoaded()) {
+								addOre(type.replace("ingot", "oreNether"), ModItems.MODDED_RAW_ORE.get(), i);
+							}
 						}
 						if (type.endsWith("Mythril")) {
 							type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling

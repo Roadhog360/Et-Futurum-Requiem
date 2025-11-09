@@ -69,7 +69,7 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 
 	@Inject(method = "playSound", at = @At("HEAD"), cancellable = true)
 	public void overrideDamageSound(String name, float volume, float pitch, CallbackInfo ci) {
-		if (etfuturum$lastDamageSource != null && (name.equals(getHurtSound()) || name.equals(getDeathSound()))) {
+		if (etfuturum$getUniqueHurtSound() != null && (name.equals(getHurtSound()) || name.equals(getDeathSound()))) {
 			this.worldObj.playSoundAtEntity(this, name, volume, pitch);
 			etfuturum$lastDamageSource = null;
 			ci.cancel();

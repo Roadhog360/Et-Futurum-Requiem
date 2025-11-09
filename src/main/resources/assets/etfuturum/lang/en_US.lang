@@ -136,6 +136,16 @@ subtitle.entity.witch.death=Witch dies
 subtitle.entity.squid.ambient=Squid swims
 subtitle.entity.squid.hurt=Squid takes damage
 subtitle.entity.squid.death=Squid dies
+subtitle.entity.fox.ambient=Fox squeaks
+subtitle.entity.fox.screech=Fox screeches
+subtitle.entity.fox.sleep=Fox snores
+subtitle.entity.fox.aggro=Fox angers
+subtitle.entity.fox.bite=Fox bites
+subtitle.entity.fox.death=Fox dies
+subtitle.entity.fox.eat=Fox eats
+subtitle.entity.fox.hurt=Fox hurts
+subtitle.entity.fox.sniff=Fox sniffs
+subtitle.entity.fox.spit=Fox spits
 
 subtitle.entity.boat.paddle_water=Paddles smack the water
 subtitle.entity.boat.paddle_land=Paddles hit the ground
@@ -325,6 +335,7 @@ entity.etfuturum.shulker.name=Shulker
 entity.etfuturum.shulker_candy.name=Shulker Bullet
 entity.etfuturum.chest_boat.name=Boat with Chest
 entity.etfuturum.new_boat.name=Boat
+entity.etfuturum.new_boat_seat.name=Boat
 
 entity.etfuturum.stray.name=Stray
 entity.etfuturum.husk.name=Husk
@@ -332,6 +343,7 @@ entity.etfuturum.guardian.name=Guardian
 entity.etfuturum.elder_guardian.name=Elder Guardian
 entity.etfuturum.polar_bear.name=Polar Bear
 entity.etfuturum.bee.name=Bee
+entity.etfuturum.fox.name=Fox
 
 # Items
 item.etfuturum.mutton.name=Raw Mutton
@@ -395,7 +407,7 @@ item.etfuturum.bamboo_chest_raft.name=Bamboo Raft with Chest
 item.etfuturum.shulker_shell.name=Shulker Shell
 item.etfuturum.amethyst_shard.name=Amethyst Shard
 item.etfuturum.honeycomb.name=Honeycomb
-item.etfuturum.honey_bottle.name=Honey bottle
+item.etfuturum.honey_bottle.name=Honey Bottle
 item.etfuturum.bamboo.name=Bamboo
 
 # Arrows
@@ -1704,6 +1716,17 @@ efr.elytra.betterfps.warn3=§cElytra flight has been disabled.
 
 # Mod support blocks
 
+tile.etfuturum.iron_barrel.name=Iron Barrel
+tile.etfuturum.gold_barrel.name=Gold Barrel
+tile.etfuturum.diamond_barrel.name=Diamond Barrel
+tile.etfuturum.copper_barrel.name=Copper Barrel
+tile.etfuturum.silver_barrel.name=Silver Barrel
+tile.etfuturum.obsidian_barrel.name=Obsidian Barrel
+tile.etfuturum.netherite_barrel.name=Netherite Barrel
+tile.etfuturum.steel_barrel.name=Steel Barrel
+tile.etfuturum.darksteel_barrel.name=Dark Steel Barrel
+
+
 tile.etfuturum.iron_shulker_box.name=Iron Shulker Box
 tile.etfuturum.white_iron_shulker_box.name=White Iron Shulker Box
 tile.etfuturum.orange_iron_shulker_box.name=Orange Iron Shulker Box
@@ -1942,6 +1965,18 @@ item.shulker_diamond_crystal_upgrade.name=Diamond to Crystal Shulker Box Upgrade
 item.shulker_copper_iron_upgrade.name=Copper to Iron Shulker Box Upgrade
 item.shulker_copper_silver_upgrade.name=Copper to Silver Shulker Box Upgrade
 item.shulker_silver_gold_upgrade.name=Silver to Gold Shulker Box Upgrade
+
+item.barrel_vanilla_iron_upgrade.name=Vanilla to Iron Barrel Upgrade
+item.barrel_vanilla_copper_upgrade.name=Vanilla to Copper Barrel Upgrade
+item.barrel_iron_gold_upgrade.name=Iron to Gold Barrel Upgrade
+item.barrel_gold_diamond_upgrade.name=Gold to Diamond Barrel Upgrade
+item.barrel_diamond_obsidian_upgrade.name=Diamond to Obsidian Barrel Upgrade
+item.barrel_copper_iron_upgrade.name=Copper to Iron Barrel Upgrade
+item.barrel_copper_silver_upgrade.name=Copper to Silver Barrel Upgrade
+item.barrel_silver_gold_upgrade.name=Silver to Gold Barrel Upgrade
+item.barrel_steel_gold_upgrade.name=Steel to Gold Barrel Upgrade
+item.barrel_obsidian_netherite_upgrade.name=Obsidian to Netherite Barrel Upgrade
+item.barrel_obsidian_darksteel_upgrade.name=Obsidian to Dark Steel Barrel Upgrade
 
 item.etfuturum.raw_aluminum.name=Raw Aluminum
 item.etfuturum.raw_tin.name=Raw Tin

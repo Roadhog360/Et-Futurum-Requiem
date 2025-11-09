@@ -2,10 +2,12 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import lombok.NonNull;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
+import roadhog360.hogutils.api.blocksanditems.block.IMultiBlockSound;
 
-public class BlockPackedMud extends BaseSubtypesBlock {
+public class BlockPackedMud extends BaseSubtypesBlock implements IMultiBlockSound {
 
 	public BlockPackedMud() {
 		super(Material.rock, "packed_mud", "mud_bricks");
@@ -22,5 +24,10 @@ public class BlockPackedMud extends BaseSubtypesBlock {
 			return 1.5F;
 		}
 		return blockHardness;
+	}
+
+	@Override
+	public @NonNull SoundType getSoundType(World world, int i, int i1, int i2, SoundMode soundMode) {
+		return world.getBlockMetadata(i, i1, i2) == 1 ? ModSounds.soundMudBricks : stepSound;
 	}
 }

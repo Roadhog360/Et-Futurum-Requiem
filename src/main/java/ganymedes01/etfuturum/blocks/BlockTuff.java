@@ -3,14 +3,16 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import lombok.NonNull;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import roadhog360.hogutils.api.blocksanditems.block.IMultiBlockSound;
 
-public class BlockTuff extends BaseSubtypesBlock {
+public class BlockTuff extends BaseSubtypesBlock implements IMultiBlockSound {
 
 	private IIcon chiseledTuffTop;
 	private IIcon chiseledTuffBricksTop;
@@ -51,4 +53,9 @@ public class BlockTuff extends BaseSubtypesBlock {
 		return super.isReplaceableOreGen(world, x, y, z, target) || (target == Blocks.stone || target == ModBlocks.DEEPSLATE.get()) && world.getBlockMetadata(x, y, z) == 0;
 	}
 
+	@Override
+	public @NonNull SoundType getSoundType(World world, int i, int i1, int i2, SoundMode soundMode) {
+		int meta = world.getBlockMetadata(i, i1, i2);
+		return meta == 1 ? ModSounds.soundPolishedTuff : meta == 2 || meta == 4 ? ModSounds.soundTuffBricks : stepSound;
+	}
 }

@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -97,6 +99,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.mutable.MutableFloat;
 import roadhog360.hogutils.api.blocksanditems.utils.BlockMetaPair;
 import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
+import roadhog360.hogutils.api.hogtags.helpers.ItemTags;
 import roadhog360.hogutils.api.utils.RecipeHelper;
 
 import java.io.BufferedReader;
@@ -116,6 +119,7 @@ public class ServerEventHandler {
 	public static HashSet<EntityPlayerMP> playersClosedContainers = new HashSet<>();
 	private static final Map<EntityPlayer, List<ItemStack>> armorTracker = new WeakHashMap<>();
 	private static final Set<EntityFallingBlock> fallingConcreteBlocks = new HashSet<>();
+	public static final Cache<EntityItem, EntityPlayer> droppedEntityItems = CacheBuilder.newBuilder().weakKeys().maximumSize(1000).build();
 
 	private ServerEventHandler() {
 	}
@@ -132,6 +136,13 @@ public class ServerEventHandler {
 		int z = MathHelper.floor_double(event.entity.posZ);
 		if (event.entity.worldObj.getBlock(x, y, z) instanceof BlockHoney) {
 			event.entity.motionY *= .5D;
+		}
+	}
+
+	@SubscribeEvent
+	public void livingFall(LivingFallEvent event) {
+		if (event.entity instanceof EntityFox fox) {
+			event.distance = fox.computeFallDistance(event.distance);
 		}
 	}
 
@@ -471,7 +482,7 @@ public class ServerEventHandler {
 				ItemStack stack = event.drops.get(i);
 				for (String oreName : EtFuturum.getOreStrings(stack)) {
 					//For some reason this list is always empty for items which were added during the event being fired
-					RawOreDropMapping mapping = RawOreRegistry.getOreMap().get(oreName);
+					RawOreDropMapping mapping = RawOreRegistry.getOre(oreName);
 					if (mapping != null && stack != null && !EtFuturum.dictTagsStartWith(stack, "raw")) {
 						event.drops.set(i, new ItemStack(mapping.get(), mapping.getDropAmount(event.world.rand, event.fortuneLevel), mapping.getMeta()));
 						break;
@@ -956,28 +967,23 @@ public class ServerEventHandler {
 
 						//Grass pathing/Log Stripping
 						//This is nested into the same function since they use similar checks
-						if (heldStack != null) {
-							Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
-							if (toolClasses != null
-									//TODO dirty solution, make this a list, maybe a HogUtils tag `#etfuturum:no_till_shovels`?
-									&& heldStack.getItem() != ExternalContent.Items.BOTANIA_MANASTEEL_SHOVEL.get()
-									&& heldStack.getItem() != ExternalContent.Items.THAUMCRAFT_EARTHMOVER_SHOVEL.get()) {
-								if (ConfigBlocksItems.enableGrassPath && toolClasses.contains("shovel") && !world.getBlock(x, y + 1, z).getMaterial().isSolid() && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
+						if (heldStack != null && !isCustomBroken(heldStack)) {
+							if (ModBlocks.GRASS_PATH.isEnabled() && ItemTags.hasTag(heldStack.getItem(), Tags.MOD_ID + ":dirt_path_tools")
+									&& !world.getBlock(x, y + 1, z).getMaterial().isSolid() && BlockTags.hasTag(oldBlock, Tags.MOD_ID + ":pathables")) {
+								player.swingItem();
+								if (!world.isRemote) {
+									world.setBlock(x, y, z, ModBlocks.GRASS_PATH.get());
+									heldStack.damageItem(1, player);
+									world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Tags.MC_ASSET_VER + ":item.shovel.flatten", 1.0F, 1.0F);
+								}
+							} else if (ConfigBlocksItems.enableStrippedLogs && ItemTags.hasTag(heldStack.getItem(), Tags.MOD_ID + ":stripped_log_tools")) {
+								BlockMetaPair newBlock = StrippedLogRegistry.getLog(oldBlock, meta);
+								if (newBlock != null) {
 									player.swingItem();
 									if (!world.isRemote) {
-										world.setBlock(x, y, z, ModBlocks.GRASS_PATH.get());
+										world.setBlock(x, y, z, newBlock.get(), newBlock.getMeta(), 2);
 										heldStack.damageItem(1, player);
-										world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Tags.MC_ASSET_VER + ":item.shovel.flatten", 1.0F, 1.0F);
-									}
-								} else if (ConfigBlocksItems.enableStrippedLogs && toolClasses.contains("axe")) {
-									BlockMetaPair newBlock = StrippedLogRegistry.getLog(oldBlock, world.getBlockMetadata(x, y, z) % 4);
-									if (newBlock != null) {
-										player.swingItem();
-										if (!world.isRemote) {
-											world.setBlock(x, y, z, newBlock.get(), newBlock.getMeta() + ((meta / 4) * 4), 2);
-											heldStack.damageItem(1, player);
-											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Tags.MC_ASSET_VER + ":item.axe.strip", 1.0F, 0.8F);
-										}
+										world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, StrippedLogRegistry.getSound(oldBlock, meta), 1.0F, 1.0F);
 									}
 								}
 							}
@@ -986,6 +992,15 @@ public class ServerEventHandler {
 				}
 			}
 		}
+	}
+
+	/// If this item is broken in a custom way
+	private boolean isCustomBroken(ItemStack stack) {
+		//Check if tool is a broken TiC tool
+		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("InfiTool")) {
+			return stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken");
+		}
+		return false;
 	}
 
 	private boolean doMudConversion(World world, int x, int y, int z, EntityPlayer player, Block oldBlock, int meta, ItemStack heldStack) {
@@ -1118,6 +1133,20 @@ public class ServerEventHandler {
 				world.setBlock((int) entity.posX, (int) entity.posY, (int) entity.posZ, ModBlocks.WITHER_ROSE.get());
 			} else {
 				addDrop(ModBlocks.WITHER_ROSE.newItemStack(1, 0), event.entityLiving, event.drops);
+			}
+		}
+
+		if (event.source.getEntity() instanceof EntityFox fox) {
+			int looting = fox.getLootingLevel();
+			EntityLivingBase victim = event.entityLiving;
+			if (victim instanceof EntityChicken) {
+				int extraChicken = victim.getRNG().nextInt(1 + looting);
+				for (EntityItem entityItem : event.drops) {
+					Item item = entityItem.getEntityItem().getItem();
+					if (item == Items.cooked_chicken || item == Items.chicken) {
+						entityItem.getEntityItem().stackSize += extraChicken;
+					}
+				}
 			}
 		}
 	}
@@ -1764,6 +1793,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onItemToss(ItemTossEvent event) {
+		droppedEntityItems.put(event.entityItem, event.player);
 		if (ConfigMixins.avoidDroppingItemsWhenClosing && event.player instanceof EntityPlayerMP && playersClosedContainers.contains(event.player)) {
 			if (event.player.inventory.addItemStackToInventory(event.entityItem.getEntityItem())) {
 				event.setCanceled(true);

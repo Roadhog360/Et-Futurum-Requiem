@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.items.equipment;
 import baubles.api.BaubleType;
 import baubles.api.expanded.BaubleItemHelper;
 import baubles.api.expanded.IBaubleExpanded;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.Tags;
@@ -25,6 +26,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+@Optional.Interface(iface = "baubles.api.expanded.IBaubleExpanded", modid = "Baubles|Expanded")
 public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 
 	private IIcon broken;

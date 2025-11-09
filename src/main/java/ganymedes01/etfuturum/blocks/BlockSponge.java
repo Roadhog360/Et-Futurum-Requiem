@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.WorldCoord;
+import lombok.NonNull;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,10 +21,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.ArrayUtils;
+import roadhog360.hogutils.api.blocksanditems.block.IMultiBlockSound;
 
 import java.util.*;
 
-public class BlockSponge extends BaseSubtypesBlock {
+public class BlockSponge extends BaseSubtypesBlock implements IMultiBlockSound {
 
 	public BlockSponge() {
 		super(Material.sponge, "sponge", "wet_sponge");
@@ -159,5 +161,10 @@ public class BlockSponge extends BaseSubtypesBlock {
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
 		return Item.getItemFromBlock(ConfigWorld.tileReplacementMode == -1 || meta == 1 ? ModBlocks.SPONGE.get() : Blocks.sponge);
+	}
+
+	@Override
+	public @NonNull SoundType getSoundType(World world, int i, int i1, int i2, SoundMode soundMode) {
+		return world.getBlockMetadata(i, i1, i2) == 1 ? ModSounds.soundWetSponge : stepSound;
 	}
 }

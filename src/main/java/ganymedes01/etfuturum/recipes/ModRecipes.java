@@ -156,111 +156,111 @@ public class ModRecipes {
 	private static void registerRecipes() {
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output = ModBlocks.OLD_GRAVEL.newItemStack(4);
-			RecipeHelper.addHighPriorityShapedRecipe(output, "xy", "yx", 'x', ModBlocks.COARSE_DIRT.get(), 'y', Blocks.gravel);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, "xy", "yx", 'x', ModBlocks.COARSE_DIRT.get(), 'y', Blocks.gravel);
 		}
 
 		if (ConfigFunctions.enableStoneBrickRecipes && !ModsList.GTNH.isLoaded()) {
-			RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.vine));
-			RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.vine));
-			RecipeHelper.addHighPriorityShapedRecipe(new ItemStack(Blocks.stonebrick, 1, 3), "x", "x", 'x', new ItemStack(Blocks.stone_slab, 1, 5));
+			RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.vine));
+			RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.vine));
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Blocks.stonebrick, 1, 3), "x", "x", 'x', new ItemStack(Blocks.stone_slab, 1, 5));
 			RecipeHelper.addSmelting(new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.stonebrick, 1, 2), 0.0F);
 		}
 
 		if (!ModsList.GTNH.isLoaded()) {
-			RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), ModBlocks.MOSS_BLOCK.newItemStack());
-			RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), ModBlocks.MOSS_BLOCK.newItemStack());
+			RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), ModBlocks.MOSS_BLOCK.newItemStack());
+			RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), ModBlocks.MOSS_BLOCK.newItemStack());
 		}
 
 		if (ConfigFunctions.enableRecipeForTotem) {
 			ItemStack output = ModItems.TOTEM_OF_UNDYING.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output, "EBE", "GBG", " G ", 'E', "gemEmerald", 'G', "ingotGold", 'B', "blockGold");
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, "EBE", "GBG", " G ", 'E', "gemEmerald", 'G', "ingotGold", 'B', "blockGold");
 		}
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output1 = ModBlocks.SLIME.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output1, "xxx", "xxx", "xxx", 'x', new ItemStack(Items.slime_ball));
-			RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Items.slime_ball, 9), ModBlocks.SLIME.get());
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, "xxx", "xxx", "xxx", 'x', new ItemStack(Items.slime_ball));
+			RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Items.slime_ball, 9), ModBlocks.SLIME.get());
 
 			ItemStack output = ModBlocks.COARSE_DIRT.newItemStack(4);
 			Object[] objects = new Object[]{"xy", "yx", 'x', new ItemStack(Blocks.dirt), 'y', new ItemStack(Blocks.gravel)};
-			RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 		}
 
 		ItemStack output2 = ModItems.MUTTON_COOKED.newItemStack();
 		RecipeHelper.addSmelting(ModItems.MUTTON_RAW.get(), output2, 0.35F);
 
 		if (!ModsList.GTNH.isLoaded()) {
-			RecipeHelper.addHighPriorityShapedRecipe(new ItemStack(Items.iron_ingot), "xxx", "xxx", "xxx", 'x', "nuggetIron");
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Items.iron_ingot), "xxx", "xxx", "xxx", 'x', "nuggetIron");
 			ItemStack output = ModItems.NUGGET_IRON.newItemStack(9);
-			RecipeHelper.addHighPriorityShapelessRecipe(output, "ingotIron");
+			RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output, "ingotIron");
 		}
 
 		// Granite
 		ItemStack output228 = ModBlocks.STONE.newItemStack(2, 1);
-		RecipeHelper.addHighPriorityShapelessRecipe(output228, "gemQuartz", "stoneDiorite");
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output228, "gemQuartz", "stoneDiorite");
 		ItemStack output215 = ModBlocks.STONE.newItemStack(4, 2);
-		RecipeHelper.addHighPriorityShapedRecipe(output215, "xx", "xx", 'x', "stoneGranite");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output215, "xx", "xx", 'x', "stoneGranite");
 		// Diorite
 		ItemStack output214 = ModBlocks.STONE.newItemStack(2, 3);
 		Object[] objects162 = new Object[]{"xy", "yx", 'x', new ItemStack(Blocks.cobblestone), 'y', "gemQuartz"};
-		RecipeHelper.addHighPriorityShapedRecipe(output214, objects162);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output214, objects162);
 		ItemStack output213 = ModBlocks.STONE.newItemStack(4, 4);
-		RecipeHelper.addHighPriorityShapedRecipe(output213, "xx", "xx", 'x', "stoneDiorite");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output213, "xx", "xx", 'x', "stoneDiorite");
 		// Andesite
 		ItemStack output227 = ModBlocks.STONE.newItemStack(2, 5);
 		Object[] objects170 = new Object[]{new ItemStack(Blocks.cobblestone), "stoneDiorite"};
-		RecipeHelper.addHighPriorityShapelessRecipe(output227, objects170);
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output227, objects170);
 		ItemStack output212 = ModBlocks.STONE.newItemStack(4, 6);
-		RecipeHelper.addHighPriorityShapedRecipe(output212, "xx", "xx", 'x', "stoneAndesite");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output212, "xx", "xx", 'x', "stoneAndesite");
 		Block[] stone_stairs = new Block[]{ModBlocks.GRANITE_STAIRS.get(), ModBlocks.POLISHED_GRANITE_STAIRS.get(), ModBlocks.DIORITE_STAIRS.get(), ModBlocks.POLISHED_DIORITE_STAIRS.get(), ModBlocks.ANDESITE_STAIRS.get(), ModBlocks.POLISHED_ANDESITE_STAIRS.get()};
 		for (int i = 0; i < stone_stairs.length; i++) { //TODO: Rewrite this, this seems needlessly convoluted
 			String dictName = "stone" + StringUtils.capitalize(((BaseSlab) ModBlocks.STONE_SLAB_2.get()).types[(i / 2) * 2]) + (i % 2 == 1 ? "Polished" : "");
 			if (!ModsList.GTNH.isLoaded()) {
 				ItemStack output = ModBlocks.STONE_SLAB_2.newItemStack(6, i);
-				RecipeHelper.addHighPriorityShapedRecipe(output, "xxx", 'x', dictName);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, "xxx", 'x', dictName);
 			}
 			ItemStack output1 = new ItemStack(stone_stairs[i], 4);
-			RecipeHelper.addHighPriorityShapedRecipe(output1, "x  ", "xx ", "xxx", 'x', dictName);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, "x  ", "xx ", "xxx", 'x', dictName);
 			if (i % 2 == 1) {
 				ItemStack output = ModBlocks.STONE_WALL_2.newItemStack(6, i == 5 ? 2 : i == 3 ? 1 : 0);
 				Object[] objects = new Object[]{"xxx", "xxx", 'x', ModBlocks.STONE.newItemStack(1, i)};
-				RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 			}
 		}
 
 		ItemStack output211 = ModBlocks.PRISMARINE_BLOCK.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output211, "xx", "xx", 'x', "shardPrismarine");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output211, "xx", "xx", 'x', "shardPrismarine");
 		ItemStack output210 = ModBlocks.PRISMARINE_BLOCK.newItemStack(1, 1);
-		RecipeHelper.addHighPriorityShapedRecipe(output210, "xxx", "xxx", "xxx", 'x', "shardPrismarine");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output210, "xxx", "xxx", "xxx", 'x', "shardPrismarine");
 		ItemStack output209 = ModBlocks.PRISMARINE_BLOCK.newItemStack(1, 2);
-		RecipeHelper.addHighPriorityShapedRecipe(output209, "xxx", "xyx", "xxx", 'x', "shardPrismarine", 'y', "dyeBlack");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output209, "xxx", "xyx", "xxx", 'x', "shardPrismarine", 'y', "dyeBlack");
 		ItemStack output208 = ModBlocks.SEA_LANTERN.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output208, "xyx", "yyy", "xyx", 'x', "shardPrismarine", 'y', "crystalPrismarine");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output208, "xyx", "yyy", "xyx", 'x', "shardPrismarine", 'y', "crystalPrismarine");
 
 		ItemStack output207 = ModBlocks.PRISMARINE_STAIRS.newItemStack(4);
 		Object[] objects161 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output207, objects161);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output207, objects161);
 		ItemStack output206 = ModBlocks.PRISMARINE_STAIRS_BRICK.newItemStack(4);
 		Object[] objects160 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output206, objects160);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output206, objects160);
 		ItemStack output205 = ModBlocks.PRISMARINE_STAIRS_DARK.newItemStack(4);
 		Object[] objects159 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output205, objects159);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output205, objects159);
 		ItemStack output204 = ModBlocks.PRISMARINE_WALL.newItemStack(6);
 		Object[] objects158 = new Object[]{"xxx", "xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output204, objects158);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output204, objects158);
 
 		for (int i = 0; i < 3; i++) {
 			ItemStack output = ModBlocks.PRISMARINE_SLAB.newItemStack(6, i);
 			Object[] objects = new Object[]{"xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack(1, i)};
-			RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 		}
 
 		if (!ModsList.BOTANIA.isLoaded()) {
 			ItemStack output1 = ModItems.PRISMARINE_SHARD.newItemStack(4);
-			RecipeHelper.addHighPriorityShapedRecipe(output1, "xy", "zx", 'x', "gemQuartz", 'y', "dyeBlue", 'z', "dyeGreen");
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, "xy", "zx", 'x', "gemQuartz", 'y', "dyeBlue", 'z', "dyeGreen");
 			ItemStack output = ModItems.PRISMARINE_CRYSTALS.newItemStack(4);
-			RecipeHelper.addHighPriorityShapedRecipe(output, "xy", "yx", 'x', "gemQuartz", 'y', "dustGlowstone");
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, "xy", "yx", 'x', "gemQuartz", 'y', "dustGlowstone");
 		}
 
 		if (!ModsList.GTNH.isLoaded()) {
@@ -268,83 +268,83 @@ public class ModRecipes {
 			for (int i = 0; i < metaBlocks.length; i++) {
 				ItemStack output = ModBlocks.STONE_SLAB.newItemStack(6, i);
 				Object[] objects = new Object[]{"xxx", 'x', new ItemStack(metaBlocks[i], 1, i != 0 ? i - 1 : i)};
-				RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 			}
 			ItemStack output = new ItemStack(Blocks.stone_slab, 6, 0);
 			Object[] objects = new Object[]{"xxx", 'x', ModBlocks.SMOOTH_STONE.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 		}
 
 		ItemStack output203 = ModBlocks.STONE_STAIRS.newItemStack(4);
 		Object[] objects157 = new Object[]{"x  ", "xx ", "xxx", 'x', new ItemStack(Blocks.stone, 1, 0)};
-		RecipeHelper.addHighPriorityShapedRecipe(output203, objects157);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output203, objects157);
 		ItemStack output202 = ModBlocks.MOSSY_COBBLESTONE_STAIRS.newItemStack(4);
 		Object[] objects156 = new Object[]{"x  ", "xx ", "xxx", 'x', new ItemStack(Blocks.mossy_cobblestone, 1, 0)};
-		RecipeHelper.addHighPriorityShapedRecipe(output202, objects156);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output202, objects156);
 		ItemStack output201 = ModBlocks.MOSSY_STONE_BRICK_STAIRS.newItemStack(4);
 		Object[] objects155 = new Object[]{"x  ", "xx ", "xxx", 'x', new ItemStack(Blocks.stonebrick, 1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output201, objects155);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output201, objects155);
 
 		if (!ModsList.GTNH.isLoaded()) {
 			//Bark to planks
 			ItemStack output18 = new ItemStack(Blocks.planks, 4);
 			Object[] objects17 = new Object[]{"x", 'x', ModBlocks.BARK.newItemStack(1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output18, objects17);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output18, objects17);
 			ItemStack output17 = new ItemStack(Blocks.planks, 4, 1);
 			Object[] objects16 = new Object[]{"x", 'x', ModBlocks.BARK.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output17, objects16);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output17, objects16);
 			ItemStack output16 = new ItemStack(Blocks.planks, 4, 2);
 			Object[] objects15 = new Object[]{"x", 'x', ModBlocks.BARK.newItemStack(1, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output16, objects15);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output16, objects15);
 			ItemStack output15 = new ItemStack(Blocks.planks, 4, 3);
 			Object[] objects14 = new Object[]{"x", 'x', ModBlocks.BARK.newItemStack(1, 3)};
-			RecipeHelper.addHighPriorityShapedRecipe(output15, objects14);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output15, objects14);
 			ItemStack output14 = new ItemStack(Blocks.planks, 4, 4);
 			Object[] objects13 = new Object[]{"x", 'x', ModBlocks.BARK2.newItemStack(1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output14, objects13);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output14, objects13);
 			ItemStack output13 = new ItemStack(Blocks.planks, 4, 5);
 			Object[] objects12 = new Object[]{"x", 'x', ModBlocks.BARK2.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output13, objects12);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output13, objects12);
 
 			//Stripped log to planks
 			ItemStack output12 = new ItemStack(Blocks.planks, 4);
 			Object[] objects11 = new Object[]{"x", 'x', ModBlocks.LOG_STRIPPED.newItemStack(1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output12, objects11);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output12, objects11);
 			ItemStack output11 = new ItemStack(Blocks.planks, 4, 1);
 			Object[] objects10 = new Object[]{"x", 'x', ModBlocks.LOG_STRIPPED.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output11, objects10);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output11, objects10);
 			ItemStack output10 = new ItemStack(Blocks.planks, 4, 2);
 			Object[] objects9 = new Object[]{"x", 'x', ModBlocks.LOG_STRIPPED.newItemStack(1, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output10, objects9);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output10, objects9);
 			ItemStack output9 = new ItemStack(Blocks.planks, 4, 3);
 			Object[] objects8 = new Object[]{"x", 'x', ModBlocks.LOG_STRIPPED.newItemStack(1, 3)};
-			RecipeHelper.addHighPriorityShapedRecipe(output9, objects8);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output9, objects8);
 			ItemStack output8 = new ItemStack(Blocks.planks, 4, 4);
 			Object[] objects7 = new Object[]{"x", 'x', ModBlocks.LOG2_STRIPPED.newItemStack(1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output8, objects7);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output8, objects7);
 			ItemStack output7 = new ItemStack(Blocks.planks, 4, 5);
 			Object[] objects6 = new Object[]{"x", 'x', ModBlocks.LOG2_STRIPPED.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output7, objects6);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output7, objects6);
 
 			//Stripped bark to planks
 			ItemStack output6 = new ItemStack(Blocks.planks, 4);
 			Object[] objects5 = new Object[]{"x", 'x', ModBlocks.WOOD_STRIPPED.newItemStack(1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output6, objects5);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output6, objects5);
 			ItemStack output5 = new ItemStack(Blocks.planks, 4, 1);
 			Object[] objects4 = new Object[]{"x", 'x', ModBlocks.WOOD_STRIPPED.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects4);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects4);
 			ItemStack output4 = new ItemStack(Blocks.planks, 4, 2);
 			Object[] objects3 = new Object[]{"x", 'x', ModBlocks.WOOD_STRIPPED.newItemStack(1, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output4, objects3);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output4, objects3);
 			ItemStack output3 = new ItemStack(Blocks.planks, 4, 3);
 			Object[] objects2 = new Object[]{"x", 'x', ModBlocks.WOOD_STRIPPED.newItemStack(1, 3)};
-			RecipeHelper.addHighPriorityShapedRecipe(output3, objects2);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, objects2);
 			ItemStack output1 = new ItemStack(Blocks.planks, 4, 4);
 			Object[] objects1 = new Object[]{"x", 'x', ModBlocks.WOOD2_STRIPPED.newItemStack(1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output1, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects1);
 			ItemStack output = new ItemStack(Blocks.planks, 4, 5);
 			Object[] objects = new Object[]{"x", 'x', ModBlocks.WOOD2_STRIPPED.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 
 			for (int i = 0; i < 4; i++) {
 				ItemStack input7 = ModBlocks.LOG_STRIPPED.newItemStack(1, i);
@@ -370,406 +370,406 @@ public class ModRecipes {
 		//Logs to bark
 		ItemStack output200 = ModBlocks.BARK.newItemStack(3);
 		Object[] objects154 = new Object[]{"xx", "xx", 'x', new ItemStack(Blocks.log, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output200, objects154);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output200, objects154);
 		ItemStack output199 = ModBlocks.BARK.newItemStack(3, 1);
 		Object[] objects153 = new Object[]{"xx", "xx", 'x', new ItemStack(Blocks.log, 1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output199, objects153);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output199, objects153);
 		ItemStack output198 = ModBlocks.BARK.newItemStack(3, 2);
 		Object[] objects152 = new Object[]{"xx", "xx", 'x', new ItemStack(Blocks.log, 1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output198, objects152);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output198, objects152);
 		ItemStack output197 = ModBlocks.BARK.newItemStack(3, 3);
 		Object[] objects151 = new Object[]{"xx", "xx", 'x', new ItemStack(Blocks.log, 1, 3)};
-		RecipeHelper.addHighPriorityShapedRecipe(output197, objects151);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output197, objects151);
 		ItemStack output196 = ModBlocks.BARK2.newItemStack(3);
 		Object[] objects150 = new Object[]{"xx", "xx", 'x', new ItemStack(Blocks.log2, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output196, objects150);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output196, objects150);
 		ItemStack output195 = ModBlocks.BARK2.newItemStack(3, 1);
 		Object[] objects149 = new Object[]{"xx", "xx", 'x', new ItemStack(Blocks.log2, 1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output195, objects149);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output195, objects149);
 
 		//Stripped logs to stripped bark
 		ItemStack output194 = ModBlocks.WOOD_STRIPPED.newItemStack(3);
 		Object[] objects148 = new Object[]{"xx", "xx", 'x', ModBlocks.LOG_STRIPPED.newItemStack(1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output194, objects148);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output194, objects148);
 		ItemStack output193 = ModBlocks.WOOD_STRIPPED.newItemStack(3, 1);
 		Object[] objects147 = new Object[]{"xx", "xx", 'x', ModBlocks.LOG_STRIPPED.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output193, objects147);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output193, objects147);
 		ItemStack output192 = ModBlocks.WOOD_STRIPPED.newItemStack(3, 2);
 		Object[] objects146 = new Object[]{"xx", "xx", 'x', ModBlocks.LOG_STRIPPED.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output192, objects146);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output192, objects146);
 		ItemStack output191 = ModBlocks.WOOD_STRIPPED.newItemStack(3, 3);
 		Object[] objects145 = new Object[]{"xx", "xx", 'x', ModBlocks.LOG_STRIPPED.newItemStack(1, 3)};
-		RecipeHelper.addHighPriorityShapedRecipe(output191, objects145);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output191, objects145);
 		ItemStack output190 = ModBlocks.WOOD2_STRIPPED.newItemStack(3);
 		Object[] objects144 = new Object[]{"xx", "xx", 'x', ModBlocks.LOG2_STRIPPED.newItemStack(1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output190, objects144);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output190, objects144);
 		ItemStack output189 = ModBlocks.WOOD2_STRIPPED.newItemStack(3, 1);
 		Object[] objects143 = new Object[]{"xx", "xx", 'x', ModBlocks.LOG2_STRIPPED.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output189, objects143);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output189, objects143);
 
 		if (!ModsList.GTNH.isLoaded()) {
 			//New logs, bark, stripped log and stripped bark to planks
 			ItemStack output5 = ModBlocks.WOOD_PLANKS.newItemStack(4);
 			Object[] objects4 = new Object[]{"x", 'x', ModBlocks.CRIMSON_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE)};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects4);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects4);
 			ItemStack output4 = ModBlocks.WOOD_PLANKS.newItemStack(4, 1);
 			Object[] objects3 = new Object[]{"x", 'x', ModBlocks.WARPED_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE)};
-			RecipeHelper.addHighPriorityShapedRecipe(output4, objects3);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output4, objects3);
 			ItemStack output3 = ModBlocks.WOOD_PLANKS.newItemStack(4, 2);
 			Object[] objects2 = new Object[]{"x", 'x', ModBlocks.MANGROVE_LOG.newItemStack(1, OreDictionary.WILDCARD_VALUE)};
-			RecipeHelper.addHighPriorityShapedRecipe(output3, objects2);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, objects2);
 			ItemStack output1 = ModBlocks.WOOD_PLANKS.newItemStack(4, 3);
 			Object[] objects1 = new Object[]{"x", 'x', ModBlocks.CHERRY_LOG.newItemStack(1, OreDictionary.WILDCARD_VALUE)};
-			RecipeHelper.addHighPriorityShapedRecipe(output1, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects1);
 			ItemStack output = ModBlocks.WOOD_PLANKS.newItemStack(2, 4);
 			Object[] objects = new Object[]{"x", 'x', ModBlocks.BAMBOO_BLOCK.newItemStack(1, OreDictionary.WILDCARD_VALUE)};
-			RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 		}
 
 		if (ConfigBlocksItems.enableStrippedLogs && ConfigBlocksItems.enableBarkLogs) {
 			//New stripped logs to new stripped bark
 			ItemStack output4 = ModBlocks.CRIMSON_STEM.newItemStack(3, 3);
 			Object[] objects3 = new Object[]{"xx", "xx", 'x', ModBlocks.CRIMSON_STEM.newItemStack(2, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output4, objects3);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output4, objects3);
 			ItemStack output3 = ModBlocks.WARPED_STEM.newItemStack(3, 3);
 			Object[] objects2 = new Object[]{"xx", "xx", 'x', ModBlocks.WARPED_STEM.newItemStack(2, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output3, objects2);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, objects2);
 			ItemStack output1 = ModBlocks.MANGROVE_LOG.newItemStack(3, 3);
 			Object[] objects1 = new Object[]{"xx", "xx", 'x', ModBlocks.MANGROVE_LOG.newItemStack(2, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output1, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects1);
 			ItemStack output = ModBlocks.CHERRY_LOG.newItemStack(3, 3);
 			Object[] objects = new Object[]{"xx", "xx", 'x', ModBlocks.CHERRY_LOG.newItemStack(2, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 		}
 
 		if (ConfigBlocksItems.enableBarkLogs) {
 			//New logs to new bark
 			ItemStack output4 = ModBlocks.CRIMSON_STEM.newItemStack(3, 1);
 			Object[] objects3 = new Object[]{"xx", "xx", 'x', ModBlocks.CRIMSON_STEM.newItemStack(1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output4, objects3);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output4, objects3);
 			ItemStack output3 = ModBlocks.WARPED_STEM.newItemStack(3, 1);
 			Object[] objects2 = new Object[]{"xx", "xx", 'x', ModBlocks.WARPED_STEM.newItemStack(1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output3, objects2);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, objects2);
 			ItemStack output1 = ModBlocks.MANGROVE_LOG.newItemStack(3, 1);
 			Object[] objects1 = new Object[]{"xx", "xx", 'x', ModBlocks.MANGROVE_LOG.newItemStack(1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output1, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects1);
 			ItemStack output = ModBlocks.CHERRY_LOG.newItemStack(3, 1);
 			Object[] objects = new Object[]{"xx", "xx", 'x', ModBlocks.CHERRY_LOG.newItemStack(1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 		}
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output7 = ModBlocks.FENCE_SPRUCE.newItemStack(3);
 			Object[] objects6 = new Object[]{"xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, 1), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output7, objects6);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output7, objects6);
 			ItemStack output6 = ModBlocks.FENCE_BIRCH.newItemStack(3);
 			Object[] objects5 = new Object[]{"xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, 2), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output6, objects5);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output6, objects5);
 			ItemStack output5 = ModBlocks.FENCE_JUNGLE.newItemStack(3);
 			Object[] objects4 = new Object[]{"xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, 3), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects4);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects4);
 			ItemStack output4 = ModBlocks.FENCE_ACACIA.newItemStack(3);
 			Object[] objects3 = new Object[]{"xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, 4), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output4, objects3);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output4, objects3);
 			ItemStack output3 = ModBlocks.FENCE_DARK_OAK.newItemStack(3);
 			Object[] objects2 = new Object[]{"xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, 5), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output3, objects2);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, objects2);
 
 			if (ConfigExperiments.enableCrimsonBlocks) {
 				ItemStack output1 = ModBlocks.WOOD_FENCE.newItemStack(3);
 				Object[] objects1 = new Object[]{"xyx", "xyx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1), 'y', "stickWood"};
-				RecipeHelper.addHighPriorityShapedRecipe(output1, objects1);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects1);
 				ItemStack output = ModBlocks.WOOD_SLAB.newItemStack(6, 0);
 				Object[] objects = new Object[]{"xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 0)};
-				RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 			}
 			if (ConfigExperiments.enableWarpedBlocks) {
 				ItemStack output1 = ModBlocks.WOOD_FENCE.newItemStack(3, 1);
 				Object[] objects1 = new Object[]{"xyx", "xyx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1), 'y', "stickWood"};
-				RecipeHelper.addHighPriorityShapedRecipe(output1, objects1);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects1);
 				ItemStack output = ModBlocks.WOOD_SLAB.newItemStack(6, 1);
 				Object[] objects = new Object[]{"xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1)};
-				RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 			}
 			if (ConfigExperiments.enableMangroveBlocks) {
 				ItemStack output1 = ModBlocks.WOOD_FENCE.newItemStack(3, 2);
 				Object[] objects1 = new Object[]{"xyx", "xyx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2), 'y', "stickWood"};
-				RecipeHelper.addHighPriorityShapedRecipe(output1, objects1);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects1);
 				ItemStack output = ModBlocks.WOOD_SLAB.newItemStack(6, 2);
 				Object[] objects = new Object[]{"xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2)};
-				RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 			}
 			if (ConfigBlocksItems.enableCherryBlocks) {
 				ItemStack output1 = ModBlocks.WOOD_FENCE.newItemStack(3, 3);
 				Object[] objects1 = new Object[]{"xyx", "xyx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3), 'y', "stickWood"};
-				RecipeHelper.addHighPriorityShapedRecipe(output1, objects1);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects1);
 				ItemStack output = ModBlocks.WOOD_SLAB.newItemStack(6, 3);
 				Object[] objects = new Object[]{"xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3)};
-				RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 			}
 			if (ConfigBlocksItems.enableBambooBlocks) {
 				ItemStack output1 = ModBlocks.WOOD_FENCE.newItemStack(3, 4);
 				Object[] objects1 = new Object[]{"xyx", "xyx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4), 'y', "stickWood"};
-				RecipeHelper.addHighPriorityShapedRecipe(output1, objects1);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects1);
 				ItemStack output = ModBlocks.WOOD_SLAB.newItemStack(6, 4);
 				Object[] objects = new Object[]{"xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4)};
-				RecipeHelper.addHighPriorityShapedRecipe(output, objects);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, objects);
 			}
 		}
 
 		ItemStack output188 = ModBlocks.CRIMSON_STAIRS.newItemStack(4);
 		Object[] objects142 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 0)};
-		RecipeHelper.addHighPriorityShapedRecipe(output188, objects142);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output188, objects142);
 		ItemStack output187 = ModBlocks.WARPED_STAIRS.newItemStack(4);
 		Object[] objects141 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output187, objects141);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output187, objects141);
 		ItemStack output186 = ModBlocks.MANGROVE_STAIRS.newItemStack(4);
 		Object[] objects140 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output186, objects140);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output186, objects140);
 		ItemStack output185 = ModBlocks.CHERRY_STAIRS.newItemStack(4);
 		Object[] objects139 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3)};
-		RecipeHelper.addHighPriorityShapedRecipe(output185, objects139);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output185, objects139);
 		ItemStack output184 = ModBlocks.BAMBOO_STAIRS.newItemStack(4);
 		Object[] objects138 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4)};
-		RecipeHelper.addHighPriorityShapedRecipe(output184, objects138);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output184, objects138);
 
 		ItemStack output183 = ModBlocks.BAMBOO_BLOCK.newItemStack();
 		Object[] objects137 = new Object[]{"bbb", "bbb", "bbb", 'b', ModItems.BAMBOO.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output183, objects137);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output183, objects137);
 		Object[] objects136 = new Object[]{"b", "b", 'b', ModItems.BAMBOO.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(new ItemStack(Items.stick), objects136);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Items.stick), objects136);
 
 		// Bamboo Mosaic
 		ItemStack output182 = ModBlocks.BAMBOO_MOSAIC.newItemStack(1, 0);
 		Object[] objects135 = new Object[]{"x", "x", 'x', ModBlocks.WOOD_SLAB.newItemStack(1, 4)};
-		RecipeHelper.addHighPriorityShapedRecipe(output182, objects135);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output182, objects135);
 		ItemStack output181 = ModBlocks.BAMBOO_MOSAIC_SLAB.newItemStack(6, 5);
 		Object[] objects134 = new Object[]{"xxx", 'x', ModBlocks.BAMBOO_MOSAIC.newItemStack(1, 0)};
-		RecipeHelper.addHighPriorityShapedRecipe(output181, objects134);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output181, objects134);
 		ItemStack output180 = ModBlocks.BAMBOO_MOSAIC_STAIRS.newItemStack(4);
 		Object[] objects133 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.BAMBOO_MOSAIC.newItemStack(1, 0)};
-		RecipeHelper.addHighPriorityShapedRecipe(output180, objects133);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output180, objects133);
 
 		ItemStack output179 = ModBlocks.FENCE_GATE_SPRUCE.newItemStack();
 		Object[] objects132 = new Object[]{"yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, 1), 'y', "stickWood"};
-		RecipeHelper.addHighPriorityShapedRecipe(output179, objects132);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output179, objects132);
 		ItemStack output178 = ModBlocks.FENCE_GATE_BIRCH.newItemStack();
 		Object[] objects131 = new Object[]{"yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, 2), 'y', "stickWood"};
-		RecipeHelper.addHighPriorityShapedRecipe(output178, objects131);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output178, objects131);
 		ItemStack output177 = ModBlocks.FENCE_GATE_JUNGLE.newItemStack();
 		Object[] objects130 = new Object[]{"yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, 3), 'y', "stickWood"};
-		RecipeHelper.addHighPriorityShapedRecipe(output177, objects130);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output177, objects130);
 		ItemStack output176 = ModBlocks.FENCE_GATE_ACACIA.newItemStack();
 		Object[] objects129 = new Object[]{"yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, 4), 'y', "stickWood"};
-		RecipeHelper.addHighPriorityShapedRecipe(output176, objects129);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output176, objects129);
 		ItemStack output175 = ModBlocks.FENCE_GATE_DARK_OAK.newItemStack();
 		Object[] objects128 = new Object[]{"yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, 5), 'y', "stickWood"};
-		RecipeHelper.addHighPriorityShapedRecipe(output175, objects128);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output175, objects128);
 
 		ItemStack output174 = ModBlocks.CRIMSON_FENCE_GATE.newItemStack();
 		Object[] objects127 = new Object[]{"yxy", "yxy", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1), 'y', "stickWood"};
-		RecipeHelper.addHighPriorityShapedRecipe(output174, objects127);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output174, objects127);
 		ItemStack output173 = ModBlocks.WARPED_FENCE_GATE.newItemStack();
 		Object[] objects126 = new Object[]{"yxy", "yxy", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1), 'y', "stickWood"};
-		RecipeHelper.addHighPriorityShapedRecipe(output173, objects126);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output173, objects126);
 		ItemStack output172 = ModBlocks.MANGROVE_FENCE_GATE.newItemStack();
 		Object[] objects125 = new Object[]{"yxy", "yxy", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2), 'y', "stickWood"};
-		RecipeHelper.addHighPriorityShapedRecipe(output172, objects125);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output172, objects125);
 		ItemStack output171 = ModBlocks.CHERRY_FENCE_GATE.newItemStack();
 		Object[] objects124 = new Object[]{"yxy", "yxy", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3), 'y', "stickWood"};
-		RecipeHelper.addHighPriorityShapedRecipe(output171, objects124);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output171, objects124);
 		ItemStack output170 = ModBlocks.BAMBOO_FENCE_GATE.newItemStack();
 		Object[] objects123 = new Object[]{"yxy", "yxy", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4), 'y', "stickWood"};
-		RecipeHelper.addHighPriorityShapedRecipe(output170, objects123);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output170, objects123);
 
 		int output = ConfigFunctions.enableDoorRecipeBuffs ? 3 : 1;
 		ItemStack output169 = ModBlocks.DOOR_SPRUCE.newItemStack(output);
 		Object[] objects122 = new Object[]{"xx", "xx", "xx", 'x', new ItemStack(Blocks.planks, 1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output169, objects122);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output169, objects122);
 		ItemStack output168 = ModBlocks.DOOR_BIRCH.newItemStack(output);
 		Object[] objects121 = new Object[]{"xx", "xx", "xx", 'x', new ItemStack(Blocks.planks, 1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output168, objects121);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output168, objects121);
 		ItemStack output167 = ModBlocks.DOOR_JUNGLE.newItemStack(output);
 		Object[] objects120 = new Object[]{"xx", "xx", "xx", 'x', new ItemStack(Blocks.planks, 1, 3)};
-		RecipeHelper.addHighPriorityShapedRecipe(output167, objects120);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output167, objects120);
 		ItemStack output166 = ModBlocks.DOOR_ACACIA.newItemStack(output);
 		Object[] objects119 = new Object[]{"xx", "xx", "xx", 'x', new ItemStack(Blocks.planks, 1, 4)};
-		RecipeHelper.addHighPriorityShapedRecipe(output166, objects119);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output166, objects119);
 		ItemStack output165 = ModBlocks.DOOR_DARK_OAK.newItemStack(output);
 		Object[] objects118 = new Object[]{"xx", "xx", "xx", 'x', new ItemStack(Blocks.planks, 1, 5)};
-		RecipeHelper.addHighPriorityShapedRecipe(output165, objects118);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output165, objects118);
 
 		ItemStack output164 = ModBlocks.CRIMSON_DOOR.newItemStack(output);
 		Object[] objects117 = new Object[]{"xx", "xx", "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output164, objects117);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output164, objects117);
 		ItemStack output163 = ModBlocks.WARPED_DOOR.newItemStack(output);
 		Object[] objects116 = new Object[]{"xx", "xx", "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output163, objects116);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output163, objects116);
 		ItemStack output162 = ModBlocks.MANGROVE_DOOR.newItemStack(output);
 		Object[] objects115 = new Object[]{"xx", "xx", "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output162, objects115);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output162, objects115);
 		ItemStack output161 = ModBlocks.CHERRY_DOOR.newItemStack(output);
 		Object[] objects114 = new Object[]{"xx", "xx", "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3)};
-		RecipeHelper.addHighPriorityShapedRecipe(output161, objects114);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output161, objects114);
 		ItemStack output160 = ModBlocks.BAMBOO_DOOR.newItemStack(output);
 		Object[] objects113 = new Object[]{"xx", "xx", "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4)};
-		RecipeHelper.addHighPriorityShapedRecipe(output160, objects113);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output160, objects113);
 
 		ItemStack output159 = ModBlocks.TRAPDOOR_SPRUCE.newItemStack(2);
 		Object[] objects112 = new Object[]{"xxx", "xxx", 'x', new ItemStack(Blocks.planks, 1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output159, objects112);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output159, objects112);
 		ItemStack output158 = ModBlocks.TRAPDOOR_BIRCH.newItemStack(2);
 		Object[] objects111 = new Object[]{"xxx", "xxx", 'x', new ItemStack(Blocks.planks, 1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output158, objects111);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output158, objects111);
 		ItemStack output157 = ModBlocks.TRAPDOOR_JUNGLE.newItemStack(2);
 		Object[] objects110 = new Object[]{"xxx", "xxx", 'x', new ItemStack(Blocks.planks, 1, 3)};
-		RecipeHelper.addHighPriorityShapedRecipe(output157, objects110);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output157, objects110);
 		ItemStack output156 = ModBlocks.TRAPDOOR_ACACIA.newItemStack(2);
 		Object[] objects109 = new Object[]{"xxx", "xxx", 'x', new ItemStack(Blocks.planks, 1, 4)};
-		RecipeHelper.addHighPriorityShapedRecipe(output156, objects109);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output156, objects109);
 		ItemStack output155 = ModBlocks.TRAPDOOR_DARK_OAK.newItemStack(2);
 		Object[] objects108 = new Object[]{"xxx", "xxx", 'x', new ItemStack(Blocks.planks, 1, 5)};
-		RecipeHelper.addHighPriorityShapedRecipe(output155, objects108);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output155, objects108);
 
 		ItemStack output154 = ModBlocks.CRIMSON_TRAPDOOR.newItemStack(2);
 		Object[] objects107 = new Object[]{"xxx", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output154, objects107);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output154, objects107);
 		ItemStack output153 = ModBlocks.WARPED_TRAPDOOR.newItemStack(2);
 		Object[] objects106 = new Object[]{"xxx", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output153, objects106);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output153, objects106);
 		ItemStack output152 = ModBlocks.MANGROVE_TRAPDOOR.newItemStack(2);
 		Object[] objects105 = new Object[]{"xxx", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output152, objects105);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output152, objects105);
 		ItemStack output151 = ModBlocks.CHERRY_TRAPDOOR.newItemStack(2);
 		Object[] objects104 = new Object[]{"xxx", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3)};
-		RecipeHelper.addHighPriorityShapedRecipe(output151, objects104);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output151, objects104);
 		ItemStack output150 = ModBlocks.BAMBOO_TRAPDOOR.newItemStack(2);
 		Object[] objects103 = new Object[]{"xxx", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4)};
-		RecipeHelper.addHighPriorityShapedRecipe(output150, objects103);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output150, objects103);
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output32 = ModBlocks.IRON_TRAPDOOR.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output32, "xx", "xx", 'x', "ingotIron");
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output32, "xx", "xx", 'x', "ingotIron");
 
 			ItemStack output31 = ModBlocks.BUTTON_SPRUCE.newItemStack();
 			Object[] objects29 = new Object[]{"x", 'x', new ItemStack(Blocks.planks, 1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output31, objects29);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output31, objects29);
 			ItemStack output30 = ModBlocks.BUTTON_BIRCH.newItemStack();
 			Object[] objects28 = new Object[]{"x", 'x', new ItemStack(Blocks.planks, 1, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output30, objects28);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output30, objects28);
 			ItemStack output29 = ModBlocks.BUTTON_JUNGLE.newItemStack();
 			Object[] objects27 = new Object[]{"x", 'x', new ItemStack(Blocks.planks, 1, 3)};
-			RecipeHelper.addHighPriorityShapedRecipe(output29, objects27);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output29, objects27);
 			ItemStack output28 = ModBlocks.BUTTON_ACACIA.newItemStack();
 			Object[] objects26 = new Object[]{"x", 'x', new ItemStack(Blocks.planks, 1, 4)};
-			RecipeHelper.addHighPriorityShapedRecipe(output28, objects26);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output28, objects26);
 			ItemStack output27 = ModBlocks.BUTTON_DARK_OAK.newItemStack();
 			Object[] objects25 = new Object[]{"x", 'x', new ItemStack(Blocks.planks, 1, 5)};
-			RecipeHelper.addHighPriorityShapedRecipe(output27, objects25);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output27, objects25);
 
 			ItemStack output26 = ModBlocks.CRIMSON_BUTTON.newItemStack();
 			Object[] objects24 = new Object[]{"x", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output26, objects24);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output26, objects24);
 			ItemStack output25 = ModBlocks.WARPED_BUTTON.newItemStack();
 			Object[] objects23 = new Object[]{"x", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output25, objects23);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output25, objects23);
 			ItemStack output24 = ModBlocks.MANGROVE_BUTTON.newItemStack();
 			Object[] objects22 = new Object[]{"x", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output24, objects22);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output24, objects22);
 			ItemStack output23 = ModBlocks.CHERRY_BUTTON.newItemStack();
 			Object[] objects21 = new Object[]{"x", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3)};
-			RecipeHelper.addHighPriorityShapedRecipe(output23, objects21);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output23, objects21);
 			ItemStack output22 = ModBlocks.BAMBOO_BUTTON.newItemStack();
 			Object[] objects20 = new Object[]{"x", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4)};
-			RecipeHelper.addHighPriorityShapedRecipe(output22, objects20);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output22, objects20);
 
 			ItemStack output21 = ModBlocks.PRESSURE_PLATE_SPRUCE.newItemStack();
 			Object[] objects19 = new Object[]{"xx", 'x', new ItemStack(Blocks.planks, 1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output21, objects19);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output21, objects19);
 			ItemStack output20 = ModBlocks.PRESSURE_PLATE_BIRCH.newItemStack();
 			Object[] objects18 = new Object[]{"xx", 'x', new ItemStack(Blocks.planks, 1, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output20, objects18);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output20, objects18);
 			ItemStack output19 = ModBlocks.PRESSURE_PLATE_JUNGLE.newItemStack();
 			Object[] objects17 = new Object[]{"xx", 'x', new ItemStack(Blocks.planks, 1, 3)};
-			RecipeHelper.addHighPriorityShapedRecipe(output19, objects17);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output19, objects17);
 			ItemStack output18 = ModBlocks.PRESSURE_PLATE_ACACIA.newItemStack();
 			Object[] objects16 = new Object[]{"xx", 'x', new ItemStack(Blocks.planks, 1, 4)};
-			RecipeHelper.addHighPriorityShapedRecipe(output18, objects16);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output18, objects16);
 			ItemStack output17 = ModBlocks.PRESSURE_PLATE_DARK_OAK.newItemStack();
 			Object[] objects15 = new Object[]{"xx", 'x', new ItemStack(Blocks.planks, 1, 5)};
-			RecipeHelper.addHighPriorityShapedRecipe(output17, objects15);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output17, objects15);
 
 			ItemStack output16 = ModBlocks.CRIMSON_PRESSURE_PLATE.newItemStack();
 			Object[] objects14 = new Object[]{"xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output16, objects14);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output16, objects14);
 			ItemStack output15 = ModBlocks.WARPED_PRESSURE_PLATE.newItemStack();
 			Object[] objects13 = new Object[]{"xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output15, objects13);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output15, objects13);
 			ItemStack output14 = ModBlocks.MANGROVE_PRESSURE_PLATE.newItemStack();
 			Object[] objects12 = new Object[]{"xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output14, objects12);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output14, objects12);
 			ItemStack output13 = ModBlocks.CHERRY_PRESSURE_PLATE.newItemStack();
 			Object[] objects11 = new Object[]{"xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3)};
-			RecipeHelper.addHighPriorityShapedRecipe(output13, objects11);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output13, objects11);
 			ItemStack output12 = ModBlocks.BAMBOO_PRESSURE_PLATE.newItemStack();
 			Object[] objects10 = new Object[]{"xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4)};
-			RecipeHelper.addHighPriorityShapedRecipe(output12, objects10);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output12, objects10);
 
 			ItemStack output11 = ModItems.ITEM_SIGN_SPRUCE.newItemStack(3);
 			Object[] objects9 = new Object[]{"xxx", "xxx", " y ", 'x', new ItemStack(Blocks.planks, 1, 1), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output11, objects9);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output11, objects9);
 			ItemStack output10 = ModItems.ITEM_SIGN_BIRCH.newItemStack(3);
 			Object[] objects8 = new Object[]{"xxx", "xxx", " y ", 'x', new ItemStack(Blocks.planks, 1, 2), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output10, objects8);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output10, objects8);
 			ItemStack output9 = ModItems.ITEM_SIGN_JUNGLE.newItemStack(3);
 			Object[] objects7 = new Object[]{"xxx", "xxx", " y ", 'x', new ItemStack(Blocks.planks, 1, 3), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output9, objects7);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output9, objects7);
 			ItemStack output8 = ModItems.ITEM_SIGN_ACACIA.newItemStack(3);
 			Object[] objects6 = new Object[]{"xxx", "xxx", " y ", 'x', new ItemStack(Blocks.planks, 1, 4), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output8, objects6);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output8, objects6);
 			ItemStack output7 = ModItems.ITEM_SIGN_DARK_OAK.newItemStack(3);
 			Object[] objects5 = new Object[]{"xxx", "xxx", " y ", 'x', new ItemStack(Blocks.planks, 1, 5), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output7, objects5);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output7, objects5);
 
 			ItemStack output6 = ModBlocks.CRIMSON_SIGN.newItemStack(3);
 			Object[] objects4 = new Object[]{"xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output6, objects4);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output6, objects4);
 			ItemStack output5 = ModBlocks.WARPED_SIGN.newItemStack(3);
 			Object[] objects3 = new Object[]{"xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects3);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects3);
 			ItemStack output4 = ModBlocks.MANGROVE_SIGN.newItemStack(3);
 			Object[] objects2 = new Object[]{"xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output4, objects2);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output4, objects2);
 			ItemStack output3 = ModBlocks.CHERRY_SIGN.newItemStack(3);
 			Object[] objects1 = new Object[]{"xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output3, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, objects1);
 			ItemStack output1 = ModBlocks.BAMBOO_SIGN.newItemStack(3);
 			Object[] objects = new Object[]{"xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output1, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects);
 		}
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output4 = ModBlocks.RED_SANDSTONE.newItemStack();
 			Object[] objects2 = new Object[]{"xx", "xx", 'x', new ItemStack(Blocks.sand, 1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output4, objects2);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output4, objects2);
 			ItemStack output3 = ModBlocks.RED_SANDSTONE_SLAB.newItemStack(6, 1);
 			Object[] objects1 = new Object[]{"xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack(1, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output3, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, objects1);
 			ItemStack output1 = ModBlocks.RED_SANDSTONE_SLAB.newItemStack(6);
 			Object[] objects = new Object[]{"xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack(1, OreDictionary.WILDCARD_VALUE)};
-			RecipeHelper.addHighPriorityShapedRecipe(output1, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects);
 		}
 		ItemStack output149 = ModBlocks.RED_SANDSTONE.newItemStack(1, 1);
 		Object[] objects102 = new Object[]{"x", "x", 'x', ModBlocks.RED_SANDSTONE_SLAB.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output149, objects102);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output149, objects102);
 		ItemStack output148 = ModBlocks.RED_SANDSTONE.newItemStack(4, 2);
 		Object[] objects101 = new Object[]{"xx", "xx", 'x', ModBlocks.RED_SANDSTONE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output148, objects101);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output148, objects101);
 		ItemStack output147 = ModBlocks.RED_SANDSTONE_STAIRS.newItemStack(4);
-		RecipeHelper.addHighPriorityShapedRecipe(output147, "x  ", "xx ", "xxx", 'x', ModBlocks.RED_SANDSTONE.get());
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output147, "x  ", "xx ", "xxx", 'x', ModBlocks.RED_SANDSTONE.get());
 		ItemStack output146 = ModBlocks.RED_SANDSTONE_WALL.newItemStack(6);
 		Object[] objects100 = new Object[]{"xxx", "xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output146, objects100);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output146, objects100);
 
 		if (ConfigBlocksItems.enableVanillaFences && !ModsList.GTNH.isLoaded()) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.fence, 3), "xyx", "xyx", 'x', "plankWood", 'y', "stickWood"));
@@ -779,75 +779,75 @@ public class ModRecipes {
 		for (EnumColor colour : EnumColor.VALUES) {
 			ItemStack output1 = ModBlocks.BANNER.newItemStack(1, colour.getDamage());
 			Object[] objects = new Object[]{"xxx", "xxx", " y ", 'x', new ItemStack(Blocks.wool, 1, colour.getDamage()), 'y', "stickWood"};
-			RecipeHelper.addHighPriorityShapedRecipe(output1, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects);
 		}
 		GameRegistry.addRecipe(new RecipeDuplicatePattern());
 		GameRegistry.addRecipe(new RecipeAddPattern());
 
 		ItemStack output145 = ModItems.WOODEN_ARMORSTAND.newItemStack();
 		Object[] objects99 = new Object[]{"xxx", " x ", "xyx", 'x', "stickWood", 'y', new ItemStack(Blocks.stone_slab)};
-		RecipeHelper.addHighPriorityShapedRecipe(output145, objects99);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output145, objects99);
 
 		ItemStack output144 = ModItems.RABBIT_STEW.newItemStack();
 		Object[] objects98 = new Object[]{" R ", "CPM", " B ", 'R', ModItems.RABBIT_COOKED.newItemStack(), 'C', Items.carrot, 'P', Items.baked_potato, 'M', Blocks.brown_mushroom, 'B', "bowlWood"};
-		RecipeHelper.addHighPriorityShapedRecipe(output144, objects98);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output144, objects98);
 		ItemStack output143 = ModItems.RABBIT_STEW.newItemStack();
 		Object[] objects97 = new Object[]{" R ", "CPD", " B ", 'R', ModItems.RABBIT_COOKED.newItemStack(), 'C', Items.carrot, 'P', Items.baked_potato, 'D', Blocks.red_mushroom, 'B', "bowlWood"};
-		RecipeHelper.addHighPriorityShapedRecipe(output143, objects97);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output143, objects97);
 		ItemStack output1 = ModItems.RABBIT_COOKED.newItemStack();
 		RecipeHelper.addSmelting(ModItems.RABBIT_RAW.get(), output1, 0.35F);
-		RecipeHelper.addHighPriorityShapedRecipe(new ItemStack(Items.leather), "xx", "xx", 'x', ModItems.RABBIT_HIDE.get());
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Items.leather), "xx", "xx", 'x', ModItems.RABBIT_HIDE.get());
 
 		ItemStack input9 = ModBlocks.SPONGE.newItemStack(1, 1);
 		ItemStack output11 = ConfigWorld.tileReplacementMode == -1 ? ModBlocks.SPONGE.newItemStack() : new ItemStack(Blocks.sponge);
 		RecipeHelper.addSmelting(input9, output11, 0.15F);
 
 		ItemStack output142 = ModItems.BEETROOT_SOUP.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output142, "xxx", "xxx", " y ", 'x', "cropBeetroot", 'y', "bowlWood");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output142, "xxx", "xxx", " y ", 'x', "cropBeetroot", 'y', "bowlWood");
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.dye, 1, 1), "cropBeetroot"));
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output3 = ModBlocks.END_BRICK_SLAB.newItemStack(6);
-			RecipeHelper.addHighPriorityShapedRecipe(output3, "xxx", 'x', ModBlocks.END_BRICKS.get());
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, "xxx", 'x', ModBlocks.END_BRICKS.get());
 		}
 		ItemStack output141 = ModBlocks.END_BRICK_STAIRS.newItemStack(4);
-		RecipeHelper.addHighPriorityShapedRecipe(output141, "x  ", "xx ", "xxx", 'x', ModBlocks.END_BRICKS.get());
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output141, "x  ", "xx ", "xxx", 'x', ModBlocks.END_BRICKS.get());
 		ItemStack output140 = ModBlocks.END_BRICK_WALL.newItemStack(6);
 		Object[] objects96 = new Object[]{"xxx", "xxx", 'x', ModBlocks.END_BRICKS.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output140, objects96);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output140, objects96);
 
 		ItemStack output139 = ModBlocks.PURPUR_BLOCK.newItemStack(4);
-		RecipeHelper.addHighPriorityShapedRecipe(output139, "xx", "xx", 'x', ModItems.CHORUS_FRUIT_POPPED.get());
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output139, "xx", "xx", 'x', ModItems.CHORUS_FRUIT_POPPED.get());
 		ItemStack output138 = ModBlocks.PURPUR_STAIRS.newItemStack(4);
-		RecipeHelper.addHighPriorityShapedRecipe(output138, "x  ", "xx ", "xxx", 'x', ModBlocks.PURPUR_BLOCK.get());
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output138, "x  ", "xx ", "xxx", 'x', ModBlocks.PURPUR_BLOCK.get());
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output3 = ModBlocks.PURPUR_SLAB.newItemStack(6);
-			RecipeHelper.addHighPriorityShapedRecipe(output3, "xxx", 'x', ModBlocks.PURPUR_BLOCK.get());
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, "xxx", 'x', ModBlocks.PURPUR_BLOCK.get());
 		}
 		ItemStack output137 = ModBlocks.PURPUR_PILLAR.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output137, "x", "x", 'x', ModBlocks.PURPUR_SLAB.get());
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output137, "x", "x", 'x', ModBlocks.PURPUR_SLAB.get());
 		ItemStack output136 = ModBlocks.END_BRICKS.newItemStack(4);
-		RecipeHelper.addHighPriorityShapedRecipe(output136, "xx", "xx", 'x', Blocks.end_stone);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output136, "xx", "xx", 'x', Blocks.end_stone);
 
 		ItemStack input8 = ModItems.CHORUS_FRUIT.newItemStack();
 		ItemStack output10 = ModItems.CHORUS_FRUIT_POPPED.newItemStack();
 		RecipeHelper.addSmelting(input8, output10, 0.0F);
 		ItemStack output135 = ModBlocks.END_ROD.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output135, "x", "y", 'x', Items.blaze_rod, 'y', ModItems.CHORUS_FRUIT_POPPED.get());
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output135, "x", "y", 'x', Items.blaze_rod, 'y', ModItems.CHORUS_FRUIT_POPPED.get());
 
 		ItemStack output226 = ModItems.DRAGON_BREATH.newItemStack();
-		RecipeHelper.addHighPriorityShapelessRecipe(output226, new ItemStack(Items.potionitem, 1, 8195), ModItems.CHORUS_FRUIT.get(), ModItems.CHORUS_FRUIT.get());
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output226, new ItemStack(Items.potionitem, 1, 8195), ModItems.CHORUS_FRUIT.get(), ModItems.CHORUS_FRUIT.get());
 
 		ItemStack output134 = ModItems.END_CRYSTAL.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output134, "xxx", "xyx", "xzx", 'x', "blockGlassColorless", 'y', Items.ender_eye, 'z', Items.ghast_tear);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output134, "xxx", "xyx", "xzx", 'x', "blockGlassColorless", 'y', Items.ender_eye, 'z', Items.ghast_tear);
 
-		RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Items.dye, 1, 1), ModBlocks.ROSE.get());
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Items.dye, 1, 1), ModBlocks.ROSE.get());
 		ItemStack output133 = new ItemStack(Blocks.double_plant, 1, 4);
 		Object[] objects95 = new Object[]{"xx", "xx", "xx", 'x', ModBlocks.ROSE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output133, objects95);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output133, objects95);
 		ItemStack output132 = ModBlocks.ROSE.newItemStack(12);
 		Object[] objects94 = new Object[]{"xx", 'x', new ItemStack(Blocks.double_plant, 1, 4)};
-		RecipeHelper.addHighPriorityShapedRecipe(output132, objects94);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output132, objects94);
 
 		if (ModItems.TIPPED_ARROW.isEnabled() && ModItems.LINGERING_POTION.isEnabled()) {
 			RecipeSorter.register(Tags.MOD_ID + ".RecipeTippedArrow", RecipeTippedArrow.class, Category.SHAPED, "after:minecraft:shaped");
@@ -859,55 +859,55 @@ public class ModRecipes {
 				int j = i == 14 ? 15 : i;
 				ItemStack output3 = ModBlocks.BEDS[i].newItemStack(1);
 				Object[] objects = new Object[]{"###", "XXX", '#', new ItemStack(Blocks.wool, 1, j), 'X', "plankWood"};
-				RecipeHelper.addHighPriorityShapedRecipe(output3, objects);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, objects);
 				if (i > 0) {
 					ItemStack output4 = ModBlocks.BEDS[i].newItemStack(1);
 					Object[] objects1 = new Object[]{ModBlocks.BEDS[0].get(), ore_dyes[~j & 15]};
-					RecipeHelper.addHighPriorityShapelessRecipe(output4, objects1);
+					RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output4, objects1);
 				}
 			}
 			Object[] objects = new Object[]{ModBlocks.BEDS[0].newItemStack(), ore_dyes[1]};
-			RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Items.bed, 1), objects);
+			RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Items.bed, 1), objects);
 
 			ItemStack output3 = ModBlocks.MAGMA.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output3, "xx", "xx", 'x', new ItemStack(Items.magma_cream));
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, "xx", "xx", 'x', new ItemStack(Items.magma_cream));
 		}
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output6 = ModBlocks.RED_NETHERBRICK.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output6, "xi", "ix", 'x', Items.nether_wart, 'i', "ingotBrickNether");
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output6, "xi", "ix", 'x', Items.nether_wart, 'i', "ingotBrickNether");
 			ItemStack output5 = ModBlocks.RED_NETHERBRICK.newItemStack(1, 2);
 			Object[] objects1 = new Object[]{"x", "x", 'x', new ItemStack(Blocks.stone_slab, 1, 6)};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects1);
 			ItemStack input = new ItemStack(Blocks.nether_brick, 1, 1);
 			ItemStack output3 = ModBlocks.RED_NETHERBRICK.newItemStack();
 			RecipeHelper.addSmelting(input, output3, .1F);
 			ItemStack output4 = ModBlocks.RED_NETHERBRICK_SLAB.newItemStack(6);
 			Object[] objects = new Object[]{"xxx", 'x', ModBlocks.RED_NETHERBRICK.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output4, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output4, objects);
 		}
 		ItemStack output131 = ModBlocks.RED_NETHERBRICK_STAIRS.newItemStack(4);
 		Object[] objects93 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.RED_NETHERBRICK.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output131, objects93);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output131, objects93);
 		ItemStack output130 = ModBlocks.RED_NETHER_BRICK_WALL.newItemStack(6);
 		Object[] objects92 = new Object[]{"xxx", "xxx", 'x', ModBlocks.RED_NETHERBRICK.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output130, objects92);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output130, objects92);
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output4 = ModBlocks.NETHER_WART.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output4, "xxx", "xxx", "xxx", 'x', Items.nether_wart);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output4, "xxx", "xxx", "xxx", 'x', Items.nether_wart);
 			ItemStack output3 = ModBlocks.BONE.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output3, "xxx", "xxx", "xxx", 'x', new ItemStack(Items.dye, 1, 15));
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, "xxx", "xxx", "xxx", 'x', new ItemStack(Items.dye, 1, 15));
 		}
 		Object[] objects169 = new Object[]{ModBlocks.BONE.newItemStack()};
-		RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Items.dye, 9, 15), objects169);
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Items.dye, 9, 15), objects169);
 
 		if (!ModsList.GTNH.isLoaded()) {
 			for (int i = 0; i < ore_dyes.length; i++) {
 				int dye = ~i & 15;
 				ItemStack output4 = ModBlocks.CONCRETE_POWDER.newItemStack(8, i);
 				Object[] objects = new Object[]{ore_dyes[dye], new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.gravel};
-				RecipeHelper.addHighPriorityShapelessRecipe(output4, objects);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output4, objects);
 				ItemStack input = new ItemStack(Blocks.stained_hardened_clay, 1, i);
 				ItemStack output3 = ModBlocks.TERRACOTTA[i].newItemStack();
 				RecipeHelper.addSmelting(input, output3, 0.1F);
@@ -917,51 +917,51 @@ public class ModRecipes {
 		if (!ModsList.GTNH.isLoaded()) {
 			if (!OreDictionary.getOres("nuggetIron").isEmpty()) {
 				ItemStack output4 = ModBlocks.LANTERN.newItemStack();
-				RecipeHelper.addHighPriorityShapedRecipe(output4, "xxx", "xix", "xxx", 'x', "nuggetIron", 'i', Blocks.torch);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output4, "xxx", "xix", "xxx", 'x', "nuggetIron", 'i', Blocks.torch);
 				ItemStack output3 = ModBlocks.SOUL_LANTERN.newItemStack();
-				RecipeHelper.addHighPriorityShapedRecipe(output3, "xxx", "xix", "xxx", 'x', "nuggetIron", 'i', ModBlocks.SOUL_TORCH.get());
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, "xxx", "xix", "xxx", 'x', "nuggetIron", 'i', ModBlocks.SOUL_TORCH.get());
 			} else {
 				ItemStack output4 = ModBlocks.LANTERN.newItemStack();
-				RecipeHelper.addHighPriorityShapedRecipe(output4, "i", "x", 'x', "ingotIron", 'i', Blocks.torch);
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output4, "i", "x", 'x', "ingotIron", 'i', Blocks.torch);
 				ItemStack output3 = ModBlocks.SOUL_LANTERN.newItemStack();
-				RecipeHelper.addHighPriorityShapedRecipe(output3, "i", "x", 'x', "ingotIron", 'i', ModBlocks.SOUL_TORCH.get());
+				RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, "i", "x", 'x', "ingotIron", 'i', ModBlocks.SOUL_TORCH.get());
 			}
 		}
 		ItemStack output129 = ModBlocks.SOUL_TORCH.newItemStack(4);
-		RecipeHelper.addHighPriorityShapedRecipe(output129, "i", "x", "s", 'x', "stickWood", 'i', "coal", 's', "soulSand");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output129, "i", "x", "s", 'x', "stickWood", 'i', "coal", 's', "soulSand");
 		ItemStack output128 = ModBlocks.SOUL_TORCH.newItemStack(4);
-		RecipeHelper.addHighPriorityShapedRecipe(output128, "i", "x", "s", 'x', "stickWood", 'i', "coal", 's', "soulSoil");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output128, "i", "x", "s", 'x', "stickWood", 'i', "coal", 's', "soulSoil");
 		ItemStack output127 = ModBlocks.SOUL_TORCH.newItemStack(4);
-		RecipeHelper.addHighPriorityShapedRecipe(output127, "i", "x", "s", 'x', "stickWood", 'i', "charcoal", 's', "soulSand");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output127, "i", "x", "s", 'x', "stickWood", 'i', "charcoal", 's', "soulSand");
 		ItemStack output126 = ModBlocks.SOUL_TORCH.newItemStack(4);
-		RecipeHelper.addHighPriorityShapedRecipe(output126, "i", "x", "s", 'x', "stickWood", 'i', "charcoal", 's', "soulSoil");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output126, "i", "x", "s", 'x', "stickWood", 'i', "charcoal", 's', "soulSoil");
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output4 = ModBlocks.BARREL.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output4, "xsx", "x x", "xsx", 'x', "plankWood", 's', "slabWood");
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output4, "xsx", "x x", "xsx", 'x', "plankWood", 's', "slabWood");
 
 			ItemStack output3 = ModBlocks.BLUE_ICE.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output3, "xxx", "xxx", "xxx", 'x', Blocks.packed_ice);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, "xxx", "xxx", "xxx", 'x', Blocks.packed_ice);
 		}
 
 		ItemStack output125 = ModBlocks.SMOKER.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output125, " l ", "lxl", " l ", 'x', Blocks.furnace, 'l', "logWood");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output125, " l ", "lxl", " l ", 'x', Blocks.furnace, 'l', "logWood");
 
 		ItemStack output124 = ModBlocks.BLAST_FURNACE.newItemStack();
 		Object[] objects91 = new Object[]{"iii", "ixi", "sss", 'x', Blocks.furnace, 'i', "ingotIron", 's', ConfigBlocksItems.enableSmoothStone ? ModBlocks.SMOOTH_STONE.get() : Blocks.stone};
-		RecipeHelper.addHighPriorityShapedRecipe(output124, objects91);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output124, objects91);
 
 		ItemStack output4 = ModItems.NETHERITE_SCRAP.newItemStack();
 		RecipeHelper.addSmelting(ModBlocks.ANCIENT_DEBRIS.get(), output4, 2F);
 		ItemStack output225 = ModItems.NETHERITE_INGOT.newItemStack();
 		Object[] objects168 = new Object[]{ModItems.NETHERITE_SCRAP.newItemStack(), ModItems.NETHERITE_SCRAP.newItemStack(), ModItems.NETHERITE_SCRAP.newItemStack(), ModItems.NETHERITE_SCRAP.newItemStack(), "ingotGold", "ingotGold", "ingotGold", "ingotGold"};
-		RecipeHelper.addHighPriorityShapelessRecipe(output225, objects168);
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output225, objects168);
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output3 = ModBlocks.NETHERITE_BLOCK.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output3, "xxx", "xxx", "xxx", 'x', ModItems.NETHERITE_INGOT.get());
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, "xxx", "xxx", "xxx", 'x', ModItems.NETHERITE_INGOT.get());
 		}
 		ItemStack output123 = ModItems.NETHERITE_INGOT.newItemStack(9);
-		RecipeHelper.addHighPriorityShapedRecipe(output123, "x", 'x', ModBlocks.NETHERITE_BLOCK.get());
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output123, "x", 'x', ModBlocks.NETHERITE_BLOCK.get());
 
 		ItemStack input7 = ModBlocks.NETHER_GOLD_ORE.newItemStack();
 		RecipeHelper.addSmelting(input7, new ItemStack(Items.gold_ingot), .1F);
@@ -978,7 +978,7 @@ public class ModRecipes {
 				if (stoneTile != null) {
 					removeFurnaceRecipeFor(new ItemStack(Blocks.stone), stoneTile);
 					Object[] objects = new Object[]{"x", 'x', ModBlocks.SMOOTH_STONE.newItemStack()};
-					RecipeHelper.addHighPriorityShapedRecipe(stoneTile, objects);
+					RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, stoneTile, objects);
 				}
 			}
 
@@ -987,20 +987,20 @@ public class ModRecipes {
 			RecipeHelper.addSmelting(input1, output5, .1F);
 			ItemStack output8 = ModBlocks.SMOOTH_SANDSTONE_SLAB.newItemStack(6);
 			Object[] objects1 = new Object[]{"xxx", 'x', ModBlocks.SMOOTH_SANDSTONE.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output8, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output8, objects1);
 			ItemStack input = ModBlocks.RED_SANDSTONE.newItemStack();
 			ItemStack output3 = ModBlocks.SMOOTH_RED_SANDSTONE.newItemStack();
 			RecipeHelper.addSmelting(input, output3, .1F);
 			ItemStack output7 = ModBlocks.SMOOTH_RED_SANDSTONE_SLAB.newItemStack(6);
 			Object[] objects = new Object[]{"xxx", 'x', ModBlocks.SMOOTH_RED_SANDSTONE.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output7, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output7, objects);
 		}
 		ItemStack output122 = ModBlocks.SMOOTH_SANDSTONE_STAIRS.newItemStack(4);
 		Object[] objects90 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.SMOOTH_SANDSTONE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output122, objects90);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output122, objects90);
 		ItemStack output121 = ModBlocks.SMOOTH_RED_SANDSTONE_STAIRS.newItemStack(4);
 		Object[] objects89 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.SMOOTH_RED_SANDSTONE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output121, objects89);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output121, objects89);
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack input = new ItemStack(Blocks.quartz_block, 1, 0);
@@ -1008,44 +1008,44 @@ public class ModRecipes {
 			RecipeHelper.addSmelting(input, output3, .1F);
 			ItemStack output5 = ModBlocks.SMOOTH_QUARTZ_SLAB.newItemStack(6);
 			Object[] objects = new Object[]{"xxx", 'x', ModBlocks.SMOOTH_QUARTZ.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects);
 		}
 		ItemStack output120 = ModBlocks.SMOOTH_QUARTZ_STAIRS.newItemStack(4);
 		Object[] objects88 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.SMOOTH_QUARTZ.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output120, objects88);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output120, objects88);
 
 		ItemStack output119 = ModBlocks.QUARTZ_BRICKS.newItemStack(4);
 		Object[] objects87 = new Object[]{"xx", "xx", 'x', new ItemStack(Blocks.quartz_block, 1, 0)};
-		RecipeHelper.addHighPriorityShapedRecipe(output119, objects87);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output119, objects87);
 
 		ItemStack output224 = ModItems.DYE.newItemStack();
 		Object[] objects167 = new Object[]{ModBlocks.LILY_OF_THE_VALLEY.newItemStack()};
-		RecipeHelper.addHighPriorityShapelessRecipe(output224, objects167);
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output224, objects167);
 		ItemStack output223 = ModItems.DYE.newItemStack(1, 1);
 		Object[] objects166 = new Object[]{ModBlocks.CORNFLOWER.newItemStack()};
-		RecipeHelper.addHighPriorityShapelessRecipe(output223, objects166);
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output223, objects166);
 		ItemStack output222 = ModItems.DYE.newItemStack(1, 3);
 		Object[] objects165 = new Object[]{ModBlocks.WITHER_ROSE.newItemStack()};
-		RecipeHelper.addHighPriorityShapelessRecipe(output222, objects165);
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output222, objects165);
 		ItemStack output221 = ModItems.DYE.newItemStack();
-		RecipeHelper.addHighPriorityShapelessRecipe(output221, new ItemStack(Items.dye, 1, 15));
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output221, new ItemStack(Items.dye, 1, 15));
 		ItemStack output220 = ModItems.DYE.newItemStack(1, 1);
-		RecipeHelper.addHighPriorityShapelessRecipe(output220, new ItemStack(Items.dye, 1, 4));
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output220, new ItemStack(Items.dye, 1, 4));
 		ItemStack output219 = ModItems.DYE.newItemStack(1, 2);
-		RecipeHelper.addHighPriorityShapelessRecipe(output219, new ItemStack(Items.dye, 1, 3));
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output219, new ItemStack(Items.dye, 1, 3));
 		ItemStack output218 = ModItems.DYE.newItemStack(1, 3);
-		RecipeHelper.addHighPriorityShapelessRecipe(output218, new ItemStack(Items.dye, 1, 0));
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output218, new ItemStack(Items.dye, 1, 0));
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output6 = ModBlocks.COPPER_BLOCK.newItemStack(1);
 			Object[] objects2 = new Object[]{"xxx", "xxx", "xxx", 'x', ModItems.COPPER_INGOT.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output6, objects2);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output6, objects2);
 			ItemStack output5 = ModItems.COPPER_INGOT.newItemStack(9);
 			Object[] objects1 = new Object[]{"x", 'x', ModBlocks.COPPER_BLOCK.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects1);
 			ItemStack output3 = ModItems.COPPER_INGOT.newItemStack(9);
 			Object[] objects = new Object[]{"x", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 8)};
-			RecipeHelper.addHighPriorityShapedRecipe(output3, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, objects);
 		}
 
 		ItemStack input6 = ModBlocks.COPPER_ORE.newItemStack();
@@ -1055,181 +1055,181 @@ public class ModRecipes {
 		//Copper block to cut copper block
 		ItemStack output118 = ModBlocks.COPPER_BLOCK.newItemStack(4, 4);
 		Object[] objects86 = new Object[]{"xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output118, objects86);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output118, objects86);
 		ItemStack output117 = ModBlocks.COPPER_BLOCK.newItemStack(4, 5);
 		Object[] objects85 = new Object[]{"xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output117, objects85);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output117, objects85);
 		ItemStack output116 = ModBlocks.COPPER_BLOCK.newItemStack(4, 6);
 		Object[] objects84 = new Object[]{"xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output116, objects84);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output116, objects84);
 		ItemStack output115 = ModBlocks.COPPER_BLOCK.newItemStack(4, 7);
 		Object[] objects83 = new Object[]{"xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 3)};
-		RecipeHelper.addHighPriorityShapedRecipe(output115, objects83);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output115, objects83);
 
 		//Waxed copper block to waxed cut copper block
 		ItemStack output114 = ModBlocks.COPPER_BLOCK.newItemStack(4, 12);
 		Object[] objects82 = new Object[]{"xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 8)};
-		RecipeHelper.addHighPriorityShapedRecipe(output114, objects82);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output114, objects82);
 		ItemStack output113 = ModBlocks.COPPER_BLOCK.newItemStack(4, 13);
 		Object[] objects81 = new Object[]{"xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 9)};
-		RecipeHelper.addHighPriorityShapedRecipe(output113, objects81);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output113, objects81);
 		ItemStack output112 = ModBlocks.COPPER_BLOCK.newItemStack(4, 14);
 		Object[] objects80 = new Object[]{"xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 10)};
-		RecipeHelper.addHighPriorityShapedRecipe(output112, objects80);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output112, objects80);
 		ItemStack output111 = ModBlocks.COPPER_BLOCK.newItemStack(4, 15);
 		Object[] objects79 = new Object[]{"xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 11)};
-		RecipeHelper.addHighPriorityShapedRecipe(output111, objects79);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output111, objects79);
 
 		//Copper block to copper grate
 		ItemStack output110 = ModBlocks.COPPER_GRATE.newItemStack(4);
 		Object[] objects78 = new Object[]{" x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output110, objects78);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output110, objects78);
 		ItemStack output109 = ModBlocks.COPPER_GRATE.newItemStack(4, 1);
 		Object[] objects77 = new Object[]{" x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output109, objects77);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output109, objects77);
 		ItemStack output108 = ModBlocks.COPPER_GRATE.newItemStack(4, 2);
 		Object[] objects76 = new Object[]{" x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output108, objects76);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output108, objects76);
 		ItemStack output107 = ModBlocks.COPPER_GRATE.newItemStack(4, 3);
 		Object[] objects75 = new Object[]{" x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 3)};
-		RecipeHelper.addHighPriorityShapedRecipe(output107, objects75);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output107, objects75);
 
 		//Waxed copper block to waxed copper grate
 		ItemStack output106 = ModBlocks.COPPER_GRATE.newItemStack(4, 4);
 		Object[] objects74 = new Object[]{" x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 8)};
-		RecipeHelper.addHighPriorityShapedRecipe(output106, objects74);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output106, objects74);
 		ItemStack output105 = ModBlocks.COPPER_GRATE.newItemStack(4, 5);
 		Object[] objects73 = new Object[]{" x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 9)};
-		RecipeHelper.addHighPriorityShapedRecipe(output105, objects73);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output105, objects73);
 		ItemStack output104 = ModBlocks.COPPER_GRATE.newItemStack(4, 6);
 		Object[] objects72 = new Object[]{" x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 10)};
-		RecipeHelper.addHighPriorityShapedRecipe(output104, objects72);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output104, objects72);
 		ItemStack output103 = ModBlocks.COPPER_GRATE.newItemStack(4, 7);
 		Object[] objects71 = new Object[]{" x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 11)};
-		RecipeHelper.addHighPriorityShapedRecipe(output103, objects71);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output103, objects71);
 
 		//Copper block to copper grate
 		ItemStack output102 = ModBlocks.COPPER_BULB.newItemStack(4);
 		Object[] objects70 = new Object[]{" x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(), 'b', Items.blaze_rod, 'r', "dustRedstone"};
-		RecipeHelper.addHighPriorityShapedRecipe(output102, objects70);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output102, objects70);
 		ItemStack output101 = ModBlocks.COPPER_BULB.newItemStack(4, 1);
 		Object[] objects69 = new Object[]{" x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 1), 'b', Items.blaze_rod, 'r', "dustRedstone"};
-		RecipeHelper.addHighPriorityShapedRecipe(output101, objects69);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output101, objects69);
 		ItemStack output100 = ModBlocks.COPPER_BULB.newItemStack(4, 2);
 		Object[] objects68 = new Object[]{" x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 2), 'b', Items.blaze_rod, 'r', "dustRedstone"};
-		RecipeHelper.addHighPriorityShapedRecipe(output100, objects68);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output100, objects68);
 		ItemStack output99 = ModBlocks.COPPER_BULB.newItemStack(4, 3);
 		Object[] objects67 = new Object[]{" x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 3), 'b', Items.blaze_rod, 'r', "dustRedstone"};
-		RecipeHelper.addHighPriorityShapedRecipe(output99, objects67);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output99, objects67);
 
 		//Waxed copper block to waxed copper grate
 		ItemStack output98 = ModBlocks.COPPER_BULB.newItemStack(4, 8);
 		Object[] objects66 = new Object[]{" x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 8), 'b', Items.blaze_rod, 'r', "dustRedstone"};
-		RecipeHelper.addHighPriorityShapedRecipe(output98, objects66);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output98, objects66);
 		ItemStack output97 = ModBlocks.COPPER_BULB.newItemStack(4, 9);
 		Object[] objects65 = new Object[]{" x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 9), 'b', Items.blaze_rod, 'r', "dustRedstone"};
-		RecipeHelper.addHighPriorityShapedRecipe(output97, objects65);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output97, objects65);
 		ItemStack output96 = ModBlocks.COPPER_BULB.newItemStack(4, 10);
 		Object[] objects64 = new Object[]{" x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 10), 'b', Items.blaze_rod, 'r', "dustRedstone"};
-		RecipeHelper.addHighPriorityShapedRecipe(output96, objects64);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output96, objects64);
 		ItemStack output95 = ModBlocks.COPPER_BULB.newItemStack(4, 11);
 		Object[] objects63 = new Object[]{" x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 11), 'b', Items.blaze_rod, 'r', "dustRedstone"};
-		RecipeHelper.addHighPriorityShapedRecipe(output95, objects63);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output95, objects63);
 
 		//Copper block to copper grate
 		ItemStack output94 = ModBlocks.CHISELED_COPPER.newItemStack();
 		Object[] objects62 = new Object[]{"x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output94, objects62);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output94, objects62);
 		ItemStack output93 = ModBlocks.CHISELED_COPPER.newItemStack(1, 1);
 		Object[] objects61 = new Object[]{"x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output93, objects61);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output93, objects61);
 		ItemStack output92 = ModBlocks.CHISELED_COPPER.newItemStack(1, 2);
 		Object[] objects60 = new Object[]{"x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output92, objects60);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output92, objects60);
 		ItemStack output91 = ModBlocks.CHISELED_COPPER.newItemStack(1, 3);
 		Object[] objects59 = new Object[]{"x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 3)};
-		RecipeHelper.addHighPriorityShapedRecipe(output91, objects59);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output91, objects59);
 
 		//Waxed copper block to waxed copper grate
 		ItemStack output90 = ModBlocks.CHISELED_COPPER.newItemStack(1, 4);
 		Object[] objects58 = new Object[]{"x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 4)};
-		RecipeHelper.addHighPriorityShapedRecipe(output90, objects58);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output90, objects58);
 		ItemStack output89 = ModBlocks.CHISELED_COPPER.newItemStack(1, 5);
 		Object[] objects57 = new Object[]{"x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 5)};
-		RecipeHelper.addHighPriorityShapedRecipe(output89, objects57);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output89, objects57);
 		ItemStack output88 = ModBlocks.CHISELED_COPPER.newItemStack(1, 6);
 		Object[] objects56 = new Object[]{"x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 6)};
-		RecipeHelper.addHighPriorityShapedRecipe(output88, objects56);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output88, objects56);
 		ItemStack output87 = ModBlocks.CHISELED_COPPER.newItemStack(1, 7);
 		Object[] objects55 = new Object[]{"x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 7)};
-		RecipeHelper.addHighPriorityShapedRecipe(output87, objects55);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output87, objects55);
 
 		//Cut copper to cut copper slab
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output14 = ModBlocks.CUT_COPPER_SLAB.newItemStack(6);
 			Object[] objects7 = new Object[]{"xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 4)};
-			RecipeHelper.addHighPriorityShapedRecipe(output14, objects7);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output14, objects7);
 			ItemStack output13 = ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 1);
 			Object[] objects6 = new Object[]{"xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 5)};
-			RecipeHelper.addHighPriorityShapedRecipe(output13, objects6);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output13, objects6);
 			ItemStack output12 = ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 2);
 			Object[] objects5 = new Object[]{"xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 6)};
-			RecipeHelper.addHighPriorityShapedRecipe(output12, objects5);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output12, objects5);
 			ItemStack output8 = ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 3);
 			Object[] objects4 = new Object[]{"xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 7)};
-			RecipeHelper.addHighPriorityShapedRecipe(output8, objects4);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output8, objects4);
 
 			//Waxed cut copper to waxed cut copper slab
 			ItemStack output7 = ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 4);
 			Object[] objects3 = new Object[]{"xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 12)};
-			RecipeHelper.addHighPriorityShapedRecipe(output7, objects3);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output7, objects3);
 			ItemStack output6 = ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 5);
 			Object[] objects2 = new Object[]{"xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 13)};
-			RecipeHelper.addHighPriorityShapedRecipe(output6, objects2);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output6, objects2);
 			ItemStack output5 = ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 6);
 			Object[] objects1 = new Object[]{"xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 14)};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects1);
 			ItemStack output3 = ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 7);
 			Object[] objects = new Object[]{"xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 15)};
-			RecipeHelper.addHighPriorityShapedRecipe(output3, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, objects);
 		}
 
 		//Cut copper to cut copper stairs
 		ItemStack output86 = ModBlocks.CUT_COPPER_STAIRS.newItemStack(4);
 		Object[] objects54 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 4)};
-		RecipeHelper.addHighPriorityShapedRecipe(output86, objects54);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output86, objects54);
 		ItemStack output85 = ModBlocks.EXPOSED_CUT_COPPER_STAIRS.newItemStack(4);
 		Object[] objects53 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 5)};
-		RecipeHelper.addHighPriorityShapedRecipe(output85, objects53);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output85, objects53);
 		ItemStack output84 = ModBlocks.WEATHERED_CUT_COPPER_STAIRS.newItemStack(4);
 		Object[] objects52 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 6)};
-		RecipeHelper.addHighPriorityShapedRecipe(output84, objects52);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output84, objects52);
 		ItemStack output83 = ModBlocks.OXIDIZED_CUT_COPPER_STAIRS.newItemStack(4);
 		Object[] objects51 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 7)};
-		RecipeHelper.addHighPriorityShapedRecipe(output83, objects51);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output83, objects51);
 
 		//Waxed cut copper to waxed cut copper stairs
 		ItemStack output82 = ModBlocks.WAXED_CUT_COPPER_STAIRS.newItemStack(4);
 		Object[] objects50 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 12)};
-		RecipeHelper.addHighPriorityShapedRecipe(output82, objects50);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output82, objects50);
 		ItemStack output81 = ModBlocks.WAXED_EXPOSED_CUT_COPPER_STAIRS.newItemStack(4);
 		Object[] objects49 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 13)};
-		RecipeHelper.addHighPriorityShapedRecipe(output81, objects49);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output81, objects49);
 		ItemStack output80 = ModBlocks.WAXED_WEATHERED_CUT_COPPER_STAIRS.newItemStack(4);
 		Object[] objects48 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 14)};
-		RecipeHelper.addHighPriorityShapedRecipe(output80, objects48);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output80, objects48);
 		ItemStack output79 = ModBlocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS.newItemStack(4);
 		Object[] objects47 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 15)};
-		RecipeHelper.addHighPriorityShapedRecipe(output79, objects47);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output79, objects47);
 
 		//Copper door/trapdoor
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output5 = ModBlocks.COPPER_DOOR.newItemStack(3);
 			Object[] objects1 = new Object[]{"xx", "xx", "xx", 'x', ModItems.COPPER_INGOT.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects1);
 			ItemStack output3 = ModBlocks.COPPER_TRAPDOOR.newItemStack(2);
 			Object[] objects = new Object[]{"xx", "xx", 'x', ModItems.COPPER_INGOT.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output3, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output3, objects);
 		}
 
 
@@ -1250,128 +1250,128 @@ public class ModRecipes {
 				//Copper block to waxed copper block
 				ItemStack output42 = ModBlocks.COPPER_BLOCK.newItemStack(1, 8);
 				Object[] objects35 = new Object[]{waxString, ModBlocks.COPPER_BLOCK.newItemStack(1)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output42, objects35);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output42, objects35);
 				ItemStack output41 = ModBlocks.COPPER_BLOCK.newItemStack(1, 9);
 				Object[] objects34 = new Object[]{waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 1)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output41, objects34);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output41, objects34);
 				ItemStack output40 = ModBlocks.COPPER_BLOCK.newItemStack(1, 10);
 				Object[] objects33 = new Object[]{waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 2)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output40, objects33);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output40, objects33);
 				ItemStack output39 = ModBlocks.COPPER_BLOCK.newItemStack(1, 11);
 				Object[] objects32 = new Object[]{waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 3)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output39, objects32);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output39, objects32);
 
 				//Cut copper block to waxed cut copper blocks
 				ItemStack output38 = ModBlocks.COPPER_BLOCK.newItemStack(1, 12);
 				Object[] objects31 = new Object[]{waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 4)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output38, objects31);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output38, objects31);
 				ItemStack output37 = ModBlocks.COPPER_BLOCK.newItemStack(1, 13);
 				Object[] objects30 = new Object[]{waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 5)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output37, objects30);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output37, objects30);
 				ItemStack output36 = ModBlocks.COPPER_BLOCK.newItemStack(1, 14);
 				Object[] objects29 = new Object[]{waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 6)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output36, objects29);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output36, objects29);
 				ItemStack output35 = ModBlocks.COPPER_BLOCK.newItemStack(1, 15);
 				Object[] objects28 = new Object[]{waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 7)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output35, objects28);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output35, objects28);
 
 				//Copper grate to waxed copper grate
 				ItemStack output34 = ModBlocks.COPPER_GRATE.newItemStack(1, 4);
 				Object[] objects27 = new Object[]{waxString, ModBlocks.COPPER_GRATE.newItemStack(1)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output34, objects27);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output34, objects27);
 				ItemStack output33 = ModBlocks.COPPER_GRATE.newItemStack(1, 5);
 				Object[] objects26 = new Object[]{waxString, ModBlocks.COPPER_GRATE.newItemStack(1, 1)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output33, objects26);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output33, objects26);
 				ItemStack output32 = ModBlocks.COPPER_GRATE.newItemStack(1, 6);
 				Object[] objects25 = new Object[]{waxString, ModBlocks.COPPER_GRATE.newItemStack(1, 2)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output32, objects25);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output32, objects25);
 				ItemStack output31 = ModBlocks.COPPER_GRATE.newItemStack(1, 7);
 				Object[] objects24 = new Object[]{waxString, ModBlocks.COPPER_GRATE.newItemStack(1, 3)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output31, objects24);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output31, objects24);
 
 				//Copper grate to waxed copper grate
 				ItemStack output30 = ModBlocks.CHISELED_COPPER.newItemStack(1, 4);
 				Object[] objects23 = new Object[]{waxString, ModBlocks.CHISELED_COPPER.newItemStack(1)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output30, objects23);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output30, objects23);
 				ItemStack output29 = ModBlocks.CHISELED_COPPER.newItemStack(1, 5);
 				Object[] objects22 = new Object[]{waxString, ModBlocks.CHISELED_COPPER.newItemStack(1, 1)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output29, objects22);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output29, objects22);
 				ItemStack output28 = ModBlocks.CHISELED_COPPER.newItemStack(1, 6);
 				Object[] objects21 = new Object[]{waxString, ModBlocks.CHISELED_COPPER.newItemStack(1, 2)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output28, objects21);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output28, objects21);
 				ItemStack output27 = ModBlocks.CHISELED_COPPER.newItemStack(1, 7);
 				Object[] objects20 = new Object[]{waxString, ModBlocks.CHISELED_COPPER.newItemStack(1, 3)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output27, objects20);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output27, objects20);
 
 				//Cut copper block to waxed cut copper blocks
 				ItemStack output26 = ModBlocks.COPPER_BULB.newItemStack(1, 12);
 				Object[] objects19 = new Object[]{waxString, ModBlocks.COPPER_BULB.newItemStack(1, 4)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output26, objects19);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output26, objects19);
 				ItemStack output25 = ModBlocks.COPPER_BULB.newItemStack(1, 13);
 				Object[] objects18 = new Object[]{waxString, ModBlocks.COPPER_BULB.newItemStack(1, 5)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output25, objects18);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output25, objects18);
 				ItemStack output24 = ModBlocks.COPPER_BULB.newItemStack(1, 14);
 				Object[] objects17 = new Object[]{waxString, ModBlocks.COPPER_BULB.newItemStack(1, 6)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output24, objects17);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output24, objects17);
 				ItemStack output23 = ModBlocks.COPPER_BULB.newItemStack(1, 15);
 				Object[] objects16 = new Object[]{waxString, ModBlocks.COPPER_BULB.newItemStack(1, 7)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output23, objects16);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output23, objects16);
 
 				//Cut copper slabs to waxed cut copper slabs
 				ItemStack output22 = ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 4);
 				Object[] objects15 = new Object[]{waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output22, objects15);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output22, objects15);
 				ItemStack output21 = ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 5);
 				Object[] objects14 = new Object[]{waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 1)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output21, objects14);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output21, objects14);
 				ItemStack output20 = ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 6);
 				Object[] objects13 = new Object[]{waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 2)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output20, objects13);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output20, objects13);
 				ItemStack output19 = ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 7);
 				Object[] objects12 = new Object[]{waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 3)};
-				RecipeHelper.addHighPriorityShapelessRecipe(output19, objects12);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output19, objects12);
 
 				//Cut copper stairs to waxed cut copper stairs
 				ItemStack output18 = ModBlocks.WAXED_CUT_COPPER_STAIRS.newItemStack();
 				Object[] objects11 = new Object[]{waxString, ModBlocks.CUT_COPPER_STAIRS.newItemStack()};
-				RecipeHelper.addHighPriorityShapelessRecipe(output18, objects11);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output18, objects11);
 				ItemStack output17 = ModBlocks.WAXED_EXPOSED_CUT_COPPER_STAIRS.newItemStack();
 				Object[] objects10 = new Object[]{waxString, ModBlocks.EXPOSED_CUT_COPPER_STAIRS.newItemStack()};
-				RecipeHelper.addHighPriorityShapelessRecipe(output17, objects10);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output17, objects10);
 				ItemStack output16 = ModBlocks.WAXED_WEATHERED_CUT_COPPER_STAIRS.newItemStack();
 				Object[] objects9 = new Object[]{waxString, ModBlocks.WEATHERED_CUT_COPPER_STAIRS.newItemStack()};
-				RecipeHelper.addHighPriorityShapelessRecipe(output16, objects9);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output16, objects9);
 				ItemStack output15 = ModBlocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS.newItemStack();
 				Object[] objects8 = new Object[]{waxString, ModBlocks.OXIDIZED_CUT_COPPER_STAIRS.newItemStack()};
-				RecipeHelper.addHighPriorityShapelessRecipe(output15, objects8);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output15, objects8);
 
 				//Copper door to waxed copper door
 				ItemStack output14 = ModBlocks.WAXED_COPPER_DOOR.newItemStack();
 				Object[] objects7 = new Object[]{waxString, ModBlocks.COPPER_DOOR.newItemStack()};
-				RecipeHelper.addHighPriorityShapelessRecipe(output14, objects7);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output14, objects7);
 				ItemStack output13 = ModBlocks.WAXED_EXPOSED_COPPER_DOOR.newItemStack();
 				Object[] objects6 = new Object[]{waxString, ModBlocks.EXPOSED_COPPER_DOOR.newItemStack()};
-				RecipeHelper.addHighPriorityShapelessRecipe(output13, objects6);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output13, objects6);
 				ItemStack output12 = ModBlocks.WAXED_WEATHERED_COPPER_DOOR.newItemStack();
 				Object[] objects5 = new Object[]{waxString, ModBlocks.WEATHERED_COPPER_DOOR.newItemStack()};
-				RecipeHelper.addHighPriorityShapelessRecipe(output12, objects5);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output12, objects5);
 				ItemStack output8 = ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.newItemStack();
 				Object[] objects4 = new Object[]{waxString, ModBlocks.OXIDIZED_COPPER_DOOR.newItemStack()};
-				RecipeHelper.addHighPriorityShapelessRecipe(output8, objects4);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output8, objects4);
 
 				//Copper trapdoor to waxed cut copper trapdoor
 				ItemStack output7 = ModBlocks.WAXED_COPPER_TRAPDOOR.newItemStack();
 				Object[] objects3 = new Object[]{waxString, ModBlocks.COPPER_TRAPDOOR.newItemStack()};
-				RecipeHelper.addHighPriorityShapelessRecipe(output7, objects3);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output7, objects3);
 				ItemStack output6 = ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.newItemStack();
 				Object[] objects2 = new Object[]{waxString, ModBlocks.EXPOSED_COPPER_TRAPDOOR.newItemStack()};
-				RecipeHelper.addHighPriorityShapelessRecipe(output6, objects2);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output6, objects2);
 				ItemStack output5 = ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.newItemStack();
 				Object[] objects1 = new Object[]{waxString, ModBlocks.WEATHERED_COPPER_TRAPDOOR.newItemStack()};
-				RecipeHelper.addHighPriorityShapelessRecipe(output5, objects1);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output5, objects1);
 				ItemStack output3 = ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.newItemStack();
 				Object[] objects = new Object[]{waxString, ModBlocks.OXIDIZED_COPPER_TRAPDOOR.newItemStack()};
-				RecipeHelper.addHighPriorityShapelessRecipe(output3, objects);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output3, objects);
 			}
 		}
 
@@ -1386,128 +1386,128 @@ public class ModRecipes {
 
 		ItemStack output78 = ModBlocks.POLISHED_DEEPSLATE.newItemStack(4);
 		Object[] objects46 = new Object[]{"xx", "xx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output78, objects46);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output78, objects46);
 		ItemStack output77 = ModBlocks.DEEPSLATE_BRICKS.newItemStack(4);
 		Object[] objects45 = new Object[]{"xx", "xx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output77, objects45);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output77, objects45);
 		ItemStack output76 = ModBlocks.DEEPSLATE_BRICKS.newItemStack(4, 2);
 		Object[] objects44 = new Object[]{"xx", "xx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output76, objects44);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output76, objects44);
 		ItemStack output75 = ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 4);
 		Object[] objects43 = new Object[]{"x", "x", 'x', ModBlocks.DEEPSLATE_SLAB.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output75, objects43);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output75, objects43);
 
 		ItemStack output74 = ModBlocks.TUFF.newItemStack(4, 1);
 		Object[] objects42 = new Object[]{"xx", "xx", 'x', ModBlocks.TUFF.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output74, objects42);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output74, objects42);
 		ItemStack output73 = ModBlocks.TUFF.newItemStack(4, 2);
 		Object[] objects41 = new Object[]{"xx", "xx", 'x', ModBlocks.TUFF.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output73, objects41);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output73, objects41);
 		ItemStack output72 = ModBlocks.TUFF.newItemStack(1, 3);
 		Object[] objects40 = new Object[]{"x", "x", 'x', ModBlocks.TUFF_SLAB.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output72, objects40);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output72, objects40);
 		ItemStack output71 = ModBlocks.TUFF.newItemStack(1, 4);
 		Object[] objects39 = new Object[]{"x", "x", 'x', ModBlocks.TUFF_SLAB.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output71, objects39);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output71, objects39);
 
 		ItemStack output70 = ModBlocks.COBBLED_DEEPSLATE_STAIRS.newItemStack(4);
 		Object[] objects38 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output70, objects38);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output70, objects38);
 		ItemStack output69 = ModBlocks.POLISHED_DEEPSLATE_STAIRS.newItemStack(4);
 		Object[] objects37 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output69, objects37);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output69, objects37);
 		ItemStack output68 = ModBlocks.DEEPSLATE_BRICK_STAIRS.newItemStack(4);
 		Object[] objects36 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output68, objects36);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output68, objects36);
 		ItemStack output67 = ModBlocks.DEEPSLATE_TILE_STAIRS.newItemStack(4);
 		Object[] objects35 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output67, objects35);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output67, objects35);
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output13 = ModBlocks.DEEPSLATE_SLAB.newItemStack(6);
 			Object[] objects3 = new Object[]{"xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output13, objects3);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output13, objects3);
 			ItemStack output12 = ModBlocks.DEEPSLATE_SLAB.newItemStack(6, 1);
 			Object[] objects2 = new Object[]{"xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output12, objects2);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output12, objects2);
 			ItemStack output6 = ModBlocks.DEEPSLATE_BRICK_SLAB.newItemStack(6);
 			Object[] objects1 = new Object[]{"xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output6, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output6, objects1);
 			ItemStack output5 = ModBlocks.DEEPSLATE_BRICK_SLAB.newItemStack(6, 1);
 			Object[] objects = new Object[]{"xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects);
 		}
 		ItemStack output66 = ModBlocks.DEEPSLATE_WALL.newItemStack(6);
 		Object[] objects34 = new Object[]{"xxx", "xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output66, objects34);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output66, objects34);
 		ItemStack output65 = ModBlocks.DEEPSLATE_WALL.newItemStack(6, 1);
 		Object[] objects33 = new Object[]{"xxx", "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output65, objects33);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output65, objects33);
 		ItemStack output64 = ModBlocks.DEEPSLATE_BRICK_WALL.newItemStack(6);
 		Object[] objects32 = new Object[]{"xxx", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output64, objects32);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output64, objects32);
 		ItemStack output63 = ModBlocks.DEEPSLATE_BRICK_WALL.newItemStack(6, 1);
 		Object[] objects31 = new Object[]{"xxx", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output63, objects31);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output63, objects31);
 
 		ItemStack output62 = ModBlocks.TUFF_STAIRS.newItemStack(4);
 		Object[] objects30 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.TUFF.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output62, objects30);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output62, objects30);
 		ItemStack output61 = ModBlocks.POLISHED_TUFF_STAIRS.newItemStack(4);
 		Object[] objects29 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.TUFF.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output61, objects29);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output61, objects29);
 		ItemStack output60 = ModBlocks.TUFF_BRICK_STAIRS.newItemStack(4);
 		Object[] objects28 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.TUFF.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output60, objects28);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output60, objects28);
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output12 = ModBlocks.TUFF_SLAB.newItemStack(6);
 			Object[] objects2 = new Object[]{"xxx", 'x', ModBlocks.TUFF.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output12, objects2);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output12, objects2);
 			ItemStack output6 = ModBlocks.TUFF_SLAB.newItemStack(6, 1);
 			Object[] objects1 = new Object[]{"xxx", 'x', ModBlocks.TUFF.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output6, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output6, objects1);
 			ItemStack output5 = ModBlocks.TUFF_SLAB.newItemStack(6, 2);
 			Object[] objects = new Object[]{"xxx", 'x', ModBlocks.TUFF.newItemStack(1, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects);
 		}
 		ItemStack output59 = ModBlocks.TUFF_WALL.newItemStack(6);
 		Object[] objects27 = new Object[]{"xxx", "xxx", 'x', ModBlocks.TUFF.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output59, objects27);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output59, objects27);
 		ItemStack output58 = ModBlocks.TUFF_WALL.newItemStack(6, 1);
 		Object[] objects26 = new Object[]{"xxx", "xxx", 'x', ModBlocks.TUFF.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output58, objects26);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output58, objects26);
 		ItemStack output57 = ModBlocks.TUFF_WALL.newItemStack(6, 2);
 		Object[] objects25 = new Object[]{"xxx", "xxx", 'x', ModBlocks.TUFF.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output57, objects25);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output57, objects25);
 
 
 		// Mud Recipes
 		ItemStack output217 = ModBlocks.MUDDY_MANGROVE_ROOTS.newItemStack(1);
 		Object[] objects164 = new Object[]{ModBlocks.MUD.newItemStack(), ModBlocks.MANGROVE_ROOTS.newItemStack()};
-		RecipeHelper.addHighPriorityShapelessRecipe(output217, objects164);
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output217, objects164);
 
 		// VANILLA
 		ItemStack output216 = ModBlocks.PACKED_MUD.newItemStack(1, 0);
 		Object[] objects163 = new Object[]{ModBlocks.MUD.newItemStack(1), new ItemStack(Items.wheat, 1)};
-		RecipeHelper.addHighPriorityShapelessRecipe(output216, objects163);
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output216, objects163);
 		ItemStack output56 = ModBlocks.PACKED_MUD.newItemStack(4, 1);
 		Object[] objects24 = new Object[]{"xx", "xx", 'x', ModBlocks.PACKED_MUD.newItemStack(1, 0)};
-		RecipeHelper.addHighPriorityShapedRecipe(output56, objects24);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output56, objects24);
 
 		ItemStack output55 = ModBlocks.MUD_BRICK_STAIRS.newItemStack(4);
 		Object[] objects23 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.PACKED_MUD.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output55, objects23);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output55, objects23);
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output5 = ModBlocks.MUD_BRICK_SLAB.newItemStack(6, 0);
 			Object[] objects = new Object[]{"xxx", 'x', ModBlocks.PACKED_MUD.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects);
 		}
 		ItemStack output54 = ModBlocks.MUD_BRICK_WALL.newItemStack(6, 0);
 		Object[] objects22 = new Object[]{"xxx", "xxx", 'x', ModBlocks.PACKED_MUD.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output54, objects22);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output54, objects22);
 
 		ItemStack output53 = ModBlocks.MOSS_BLOCK.newItemStack(1, 0);
 		Object[] objects21 = new Object[]{"xxx", "xyx", "xxx", 'x', new ItemStack(Blocks.vine, 1), 'y', new ItemStack(Blocks.dirt, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output53, objects21);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output53, objects21);
 
 		for (int i = 0; i < getStewFlowers().size(); i++) {
 			ItemStack stew = ModItems.SUSPICIOUS_STEW.newItemStack();
@@ -1521,7 +1521,7 @@ public class ModRecipes {
 			potionEffect.setByte(ItemSuspiciousStew.stewEffect, (byte) effect.getPotionID());
 			potionEffect.setInteger(ItemSuspiciousStew.stewEffectDuration, effect.getDuration());
 			effectsList.appendTag(potionEffect);
-			RecipeHelper.addHighPriorityShapelessRecipe(stew, Blocks.red_mushroom, Blocks.brown_mushroom, Items.bowl, getStewFlowers().get(i));
+			RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, stew, Blocks.red_mushroom, Blocks.brown_mushroom, Items.bowl, getStewFlowers().get(i));
 		}
 
 		if (!ModsList.GTNH.isLoaded()) {
@@ -1532,25 +1532,25 @@ public class ModRecipes {
 				ItemStack boat = (isOak && ConfigBlocksItems.replaceOldBoats ? new ItemStack(Items.boat) : entry.getValue().getBoatItem());
 				if (key.endsWith("_chest")) {
 					ItemStack inputBoat = ItemNewBoat.BOAT_INFO.get(key.substring(0, key.indexOf("_chest"))).getBoatItem();
-					RecipeHelper.addHighPriorityShapelessRecipe(boat, "chestWood", inputBoat);
+					RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, boat, "chestWood", inputBoat);
 				} else {
 					if (isOak) { //We're using the plankWood tag for this, so it needs to be in the vanilla sorter
 						GameRegistry.addRecipe(new ShapedOreRecipe(boat, (ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', "plankWood", 'y', new ItemStack(Items.wooden_shovel, 1)));
 					} else { //Not a tagged recipe, we sort this before vanilla recipes, so it takes precedent over them
 						Object[] objects = new Object[]{(ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', entry.getValue().getPlank(), 'y', new ItemStack(Items.wooden_shovel, 1)};
-						RecipeHelper.addHighPriorityShapedRecipe(boat, objects);
+						RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, boat, objects);
 					}
 				}
 			}
 			if (!ConfigBlocksItems.replaceOldBoats) {
-				RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Items.boat), "boatWood");
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Items.boat), "boatWood");
 				ItemStack output5 = ModItems.BOATS[0].newItemStack();
-				RecipeHelper.addHighPriorityShapelessRecipe(output5, Items.wooden_shovel, Items.boat);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output5, Items.wooden_shovel, Items.boat);
 			}
 
 			ItemStack output5 = ModBlocks.SHULKER_BOX.newItemStack();
 			Object[] objects = new Object[]{"x", "c", "x", 'x', ModItems.SHULKER_SHELL.newItemStack(), 'c', new ItemStack(Blocks.chest)};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects);
 		}
 		if (ModBlocks.SHULKER_BOX.isEnabled()) {
 			for (int i = ore_dyes.length - 1; i >= 0; i--) {//Dyed box recipes
@@ -1561,23 +1561,23 @@ public class ModRecipes {
 			}
 		}
 		ItemStack output52 = ModItems.SHULKER_BOX_UPGRADE.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output52, "XXX", "XYX", "XXX", 'X', "ingotIron", 'Y', ModItems.SHULKER_SHELL.get());
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output52, "XXX", "XYX", "XXX", 'X', "ingotIron", 'Y', ModItems.SHULKER_SHELL.get());
 		ItemStack output51 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 1);
-		RecipeHelper.addHighPriorityShapedRecipe(output51, "XXX", "XYX", "XXX", 'X', "ingotCopper", 'Y', ModItems.SHULKER_SHELL.get());
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output51, "XXX", "XYX", "XXX", 'X', "ingotCopper", 'Y', ModItems.SHULKER_SHELL.get());
 		ItemStack output50 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 2);
-		RecipeHelper.addHighPriorityShapedRecipe(output50, "XYX", "XXX", "XXX", 'X', "ingotGold", 'Y', "ingotIron");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output50, "XYX", "XXX", "XXX", 'X', "ingotGold", 'Y', "ingotIron");
 		ItemStack output49 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 3);
-		RecipeHelper.addHighPriorityShapedRecipe(output49, "GXG", "GYG", "GXG", 'X', "gemDiamond", 'Y', "ingotGold", 'G', "blockGlassColorless");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output49, "GXG", "GYG", "GXG", 'X', "gemDiamond", 'Y', "ingotGold", 'G', "blockGlassColorless");
 		ItemStack output48 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 4);
-		RecipeHelper.addHighPriorityShapedRecipe(output48, "XYX", "XXX", "XXX", 'X', Blocks.obsidian, 'Y', "blockGlassColorless");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output48, "XYX", "XXX", "XXX", 'X', Blocks.obsidian, 'Y', "blockGlassColorless");
 		ItemStack output47 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 5);
-		RecipeHelper.addHighPriorityShapedRecipe(output47, "XYX", "XXX", "XXX", 'X', "blockGlassColorless", 'Y', Blocks.obsidian);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output47, "XYX", "XXX", "XXX", 'X', "blockGlassColorless", 'Y', Blocks.obsidian);
 		ItemStack output46 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 6);
-		RecipeHelper.addHighPriorityShapedRecipe(output46, "GGG", "XYX", "XGX", 'X', "ingotIron", 'Y', "ingotCopper", 'G', "blockGlassColorless");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output46, "GGG", "XYX", "XGX", 'X', "ingotIron", 'Y', "ingotCopper", 'G', "blockGlassColorless");
 		ItemStack output45 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 7);
-		RecipeHelper.addHighPriorityShapedRecipe(output45, "XYX", "XXX", "XXX", 'X', "ingotSilver", 'Y', "ingotCopper");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output45, "XYX", "XXX", "XXX", 'X', "ingotSilver", 'Y', "ingotCopper");
 		ItemStack output44 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 8);
-		RecipeHelper.addHighPriorityShapedRecipe(output44, "XYX", "GGG", "XGX", 'X', "ingotGold", 'Y', "ingotSilver", 'G', "blockGlassColorless");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output44, "XYX", "GGG", "XGX", 'X', "ingotGold", 'Y', "ingotSilver", 'G', "blockGlassColorless");
 
 		if (ConfigWorld.tileReplacementMode == -1) {
 			//We keep the original enabled checks inside of the booleans and use the original addShapedRecipe function because we need to check it anyways for recipe removal
@@ -1603,83 +1603,84 @@ public class ModRecipes {
 
 			if (ModBlocks.SPONGE.isEnabled()) {
 				ItemStack output6 = ModBlocks.SPONGE.newItemStack();
-				RecipeHelper.addHighPriorityShapelessRecipe(output6, Blocks.sponge);
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output6, Blocks.sponge);
 				//For recipes that want the vanilla sponge you can convert it
 				ItemStack output5 = new ItemStack(Blocks.sponge);
-				RecipeHelper.addHighPriorityShapelessRecipe(output5, ModBlocks.SPONGE.get());
+				RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output5, ModBlocks.SPONGE.get());
 			}
 		}
 
 		ItemStack output43 = ModBlocks.STONE_WALL.newItemStack(6);
 		Object[] objects20 = new Object[]{"BBB", "BBB", 'B', new ItemStack(Blocks.stonebrick, 1, 0)};
-		RecipeHelper.addHighPriorityShapedRecipe(output43, objects20);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output43, objects20);
 		ItemStack output42 = ModBlocks.STONE_WALL.newItemStack(6, 1);
 		Object[] objects19 = new Object[]{"BBB", "BBB", 'B', new ItemStack(Blocks.stonebrick, 1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output42, objects19);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output42, objects19);
 		ItemStack output41 = ModBlocks.STONE_WALL.newItemStack(6, 2);
 		Object[] objects18 = new Object[]{"BBB", "BBB", 'B', new ItemStack(Blocks.sandstone, 1, 0)};
-		RecipeHelper.addHighPriorityShapedRecipe(output41, objects18);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output41, objects18);
 		ItemStack output40 = ModBlocks.STONE_WALL.newItemStack(6, 3);
 		Object[] objects17 = new Object[]{"BBB", "BBB", 'B', new ItemStack(Blocks.brick_block, 1, 0)};
-		RecipeHelper.addHighPriorityShapedRecipe(output40, objects17);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output40, objects17);
 
 		//TODO Nether brick wall should be individually toggleable because of Netherlicious
 		ItemStack output39 = ModBlocks.NETHER_BRICK_WALL.newItemStack(6);
 		Object[] objects16 = new Object[]{"BBB", "BBB", 'B', new ItemStack(Blocks.nether_brick)};
-		RecipeHelper.addHighPriorityShapedRecipe(output39, objects16);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output39, objects16);
 
 		ItemStack output38 = ModBlocks.SMITHING_TABLE.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output38, "II", "PP", "PP", 'P', "plankWood", 'I', "ingotIron");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output38, "II", "PP", "PP", 'P', "plankWood", 'I', "ingotIron");
 
 		ItemStack output37 = ModBlocks.FLETCHING_TABLE.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output37, "FF", "PP", "PP", 'P', "plankWood", 'F', new ItemStack(Items.flint, 1, 0));
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output37, "FF", "PP", "PP", 'P', "plankWood", 'F', new ItemStack(Items.flint, 1, 0));
 
 		ItemStack output36 = ModBlocks.STONECUTTER.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output36, " I ", "SSS", 'S', "stone", 'I', "ingotIron");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output36, " I ", "SSS", 'S', "stone", 'I', "ingotIron");
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output5 = ModBlocks.COMPOSTER.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output5, "S S", "S S", "SSS", 'S', "slabWood");
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, "S S", "S S", "SSS", 'S', "slabWood");
 		}
 
 		ItemStack output35 = ModBlocks.CARTOGRAPHY_TABLE.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output35, "pp", "PP", "PP", 'P', "plankWood", 'p', new ItemStack(Items.paper, 1, 0));
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output35, "pp", "PP", "PP", 'P', "plankWood", 'p', new ItemStack(Items.paper, 1, 0));
 
 		ItemStack output34 = ModBlocks.LOOM.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output34, "SS", "PP", 'P', "plankWood", 'S', new ItemStack(Items.string, 1, 0));
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output34, "SS", "PP", 'P', "plankWood", 'S', new ItemStack(Items.string, 1, 0));
 
 		ItemStack output33 = ModBlocks.AMETHYST_BLOCK.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output33, "AA", "AA", 'A', "gemAmethyst");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output33, "AA", "AA", 'A', "gemAmethyst");
 		ItemStack output32 = ModBlocks.TINTED_GLASS.newItemStack(2, 0);
-		RecipeHelper.addHighPriorityShapedRecipe(output32, " A ", "AGA", " A ", 'A', "gemAmethyst", 'G', "blockGlassColorless");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output32, " A ", "AGA", " A ", 'A', "gemAmethyst", 'G', "blockGlassColorless");
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output6 = ModBlocks.TARGET.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output6, " R ", "RHR", " R ", 'R', "dustRedstone", 'H', Blocks.hay_block);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output6, " R ", "RHR", " R ", 'R', "dustRedstone", 'H', Blocks.hay_block);
 
 			ItemStack output5 = ModBlocks.OBSERVER.newItemStack();
-			RecipeHelper.addHighPriorityShapedRecipe(output5, "CCC", "RRQ", "CCC", 'R', "dustRedstone", 'C', "cobblestone", 'Q', "gemQuartz");
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, "CCC", "RRQ", "CCC", 'R', "dustRedstone", 'C', "cobblestone", 'Q', "gemQuartz");
 		}
 
 		ItemStack output31 = ModBlocks.HONEY_BLOCK.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output31, "HH", "HH", 'H', ModItems.HONEY_BOTTLE.get());
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output31, "HH", "HH", 'H', ModItems.HONEY_BOTTLE.get());
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, ModItems.HONEY_BOTTLE.newItemStack(4), ModBlocks.HONEY_BLOCK.get(), Items.glass_bottle, Items.glass_bottle, Items.glass_bottle, Items.glass_bottle);
 		ItemStack output30 = ModBlocks.HONEYCOMB_BLOCK.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output30, "HH", "HH", 'H', "materialHoneycomb");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output30, "HH", "HH", 'H', "materialHoneycomb");
 		ItemStack output29 = ModBlocks.BEEHIVE.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output29, "WWW", "HHH", "WWW", 'W', "plankWood", 'H', "materialHoneycomb");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output29, "WWW", "HHH", "WWW", 'W', "plankWood", 'H', "materialHoneycomb");
 
 		ItemStack output28 = ModBlocks.CHAIN.newItemStack();
-		RecipeHelper.addHighPriorityShapedRecipe(output28, "N", "G", "N", 'N', "nuggetIron", 'G', "ingotIron");
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output28, "N", "G", "N", 'N', "nuggetIron", 'G', "ingotIron");
 
 		ItemStack output27 = ModBlocks.BLACKSTONE.newItemStack(4, 1);
 		Object[] objects15 = new Object[]{"xx", "xx", 'x', ModBlocks.BLACKSTONE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output27, objects15);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output27, objects15);
 		ItemStack output26 = ModBlocks.BLACKSTONE.newItemStack(4, 2);
 		Object[] objects14 = new Object[]{"xx", "xx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output26, objects14);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output26, objects14);
 		ItemStack output25 = ModBlocks.BLACKSTONE.newItemStack(1, 4);
 		Object[] objects13 = new Object[]{"x", "x", 'x', ModBlocks.BLACKSTONE_SLAB.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output25, objects13);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output25, objects13);
 
 		ItemStack input3 = ModBlocks.BLACKSTONE.newItemStack(1, 2);
 		ItemStack output6 = ModBlocks.BLACKSTONE.newItemStack(1, 3);
@@ -1688,47 +1689,47 @@ public class ModRecipes {
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output13 = ModBlocks.BLACKSTONE_SLAB.newItemStack(6);
 			Object[] objects2 = new Object[]{"xxx", 'x', ModBlocks.BLACKSTONE.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output13, objects2);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output13, objects2);
 			ItemStack output12 = ModBlocks.BLACKSTONE_SLAB.newItemStack(6, 1);
 			Object[] objects1 = new Object[]{"xxx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output12, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output12, objects1);
 			ItemStack output5 = ModBlocks.BLACKSTONE_SLAB.newItemStack(6, 2);
 			Object[] objects = new Object[]{"xxx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 2)};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects);
 		}
 
 		ItemStack output24 = ModBlocks.BLACKSTONE_STAIRS.newItemStack(4);
 		Object[] objects12 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output24, objects12);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output24, objects12);
 		ItemStack output23 = ModBlocks.POLISHED_BLACKSTONE_STAIRS.newItemStack(4);
 		Object[] objects11 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output23, objects11);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output23, objects11);
 		ItemStack output22 = ModBlocks.POLISHED_BLACKSTONE_BRICK_STAIRS.newItemStack(4);
 		Object[] objects10 = new Object[]{"x  ", "xx ", "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output22, objects10);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output22, objects10);
 
 		ItemStack output21 = ModBlocks.BLACKSTONE_WALL.newItemStack(6);
 		Object[] objects9 = new Object[]{"xxx", "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output21, objects9);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output21, objects9);
 		ItemStack output20 = ModBlocks.BLACKSTONE_WALL.newItemStack(6, 1);
 		Object[] objects8 = new Object[]{"xxx", "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output20, objects8);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output20, objects8);
 		ItemStack output19 = ModBlocks.BLACKSTONE_WALL.newItemStack(6, 2);
 		Object[] objects7 = new Object[]{"xxx", "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output19, objects7);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output19, objects7);
 
 		if (!ModsList.GTNH.isLoaded()) {
 			ItemStack output12 = ModBlocks.POLISHED_BLACKSTONE_BUTTON.newItemStack(1);
 			Object[] objects1 = new Object[]{"x", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output12, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output12, objects1);
 			ItemStack output5 = ModBlocks.POLISHED_BLACKSTONE_PRESSURE_PLATE.newItemStack(1);
 			Object[] objects = new Object[]{"xx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 1)};
-			RecipeHelper.addHighPriorityShapedRecipe(output5, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output5, objects);
 		}
 
 		ItemStack output18 = ModBlocks.BASALT.newItemStack(4, 1);
 		Object[] objects6 = new Object[]{"xx", "xx", 'x', ModBlocks.BASALT.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output18, objects6);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output18, objects6);
 		ItemStack input2 = ModBlocks.BASALT.newItemStack();
 		ItemStack output5 = ModBlocks.SMOOTH_BASALT.newItemStack();
 		RecipeHelper.addSmelting(input2, output5, 0.1F);
@@ -1762,11 +1763,11 @@ public class ModRecipes {
 			}
 		}
 
-		RecipeHelper.addHighPriorityShapelessRecipe(new ItemStack(Items.dye, 1, 9), ModBlocks.PINK_PETALS.get());
+		RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, new ItemStack(Items.dye, 1, 9), ModBlocks.PINK_PETALS.get());
 
 		if (!ConfigExperiments.netherDimensionProvider) { //A way to get soul soil without new Nether
 			ItemStack output12 = ModBlocks.SOUL_SOIL.newItemStack(5);
-			RecipeHelper.addHighPriorityShapelessRecipe(output12, Blocks.dirt, Blocks.soul_sand, Blocks.soul_sand, Blocks.soul_sand, Blocks.soul_sand);
+			RecipeHelper.addShapelessRecipe(RecipeHelper.Priority.HIGH, output12, Blocks.dirt, Blocks.soul_sand, Blocks.soul_sand, Blocks.soul_sand, Blocks.soul_sand);
 		}
 
 		if (ConfigModCompat.moddedDeepslateOres) { //OreDict-based registration is only used when mod support is enabled
@@ -1801,10 +1802,10 @@ public class ModRecipes {
 
 		ItemStack output17 = ModBlocks.RAW_ORE_BLOCK.newItemStack();
 		Object[] objects5 = new Object[]{"xxx", "xxx", "xxx", 'x', ModItems.RAW_ORE.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output17, objects5);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output17, objects5);
 		ItemStack output16 = ModItems.RAW_ORE.newItemStack(9);
 		Object[] objects4 = new Object[]{"x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack()};
-		RecipeHelper.addHighPriorityShapedRecipe(output16, objects4);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output16, objects4);
 		if (result != null) {
 			ItemStack input = ModItems.RAW_ORE.newItemStack();
 			RecipeHelper.addSmelting(input, result, 0.7F);
@@ -1812,19 +1813,19 @@ public class ModRecipes {
 
 		ItemStack output15 = ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 1);
 		Object[] objects3 = new Object[]{"xxx", "xxx", "xxx", 'x', ModItems.RAW_ORE.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output15, objects3);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output15, objects3);
 		ItemStack output14 = ModItems.RAW_ORE.newItemStack(9, 1);
 		Object[] objects2 = new Object[]{"x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 1)};
-		RecipeHelper.addHighPriorityShapedRecipe(output14, objects2);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output14, objects2);
 		ItemStack input1 = ModItems.RAW_ORE.newItemStack(1, 1);
 		RecipeHelper.addSmelting(input1, new ItemStack(Items.iron_ingot, 1, 0), 0.7F);
 
 		ItemStack output13 = ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 2);
 		Object[] objects1 = new Object[]{"xxx", "xxx", "xxx", 'x', ModItems.RAW_ORE.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output13, objects1);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output13, objects1);
 		ItemStack output12 = ModItems.RAW_ORE.newItemStack(9, 2);
 		Object[] objects = new Object[]{"x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 2)};
-		RecipeHelper.addHighPriorityShapedRecipe(output12, objects);
+		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output12, objects);
 		ItemStack input = ModItems.RAW_ORE.newItemStack(1, 2);
 		RecipeHelper.addSmelting(input, new ItemStack(Items.gold_ingot, 1, 0), 0.7F);
 
@@ -1913,9 +1914,9 @@ public class ModRecipes {
 						}
 						if (!registeredRecipe) {
 							ItemStack output = new ItemStack(oreBlock, 1, i);
-							RecipeHelper.addHighPriorityShapedRecipe(output, "xxx", "xxx", "xxx", 'x', new ItemStack(oreItem, 1, i));
+							RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output, "xxx", "xxx", "xxx", 'x', new ItemStack(oreItem, 1, i));
 							Object[] objects = new Object[]{"x", 'x', new ItemStack(oreBlock, 1, i)};
-							RecipeHelper.addHighPriorityShapedRecipe(new ItemStack(oreItem, 9, i), objects);
+							RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, new ItemStack(oreItem, 9, i), objects);
 							registeredRecipe = true;
 						}
 						ItemStack output = Utils.getFirstStackFromTag(type);
@@ -1978,10 +1979,10 @@ public class ModRecipes {
 			RecipeHelper.registerOre("blockRawAdamantine", ore);
 			ItemStack output2 = ModBlocks.RAW_ADAMANTIUM_BLOCK.newItemStack();
 			Object[] objects1 = new Object[]{"xxx", "xxx", "xxx", 'x', ModItems.RAW_ADAMANTIUM.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output2, objects1);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output2, objects1);
 			ItemStack output1 = ModItems.RAW_ADAMANTIUM.newItemStack(9);
 			Object[] objects = new Object[]{"x", 'x', ModBlocks.RAW_ADAMANTIUM_BLOCK.newItemStack()};
-			RecipeHelper.addHighPriorityShapedRecipe(output1, objects);
+			RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output1, objects);
 			ItemStack input = ModItems.RAW_ADAMANTIUM.newItemStack();
 			ItemStack output = ExternalContent.Items.SIMPLEORES_ADAMANTIUM_INGOT.newItemStack();
 			float exp = ExternalContent.Items.SIMPLEORES_ADAMANTIUM_INGOT.get().getSmeltingExperience(ExternalContent.Items.SIMPLEORES_ADAMANTIUM_INGOT.newItemStack());

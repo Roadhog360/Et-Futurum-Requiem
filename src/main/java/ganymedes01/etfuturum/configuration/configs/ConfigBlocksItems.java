@@ -371,6 +371,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	protected void initValues() {
 		if (!ModsList.IRON_CHEST.isLoaded()) {
 			ConfigModCompat.shulkerBoxesIronChest = false;
+			ConfigModCompat.barrelIronChest = false;
 		}
 	}
 }

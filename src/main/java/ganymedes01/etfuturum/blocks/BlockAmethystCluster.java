@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.lib.RenderIDs;
+import lombok.NonNull;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -17,11 +18,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import roadhog360.hogutils.api.blocksanditems.block.IMultiBlockSound;
 
 import java.util.List;
 import java.util.Random;
 
-public class BlockAmethystCluster extends BlockAmethystBlock {
+public class BlockAmethystCluster extends BlockAmethystBlock implements IMultiBlockSound {
 
 	private final int type;
 	private IIcon[] icons;
@@ -229,5 +231,13 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 	@Override
 	public int getRenderType() {
 		return RenderIDs.AMETHYST_CLUSTER;
+	}
+
+	@Override
+	public @NonNull SoundType getSoundType(World world, int i, int i1, int i2, SoundMode soundMode) {
+		return switch (world.getBlockMetadata(i, i1, i2)) {
+			case 0, 1, 2, 3, 4, 5 -> type == 1 ? ModSounds.soundAmethystBudLrg : ModSounds.soundAmethystBudSmall;
+			default -> stepSound;
+		};
 	}
 }

@@ -12,6 +12,7 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -102,9 +103,7 @@ public enum ModBlocks {
 			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
 	POLISHED_DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BaseBlock(Material.rock).setNames("polished_deepslate")
 			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
-	DEEPSLATE_BRICKS(ConfigBlocksItems.enableDeepslate, new BaseSubtypesBlock(Material.rock,
-			"deepslate_bricks", "cracked_deepslate_bricks", "deepslate_tiles", "cracked_deepslate_tiles", "chiseled_deepslate").setNames("deepslate_bricks")
-			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 3.0f : 3.5f).setResistance(6)),
+	DEEPSLATE_BRICKS(ConfigBlocksItems.enableDeepslate, new BlockDeepslateBricks()),
 	TUFF(ConfigBlocksItems.enableTuff, new BlockTuff()),
 	RAW_ORE_BLOCK(ConfigBlocksItems.enableRawOres, new BlockRawOre()),
 	BASALT(ConfigBlocksItems.enableBasalt, new BlockBasalt()),
@@ -179,14 +178,10 @@ public enum ModBlocks {
 			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6)),
 	DOUBLE_DEEPSLATE_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(true, Material.rock, "cobbled_deepslate", "polished_deepslate").setNames("deepslate_slab")
 			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6)),
-	DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(false, Material.rock, "deepslate_bricks", "deepslate_tiles")
-			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6)),
-	DOUBLE_DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(true, Material.rock, "deepslate_bricks", "deepslate_tiles")
-			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6)),
-	TUFF_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(false, Material.rock, "tuff", "polished_tuff", "tuff_bricks")
-			.setBlockSound(ModSounds.soundTuff).setHardness(1.5F).setResistance(6)),
-	DOUBLE_TUFF_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(true, Material.rock, "tuff", "polished_tuff", "tuff_bricks")
-			.setBlockSound(ModSounds.soundTuff).setHardness(1.5F).setResistance(6)),
+	DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BlockDeepslateBrickSlab(false)),
+	DOUBLE_DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BlockDeepslateBrickSlab(true)),
+	TUFF_SLAB(ConfigBlocksItems.enableDeepslate, new BlockTuffSlab(false)),
+	DOUBLE_TUFF_SLAB(ConfigBlocksItems.enableDeepslate, new BlockTuffSlab(true)),
 	MUD_BRICK_SLAB(ConfigBlocksItems.enableMud, new BaseSlab(false, Material.rock, "mud_bricks")
 			.setBlockSound(ModSounds.soundMudBricks).setHardness(3).setResistance(6)),
 	DOUBLE_MUD_BRICK_SLAB(ConfigBlocksItems.enableMud, new BaseSlab(true, Material.rock, "mud_bricks")
@@ -250,10 +245,8 @@ public enum ModBlocks {
 			.setHardness(3.0F).setResistance(9.0F)),
 	DEEPSLATE_WALL(ConfigBlocksItems.enableDeepslate, new BaseWall(Material.rock, "cobbled_deepslate", "polished_deepslate")
 			.setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6.0F)),
-	DEEPSLATE_BRICK_WALL(ConfigBlocksItems.enableDeepslate, new BaseWall(Material.rock, "deepslate_bricks", "deepslate_tiles")
-			.setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 1.5f : 3.5f).setResistance(6.0F)),
-	TUFF_WALL(ConfigBlocksItems.enableTuff, new BaseWall(Material.rock, "tuff", "polished_tuff", "tuff_bricks")
-			.setBlockSound(ModSounds.soundTuff).setHardness(1.5F).setResistance(6.0F)),
+	DEEPSLATE_BRICK_WALL(ConfigBlocksItems.enableDeepslate, new BlockDeepslateBrickWall()),
+	TUFF_WALL(ConfigBlocksItems.enableTuff, new BlockTuffWall()),
 	MUD_BRICK_WALL(ConfigBlocksItems.enableMud, new BaseWall(Material.rock, "mud_bricks").setBlockSound(ModSounds.soundMudBricks)
 			.setHardness(1.5F).setResistance(3.0F)),
 	
@@ -277,7 +270,6 @@ public enum ModBlocks {
 
 	IRON_TRAPDOOR(ConfigBlocksItems.enableIronTrapdoor, new BlockIronTrapdoor()),
 	MAGMA(ConfigBlocksItems.enableMagmaBlock, new BlockMagma()),
-	BARREL(ConfigBlocksItems.enableBarrel, new BlockBarrel()),
 	LANTERN(ConfigBlocksItems.enableLantern, new BlockLantern("lantern", 15)),
 	SOUL_LANTERN(ConfigBlocksItems.enableLantern && ConfigBlocksItems.enableSoulLighting, new BlockLantern("soul_lantern", 10)),
 	SOUL_TORCH(ConfigBlocksItems.enableSoulLighting, new BlockSoulTorch()),
@@ -309,8 +301,20 @@ public enum ModBlocks {
 	FROSTED_ICE(ConfigEnchantsPotions.enableFrostWalker, new BlockFrostedIce(), null),
 	LAVA_CAULDRON(ConfigBlocksItems.enableLavaCauldrons, new BlockLavaCauldron(), null),
 	POTION_CAULDRON(ConfigBlocksItems.enablePotionCauldron, new BlockPotionCauldron(), null),
-	BUBBLE_COLUMN_UP(ConfigExperiments.enableBubbleColumns, new BlockBubbleColumn(true, Tags.MOD_ID + ":upward_bubble_column_support_blocks"), null),
-	BUBBLE_COLUMN_DOWN(ConfigExperiments.enableBubbleColumns, new BlockBubbleColumn(false, Tags.MOD_ID + ":downward_bubble_column_support_blocks"), null),
+	BUBBLE_COLUMN_UP(ConfigExperiments.enableBubbleColumns, new BlockBubbleColumn(true, Tags.MOD_ID + ":upward_bubble_column_supports"), null),
+	BUBBLE_COLUMN_DOWN(ConfigExperiments.enableBubbleColumns, new BlockBubbleColumn(false, Tags.MOD_ID + ":downward_bubble_column_supports"), null),
+
+	// barrels + iron barrels
+	BARREL(ConfigBlocksItems.enableBarrel, new BlockBarrel(TileEntityBarrel.BarrelType.VANILLA)),
+	IRON_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.IRON)),
+	GOLD_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.GOLD)),
+	DIAMOND_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.DIAMOND)),
+	COPPER_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.COPPER)),
+	SILVER_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.SILVER)),
+	STEEL_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.STEEL)),
+	OBSIDIAN_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.OBSIDIAN)),
+	DARKSTEEL_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.DARKSTEEL)),
+	NETHERITE_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.NETHERITE)),
 
 	BLACKSTONE(ConfigBlocksItems.enableBlackstone, new BlockBlackstone()),
 	GILDED_BLACKSTONE(ConfigBlocksItems.enableBlackstone, new BlockGildedBlackstone()),

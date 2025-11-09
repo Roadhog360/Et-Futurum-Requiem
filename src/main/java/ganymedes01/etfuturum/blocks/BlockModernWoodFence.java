@@ -4,8 +4,10 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.lib.RenderIDs;
+import lombok.NonNull;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
@@ -18,10 +20,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.ArrayUtils;
+import roadhog360.hogutils.api.blocksanditems.block.IMultiBlockSound;
 
 import java.util.List;
 
-public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock {
+public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock, IMultiBlockSound {
 
 	final BlockModernWoodPlanks basePlanks;
 	final String[] types;
@@ -115,5 +118,16 @@ public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock 
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return isFlammable(aWorld, aX, aY, aZ, aSide) ? 5 : 0;
+	}
+
+	@Override
+	@NonNull
+	public Block.SoundType getSoundType(World world, int x, int y, int z, SoundMode type) {
+		return switch (world.getBlockMetadata(x, y, z)) {
+			case 0, 1 -> ModSounds.soundNetherWood;
+			case 3 -> ModSounds.soundCherryWood;
+			case 4 -> ModSounds.soundBambooWood;
+			default -> stepSound;
+		};
 	}
 }

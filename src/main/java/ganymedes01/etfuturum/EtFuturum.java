@@ -17,7 +17,6 @@ import ganymedes01.etfuturum.api.*;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
 import ganymedes01.etfuturum.client.DynamicSoundsResourcePack;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
-import ganymedes01.etfuturum.client.sound.BlockSoundRegisterHelper;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.command.CommandFill;
 import ganymedes01.etfuturum.compat.*;
@@ -413,8 +412,6 @@ public class EtFuturum {
 			Blocks.bed.setStepSound(Block.soundTypeWood);
 		}
 
-		BlockSoundRegisterHelper.setupMultiBlockSoundRegistry();
-
 		CompatMisc.runModHooksLoadComplete();
 
 		if (ConfigExperiments.netherDimensionProvider && !ModsList.NETHERLICIOUS.isLoaded()) {
@@ -690,6 +687,16 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.bee.death", "neutral");
 		config.addSoundEvent(ver, "entity.bee.pollinate", "neutral");
 		config.addSoundEvent(ver, "entity.bee.sting", "neutral");
+		config.addSoundEvent(ver, "entity.fox.eat", "neutral");
+		config.addSoundEvent(ver, "entity.fox.aggro", "neutral");
+		config.addSoundEvent(ver, "entity.fox.spit", "neutral");
+		config.addSoundEvent(ver, "entity.fox.screech", "neutral");
+		config.addSoundEvent(ver, "entity.fox.sleep", "neutral");
+		config.addSoundEvent(ver, "entity.fox.ambient", "neutral");
+		config.addSoundEvent(ver, "entity.fox.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.fox.death", "neutral");
+		config.addSoundEvent(ver, "entity.fox.bite", "neutral");
+		config.addSoundEvent(ver, "entity.fox.sniff", "neutral");
 
 
 		config.addSoundEvent(ver, "entity.player.hurt_on_fire", "player");

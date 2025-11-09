@@ -3,9 +3,11 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenCherryTrees;
+import lombok.NonNull;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -17,11 +19,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import roadhog360.hogutils.api.blocksanditems.block.IMultiBlockSound;
 
 import java.util.List;
 import java.util.Random;
 
-public class BlockModernSapling extends BlockSapling implements ISubBlocksBlock {
+public class BlockModernSapling extends BlockSapling implements ISubBlocksBlock, IMultiBlockSound {
 	private final String[] types = new String[]{"mangrove_propagule", "cherry_sapling"};
 	private final IIcon[] icons = new IIcon[types.length];
 
@@ -99,5 +102,12 @@ public class BlockModernSapling extends BlockSapling implements ISubBlocksBlock 
 	@Override
 	public String getNameFor(ItemStack stack) {
 		return types[stack.getItemDamage() % types.length];
+	}
+
+	@Override
+	@NonNull
+	public Block.SoundType getSoundType(World world, int x, int y, int z, SoundMode type) {
+		int meta = world.getBlockMetadata(x, y, z);
+		return meta == 1 || meta == 9 ? ModSounds.soundCherrySapling : stepSound;
 	}
 }

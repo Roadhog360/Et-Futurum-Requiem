@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.entities.ai;
 
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityMoveHelper;

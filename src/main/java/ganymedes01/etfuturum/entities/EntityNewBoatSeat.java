@@ -8,7 +8,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-import java.util.List;
 import java.util.UUID;
 
 public class EntityNewBoatSeat extends Entity {
@@ -113,9 +112,9 @@ public class EntityNewBoatSeat extends Entity {
 		copyLocationAndAnglesFrom(boat);
 	}
 
-	private void mountToBoat(Entity entity) {
-		boat.sitEntity(entity);
-	}
+    private void mountToBoat(Entity entity) {
+        boat.sitEntity(entity);
+    }
 
 	@Override
 	protected void kill() {

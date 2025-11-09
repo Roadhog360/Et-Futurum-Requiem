@@ -15,7 +15,6 @@ import me.eigenraven.lwjgl3ify.api.ConfigUtils;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -23,7 +22,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 public class CompatMisc {
 

@@ -22,14 +22,12 @@ import ganymedes01.etfuturum.inventory.*;
 import ganymedes01.etfuturum.lib.GUIIDs;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.*;
-import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ContainerChest;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
@@ -227,6 +225,11 @@ public class CommonProxy implements IGuiHandler {
 			ModEntityList.registerEntity(EntityBee.class, "bee", 21, EtFuturum.instance, 80, 1, true, 0xEDC343, 0x43241B);
 		}
 
+		if (ConfigEntities.enableFoxes) {
+			ModEntityList.registerEntity(EntityFox.class, "fox", 22, EtFuturum.instance, 64, 1, true, 0xD5B69F, 0xCC6920);
+			EntityRegistry.addSpawn(EntityFox.class, 8, 2, 4, EnumCreatureType.creature, BiomeDictionary.getBiomesForType(Type.CONIFEROUS));
+		}
+
 		//make magmas slightly more common, hopefully.
 		EntityRegistry.removeSpawn(EntityMagmaCube.class, EnumCreatureType.monster, BiomeGenBase.hell);
 		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, BiomeGenBase.hell);
@@ -239,7 +242,8 @@ public class CommonProxy implements IGuiHandler {
 			case GUIIDs.ANVIL -> new ContainerAnvil(player, world, x, y, z);
 			case GUIIDs.BREWING_STAND ->
 					new ContainerNewBrewingStand(player.inventory, (TileEntityNewBrewingStand) world.getTileEntity(x, y, z));
-			case GUIIDs.BARREL -> new ContainerChest(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z));
+			case GUIIDs.BARREL ->
+					new ContainerChestGeneric(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z), ((TileEntityBarrel) world.getTileEntity(x, y, z)).getRowSize(), ((TileEntityBarrel) world.getTileEntity(x, y, z)).getSizeInventory() != 27);
 			case GUIIDs.SMOKER ->
 					new ContainerSmoker(player.inventory, (TileEntitySmoker) world.getTileEntity(x, y, z));
 			case GUIIDs.BLAST_FURNACE ->
@@ -258,7 +262,7 @@ public class CommonProxy implements IGuiHandler {
 			case GUIIDs.ANVIL -> new GuiAnvil(player, world, x, y, z);
 			case GUIIDs.BREWING_STAND ->
 					new GuiNewBrewingStand(player.inventory, (TileEntityNewBrewingStand) world.getTileEntity(x, y, z));
-			case GUIIDs.BARREL -> new GuiChest(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z));
+			case GUIIDs.BARREL -> new GuiBarrel(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z));
 			case GUIIDs.SMOKER -> new GuiSmoker(player.inventory, (TileEntitySmoker) world.getTileEntity(x, y, z));
 			case GUIIDs.BLAST_FURNACE ->
 					new GuiBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
