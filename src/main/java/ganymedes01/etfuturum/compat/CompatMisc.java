@@ -80,6 +80,10 @@ public class CompatMisc {
 			} catch (Exception ignored) {
 			}
 		}
+
+        if (ModsList.BATTLEGEAR_2.isLoaded()) {
+            CompatBattlegear.init();
+        }
 	}
 
 	public static void runModHooksPostInit() {
