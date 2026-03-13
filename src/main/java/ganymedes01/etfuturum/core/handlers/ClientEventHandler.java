@@ -9,6 +9,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.api.MultiBlockSoundRegistry;
@@ -23,6 +24,7 @@ import ganymedes01.etfuturum.client.sound.AmbienceLoop;
 import ganymedes01.etfuturum.client.sound.BeeFlySound;
 import ganymedes01.etfuturum.client.sound.ElytraSound;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.Logger;
@@ -36,6 +38,7 @@ import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
 import ganymedes01.etfuturum.world.nether.dimension.WorldProviderEFRNether;
+import it.unimi.dsi.fastutil.floats.FloatIntMutablePair;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -73,7 +76,6 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import org.apache.commons.lang3.tuple.MutablePair;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import roadhog360.hogutils.api.utils.FastRandom;
@@ -95,7 +97,7 @@ public class ClientEventHandler {
 	 * Left = field_26997 (Seems to be related to pitch)
 	 * Right = lastChimeAge
 	 */
-	private static final Map<Entity, MutablePair<Float, Integer>> AMETHYST_CHIME_CACHE = new WeakHashMap<>();
+	private static final Map<Entity, FloatIntMutablePair> AMETHYST_CHIME_CACHE = new WeakHashMap<>();
 	/**
 	 * Used by sound events to get the unlocalized name for the specific state of a block. This is handled on the item's end of things.
 	 * So I use this "storage" stack to store the block I want the meta-name for, so I don't create new ItemStack instances constantly.
@@ -350,6 +352,24 @@ public class ClientEventHandler {
 			event.toolTip.add("\u00a78" + event.itemStack.getItem().delegate.name());
 			if (event.itemStack.stackTagCompound != null && !event.itemStack.stackTagCompound.hasNoTags()) {
 				event.toolTip.add("\u00a78NBT: " + event.itemStack.stackTagCompound.func_150296_c/*getKeySet*/().size() + " Tag(s)");
+			}
+		}
+
+		if(ModsList.IRON_CHEST.isLoaded()) {
+			boolean barrelCompat = ConfigModCompat.barrelIronChest && !ModItems.BARREL_UPGRADE.isEnabled() && ModBlocks.BARREL.isEnabled();
+			boolean shulkerCompat = ConfigModCompat.shulkerBoxesIronChest && !ModItems.SHULKER_BOX_UPGRADE.isEnabled() && ModBlocks.SHULKER_BOX.isEnabled();
+			if ((barrelCompat || shulkerCompat) && event.itemStack != null && event.itemStack.getItem() != null) {
+				String namespace = event.itemStack.getItem().delegate.name();
+				if (namespace.startsWith("IronChest:") && namespace.toLowerCase().endsWith("upgrade")) {
+					event.toolTip.add("\u00a77" + StatCollector.translateToLocal("efr.ironchest.tooltip.header"));
+					event.toolTip.add("\u00a77" + StatCollector.translateToLocal("efr.ironchest.tooltip.chest"));
+					if (barrelCompat) {
+						event.toolTip.add("\u00a77" + StatCollector.translateToLocal("efr.ironchest.tooltip.barrel"));
+					}
+					if (shulkerCompat) {
+						event.toolTip.add("\u00a77" + StatCollector.translateToLocal("efr.ironchest.tooltip.shulker"));
+					}
+				}
 			}
 		}
 	}
@@ -709,12 +729,9 @@ public class ClientEventHandler {
 				event.setCanceled(true);
 			}
 		} else if (ConfigSounds.newBlockSounds && ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)) {
-			MutablePair<Float, Integer> pair = AMETHYST_CHIME_CACHE.get(entity);
-			if (pair == null) {
-				pair = new MutablePair<>(0.0F, 0);
-			}
-			float field_26997 = pair.getLeft();
-			int lastChimeAge = pair.getRight();
+			FloatIntMutablePair pair = AMETHYST_CHIME_CACHE.computeIfAbsent(entity, o -> new FloatIntMutablePair(1, 0));
+			float field_26997 = pair.leftFloat();
+			int lastChimeAge = pair.rightInt();
 			if (entity.ticksExisted >= lastChimeAge + 20) {
 				field_26997 = (float) ((double) field_26997 * Math.pow(0.996999979019165D, entity.ticksExisted - lastChimeAge));
 				field_26997 = Math.min(1.0F, field_26997 + 0.07F);
@@ -722,9 +739,8 @@ public class ClientEventHandler {
 				float g = 0.1F + field_26997 * 1.2F;
 				entity.playSound(Tags.MC_ASSET_VER + ":block.amethyst_block.chime", g, f);
 				lastChimeAge = entity.ticksExisted;
-				pair.setLeft(field_26997);
-				pair.setRight(lastChimeAge);
-				AMETHYST_CHIME_CACHE.put(entity, pair);
+				pair.first(field_26997);
+				pair.second(lastChimeAge);
 			}
 		}
 	}

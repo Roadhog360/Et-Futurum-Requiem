@@ -59,8 +59,10 @@ public enum ModItems {
 	PIGSTEP_RECORD(ConfigBlocksItems.enablePigstep, new ItemEtFuturumRecord("pigstep")),
 	OTHERSIDE_RECORD(ConfigBlocksItems.enableOtherside, new ItemEtFuturumRecord("otherside")),
 	AMETHYST_SHARD(ConfigBlocksItems.enableAmethyst, new BaseItem("amethyst_shard")),
-	SHULKER_BOX_UPGRADE(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableShulkerBoxes && ConfigModCompat.shulkerBoxesIronChest, new ItemShulkerBoxUpgrade()),
-	BARREL_UPGRADE(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new ItemBarrelUpgrade()),
+	SHULKER_BOX_UPGRADE(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableShulkerBoxes
+			&& ConfigModCompat.shulkerBoxesIronChest && ConfigModCompat.shulkerBoxesIronChestUpgradeItem, new ItemShulkerBoxUpgrade()),
+	BARREL_UPGRADE(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel
+			&& ConfigModCompat.barrelIronChest && ConfigModCompat.barrelIronChestUpgradeItem, new ItemBarrelUpgrade()),
 	HONEYCOMB(ConfigBlocksItems.enableHoney, new BaseItem("honeycomb")),
 	HONEY_BOTTLE(ConfigBlocksItems.enableHoney, new ItemHoneyBottle()),
 	BAMBOO(ConfigBlocksItems.enableBambooBlocks, new ItemBamboo()),

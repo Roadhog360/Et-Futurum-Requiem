@@ -55,10 +55,6 @@ public class Utils {
 		return Reference.ITEM_BLOCK_TEXTURE_PATH + name;
 	}
 
-	public static ResourceLocation getResource(String path) {
-		return new ResourceLocation(path);
-	}
-
 	public static String getConainerName(String name) {
 		return "container." + Tags.MOD_ID + "." + name;
 	}
@@ -84,13 +80,11 @@ public class Utils {
 	}
 
 	public static void loadItemStacksFromNBT(NBTTagList tag, ItemStack[] stacks) {
-		for (int i = 0; i < tag.tagCount(); ++i) {
+		int count = Math.min(tag.tagCount(), stacks.length);
+		for (int i = 0; i < count; ++i) {
 			NBTTagCompound nbttagcompound1 = tag.getCompoundTagAt(i);
 			int j = nbttagcompound1.getByte("Slot") & 255;
-
-			if (j < stacks.length) {
-				stacks[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-			}
+			stacks[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 		}
 	}
 

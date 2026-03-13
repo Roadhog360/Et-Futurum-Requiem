@@ -5,7 +5,6 @@ import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.model.ModelHead;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
@@ -19,10 +18,10 @@ import java.util.Map;
 
 public class TileEntityFancySkullRenderer extends TileEntitySpecialRenderer {
 
-	private static final ResourceLocation skeleton_texture = Utils.getResource("textures/entity/skeleton/skeleton.png");
-	private static final ResourceLocation wither_skeleton_texture = Utils.getResource("textures/entity/skeleton/wither_skeleton.png");
-	private static final ResourceLocation zombie_texture = Utils.getResource("textures/entity/zombie/zombie.png");
-	private static final ResourceLocation creeper_texture = Utils.getResource("textures/entity/creeper/creeper.png");
+	private static final ResourceLocation skeleton_texture = new ResourceLocation("textures/entity/skeleton/skeleton.png");
+	private static final ResourceLocation wither_skeleton_texture = new ResourceLocation("textures/entity/skeleton/wither_skeleton.png");
+	private static final ResourceLocation zombie_texture = new ResourceLocation("textures/entity/zombie/zombie.png");
+	private static final ResourceLocation creeper_texture = new ResourceLocation("textures/entity/creeper/creeper.png");
 
 	public static TileEntityFancySkullRenderer instance;
 

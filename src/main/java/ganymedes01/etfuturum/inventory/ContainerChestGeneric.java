@@ -49,6 +49,10 @@ public class ContainerChestGeneric extends Container {
 		}
 
 		int invSlotStartXOff = (rowSize * 18 - 9 * 18) / 2;
+		if(!slim) {
+			// Needed for vanilla inventories so the slots aren't off by one pixel
+			padT--;
+		}
 
 		for (j = 0; j < 3; ++j) {
 			for (k = 0; k < 9; ++k) {

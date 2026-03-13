@@ -158,6 +158,7 @@ public class EtFuturum {
 			Logger.info(Tags.MOD_ID + " is in snapshot mode. Disabling update checker... Other features may also be different.");
 		}
 
+		ConfigBase.onConstructing();
 		MCLib.init();
 
 		ADConfig config = new ADConfig();
@@ -178,6 +179,9 @@ public class EtFuturum {
 	@EventHandler
 	@SuppressWarnings("unchecked")
 	public void preInit(FMLPreInitializationEvent event) {
+		if(ModsList.IRON_CHEST.isLoaded()) {
+			CompatIronChests.init();
+		}
 		try {
 			Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
 			chestInfo.setAccessible(true);
@@ -191,6 +195,11 @@ public class EtFuturum {
 			e.printStackTrace();
 		}
 
+		ModBlocks.init();
+		ModItems.init();
+		ModEnchantments.init();
+		ModPotions.init();
+		SpectatorMode.init();
 
 		for (ModBlocks block : ModBlocks.values()) {
 			if (block.isEnabled() && block.get() instanceof IInitAction) {
@@ -202,12 +211,6 @@ public class EtFuturum {
 				((IInitAction) item.get()).preInitAction();
 			}
 		}
-
-		ModBlocks.init();
-		ModItems.init();
-		ModEnchantments.init();
-		ModPotions.init();
-		SpectatorMode.init();
 
 		if (event.getSide() == Side.CLIENT) {
 
@@ -273,6 +276,8 @@ public class EtFuturum {
 		proxy.registerRenderers();
 
 		CompatMisc.runModHooksInit();
+
+		ConfigBase.init();
 	}
 
 	@EventHandler
@@ -354,7 +359,6 @@ public class EtFuturum {
 		}
 
 		EtFuturumLootTables.init();
-
 		ModRecipes.init();
 		DeepslateOreRegistry.init();
 		StrippedLogRegistry.init();
@@ -382,8 +386,6 @@ public class EtFuturum {
 				((IInitAction) item.get()).onLoadAction();
 			}
 		}
-
-		ConfigBase.postInit();
 
 		EtFuturumWorldGenerator.INSTANCE.postInit();
 		WorldEventHandler.INSTANCE.postInit();
@@ -423,28 +425,30 @@ public class EtFuturum {
 		}
 	}
 
-	/// As of 2.5.0, I removed some ItemBlocks that are just technical blocks (EG, lit EFR furnaces)
-	/// We need to use this event since unregistering specifically an ItemBlock from a block makes Forge mistakenly think a save is corrupted.
-	/// I add the EFR name check at the beginning just as a safety precaution.
-	///
-	/// Forge does some bad checks on if the item is an ItemBlock before letting you run ignoreItemBlock, leading to erroneous errors.
-	/// It doesn't look much different than what I do above but their code rarely spits out "Cannot skip an ItemBlock that doesn't have a Block"
-	/// Which makes no sense since if the block != null then we're skipping an ItemBlock that DOES have a block, if my block check != null then what else would it be?
-	/// So their check must be wrong. Some of Forge's many registry finders are a little faulty at times.
-	/// I already know we're running this on an item, and the only other requirement has a broken check.
-	/// So I use reflection to force my way. It's rare for a save to actually throw an error, but just in case....
-	/// They really should have just had an ITEMBLOCK mapping type to avoid all these hacky checks.
-	///
-	/// All this because Forge falsely declares a world corrupt if you remove an ItemBlock from an existing block.
-	/// Gee, all that for removing ItemBlocks.
-	/// I wrote this bad code to get around Forge's bad code, only to reveal EVEN MORE bad code in Forge I have to write even worse code to avoid.
 	@EventHandler
 	public void onMissingMapping(FMLMissingMappingsEvent e) {
 		for (FMLMissingMappingsEvent.MissingMapping mapping : e.getAll()) {
 			if (mapping.name.startsWith("etfuturum")) {
-				if (Block.getBlockById(mapping.id) != null && mapping.type == GameRegistry.Type.ITEM) {
-					mapping.ignore();
-					ReflectionHelper.setPrivateValue(FMLMissingMappingsEvent.MissingMapping.class, mapping, FMLMissingMappingsEvent.Action.BLOCKONLY, "action");
+				if(mapping.type == GameRegistry.Type.ITEM) {
+					if (Block.getBlockById(mapping.id) != null) {
+						// As of 2.5.0, I removed some ItemBlocks that are just technical blocks (EG, lit EFR furnaces)
+						// We need to use this event since unregistering specifically an ItemBlock from a block makes Forge mistakenly think a save is corrupted.
+						// I add the EFR name check at the beginning just as a safety precaution.
+						//
+						// Forge does some bad checks on if the item is an ItemBlock before letting you run ignoreItemBlock, leading to erroneous errors.
+						// It doesn't look much different than what I do above but their code rarely spits out "Cannot skip an ItemBlock that doesn't have a Block"
+						// Which makes no sense since if the block != null then we're skipping an ItemBlock that DOES have a block, if my block check != null then what else would it be?
+						// So their check must be wrong. Some of Forge's many registry finders are a little faulty at times.
+						// I already know we're running this on an item, and the only other requirement has a broken check.
+						// So I use reflection to force my way. It's rare for a save to actually throw an error, but just in case....
+						// They really should have just had an ITEMBLOCK mapping type to avoid all these hacky checks.
+						//
+						// All this because Forge falsely declares a world corrupt if you remove an ItemBlock from an existing block.
+						// Gee, all that for removing ItemBlocks.
+						// I wrote this bad code to get around Forge's bad code, only to reveal EVEN MORE bad code in Forge I have to write even worse code to avoid.
+						mapping.ignore();
+						ReflectionHelper.setPrivateValue(FMLMissingMappingsEvent.MissingMapping.class, mapping, FMLMissingMappingsEvent.Action.BLOCKONLY, "action");
+					}
 				}
 			}
 		}

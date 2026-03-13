@@ -1697,6 +1697,11 @@ efr.nei.amount=Amount
 efr.nei.weight=Weight
 
 efr.decoration.only=Decoration only
+efr.ironchest.tooltip.header=Compatible with:
+efr.ironchest.tooltip.chest=Chests
+efr.ironchest.tooltip.barrel=Barrels
+efr.ironchest.tooltip.shulker=Shulker Boxes
+efr.ironchest.cannot_use=This block currently cannot be upgraded to that tier.
 
 efr.warn.experimental=§e§l[WARN]: §rThe following §bEt §bFuturum §bRequiem§r experimental features are enabled: §6[%s§6]
 efr.warn.experimental.bugs=These features may not be stable, click here to report any issues!
@@ -1956,27 +1961,36 @@ tile.etfuturum.dragonquest.deepslate_yougansekinokakera_ore.name=Deepslate Volca
 
 # Mod support items
 
-item.shulker_vanilla_iron_upgrade.name=Vanilla to Iron Shulker Box Upgrade
-item.shulker_vanilla_copper_upgrade.name=Vanilla to Copper Shulker Box Upgrade
-item.shulker_iron_gold_upgrade.name=Iron to Gold Shulker Box Upgrade
-item.shulker_gold_diamond_upgrade.name=Gold to Diamond Shulker Box Upgrade
-item.shulker_diamond_obsidian_upgrade.name=Diamond to Obsidian Shulker Box Upgrade
-item.shulker_diamond_crystal_upgrade.name=Diamond to Crystal Shulker Box Upgrade
-item.shulker_copper_iron_upgrade.name=Copper to Iron Shulker Box Upgrade
-item.shulker_copper_silver_upgrade.name=Copper to Silver Shulker Box Upgrade
-item.shulker_silver_gold_upgrade.name=Silver to Gold Shulker Box Upgrade
+item.etfuturum.shulker_vanilla_iron_upgrade.name=Vanilla to Iron Shulker Box Upgrade
+item.etfuturum.shulker_vanilla_copper_upgrade.name=Vanilla to Copper Shulker Box Upgrade
+item.etfuturum.shulker_iron_gold_upgrade.name=Iron to Gold Shulker Box Upgrade
+item.etfuturum.shulker_gold_diamond_upgrade.name=Gold to Diamond Shulker Box Upgrade
+item.etfuturum.shulker_diamond_obsidian_upgrade.name=Diamond to Obsidian Shulker Box Upgrade
+item.etfuturum.shulker_diamond_crystal_upgrade.name=Diamond to Crystal Shulker Box Upgrade
+item.etfuturum.shulker_copper_iron_upgrade.name=Copper to Iron Shulker Box Upgrade
+item.etfuturum.shulker_copper_silver_upgrade.name=Copper to Silver Shulker Box Upgrade
+item.etfuturum.shulker_silver_gold_upgrade.name=Silver to Gold Shulker Box Upgrade
 
-item.barrel_vanilla_iron_upgrade.name=Vanilla to Iron Barrel Upgrade
-item.barrel_vanilla_copper_upgrade.name=Vanilla to Copper Barrel Upgrade
-item.barrel_iron_gold_upgrade.name=Iron to Gold Barrel Upgrade
-item.barrel_gold_diamond_upgrade.name=Gold to Diamond Barrel Upgrade
-item.barrel_diamond_obsidian_upgrade.name=Diamond to Obsidian Barrel Upgrade
-item.barrel_copper_iron_upgrade.name=Copper to Iron Barrel Upgrade
-item.barrel_copper_silver_upgrade.name=Copper to Silver Barrel Upgrade
-item.barrel_silver_gold_upgrade.name=Silver to Gold Barrel Upgrade
-item.barrel_steel_gold_upgrade.name=Steel to Gold Barrel Upgrade
-item.barrel_obsidian_netherite_upgrade.name=Obsidian to Netherite Barrel Upgrade
-item.barrel_obsidian_darksteel_upgrade.name=Obsidian to Dark Steel Barrel Upgrade
+item.etfuturum.barrel_wood_iron_upgrade.name=Wood to Iron Barrel Upgrade
+item.etfuturum.barrel_wood_copper_upgrade.name=Wood to Copper Barrel Upgrade
+item.etfuturum.barrel_iron_gold_upgrade.name=Iron to Gold Barrel Upgrade
+item.etfuturum.barrel_gold_diamond_upgrade.name=Gold to Diamond Barrel Upgrade
+item.etfuturum.barrel_diamond_obsidian_upgrade.name=Diamond to Obsidian Barrel Upgrade
+item.etfuturum.barrel_copper_iron_upgrade.name=Copper to Iron Barrel Upgrade
+item.etfuturum.barrel_copper_silver_upgrade.name=Copper to Silver Barrel Upgrade
+item.etfuturum.barrel_silver_gold_upgrade.name=Silver to Gold Barrel Upgrade
+item.etfuturum.barrel_steel_gold_upgrade.name=Steel to Gold Barrel Upgrade
+item.etfuturum.barrel_obsidian_netherite_upgrade.name=Obsidian to Netherite Barrel Upgrade
+item.etfuturum.barrel_obsidian_darksteel_upgrade.name=Obsidian to Dark Steel Barrel Upgrade
+item.etfuturum.barrel_copper_iron_upgrade.name=Copper to Iron Barrel Upgrade
+item.etfuturum.barrel_copper_silver_upgrade.name=Copper to Silver Barrel Upgrade
+item.etfuturum.barrel_silver_gold_upgrade.name=Silver to Gold Barrel Upgrade
+item.etfuturum.barrel_copper_steel_upgrade.name=Copper to Steel Barrel Upgrade
+item.etfuturum.barrel_iron_silver_upgrade.name=Iron to Silver Barrel Upgrade
+item.etfuturum.barrel_iron_steel_upgrade.name=Iron to Steel Barrel Upgrade
+item.etfuturum.barrel_diamond_crystal_upgrade.name=Diamond to Crystal Barrel Upgrade
+item.etfuturum.barrel_diamond_darksteel_upgrade.name=Diamond to Dark Steel Barrel Upgrade
+item.etfuturum.barrel_crystal_darksteel_upgrade.name=Crystal to Dark Steel Barrel Upgrade
 
 item.etfuturum.raw_aluminum.name=Raw Aluminum
 item.etfuturum.raw_tin.name=Raw Tin
@@ -1988,13 +2002,9 @@ item.etfuturum.raw_mythril.name=Raw Mythril
 item.etfuturum.raw_uranium.name=Raw Uranium
 item.etfuturum.raw_thorium.name=Raw Thorium
 item.etfuturum.raw_tungsten.name=Raw Tungsten
-item.etfuturum.raw_titanium.name=Raw Titanium
+item.etfuturum.raw_tita.name=nium.name=Raw Titanium
 item.etfuturum.raw_zinc.name=Raw Zinc
 item.etfuturum.raw_magnesium.name=Raw Magnesium
 item.etfuturum.raw_boron.name=Raw Boron
 
 item.etfuturum.simpleores.raw_adamantium.name=Raw Adamantium
-
-
-
-# PATRIOTS IN CONTROL  😎 🇺🇸 🦅 #

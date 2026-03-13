@@ -1,30 +1,26 @@
 package ganymedes01.etfuturum.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
+import ganymedes01.etfuturum.core.utils.IInitAction;
 
-public class ItemShulkerBoxUpgrade extends BaseSubtypesItem {
+public class ItemShulkerBoxUpgrade extends ItemCustomICUpgrade implements IInitAction {
 
 	public ItemShulkerBoxUpgrade() {
-		super("vanilla_iron_upgrade", "vanilla_copper_upgrade", "iron_gold_upgrade", "gold_diamond_upgrade", "diamond_obsidian_upgrade", "diamond_crystal_upgrade", "copper_iron_upgrade", "copper_silver_upgrade", "silver_gold_upgrade");
+		super(false, "shulker", "ironshulkerbox",
+				"vanilla_iron",
+				"vanilla_copper",
+				"iron_gold",
+				"gold_diamond",
+				"diamond_obsidian",
+				"diamond_crystal",
+				"copper_iron",
+				"copper_silver",
+				"silver_gold"
+		);
 		setNames("shulker_box_upgrade");
-	}
-
-	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return "item.shulker_" + types[Math.max(Math.min(stack.getItemDamage(), types.length - 1), 0)];
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister reg) {
-		icons = new IIcon[types.length];
-		for (int i = 0; i < types.length; i++) {
-			icons[i] = reg.registerIcon("ironshulkerbox:" + types[i]);
+		if(ModItems.SHULKER_SHELL.isEnabled() && ConfigModCompat.shulkerUpgradeReturnsShell) {
+			setContainerItem(ModItems.SHULKER_SHELL.get());
 		}
 	}
-
 }

@@ -100,6 +100,10 @@ public class BlastFurnaceRecipes {
 					if (oreName.startsWith("ore")) {
 						return true;
 					}
+                    // Raw Ores
+                    if(oreName.matches("^raw[A-Z].*")) {
+                        return true;
+                    }
 					// Thaumcraft Ore Cluster Items.
 					if (oreName.startsWith("cluster")) {
 						return true;

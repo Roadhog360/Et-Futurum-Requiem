@@ -10,6 +10,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.gui.inventory.*;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.handlers.EntityEventHandler;
 import ganymedes01.etfuturum.core.handlers.SculkEventHandler;
@@ -74,6 +75,9 @@ public class CommonProxy implements IGuiHandler {
 		}
 		if (ModBlocks.BARREL.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityBarrel.class, Utils.getUnlocalisedName("barrel"));
+			if(ModsList.IRON_CHEST.isLoaded()) {
+				GameRegistry.registerTileEntity(TileEntityBarrel.ClearTE.class, Utils.getUnlocalisedName("clear_barrel"));
+			}
 		}
 		if (ModBlocks.SMOKER.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntitySmoker.class, Utils.getUnlocalisedName("smoker"));

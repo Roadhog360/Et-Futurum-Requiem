@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
-import ganymedes01.etfuturum.Tags;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.inventory.ContainerSmithingTable;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
@@ -9,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class GuiSmithingTable extends GuiContainer {
-	public static final ResourceLocation texturePath = Utils.getResource(Tags.MOD_ID + ":textures/gui/container/smithing.png");
+	public static final ResourceLocation texturePath = new ResourceLocation("textures/gui/container/smithing.png");
 	public final ContainerSmithingTable container;
 
 	public GuiSmithingTable(ContainerSmithingTable container) {

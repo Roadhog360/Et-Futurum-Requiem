@@ -1780,15 +1780,15 @@ tile.etfuturum.amber_bearing_deepslate.name=Bernstein-Tiefenschiefer
 
 # Mod-unterstützende Gegenstände
 
-item.shulker_vanilla_iron_upgrade.name=Upgrade: Holz- zu Eisen-Shulker-Kiste
-item.shulker_vanilla_copper_upgrade.name=Upgrade: Holz- zu Kupfer-Shulker-Kiste
-item.shulker_iron_gold_upgrade.name=Upgrade: Eisen- zu Gold-Shulker-Kiste
-item.shulker_gold_diamond_upgrade.name=Upgrade: Gold- zu Diamant-Shulker-Kiste
-item.shulker_diamond_obsidian_upgrade.name=Upgrade: Diamant- zu Obsidian-Shulker-Kiste
-item.shulker_diamond_crystal_upgrade.name=Upgrade: Diamant- zu Kristall-Shulker-Kiste
-item.shulker_copper_iron_upgrade.name=Upgrade: Kupfer- zu Eisen-Shulker-Kiste
-item.shulker_copper_silver_upgrade.name=Upgrade: Kupfer- zu Silber-Shulker-Kiste
-item.shulker_silver_gold_upgrade.name=Upgrade: Silber- zu Gold-Shulker-Kiste
+item.etfuturum.shulker_vanilla_iron_upgrade.name=Upgrade: Holz- zu Eisen-Shulker-Kiste
+item.etfuturum.shulker_vanilla_copper_upgrade.name=Upgrade: Holz- zu Kupfer-Shulker-Kiste
+item.etfuturum.shulker_iron_gold_upgrade.name=Upgrade: Eisen- zu Gold-Shulker-Kiste
+item.etfuturum.shulker_gold_diamond_upgrade.name=Upgrade: Gold- zu Diamant-Shulker-Kiste
+item.etfuturum.shulker_diamond_obsidian_upgrade.name=Upgrade: Diamant- zu Obsidian-Shulker-Kiste
+item.etfuturum.shulker_diamond_crystal_upgrade.name=Upgrade: Diamant- zu Kristall-Shulker-Kiste
+item.etfuturum.shulker_copper_iron_upgrade.name=Upgrade: Kupfer- zu Eisen-Shulker-Kiste
+item.etfuturum.shulker_copper_silver_upgrade.name=Upgrade: Kupfer- zu Silber-Shulker-Kiste
+item.etfuturum.shulker_silver_gold_upgrade.name=Upgrade: Silber- zu Gold-Shulker-Kiste
 
 item.etfuturum.raw_aluminum.name=Rohalumnium
 item.etfuturum.raw_tin.name=Rohzinn

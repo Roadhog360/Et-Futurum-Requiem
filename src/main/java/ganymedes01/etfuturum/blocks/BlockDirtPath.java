@@ -67,6 +67,9 @@ public class BlockDirtPath extends Block {
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) {
+		if(side == 1) {
+			return true;
+		}
 		Block block = worldIn.getBlock(x, y, z);
 		if (block instanceof BlockDirtPath || block instanceof BlockFarmland) {
 			return false;

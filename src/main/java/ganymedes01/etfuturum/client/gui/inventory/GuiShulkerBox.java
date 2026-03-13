@@ -19,10 +19,7 @@ public class GuiShulkerBox extends GuiContainer {
 			.toArray(ResourceLocation[]::new);
 	private final IInventory upperChestInventory;
 	private final IInventory lowerChestInventory;
-	/**
-	 * window height is calculated with these values; the more rows, the heigher
-	 */
-	private final int inventoryRows;
+//	private final int inventoryRows;
 
 	private final TileEntityShulkerBox.ShulkerBoxType type;
 
@@ -35,7 +32,7 @@ public class GuiShulkerBox extends GuiContainer {
 		this.xSize = type.getXSize();
 		this.ySize = type.getYSize();
 		this.allowUserInput = false;
-		this.inventoryRows = chestInventory.getSizeInventory() / type.getRowSize();
+//		this.inventoryRows = chestInventory.getSizeInventory() / type.getRowSize();
 	}
 
 	/**
@@ -56,11 +53,6 @@ public class GuiShulkerBox extends GuiContainer {
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 
-		if (type == ShulkerBoxType.VANILLA) {
-			this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.inventoryRows * 18 + 17);
-			this.drawTexturedModalRect(k, l + this.inventoryRows * 18 + 17, 0, 126, this.xSize, 96);
-		} else {
-			this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-		}
+		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 	}
 }

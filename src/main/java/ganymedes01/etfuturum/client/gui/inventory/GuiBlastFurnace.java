@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class GuiBlastFurnace extends GuiContainer {
-	private static final ResourceLocation furnaceGuiTextures = new ResourceLocation("textures/gui/container/furnace.png");
+	private static final ResourceLocation furnaceGuiTextures = new ResourceLocation("textures/gui/container/blast_furnace.png");
 	private final TileEntityBlastFurnace tileFurnace;
 
 	public GuiBlastFurnace(InventoryPlayer p_i1091_1_, TileEntityBlastFurnace p_i1091_2_) {

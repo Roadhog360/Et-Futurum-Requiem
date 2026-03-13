@@ -13,6 +13,7 @@ import ganymedes01.etfuturum.blocks.ores.BaseDeepslateOre;
 import ganymedes01.etfuturum.blocks.ores.BaseSubtypesDeepslateOre;
 import ganymedes01.etfuturum.blocks.ores.modded.BlockGeneralModdedDeepslateOre;
 import ganymedes01.etfuturum.blocks.rawore.modded.BlockGeneralModdedRawOre;
+import ganymedes01.etfuturum.compat.CompatIronChests;
 import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
@@ -76,6 +77,9 @@ public class ModRecipes {
 		registerRecipes();
 		tweakRecipes();
 		registerLoot();
+		if(ModsList.IRON_CHEST.isLoaded() && !ModsList.GTNH.isLoaded()) {
+			CompatIronChests.registerRecipes();
+		}
 	}
 
 	private static void registerLoot() {
@@ -1560,24 +1564,6 @@ public class ModRecipes {
 				GameRegistry.addRecipe(new RecipeDyedShulkerBox(shulker, new Object[]{ModBlocks.SHULKER_BOX.get(), ore_dyes[i]}));
 			}
 		}
-		ItemStack output52 = ModItems.SHULKER_BOX_UPGRADE.newItemStack();
-		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output52, "XXX", "XYX", "XXX", 'X', "ingotIron", 'Y', ModItems.SHULKER_SHELL.get());
-		ItemStack output51 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 1);
-		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output51, "XXX", "XYX", "XXX", 'X', "ingotCopper", 'Y', ModItems.SHULKER_SHELL.get());
-		ItemStack output50 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 2);
-		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output50, "XYX", "XXX", "XXX", 'X', "ingotGold", 'Y', "ingotIron");
-		ItemStack output49 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 3);
-		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output49, "GXG", "GYG", "GXG", 'X', "gemDiamond", 'Y', "ingotGold", 'G', "blockGlassColorless");
-		ItemStack output48 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 4);
-		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output48, "XYX", "XXX", "XXX", 'X', Blocks.obsidian, 'Y', "blockGlassColorless");
-		ItemStack output47 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 5);
-		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output47, "XYX", "XXX", "XXX", 'X', "blockGlassColorless", 'Y', Blocks.obsidian);
-		ItemStack output46 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 6);
-		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output46, "GGG", "XYX", "XGX", 'X', "ingotIron", 'Y', "ingotCopper", 'G', "blockGlassColorless");
-		ItemStack output45 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 7);
-		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output45, "XYX", "XXX", "XXX", 'X', "ingotSilver", 'Y', "ingotCopper");
-		ItemStack output44 = ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 8);
-		RecipeHelper.addShapedRecipe(RecipeHelper.Priority.HIGH, output44, "XYX", "GGG", "XGX", 'X', "ingotGold", 'Y', "ingotSilver", 'G', "blockGlassColorless");
 
 		if (ConfigWorld.tileReplacementMode == -1) {
 			//We keep the original enabled checks inside of the booleans and use the original addShapedRecipe function because we need to check it anyways for recipe removal

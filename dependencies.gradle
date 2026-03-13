@@ -55,7 +55,7 @@ dependencies {
     compileOnly "codechicken:NotEnoughItems:1.7.10-1.0.5.120:dev"
     compileOnly "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
     compileOnly "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
-    compileOnly 'com.github.GTNewHorizons:ironchest:6.0.87'
+    compileOnly 'com.github.GTNewHorizons:ironchest:6.1.6'
     compileOnly 'curse.maven:applied-energistics-2-223794:2296430'
     compileOnly "com.github.GTNewHorizons:ForbiddenMagic:0.9.6-GTNH:dev"
 

@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.client.gui.inventory;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.client.OpenGLHelper;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.gui.FontRenderer;
@@ -32,7 +31,7 @@ public class GuiEnchantment extends GuiContainer {
 	/**
 	 * The ResourceLocation containing the texture for the Book rendered above the enchantment table
 	 */
-	private static final ResourceLocation ENCHANTMENT_TABLE_BOOK_TEXTURE = Utils.getResource("textures/entity/enchanting_table_book.png");
+	private static final ResourceLocation ENCHANTMENT_TABLE_BOOK_TEXTURE = new ResourceLocation("textures/entity/enchanting_table_book.png");
 	/**
 	 * The ModelBook instance used for rendering the book on the Enchantment table
 	 */
@@ -74,9 +73,8 @@ public class GuiEnchantment extends GuiContainer {
 		container = (ContainerEnchantment) inventorySlots;
 		nameable = p_i45502_3_;
 
-		TEXTURE = Utils.getResource(
-				container.noFuel ? "textures/gui/container/enchanting_table.png" :
-						Tags.MOD_ID + ":textures/gui/container/enchanting_table.png");
+		TEXTURE = new ResourceLocation(container.noFuel ? "textures/gui/container/enchanting_table.png" :
+				Tags.MOD_ID + ":textures/gui/container/enchanting_table.png");
 
 		displayStacks = new ObjectArrayList<>(ItemTags.getInTag(Tags.MOD_ID + ":enchantment_fuel"));
 		if (displayStacks.size() > 1) {

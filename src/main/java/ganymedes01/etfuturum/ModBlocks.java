@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.blocks.rawore.BlockRawOre;
 import ganymedes01.etfuturum.blocks.rawore.modded.BlockGeneralModdedRawOre;
 import ganymedes01.etfuturum.blocks.rawore.modded.BlockRawAdamantium;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.compat.CompatIronChests;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -305,16 +306,17 @@ public enum ModBlocks {
 	BUBBLE_COLUMN_DOWN(ConfigExperiments.enableBubbleColumns, new BlockBubbleColumn(false, Tags.MOD_ID + ":downward_bubble_column_supports"), null),
 
 	// barrels + iron barrels
-	BARREL(ConfigBlocksItems.enableBarrel, new BlockBarrel(TileEntityBarrel.BarrelType.VANILLA)),
-	IRON_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.IRON)),
-	GOLD_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.GOLD)),
-	DIAMOND_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.DIAMOND)),
-	COPPER_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.COPPER)),
-	SILVER_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.SILVER)),
-	STEEL_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.STEEL)),
-	OBSIDIAN_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.OBSIDIAN)),
-	DARKSTEEL_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.DARKSTEEL)),
-	NETHERITE_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.NETHERITE)),
+	BARREL(ConfigBlocksItems.enableBarrel, new BlockBarrel(TileEntityBarrel.BarrelType.WOOD)),
+	IRON_BARREL(ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest && CompatIronChests.tierExists("IRON"), new BlockBarrel(TileEntityBarrel.BarrelType.IRON)),
+	GOLD_BARREL(ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest && CompatIronChests.tierExists("GOLD"), new BlockBarrel(TileEntityBarrel.BarrelType.GOLD)),
+	DIAMOND_BARREL(ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest && CompatIronChests.tierExists("DIAMOND"), new BlockBarrel(TileEntityBarrel.BarrelType.DIAMOND)),
+	CRYSTAL_BARREL(ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest && CompatIronChests.tierExists("CRYSTAL"), new BlockBarrel(TileEntityBarrel.BarrelType.CRYSTAL)),
+	COPPER_BARREL(ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest && CompatIronChests.tierExists("COPPER"), new BlockBarrel(TileEntityBarrel.BarrelType.COPPER)),
+	SILVER_BARREL(ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest && CompatIronChests.tierExists("SILVER"), new BlockBarrel(TileEntityBarrel.BarrelType.SILVER)),
+	STEEL_BARREL(ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest && CompatIronChests.tierExists("STEEL"), new BlockBarrel(TileEntityBarrel.BarrelType.STEEL)),
+	OBSIDIAN_BARREL(ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest && CompatIronChests.tierExists("OBSIDIAN"), new BlockBarrel(TileEntityBarrel.BarrelType.OBSIDIAN)),
+	DARKSTEEL_BARREL(ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest && CompatIronChests.tierExists("DARKSTEEL") && ModsList.ENDER_IO.isLoaded(), new BlockBarrel(TileEntityBarrel.BarrelType.DARKSTEEL)),
+	NETHERITE_BARREL(ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest && CompatIronChests.tierExists("NETHERITE") && ConfigBlocksItems.enableNetherite, new BlockBarrel(TileEntityBarrel.BarrelType.NETHERITE)),
 
 	BLACKSTONE(ConfigBlocksItems.enableBlackstone, new BlockBlackstone()),
 	GILDED_BLACKSTONE(ConfigBlocksItems.enableBlackstone, new BlockGildedBlackstone()),

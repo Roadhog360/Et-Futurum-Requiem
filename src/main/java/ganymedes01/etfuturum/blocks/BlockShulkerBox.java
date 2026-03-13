@@ -1,14 +1,14 @@
 package ganymedes01.etfuturum.blocks;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.compat.CompatIronChests;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.BaseSubtypesItem;
 import ganymedes01.etfuturum.lib.GUIIDs;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
@@ -20,6 +20,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -124,35 +125,26 @@ public class BlockShulkerBox extends BlockContainer {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		if (world.isRemote) {
+			if(ConfigModCompat.shulkerBoxesIronChest && player.getHeldItem() != null && player.getHeldItem().getItem() != null && world.getTileEntity(x, y, z) instanceof TileEntityShulkerBox box) {
+				handleIronChestClientWarning(world, x, y, z, player, box);
+			}
 			return true;
 		}
 
-		if (world.getTileEntity(x, y, z) instanceof TileEntityShulkerBox shulker) {
-
-			if (!player.isSneaking() && player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.SHULKER_BOX_UPGRADE.get()) {
-				ItemStack stack = player.getHeldItem();
-				String[] upgrades = ((BaseSubtypesItem) player.getHeldItem().getItem()).types[stack.getItemDamage()].split("_");
-				if (upgrades[0].equals(shulker.type.toString().toLowerCase())) {
-					ItemStack[] tempCopy = shulker.chestContents == null ? new ItemStack[shulker.getSizeInventory()] : ArrayUtils.clone(shulker.chestContents);
-					shulker.type = ShulkerBoxType.valueOf(upgrades[1].toUpperCase());
-					shulker.chestContents = new ItemStack[shulker.getSizeInventory()];
-					System.arraycopy(tempCopy, 0, shulker.chestContents, 0, tempCopy.length);
-					shulker.touch();
-					if (!player.capabilities.isCreativeMode) {
-						stack.stackSize--;
-					}
-					world.markBlockForUpdate(x, y, z);
+		if (world.getTileEntity(x, y, z) instanceof TileEntityShulkerBox box) {
+			if(ConfigModCompat.shulkerBoxesIronChest && player.getHeldItem() != null && player.getHeldItem().getItem() != null) {
+				if(handleIronChestUpgrade(world, x, y, z, player, box)) {
 					return true;
 				}
 			}
-			ForgeDirection dir = ForgeDirection.getOrientation(shulker.facing);
+			ForgeDirection dir = ForgeDirection.getOrientation(box.facing);
 			boolean flag;
-			if (shulker.getAnimationStatus() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
+			if (box.getAnimationStatus() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
 				AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1)
 						.addCoord(0.5F * (float) dir.offsetX, 0.5F * (float) dir.offsetY, 0.5F * (float) dir.offsetZ);
 				axisalignedbb.addCoord(-(double) dir.offsetX, -(double) dir.offsetY, -(double) dir.offsetZ);
 
-				flag = canOpen(axisalignedbb, world, shulker, player);
+				flag = canOpen(axisalignedbb, world, box, player);
 			} else {
 				flag = true;
 			}
@@ -161,6 +153,33 @@ public class BlockShulkerBox extends BlockContainer {
 				player.openGui(EtFuturum.instance, GUIIDs.SHULKER_BOX, world, x, y, z);
 			}
 
+			return true;
+		}
+		return false;
+	}
+
+	private void handleIronChestClientWarning(World world, int x, int y, int z, EntityPlayer player, TileEntityShulkerBox box) {
+			String upgrade = CompatIronChests.getNextShulkerUpgrade(box.type.name(), player.getHeldItem());
+			if(upgrade != null && !ShulkerBoxType.map.containsKey(upgrade)) {
+				FMLClientHandler.instance().getClient().ingameGUI.func_110326_a("\u00a7c" + I18n.format("efr.ironchest.cannot_use"), false);
+			}
+	}
+
+	private boolean handleIronChestUpgrade(World world, int x, int y, int z, EntityPlayer player, TileEntityShulkerBox box) {
+		ItemStack stack = player.getHeldItem();
+		String upgrade = CompatIronChests.getNextShulkerUpgrade(box.type.name(), stack);
+		if(upgrade != null) {
+			ShulkerBoxType newType = ShulkerBoxType.map.get(upgrade);
+			if(newType != null) {
+				ItemStack[] tempCopy = box.chestContents == null ? new ItemStack[box.getSizeInventory()] : ArrayUtils.clone(box.chestContents);
+				box.type = newType;
+				box.chestContents = new ItemStack[box.getSizeInventory()];
+				System.arraycopy(tempCopy, 0, box.chestContents, 0, tempCopy.length);
+				if (!player.capabilities.isCreativeMode) {
+					stack.stackSize--;
+				}
+				world.markBlockForUpdate(x, y, z);
+			}
 			return true;
 		}
 		return false;
@@ -375,8 +394,8 @@ public class BlockShulkerBox extends BlockContainer {
 
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> subItems) {
-		for (byte i = 0; i <= (ModsList.IRON_CHEST.isLoaded() && ConfigModCompat.shulkerBoxesIronChest ? 7 : 0); i++) {
-			for (byte j = 0; j <= (ConfigBlocksItems.enableDyedShulkerBoxes ? 16 : 0); j++) {
+		for (byte i = 0; i < (ConfigModCompat.shulkerBoxesIronChest ? ShulkerBoxType.VALUES.length : 1); i++) {
+			for (byte j = 0; j < (ConfigBlocksItems.enableDyedShulkerBoxes ? 17 : 1); j++) {
 
 				NBTTagCompound tag = new NBTTagCompound();
 				ItemStack stack = new ItemStack(item, 1);

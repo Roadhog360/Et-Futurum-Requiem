@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class GuiSmoker extends GuiContainer {
-	private static final ResourceLocation furnaceGuiTextures = new ResourceLocation("textures/gui/container/furnace.png");
+	private static final ResourceLocation furnaceGuiTextures = new ResourceLocation("textures/gui/container/smoker.png");
 	private final TileEntitySmoker tileFurnace;
 
 	public GuiSmoker(InventoryPlayer p_i1091_1_, TileEntitySmoker p_i1091_2_) {

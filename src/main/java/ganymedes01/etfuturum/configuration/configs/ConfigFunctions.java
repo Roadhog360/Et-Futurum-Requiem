@@ -245,7 +245,7 @@ public class ConfigFunctions extends ConfigBase {
 	}
 
 	@Override
-	protected void initValues() {
+	protected void onConstructingValues() {
 		ConfigFunctions.shulkerBans = new ArrayList<Item>();
 		for (String itemName : ConfigFunctions.shulkerBansString) {
 			String[] nameAndID;

@@ -14,6 +14,7 @@ import ganymedes01.etfuturum.client.renderer.tileentity.*;
 import ganymedes01.etfuturum.client.skins.NewRenderPlayer;
 import ganymedes01.etfuturum.client.skins.NewSkinManager;
 import ganymedes01.etfuturum.client.subtitle.GuiSubtitles;
+import ganymedes01.etfuturum.compat.CompatIronChests;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
@@ -96,6 +97,14 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNewBeacon.class, new TileEntityNewBeaconRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityShulkerBox.class, new TileEntityShulkerBoxRenderer(new ModelShulker()));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGateway.class, new TileEntityGatewayRenderer());
+		if(CompatIronChests.enableCrystalRendering()) {
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBarrel.ClearTE.class, new TileEntityClearChestItemRenderer(key -> {
+				if (key instanceof TileEntityBarrel.ClearTE barrel) {
+					return barrel.getTopItemStacks();
+				}
+				return null;
+			}));
+		}
 
 		RenderingRegistry.registerBlockHandler(new BlockExtendedCrossedSquaresRenderer());
 		RenderingRegistry.registerBlockHandler(new BlockNewFenceRenderer());

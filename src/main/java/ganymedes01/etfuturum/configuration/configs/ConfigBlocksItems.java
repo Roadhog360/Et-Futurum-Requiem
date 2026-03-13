@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.configuration.configs;
 
-import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraftforge.common.config.Property;
 
@@ -365,13 +364,5 @@ public class ConfigBlocksItems extends ConfigBase {
 
 		//      endGatewaySpawnColor = getInt("endGatewaySpawnColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when the gateway first appears.");
 //      endGatewayEntryColor = getInt("endGatewayEntryColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when an entity enters it. Originally, this value was 4 (yellow) before version 1.11.");
-	}
-
-	@Override
-	protected void initValues() {
-		if (!ModsList.IRON_CHEST.isLoaded()) {
-			ConfigModCompat.shulkerBoxesIronChest = false;
-			ConfigModCompat.barrelIronChest = false;
-		}
 	}
 }
