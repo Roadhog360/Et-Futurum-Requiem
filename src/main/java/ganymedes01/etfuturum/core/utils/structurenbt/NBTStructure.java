@@ -150,6 +150,18 @@ public class NBTStructure {
 				}
 				state.setCompound(signText);
 			}
+		} else if (state.getBlock() instanceof ganymedes01.etfuturum.blocks.BlockBanner) {
+			NBTTagCompound nbt = state.getCompound();
+			if (nbt == null) {
+				nbt = new NBTTagCompound();
+			}
+			if (modernCompound.hasKey("Patterns")) {
+				nbt.setTag("Patterns", modernCompound.getTagList("Patterns", 10).copy());
+			}
+			if (modernCompound.hasKey("Base")) {
+				nbt.setInteger("Base", modernCompound.getInteger("Base"));
+			}
+			state.setCompound(nbt);
 		}
 	}
 

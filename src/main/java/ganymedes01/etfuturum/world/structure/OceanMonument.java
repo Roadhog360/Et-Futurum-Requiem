@@ -1,9 +1,11 @@
 package ganymedes01.etfuturum.world.structure;
 
+import com.gtnewhorizon.gtnhlib.util.CoordinatePacker;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.world.WorldCoord;
+import it.unimi.dsi.fastutil.longs.Long2IntMap;
+import it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -12,12 +14,11 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import java.io.*;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class OceanMonument {
 
 	private static final List<BiomeGenBase> validBiomes = Arrays.asList(BiomeGenBase.ocean, BiomeGenBase.deepOcean, BiomeGenBase.river, BiomeGenBase.frozenOcean, BiomeGenBase.frozenRiver);
-	private static final Map<WorldCoord, Integer> map = new HashMap<WorldCoord, Integer>();
+	private static final Long2IntOpenHashMap map = new Long2IntOpenHashMap(26000);
 
 	public static void makeMap() {
 		try {
@@ -34,8 +35,11 @@ public class OceanMonument {
 
 				String[] coords = data[0].split(",");
 
-				WorldCoord key = new WorldCoord(Integer.parseInt(coords[0].trim()), Integer.parseInt(coords[1].trim()), Integer.parseInt(coords[2].trim()));
-				int value = Integer.parseInt(data[1]);
+				final int x = Integer.parseInt(coords[0].trim());
+				final int y = Integer.parseInt(coords[1].trim());
+				final int z = Integer.parseInt(coords[2].trim());
+				final long key = CoordinatePacker.pack(x, y, z);
+				final int value = Integer.parseInt(data[1]);
 
 				map.put(key, value);
 			}
@@ -46,17 +50,16 @@ public class OceanMonument {
 		}
 	}
 
-	public static Map<WorldCoord, Integer> getMap() {
-		return map;
-	}
-
 	public static void buildTemple(World world, int x, int y, int z) {
 		if (world.isRemote)
 			return;
 
-		for (Entry<WorldCoord, Integer> entry : OceanMonument.getMap().entrySet()) {
-			WorldCoord pos = entry.getKey();
-			int value = entry.getValue();
+		for (Long2IntMap.Entry entry : map.long2IntEntrySet()) {
+			final long pos = entry.getLongKey();
+			final int value = entry.getIntValue();
+			final int posX = CoordinatePacker.unpackX(pos);
+			final int posY = CoordinatePacker.unpackY(pos);
+			final int posZ = CoordinatePacker.unpackZ(pos);
 
 			Block block = null;
 			int meta = 0;
@@ -83,7 +86,7 @@ public class OceanMonument {
 			}
 
 			if (block != null)
-				world.setBlock(pos.x + x, pos.y + y, pos.z + z, block, meta, 2);
+				world.setBlock(posX + x, posY + y, posZ + z, block, meta, 2);
 		}
 
 		for (int i = 0; i < 7; i++) {

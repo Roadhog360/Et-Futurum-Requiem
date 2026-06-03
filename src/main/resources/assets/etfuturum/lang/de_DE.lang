@@ -44,6 +44,12 @@ container.etfuturum.chest_boat=Truhenboot
 
 item.record.pigstep.desc=Lena Raine - Pigstep
 item.record.otherside.desc=Lena Raine - otherside
+item.record.precipice.desc=Aaron Cherof - Precipice
+item.record.creator_music_box.desc=Lena Raine - Creator (Music Box)
+item.record.creator.desc=Lena Raine - Creator
+item.record.tears.desc=Amos Roddy - Tears
+item.record.lava_chicken.desc=Hyper Potions - Lava Chicken
+item.record.5.desc=Samuel Åberg - 5
 
 gui.smithing.upgrade=Ausrüstung aufwerten
 gui.warn.continue=Fortsetzen...
@@ -351,6 +357,8 @@ item.etfuturum.dark_oak_chest_boat.name=Schwarzeichenholztruhenboot
 item.etfuturum.acacia_chest_boat.name=Akazienholztruhenboot
 item.etfuturum.shulker_shell.name=Shulker-Schale
 item.etfuturum.amethyst_shard.name=Amethystscherbe
+item.etfuturum.disc_fragment_5.name=Plattebruchstück
+item.etfuturum.disc_fragment_5.desc=Schallplatte - 5
 item.etfuturum.honeycomb.name=Honigwabe
 item.etfuturum.honey_bottle.name=Honigflasche
 item.etfuturum.bamboo.name=Bambus
@@ -1780,15 +1788,15 @@ tile.etfuturum.amber_bearing_deepslate.name=Bernstein-Tiefenschiefer
 
 # Mod-unterstützende Gegenstände
 
-item.shulker_vanilla_iron_upgrade.name=Upgrade: Holz- zu Eisen-Shulker-Kiste
-item.shulker_vanilla_copper_upgrade.name=Upgrade: Holz- zu Kupfer-Shulker-Kiste
-item.shulker_iron_gold_upgrade.name=Upgrade: Eisen- zu Gold-Shulker-Kiste
-item.shulker_gold_diamond_upgrade.name=Upgrade: Gold- zu Diamant-Shulker-Kiste
-item.shulker_diamond_obsidian_upgrade.name=Upgrade: Diamant- zu Obsidian-Shulker-Kiste
-item.shulker_diamond_crystal_upgrade.name=Upgrade: Diamant- zu Kristall-Shulker-Kiste
-item.shulker_copper_iron_upgrade.name=Upgrade: Kupfer- zu Eisen-Shulker-Kiste
-item.shulker_copper_silver_upgrade.name=Upgrade: Kupfer- zu Silber-Shulker-Kiste
-item.shulker_silver_gold_upgrade.name=Upgrade: Silber- zu Gold-Shulker-Kiste
+item.etfuturum.shulker_vanilla_iron_upgrade.name=Upgrade: Holz- zu Eisen-Shulker-Kiste
+item.etfuturum.shulker_vanilla_copper_upgrade.name=Upgrade: Holz- zu Kupfer-Shulker-Kiste
+item.etfuturum.shulker_iron_gold_upgrade.name=Upgrade: Eisen- zu Gold-Shulker-Kiste
+item.etfuturum.shulker_gold_diamond_upgrade.name=Upgrade: Gold- zu Diamant-Shulker-Kiste
+item.etfuturum.shulker_diamond_obsidian_upgrade.name=Upgrade: Diamant- zu Obsidian-Shulker-Kiste
+item.etfuturum.shulker_diamond_crystal_upgrade.name=Upgrade: Diamant- zu Kristall-Shulker-Kiste
+item.etfuturum.shulker_copper_iron_upgrade.name=Upgrade: Kupfer- zu Eisen-Shulker-Kiste
+item.etfuturum.shulker_copper_silver_upgrade.name=Upgrade: Kupfer- zu Silber-Shulker-Kiste
+item.etfuturum.shulker_silver_gold_upgrade.name=Upgrade: Silber- zu Gold-Shulker-Kiste
 
 item.etfuturum.raw_aluminum.name=Rohalumnium
 item.etfuturum.raw_tin.name=Rohzinn

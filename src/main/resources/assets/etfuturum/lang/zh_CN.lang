@@ -42,6 +42,12 @@ container.etfuturum.chest_boat=运输船
 
 item.record.pigstep.desc=Lena Raine - pigstep
 item.record.otherside.desc=Lena Raine - otherside
+item.record.precipice.desc=Aaron Cherof - Precipice
+item.record.creator_music_box.desc=Lena Raine - Creator（八音盒）
+item.record.creator.desc=Lena Raine - Creator
+item.record.tears.desc=Amos Roddy - Tears
+item.record.lava_chicken.desc=Hyper Potions - Lava Chicken
+item.record.5.desc=Samuel Åberg - 5
 
 gui.smithing.upgrade=升级装备
 gui.warn.continue=继续……
@@ -353,6 +359,8 @@ item.etfuturum.cherry_chest_boat.name=樱花木运输船
 item.etfuturum.bamboo_chest_raft.name=运输竹筏
 item.etfuturum.shulker_shell.name=潜影壳
 item.etfuturum.amethyst_shard.name=紫水晶碎片
+item.etfuturum.disc_fragment_5.name=唱片残片
+item.etfuturum.disc_fragment_5.desc=音乐唱片 - 5
 item.etfuturum.honeycomb.name=蜜脾
 item.etfuturum.honey_bottle.name=蜂蜜瓶
 item.etfuturum.bamboo.name=竹子
@@ -1892,15 +1900,15 @@ tile.etfuturum.dragonquest.deepslate_yougansekinokakera_ore.name=深层火山矿
 
 # Mod support items
 
-item.shulker_vanilla_iron_upgrade.name=升级：原版>铁质潜影盒
-item.shulker_vanilla_copper_upgrade.name=升级：原版>铜质潜影盒
-item.shulker_iron_gold_upgrade.name=升级：铁质>金质潜影盒
-item.shulker_gold_diamond_upgrade.name=升级：金质>钻石潜影盒
-item.shulker_diamond_obsidian_upgrade.name=升级：钻石>黑曜石潜影盒
-item.shulker_diamond_crystal_upgrade.name=升级：钻石>水晶潜影盒
-item.shulker_copper_iron_upgrade.name=升级：铜质>铁质潜影盒
-item.shulker_copper_silver_upgrade.name=升级：铜质>银质潜影盒
-item.shulker_silver_gold_upgrade.name=升级：银质>金质潜影盒
+item.etfuturum.shulker_vanilla_iron_upgrade.name=升级：原版>铁质潜影盒
+item.etfuturum.shulker_vanilla_copper_upgrade.name=升级：原版>铜质潜影盒
+item.etfuturum.shulker_iron_gold_upgrade.name=升级：铁质>金质潜影盒
+item.etfuturum.shulker_gold_diamond_upgrade.name=升级：金质>钻石潜影盒
+item.etfuturum.shulker_diamond_obsidian_upgrade.name=升级：钻石>黑曜石潜影盒
+item.etfuturum.shulker_diamond_crystal_upgrade.name=升级：钻石>水晶潜影盒
+item.etfuturum.shulker_copper_iron_upgrade.name=升级：铜质>铁质潜影盒
+item.etfuturum.shulker_copper_silver_upgrade.name=升级：铜质>银质潜影盒
+item.etfuturum.shulker_silver_gold_upgrade.name=升级：银质>金质潜影盒
 
 item.etfuturum.raw_aluminum.name=粗铝
 item.etfuturum.raw_tin.name=粗锡

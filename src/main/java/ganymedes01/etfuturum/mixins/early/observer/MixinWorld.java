@@ -62,22 +62,6 @@ public abstract class MixinWorld {
 		}
 	}
 
-	@Inject(method = "notifyBlocksOfNeighborChange(IIILnet/minecraft/block/Block;)V", at = @At("TAIL"))
-	private void notifyObserversAfterNeighborUpdate(int p_147459_1_, int p_147459_2_, int p_147459_3_, Block p_147459_4_, CallbackInfo ci) {
-		/* Ensure that observers are also notified */
-		if (BlockObserver.areNotificationsEnabled()) {
-			etfu$notifySurroundingObservers(p_147459_1_, p_147459_2_, p_147459_3_, p_147459_4_, -1);
-		}
-	}
-
-	@Inject(method = "notifyBlocksOfNeighborChange(IIILnet/minecraft/block/Block;I)V", at = @At("TAIL"))
-	private void notifyObserversAfterNeighborUpdate(int p_147459_1_, int p_147459_2_, int p_147459_3_, Block p_147459_4_, int sideExcept, CallbackInfo ci) {
-		/* Ensure that observers are also notified */
-		if (BlockObserver.areNotificationsEnabled()) {
-			etfu$notifySurroundingObservers(p_147459_1_, p_147459_2_, p_147459_3_, p_147459_4_, sideExcept);
-		}
-	}
-
 	private static boolean etfu$shouldObserverNotify(int flag) {
 		return ((flag & 1) != 0 || (flag & 16) == 0);
 	}

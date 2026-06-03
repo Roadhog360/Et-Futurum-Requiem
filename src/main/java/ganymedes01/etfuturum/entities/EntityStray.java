@@ -23,8 +23,6 @@ import java.util.Calendar;
 
 public class EntityStray extends EntitySkeleton {
 
-	private final EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
-
 	public EntityStray(final World p_i1741_1_) {
 		super(p_i1741_1_);
 		this.tasks.addTask(1, new EntityAISwimming(this));
@@ -43,7 +41,6 @@ public class EntityStray extends EntitySkeleton {
 	@Override
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData p_110161_1_) {
 		p_110161_1_ = super.onSpawnWithEgg(p_110161_1_);
-		this.tasks.addTask(4, this.aiArrowAttack);
 		this.addRandomArmor();
 		this.enchantEquipment();
 

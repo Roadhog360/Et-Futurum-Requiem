@@ -15,6 +15,7 @@ import ganymedes01.etfuturum.*;
 import ganymedes01.etfuturum.api.RawOreRegistry;
 import ganymedes01.etfuturum.api.StrippedLogRegistry;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
+import ganymedes01.etfuturum.api.spectator.SpectatorUtils;
 import ganymedes01.etfuturum.blocks.BlockHoney;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -34,8 +35,8 @@ import ganymedes01.etfuturum.gamerule.RandomTickSpeed;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.network.AttackYawMessage;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
+import ganymedes01.etfuturum.potion.ModPotions;
 import ganymedes01.etfuturum.recipes.ModRecipes;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.storage.EtFuturumPlayer;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
@@ -183,69 +184,6 @@ public class ServerEventHandler {
 				sq.velocityChanged = true;
 			}
 		}
-
-
-		if (ConfigSounds.armorEquip && !entity.worldObj.isRemote && entity instanceof EntityPlayer player && !(entity instanceof FakePlayer)) {
-
-			if (!SpectatorMode.isSpectator(player)) {
-				if (!armorTracker.containsKey(player)) {
-					// Items currently on the player
-					ItemStack playerBoots = player.getEquipmentInSlot(1);
-					ItemStack playerLeggings = player.getEquipmentInSlot(2);
-					ItemStack playerChestplate = player.getEquipmentInSlot(3);
-					ItemStack playerHelmet = player.getEquipmentInSlot(4);
-					armorTracker.put(player, Arrays.asList(playerBoots, playerLeggings, playerChestplate, playerHelmet));
-				} else {
-					List<ItemStack> armorList = armorTracker.get(player);
-
-					String itemEquippedSound = "";
-					ItemStack storedArmor;
-					ItemStack currentArmor;
-					for (int i = 0; i < 4; i++) {
-						storedArmor = armorList.get(i);
-						currentArmor = player.getEquipmentInSlot(i + 1);
-						if (currentArmor != null && (storedArmor == null || (!currentArmor.getItem().equals(storedArmor.getItem()) ||
-								!((currentArmor.stackTagCompound != null || storedArmor.stackTagCompound == null) && (currentArmor.stackTagCompound == null || currentArmor.stackTagCompound.equals(storedArmor.stackTagCompound)))))) {
-							// Equipment is in the slot and either the NBT thinks there's not an item already there, or that the item is different in some way that's not its durability.
-							if (player.inventory.isItemValidForSlot(i, currentArmor)) {
-								String armorString = currentArmor.getUnlocalizedName().toLowerCase();
-								if (EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesNone, armorString)) {
-									continue;
-								} else if (armorString.contains("chain") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesChain, armorString)) {
-									itemEquippedSound = "item.armor.equip_chain";
-								} else if (armorString.contains("diamond") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesDiamond, armorString)) {
-									itemEquippedSound = "item.armor.equip_diamond";
-								} else if (armorString.contains("gold") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesGold, armorString)) {
-									itemEquippedSound = "item.armor.equip_gold";
-								} else if (armorString.contains("iron") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesIron, armorString)) {
-									itemEquippedSound = "item.armor.equip_iron";
-								} else if (armorString.contains("leather") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesLeather, armorString)) {
-									itemEquippedSound = "item.armor.equip_leather";
-								} else if (armorString.contains("netherite") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesNetherite, armorString)) {
-									itemEquippedSound = "item.armor.equip_netherite";
-								} else if (armorString.contains("elytra") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesElytra, armorString)) {
-									itemEquippedSound = "item.armor.equip_elytra";
-								} else if (EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesTurtle, armorString)) {
-									itemEquippedSound = "item.armor.equip_turtle";
-								} else if (currentArmor.getItem() instanceof ItemArmor || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesGeneric, armorString)) {
-									itemEquippedSound = "item.armor.equip_generic";//Something not assigned a sound should be silent if it's not gear, and the user didn't specify that sound.
-								}
-							}
-						}
-						armorList.set(i, currentArmor);
-						if (!itemEquippedSound.equals("")) { //We picked a sound, stop iterating.
-							break;
-						}
-					}
-					// Play a sound if one of the equipment pieces changed
-					if (!itemEquippedSound.equals("")) {
-						player.worldObj.playSoundAtEntity(player, Tags.MC_ASSET_VER + ":" + itemEquippedSound, 1, 1);
-					}
-				}
-			} else {
-				armorTracker.remove(player);
-			}
-		}
 	}
 
 	@SubscribeEvent
@@ -362,6 +300,7 @@ public class ServerEventHandler {
 					}
 				}
 			}
+
 		}
 	}
 
@@ -370,17 +309,14 @@ public class ServerEventHandler {
 		if (event.result == null)
 			return;
 		IInventory invt = event.entityPlayer.inventory;
-		for (int i = 0; i < invt.getSizeInventory(); i++) {
-			ItemStack stack = invt.getStackInSlot(i);
-			if (stack == null || stack.stackSize <= 0)
-				continue;
-			if (stack.getItem() == Items.arrow)
-				return;
-			if (stack.getItem() == ModItems.TIPPED_ARROW.get()) {
-				event.setCanceled(true);
-				event.entityPlayer.setItemInUse(event.result, event.result.getItem().getMaxItemUseDuration(event.result));
-				return;
-			}
+		int arrowSlot = findBowAmmoSlot(invt);
+		if (arrowSlot < 0)
+			return;
+
+		ItemStack stack = invt.getStackInSlot(arrowSlot);
+		if (isCustomArrow(stack)) {
+			event.setCanceled(true);
+			event.entityPlayer.setItemInUse(event.result, event.result.getItem().getMaxItemUseDuration(event.result));
 		}
 	}
 
@@ -390,9 +326,10 @@ public class ServerEventHandler {
 			return;
 
 		IInventory invt = event.entityPlayer.inventory;
+		int selectedArrowSlot = findBowAmmoSlot(invt);
 		for (int i = 0; i < invt.getSizeInventory(); i++) {
 			ItemStack arrow = invt.getStackInSlot(i);
-			if (arrow != null && arrow.stackSize > 0 && arrow.getItem() == ModItems.TIPPED_ARROW.get()) {
+			if (i == selectedArrowSlot && arrow != null && arrow.stackSize > 0 && arrow.getItem() == ModItems.TIPPED_ARROW.get()) {
 				float charge = event.charge / 20.0F;
 				charge = (charge * charge + charge * 2.0F) / 3.0F;
 
@@ -421,7 +358,7 @@ public class ServerEventHandler {
 				event.bow.damageItem(1, event.entityPlayer);
 				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "random.bow", 1.0F, 1.0F / (event.entityPlayer.worldObj.rand.nextFloat() * 0.4F + 1.2F) + charge * 0.5F);
 
-				if (!event.entityPlayer.capabilities.isCreativeMode && --arrow.stackSize <= 0)
+				if (--arrow.stackSize <= 0)
 					event.entityPlayer.inventory.setInventorySlotContents(i, null);
 
 				if (!event.entityPlayer.worldObj.isRemote)
@@ -430,6 +367,66 @@ public class ServerEventHandler {
 				return;
 			}
 		}
+
+		for (int i = 0; i < invt.getSizeInventory(); i++) {
+			ItemStack arrow = invt.getStackInSlot(i);
+			if (i == selectedArrowSlot && arrow != null && arrow.stackSize > 0 && arrow.getItem() == ModItems.SPECTRAL_ARROW.get()) {
+				float charge = event.charge / 20.0F;
+				charge = (charge * charge + charge * 2.0F) / 3.0F;
+
+				if (charge < 0.1D)
+					return;
+				if (charge > 1.0F)
+					charge = 1.0F;
+
+				EntitySpectralArrow arrowEntity = new EntitySpectralArrow(event.entityPlayer.worldObj, event.entityPlayer, charge * 2.0F);
+
+				if (charge == 1.0F)
+					arrowEntity.setIsCritical(true);
+
+				int power = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, event.bow);
+				if (power > 0)
+					arrowEntity.setDamage(arrowEntity.getDamage() + power * 0.5D + 0.5D);
+
+				int punch = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, event.bow);
+				if (punch > 0)
+					arrowEntity.setKnockbackStrength(punch);
+
+				if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, event.bow) > 0)
+					arrowEntity.setFire(100);
+
+				event.bow.damageItem(1, event.entityPlayer);
+				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "random.bow", 1.0F, 1.0F / (event.entityPlayer.worldObj.rand.nextFloat() * 0.4F + 1.2F) + charge * 0.5F);
+
+				if (event.entityPlayer.capabilities.isCreativeMode) {
+					arrowEntity.canBePickedUp = 2;
+				} else if (--arrow.stackSize <= 0) {
+					event.entityPlayer.inventory.setInventorySlotContents(i, null);
+				}
+
+				if (!event.entityPlayer.worldObj.isRemote)
+					event.entityPlayer.worldObj.spawnEntityInWorld(arrowEntity);
+				event.setCanceled(true);
+				return;
+			}
+		}
+	}
+
+	private static int findBowAmmoSlot(IInventory inventory) {
+		for (int i = 0; i < inventory.getSizeInventory(); i++) {
+			ItemStack stack = inventory.getStackInSlot(i);
+			if (isBowAmmo(stack))
+				return i;
+		}
+		return -1;
+	}
+
+	private static boolean isBowAmmo(ItemStack stack) {
+		return stack != null && stack.stackSize > 0 && (stack.getItem() == Items.arrow || isCustomArrow(stack));
+	}
+
+	private static boolean isCustomArrow(ItemStack stack) {
+		return stack != null && stack.stackSize > 0 && (stack.getItem() == ModItems.TIPPED_ARROW.get() || stack.getItem() == ModItems.SPECTRAL_ARROW.get());
 	}
 
 	@SubscribeEvent
@@ -576,7 +573,7 @@ public class ServerEventHandler {
 	public void captureLastSideHit(PlayerInteractEvent event) {
 		//I need this because onPlaceBlock doesn't tell us what side we hit.
 		//Using a MovingObjectPosition doesn't work either because that event fires AFTER the trapdoor is placed, so the MOP hits the trapdoor.
-		if (ConfigFunctions.enableFloatingTrapDoors && event.action == Action.RIGHT_CLICK_BLOCK && !SpectatorMode.isSpectator(event.entityPlayer)) {
+		if (ConfigFunctions.enableFloatingTrapDoors && event.action == Action.RIGHT_CLICK_BLOCK && !SpectatorUtils.isSpectator(event.entityPlayer)) {
 			sideHit.set(event.face);
 		}
 	}
@@ -636,7 +633,7 @@ public class ServerEventHandler {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		EntityPlayer player = event.entityPlayer;
-		if ((event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) && !SpectatorMode.isSpectator(player)) {
+		if ((event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) && !SpectatorUtils.isSpectator(player)) {
 			if (player != null) {
 				final ItemStack heldStack = player.getHeldItem();
 				final World world = event.world;
@@ -1583,6 +1580,9 @@ public class ServerEventHandler {
 	public void livingHurtEvent(LivingHurtEvent event) {
 		EntityLivingBase targetEntity = event.entityLiving;
 		if (targetEntity == null) return;
+		if (ModPotions.glowing != null && event.source instanceof EntityDamageSourceIndirect dmgSrc && dmgSrc.getSourceOfDamage() instanceof EntitySpectralArrow spectralArrow && !spectralArrow.worldObj.isRemote) {
+			targetEntity.addPotionEffect(new PotionEffect(ModPotions.glowing.getId(), spectralArrow.getDuration(), 0));
+		}
 		if (ConfigFunctions.enableHayBaleFalls
 				&& targetEntity.worldObj.getBlock(MathHelper.floor_double(targetEntity.posX), MathHelper.floor_double(targetEntity.posY - 0.20000000298023224D - targetEntity.yOffset), MathHelper.floor_double(targetEntity.posZ)) == Blocks.hay_block
 				&& event.source == DamageSource.fall) {

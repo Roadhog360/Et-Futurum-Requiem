@@ -13,6 +13,8 @@ enchantment.swift_sneak=Swift Sneak
 # Potions
 potion.levitation=Levitation
 potion.levitation.postfix=Potion of Levitation
+potion.glowing=Glowing
+potion.glowing.postfix=Potion of Glowing
 
 # Gamemode selector
 
@@ -45,6 +47,12 @@ container.etfuturum.chest_boat=Boat with Chest
 
 item.record.pigstep.desc=Lena Raine - Pigstep
 item.record.otherside.desc=Lena Raine - otherside
+item.record.precipice.desc=Aaron Cherof - Precipice
+item.record.creator_music_box.desc=Lena Raine - Creator (Music Box)
+item.record.creator.desc=Lena Raine - Creator
+item.record.tears.desc=Amos Roddy - Tears
+item.record.lava_chicken.desc=Hyper Potions - Lava Chicken
+item.record.5.desc=Samuel Åberg - 5
 
 gui.smithing.upgrade=Upgrade Gear
 gui.warn.continue=Continue...
@@ -113,6 +121,28 @@ subtitle.entity.rabbit.ambient=Rabbit squeaks
 subtitle.entity.rabbit.death=Rabbit dies
 subtitle.entity.rabbit.hurt=Rabbit takes damage
 subtitle.entity.rabbit.jump=Rabbit jumps
+subtitle.entity.polar_bear.ambient=Polar Bear groans
+subtitle.entity.polar_bear.ambient_baby=Polar Bear hums
+subtitle.entity.polar_bear.death=Polar Bear dies
+subtitle.entity.polar_bear.hurt=Polar Bear hurts
+subtitle.entity.polar_bear.warning=Polar Bear roars
+subtitle.entity.goat.ambient=Goat bleats
+subtitle.entity.goat.death=Goat dies
+subtitle.entity.goat.eat=Goat eats
+subtitle.entity.goat.hurt=Goat hurts
+subtitle.entity.goat.long_jump=Goat jumps
+subtitle.entity.goat.milk=Goat milked
+subtitle.entity.goat.prepare_ram=Goat stomps
+subtitle.entity.goat.ram_impact=Goat rams
+subtitle.entity.goat.horn_break=Goat horn breaks
+subtitle.item.goat_horn.sound.0=Goat Horn plays
+subtitle.item.goat_horn.sound.1=Goat Horn plays
+subtitle.item.goat_horn.sound.2=Goat Horn plays
+subtitle.item.goat_horn.sound.3=Goat Horn plays
+subtitle.item.goat_horn.sound.4=Goat Horn plays
+subtitle.item.goat_horn.sound.5=Goat Horn plays
+subtitle.item.goat_horn.sound.6=Goat Horn plays
+subtitle.item.goat_horn.sound.7=Goat Horn plays
 subtitle.entity.husk.ambient=Husk groans
 subtitle.entity.husk.hurt=Husk takes damage
 subtitle.entity.husk.death=Husk dies
@@ -344,6 +374,7 @@ entity.etfuturum.elder_guardian.name=Elder Guardian
 entity.etfuturum.polar_bear.name=Polar Bear
 entity.etfuturum.bee.name=Bee
 entity.etfuturum.fox.name=Fox
+entity.etfuturum.goat.name=Goat
 
 # Items
 item.etfuturum.mutton.name=Raw Mutton
@@ -406,12 +437,25 @@ item.etfuturum.cherry_chest_boat.name=Cherry Boat with Chest
 item.etfuturum.bamboo_chest_raft.name=Bamboo Raft with Chest
 item.etfuturum.shulker_shell.name=Shulker Shell
 item.etfuturum.amethyst_shard.name=Amethyst Shard
+item.etfuturum.disc_fragment_5.name=Disc Fragment
+item.etfuturum.disc_fragment_5.desc=Music Disc - 5
 item.etfuturum.honeycomb.name=Honeycomb
 item.etfuturum.honey_bottle.name=Honey Bottle
 item.etfuturum.bamboo.name=Bamboo
+item.etfuturum.goat_horn.name=Goat Horn
+
+instrument.minecraft.ponder_goat_horn=Ponder Goat Horn
+instrument.minecraft.sing_goat_horn=Sing Goat Horn
+instrument.minecraft.seek_goat_horn=Seek Goat Horn
+instrument.minecraft.feel_goat_horn=Feel Goat Horn
+instrument.minecraft.admire_goat_horn=Admire Goat Horn
+instrument.minecraft.call_goat_horn=Call Goat Horn
+instrument.minecraft.yearn_goat_horn=Yearn Goat Horn
+instrument.minecraft.dream_goat_horn=Dream Goat Horn
 
 # Arrows
 item.etfuturum.tipped_arrow.name=Tipped Arrow
+item.etfuturum.spectral_arrow.name=Spectral Arrow
 item.etfuturum.tipped_arrow.effect.empty.name=Uncraftable Tipped Arrow
 item.etfuturum.tipped_arrow.potion.nightVision.name=Arrow of Night Vision
 item.etfuturum.tipped_arrow.potion.invisibility.name=Arrow of Invisibility
@@ -1961,6 +2005,11 @@ efr.nei.amount=Amount
 efr.nei.weight=Weight
 
 efr.decoration.only=Decoration only
+efr.ironchest.tooltip.header=Compatible with:
+efr.ironchest.tooltip.chest=Chests
+efr.ironchest.tooltip.barrel=Barrels
+efr.ironchest.tooltip.shulker=Shulker Boxes
+efr.ironchest.cannot_use=This block currently cannot be upgraded to that tier.
 
 efr.warn.experimental=§e§l[WARN]: §rThe following §bEt §bFuturum §bRequiem§r experimental features are enabled: §6[%s§6]
 efr.warn.experimental.bugs=These features may not be stable, click here to report any issues!
@@ -2220,27 +2269,36 @@ tile.etfuturum.dragonquest.deepslate_yougansekinokakera_ore.name=Deepslate Volca
 
 # Mod support items
 
-item.shulker_vanilla_iron_upgrade.name=Vanilla to Iron Shulker Box Upgrade
-item.shulker_vanilla_copper_upgrade.name=Vanilla to Copper Shulker Box Upgrade
-item.shulker_iron_gold_upgrade.name=Iron to Gold Shulker Box Upgrade
-item.shulker_gold_diamond_upgrade.name=Gold to Diamond Shulker Box Upgrade
-item.shulker_diamond_obsidian_upgrade.name=Diamond to Obsidian Shulker Box Upgrade
-item.shulker_diamond_crystal_upgrade.name=Diamond to Crystal Shulker Box Upgrade
-item.shulker_copper_iron_upgrade.name=Copper to Iron Shulker Box Upgrade
-item.shulker_copper_silver_upgrade.name=Copper to Silver Shulker Box Upgrade
-item.shulker_silver_gold_upgrade.name=Silver to Gold Shulker Box Upgrade
+item.etfuturum.shulker_vanilla_iron_upgrade.name=Vanilla to Iron Shulker Box Upgrade
+item.etfuturum.shulker_vanilla_copper_upgrade.name=Vanilla to Copper Shulker Box Upgrade
+item.etfuturum.shulker_iron_gold_upgrade.name=Iron to Gold Shulker Box Upgrade
+item.etfuturum.shulker_gold_diamond_upgrade.name=Gold to Diamond Shulker Box Upgrade
+item.etfuturum.shulker_diamond_obsidian_upgrade.name=Diamond to Obsidian Shulker Box Upgrade
+item.etfuturum.shulker_diamond_crystal_upgrade.name=Diamond to Crystal Shulker Box Upgrade
+item.etfuturum.shulker_copper_iron_upgrade.name=Copper to Iron Shulker Box Upgrade
+item.etfuturum.shulker_copper_silver_upgrade.name=Copper to Silver Shulker Box Upgrade
+item.etfuturum.shulker_silver_gold_upgrade.name=Silver to Gold Shulker Box Upgrade
 
-item.barrel_vanilla_iron_upgrade.name=Vanilla to Iron Barrel Upgrade
-item.barrel_vanilla_copper_upgrade.name=Vanilla to Copper Barrel Upgrade
-item.barrel_iron_gold_upgrade.name=Iron to Gold Barrel Upgrade
-item.barrel_gold_diamond_upgrade.name=Gold to Diamond Barrel Upgrade
-item.barrel_diamond_obsidian_upgrade.name=Diamond to Obsidian Barrel Upgrade
-item.barrel_copper_iron_upgrade.name=Copper to Iron Barrel Upgrade
-item.barrel_copper_silver_upgrade.name=Copper to Silver Barrel Upgrade
-item.barrel_silver_gold_upgrade.name=Silver to Gold Barrel Upgrade
-item.barrel_steel_gold_upgrade.name=Steel to Gold Barrel Upgrade
-item.barrel_obsidian_netherite_upgrade.name=Obsidian to Netherite Barrel Upgrade
-item.barrel_obsidian_darksteel_upgrade.name=Obsidian to Dark Steel Barrel Upgrade
+item.etfuturum.barrel_wood_iron_upgrade.name=Wood to Iron Barrel Upgrade
+item.etfuturum.barrel_wood_copper_upgrade.name=Wood to Copper Barrel Upgrade
+item.etfuturum.barrel_iron_gold_upgrade.name=Iron to Gold Barrel Upgrade
+item.etfuturum.barrel_gold_diamond_upgrade.name=Gold to Diamond Barrel Upgrade
+item.etfuturum.barrel_diamond_obsidian_upgrade.name=Diamond to Obsidian Barrel Upgrade
+item.etfuturum.barrel_copper_iron_upgrade.name=Copper to Iron Barrel Upgrade
+item.etfuturum.barrel_copper_silver_upgrade.name=Copper to Silver Barrel Upgrade
+item.etfuturum.barrel_silver_gold_upgrade.name=Silver to Gold Barrel Upgrade
+item.etfuturum.barrel_steel_gold_upgrade.name=Steel to Gold Barrel Upgrade
+item.etfuturum.barrel_obsidian_netherite_upgrade.name=Obsidian to Netherite Barrel Upgrade
+item.etfuturum.barrel_obsidian_darksteel_upgrade.name=Obsidian to Dark Steel Barrel Upgrade
+item.etfuturum.barrel_copper_iron_upgrade.name=Copper to Iron Barrel Upgrade
+item.etfuturum.barrel_copper_silver_upgrade.name=Copper to Silver Barrel Upgrade
+item.etfuturum.barrel_silver_gold_upgrade.name=Silver to Gold Barrel Upgrade
+item.etfuturum.barrel_copper_steel_upgrade.name=Copper to Steel Barrel Upgrade
+item.etfuturum.barrel_iron_silver_upgrade.name=Iron to Silver Barrel Upgrade
+item.etfuturum.barrel_iron_steel_upgrade.name=Iron to Steel Barrel Upgrade
+item.etfuturum.barrel_diamond_crystal_upgrade.name=Diamond to Crystal Barrel Upgrade
+item.etfuturum.barrel_diamond_darksteel_upgrade.name=Diamond to Dark Steel Barrel Upgrade
+item.etfuturum.barrel_crystal_darksteel_upgrade.name=Crystal to Dark Steel Barrel Upgrade
 
 item.etfuturum.raw_aluminum.name=Raw Aluminum
 item.etfuturum.raw_tin.name=Raw Tin
@@ -2252,13 +2310,10 @@ item.etfuturum.raw_mythril.name=Raw Mythril
 item.etfuturum.raw_uranium.name=Raw Uranium
 item.etfuturum.raw_thorium.name=Raw Thorium
 item.etfuturum.raw_tungsten.name=Raw Tungsten
-item.etfuturum.raw_titanium.name=Raw Titanium
+item.etfuturum.raw_tita.name=nium.name=Raw Titanium
 item.etfuturum.raw_zinc.name=Raw Zinc
 item.etfuturum.raw_magnesium.name=Raw Magnesium
 item.etfuturum.raw_boron.name=Raw Boron
 
 item.etfuturum.simpleores.raw_adamantium.name=Raw Adamantium
-
-
-
-# PATRIOTS IN CONTROL  😎 🇺🇸 🦅 #
+item.skull.dragon.name=Dragon Head

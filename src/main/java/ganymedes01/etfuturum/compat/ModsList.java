@@ -43,6 +43,8 @@ public enum ModsList {
 	NETHERORES("NetherOres"),
 	DRAGON_QUEST("DQMIIINext"),
 	LOTR("lotr"),
+  BATTLEGEAR_2("battlegear2"),
+	ENDER_IO("EnderIO"),
 
 	NOTFINE("notfine"),
 	NOT_ENOUGH_IDS("neid"),
@@ -56,8 +58,7 @@ public enum ModsList {
 
 	RPLE("rple"),
 
-	GTNH("dreamcraft"),
-	;
+	GTNH("dreamcraft");
 
 	private final String modID;
 	private Boolean isLoaded;

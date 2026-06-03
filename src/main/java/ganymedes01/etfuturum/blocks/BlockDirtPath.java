@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFarmland;
@@ -41,7 +42,8 @@ public class BlockDirtPath extends Block {
 	 */
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
-		return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + 1, (double) z + this.maxZ);
+		return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ,
+				(double) x + this.maxX, (double) y + (ConfigMixins.stepHeightFix ? this.maxY : 1F), (double) z + this.maxZ);
 	}
 
 	@Override
@@ -67,6 +69,9 @@ public class BlockDirtPath extends Block {
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) {
+		if(side == 1) {
+			return true;
+		}
 		Block block = worldIn.getBlock(x, y, z);
 		if (block instanceof BlockDirtPath || block instanceof BlockFarmland) {
 			return false;

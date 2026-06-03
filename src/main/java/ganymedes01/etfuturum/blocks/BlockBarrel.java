@@ -1,11 +1,12 @@
 package ganymedes01.etfuturum.blocks;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.compat.CompatIronChests;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.BaseSubtypesItem;
 import ganymedes01.etfuturum.lib.GUIIDs;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
@@ -14,11 +15,14 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -27,25 +31,24 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.Random;
+import java.util.List;
 
 public class BlockBarrel extends BlockContainer {
-	public BlockBarrel(){this(TileEntityBarrel.BarrelType.VANILLA);}
+	public BlockBarrel(){this(TileEntityBarrel.BarrelType.WOOD);}
 
 	public BlockBarrel(TileEntityBarrel.BarrelType type) {
-		super(type == TileEntityBarrel.BarrelType.VANILLA ? Material.wood : Material.iron);
+		super(type == TileEntityBarrel.BarrelType.WOOD ? Material.wood : Material.iron);
 		this.type = type;
-		if (type == TileEntityBarrel.BarrelType.VANILLA){
-			this.setStepSound(soundTypeWood);
+		if (type == TileEntityBarrel.BarrelType.WOOD){
 			this.setHarvestLevel("axe", 0);
 			this.setBlockName(Utils.getUnlocalisedName("barrel"));
 			this.setBlockTextureName("barrel");
 		} else {
-			this.setStepSound(soundTypeMetal);
 			this.setHarvestLevel("pickaxe", 1);
 			this.setBlockName(Utils.getUnlocalisedName(type.name().toLowerCase() + "_barrel"));
 			this.setBlockTextureName("metalbarrels:" + type.name().toLowerCase() + "_barrel");
 		}
+		Utils.setBlockSound(this, type.getSound());
 
 		switch (type){
 			case OBSIDIAN:
@@ -59,8 +62,8 @@ public class BlockBarrel extends BlockContainer {
 				this.setResistance(2.5F);
 				break;
 		}
-
-		this.useNeighborBrightness = true;
+		opaque = !type.isClear();
+		this.useNeighborBrightness = type.isClear();
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
@@ -72,6 +75,16 @@ public class BlockBarrel extends BlockContainer {
 	@Override
 	public int getRenderType() {
 		return RenderIDs.BARREL;
+	}
+
+	@Override
+	public boolean renderAsNormalBlock() {
+		return opaque;
+	}
+
+	@Override
+	public boolean isOpaqueCube() {
+		return opaque;
 	}
 
 	@Override
@@ -105,6 +118,9 @@ public class BlockBarrel extends BlockContainer {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		if (world.isRemote) {
+			if(ConfigModCompat.barrelIronChest && player.getHeldItem() != null && player.getHeldItem().getItem() != null && world.getTileEntity(x, y, z) instanceof TileEntityBarrel barrel) {
+				handleIronChestClientWarning(world, x, y, z, player, barrel);
+			}
 			return true;
 		}
 
@@ -112,28 +128,43 @@ public class BlockBarrel extends BlockContainer {
 			return false;
 		}
 
-		if (player.isSneaking() || barrel.numPlayersUsing != 0 || player.getHeldItem() == null || player.getHeldItem().getItem() != ModItems.BARREL_UPGRADE.get()) {
-			player.openGui(EtFuturum.instance, GUIIDs.BARREL, world, x, y, z);
+		if(ConfigModCompat.barrelIronChest && player.getHeldItem() != null) {
+			if(handleIronChestUpgrade(world, x, y, z, player, barrel)) {
+				return true;
+			}
+		}
+
+		player.openGui(EtFuturum.instance, GUIIDs.BARREL, world, x, y, z);
+		return true;
+	}
+
+	private void handleIronChestClientWarning(World world, int x, int y, int z, EntityPlayer player, TileEntityBarrel barrel) {
+		String upgrade = CompatIronChests.getNextBarrelUpgrade(barrel.type.name(), player.getHeldItem());
+		if(upgrade != null && !TileEntityBarrel.BarrelType.map.containsKey(upgrade)) {
+			FMLClientHandler.instance().getClient().ingameGUI.func_110326_a("\u00a7c" + I18n.format("efr.ironchest.cannot_use"), false);
+		}
+	}
+
+	private boolean handleIronChestUpgrade(World world, int x, int y, int z, EntityPlayer player, TileEntityBarrel barrel) {
+		ItemStack upgradeStack = player.getHeldItem();
+		String upgrade = CompatIronChests.getNextBarrelUpgrade(barrel.type.name(), upgradeStack);
+		if (upgrade != null) {
+			TileEntityBarrel.BarrelType newType = TileEntityBarrel.BarrelType.map.get(upgrade);
+			if(newType != null) {
+				barrel.upgrading = true;
+				ItemStack[] tempCopy = barrel.chestContents == null ? new ItemStack[barrel.getSizeInventory()] : ArrayUtils.clone(barrel.chestContents);
+				TileEntityBarrel newTE = (TileEntityBarrel) newType.getBlock().createTileEntity(world, barrel.getBlockMetadata());
+				System.arraycopy(tempCopy, 0, newTE.chestContents, 0, tempCopy.length);
+				if (!player.capabilities.isCreativeMode) {
+					upgradeStack.stackSize--;
+				}
+				world.setBlock(x, y, z, newTE.type.getBlock(), barrel.getBlockMetadata(), 3);
+				world.setTileEntity(x, y, z, newTE);
+				world.markBlockForUpdate(x, y, z);
+			}
 			return true;
 		}
-
-		ItemStack upgradeStack = player.getHeldItem();
-		String[] upgradeStrings = ((BaseSubtypesItem) player.getHeldItem().getItem()).types[upgradeStack.getItemDamage()].split("_");
-		if (upgradeStrings.length < 3 || !upgradeStrings[0].equals(barrel.type.toString().toLowerCase())) {
-			return false;
-		}
-
-		barrel.upgrading = true;
-		ItemStack[] tempCopy = barrel.chestContents == null ? new ItemStack[barrel.getSizeInventory()] : ArrayUtils.clone(barrel.chestContents);
-		TileEntityBarrel newTE = (TileEntityBarrel) TileEntityBarrel.BarrelType.valueOf(upgradeStrings[1].toUpperCase()).getBlock().createTileEntity(world, barrel.getBlockMetadata());
-		System.arraycopy(tempCopy, 0, newTE.chestContents, 0, tempCopy.length);
-		if (!player.capabilities.isCreativeMode) {
-			upgradeStack.stackSize--;
-		}
-		world.setBlock(x, y, z, newTE.type.getBlock(), barrel.getBlockMetadata(), 3);
-		world.setTileEntity(x, y, z, newTE);
-		world.markBlockForUpdate(x, y, z);
-		return true;
+		return false;
 	}
 
 	public IInventory getInventory(World p_149951_1_, int p_149951_2_, int p_149951_3_, int p_149951_4_) {
@@ -196,7 +227,11 @@ public class BlockBarrel extends BlockContainer {
 	 */
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityBarrel(type);
+		return type.isClear() ? new TileEntityBarrel.ClearTE(type) : new TileEntityBarrel(type);
 	}
 
+	@Override
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+		super.getSubBlocks(itemIn, tab, list);
+	}
 }

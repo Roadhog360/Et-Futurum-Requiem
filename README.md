@@ -3,6 +3,9 @@
 **Download: [CurseForge](https://www.curseforge.com/minecraft/mc-mods/et-futurum-requiem/files)
 | [Modrinth](https://modrinth.com/mod/etfuturum/versions)**
 
+## [Legacy Modding Discord Server!](https://discord.gg/jBHQn3Nmsh)
+(check out the _Roadhog360's mods_ category)
+
 WARNING!
 
 Though this project is licensed under the LGPL-3.0 a lot of the code featured here is a direct copy or adaptation of
@@ -17,6 +20,10 @@ and other really good contributions.
 
 The mod uses MCLib's AssetDirector module to download assets from Mojang's servers.
 Check [its wiki page](https://github.com/makamys/MCLib/wiki/AssetDirector) for more information.
+
+![JProfiler](https://www.ej-technologies.com/images/product_banners/jprofiler_large.png)  
+This mod is tested and profiled with JProfiler! JProfiler combines high-level analytics with low-level JVM data to pinpoint performance bottlenecks, memory leaks, slow JDBC queries, costly HTTP calls, and much more. Free open-source projects may be eligible for a **free** license. You can learn more about JProfiler here:  
+https://www.ej-technologies.com/jprofiler
 
 ## Dependencies
 

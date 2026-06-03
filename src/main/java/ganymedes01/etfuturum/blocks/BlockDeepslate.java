@@ -27,6 +27,7 @@ public class BlockDeepslate extends BlockRotatedPillar {
 		this.setBlockName(Utils.getUnlocalisedName("deepslate"));
 		this.setBlockTextureName("deepslate");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
+		this.setHarvestLevel("pickaxe", 0);
 		Utils.setBlockSound(this, ModSounds.soundDeepslate);
 	}
 

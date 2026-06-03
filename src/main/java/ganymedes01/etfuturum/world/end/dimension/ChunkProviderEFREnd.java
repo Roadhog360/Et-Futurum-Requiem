@@ -2,6 +2,8 @@ package ganymedes01.etfuturum.world.end.dimension;
 
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
+import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
+import ganymedes01.etfuturum.world.end.gen.MapGenEndCity;
 import ganymedes01.etfuturum.world.end.gen.WorldGenEndIsland;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -55,7 +57,7 @@ public class ChunkProviderEFREnd implements IChunkProvider {
 	 * are map structures going to be generated (e.g. strongholds)
 	 */
 	private final boolean mapFeaturesEnabled;
-	//    private final MapGenEndCity endCityGen = new MapGenEndCity(this);
+	    private final MapGenEndCity endCityGen;
 	private final NoiseGeneratorSimplex islandNoise;
 	private double[] buffer;
 
@@ -78,6 +80,7 @@ public class ChunkProviderEFREnd implements IChunkProvider {
 		this.noiseGen5 = new NoiseGeneratorOctaves(this.rand, 10);
 		this.noiseGen6 = new NoiseGeneratorOctaves(this.rand, 16);
 		this.islandNoise = new NoiseGeneratorSimplex(this.rand);
+		this.endCityGen = (ConfigExperiments.endDimensionProvider && ConfigExperiments.enableEndCities) ? new MapGenEndCity(this) : null;
 	}
 
 	public Chunk provideChunk(int x, int z) {
@@ -88,10 +91,9 @@ public class ChunkProviderEFREnd implements IChunkProvider {
 		this.setBlocksInChunk(x, z, ablock);
 		this.buildSurfaces(x, z, ablock, biomesForGeneration, meta);
 
-//        if (this.mapFeaturesEnabled)
-//        {
-//            this.endCityGen.generate(this.worldObj, x, z, chunkprimer);
-//        }
+		if (this.mapFeaturesEnabled && this.endCityGen != null) {
+			this.endCityGen.func_151539_a(this, this.worldObj, x, z, ablock);
+		}
 
 		Chunk chunk = new Chunk(this.worldObj, ablock, meta, x, z);
 		byte[] abyte = chunk.getBiomeArray();
@@ -392,8 +394,8 @@ public class ChunkProviderEFREnd implements IChunkProvider {
 		int yPos = 0;
 		int zPos = z * 16;
 
-		if (this.mapFeaturesEnabled) {
-//            this.endCityGen.generateStructure(this.worldObj, this.rand, new ChunkPos(x, z));
+		if (this.mapFeaturesEnabled && this.endCityGen != null) {
+			this.endCityGen.generateStructuresInChunk(this.worldObj, this.rand, x, z);
 		}
 
 		this.worldObj.getBiomeGenForCoords(xPos + 16, zPos + 16).decorate(this.worldObj, rand, xPos, zPos);

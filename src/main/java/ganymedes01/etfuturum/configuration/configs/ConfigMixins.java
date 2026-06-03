@@ -21,6 +21,8 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean newEnchantingSounds;
 	public static boolean newFishingRodSounds;
 	public static boolean newBeaconSounds;
+	public static boolean modernSkeletonBehavior;
+	public static boolean modernZombieBehavior;
 	public static boolean hoeTilling;
 	public static boolean blockHopperInteraction;
 	public static boolean avoidDroppingItemsWhenClosing;
@@ -45,6 +47,8 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean thinPanes;
 	public static boolean colorGrassBlockItemSides;
 	public static boolean enablePlayersSleepingPecentageGamerule;
+	public static boolean adjustedLiquidPhysics;
+	public static boolean liquidItemFloat;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -93,6 +97,8 @@ public class ConfigMixins extends ConfigBase {
 		newEnchantingSounds = getBoolean("newEnchantingSounds", catBackport, true, "Allows an enchantment sound to play on the vanilla enchantment table, and possibly a few modded ones...? This option does nothing to the Et Futurum Requiem enchantment tables.\nModified Classes: net.minecraft.inventory.ContainerEnchantment");
 		newFishingRodSounds = getBoolean("newFishingRodSounds", catBackport, true, "New sounds for casting and reeling in fishing rods.\nModified Classes: net.minecraft.item.ItemFishingRod");
 		newBeaconSounds = getBoolean("newBeaconSounds", catBackport, true, "Allows beacon ambience to play for beacons. Should include most modded beacons.\nModified Classes: net.minecraft.tileentity.TileEntityBeacon");
+		modernSkeletonBehavior = getBoolean("modernSkeletonBehavior", catBackport, true, "Backports modern skeleton bow AI/aiming, wither skeleton melee behavior, and skeleton idle/melee poses.\nModified Classes: net.minecraft.entity.monster.EntitySkeleton\nModified Client Classes: net.minecraft.client.model.ModelSkeleton");
+		modernZombieBehavior = getBoolean("modernZombieBehavior", catBackport, true, "Backports modern zombie Iron Golem targeting.\nModified Classes: net.minecraft.entity.monster.EntityZombie");
 		hoeTilling = getBoolean("hoeTilling", catBackport, true, "Sounds for hoes tilling farmland.\nModified Classes: net.minecraft.item.ItemHoe");
 		dustUnderFallingBlocks = getBoolean("dustUnderFallingBlocks", catBackport, true, "Spawns a particle under falling blocks like sand or gravel that are suspended mid-air.\nModified Classes: net.minecraft.block.BlockFalling");
 		postTreeGenEvent = getBoolean("postTreeGenEvent", catBackport, true, "Fires an event after a tree generates, mainly for beehives to accurately know where most trees are. For now this option is disabled if bees are disabled.\nModified Classes: net.minecraft.world.gen.feature.WorldGenAbstractTree");
@@ -109,6 +115,8 @@ public class ConfigMixins extends ConfigBase {
 				"\nModified Client Classes: net.minecraft.client.renderer.RenderBlocks");
 		colorGrassBlockItemSides = getBoolean("colorGrassBlockItemSides", catBackport, true, "Grass block sides are colored in the player's inventory" +
 				"\nModified Client Classes: net.minecraft.client.renderer.RenderBlocks");
+		adjustedLiquidPhysics = getBoolean("adjustedLiquidPhysics", catBackport, true, "Moves entities in lava, speeds up items in all liquids, floats items in liquids, changes some other liquid to entity interactions.\nModified Classes: net.minecraft.world.World net.minecraft.entity.Entity net.minecraft.block.BlockLiquid");
+		liquidItemFloat = getBoolean("liquidItemFloat", catBackport, true, "Floats items upwards in liquids.\nModified Classes: net.minecraft.entity.item.EntityItem");
 
 		stepHeightFix = getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
 		arrowFallingFix = getBoolean("arrowFallingFix", catFixes, true, "Prevents arrows from falling off of blocks too easily\nModified classes: net.minecraft.entity.EntityArrow");

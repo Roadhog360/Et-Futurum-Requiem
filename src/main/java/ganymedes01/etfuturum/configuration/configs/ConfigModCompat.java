@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.configuration.configs;
 
 import com.google.common.collect.Lists;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 
 import java.io.File;
@@ -11,7 +12,10 @@ public class ConfigModCompat extends ConfigBase {
 	public static int elytraBaublesExpandedCompat;
 	public static boolean baublesMending;
 	public static boolean shulkerBoxesIronChest;
+	public static boolean shulkerBoxesIronChestUpgradeItem;
 	public static boolean barrelIronChest;
+	public static boolean barrelIronChestUpgradeItem;
+	public static boolean shulkerUpgradeReturnsShell;
 
 	public static boolean moddedRawOres;
 	public static List<String> moddedRawOresBlacklist;
@@ -44,8 +48,15 @@ public class ConfigModCompat extends ConfigBase {
 	//TODO: Move Iron Chest checks here
 	@Override
 	protected void syncConfigOptions() {
-		shulkerBoxesIronChest = getBoolean("shulkerBoxesIronChest", catMisc, true, "If Iron Chests is installed, allow Iron Shulker boxes to be crafted having all the same tiers as Iron Chests. This option does nothing if Iron Chests is not installed.");
-		barrelIronChest = getBoolean("barrelIronChest", catMisc, true, "If Iron Chests is installed, allow Iron Barrels to be crafted having all the same tiers as Iron Chests except for crystal. This option does nothing if Iron Chests is not installed.");
+		shulkerBoxesIronChest = getBoolean("shulkerBoxesIronChest", catMisc, true, "If Iron Chests is installed, allow Iron Shulker boxes to be crafted. This option does nothing if Iron Chests is not installed.");
+		shulkerBoxesIronChestUpgradeItem = getBoolean("shulkerBoxesIronChestUpgradeItem", catMisc, false, "If the above is enabled, also enable an item to upgrade the Shulker boxes with. If this is disabled, the default chest upgrade can be used instead.");
+		barrelIronChest = getBoolean("barrelIronChest", catMisc, true, "If Iron Chests is installed, allow Iron Barrels to be crafted. This option does nothing if Iron Chests is not installed.");
+		barrelIronChestUpgradeItem = getBoolean("barrelIronChestUpgradeItem", catMisc, false, "If the above is enabled, also enable an item to upgrade the barrels with. If this is disabled, the default chest upgrade can be used instead.");
+		shulkerUpgradeReturnsShell = getBoolean("shulkerUpgradeReturnsShell", catMisc, true, """
+						When the shulker box upgrades are used in a recipe, a shulker shell will be returned.
+						This exists because the default recipe for the upgrades is a shulker shell and a regular chest upgrade.
+						You are able to uncraft the upgrade back to a regular one, so the shell is returned to avoid accidental loss.""");
+
 		elytraBaublesExpandedCompat = getInt("elytraBaublesExpandedCompat", catMisc, 1, 0, 2, """
 				Adds compat for Baubles Expanded. Does nothing for standard baubles, this REQUIRES Baubles Expanded! It uses the new "wings" slot added by the expanded version. https://modrinth.com/mod/baubles-expanded\
 				When enabled, this allows the player to equip an elytra with a chestplate, by placing the elytra in a "wings" slot instead of the chestplate slot. Note that the player can only equip one elytra at a time.\
@@ -70,5 +81,12 @@ public class ConfigModCompat extends ConfigBase {
 				"\nUseful if you have mods like Chisel or Botania which feature these same stones but not the stairs and other variants.");
 		disableCopperOreAndIngotOnly = getBoolean("disableCopperOreAndIngotOnly", catMisc, false, "Disables copper ingots and ores, but leaves the blocks and other stuff." +
 				"\nUseful if you prefer another mod's copper, but want to use the oxidizing copper building blocks.");
+	}
+
+	@Override
+	protected void onConstructingValues() {
+		if(!ModsList.IRON_CHEST.isLoaded()) {
+			shulkerBoxesIronChest = barrelIronChest = shulkerBoxesIronChestUpgradeItem = barrelIronChestUpgradeItem = false;
+		}
 	}
 }

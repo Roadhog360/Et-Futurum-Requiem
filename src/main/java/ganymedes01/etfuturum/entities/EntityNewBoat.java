@@ -425,14 +425,18 @@ public class EntityNewBoat extends Entity {
 		this.previousStatus = this.status;
 		this.status = this.getBoatStatus();
 
-		if (this.status != EntityNewBoat.Status.UNDER_WATER && this.status != EntityNewBoat.Status.UNDER_FLOWING_WATER) {
+		if (ConfigTweaks.legacyNewBoatBuoyancy) {
 			this.outOfControlTicks = 0.0F;
 		} else {
-			++this.outOfControlTicks;
-		}
+			if (this.status != EntityNewBoat.Status.UNDER_WATER && this.status != EntityNewBoat.Status.UNDER_FLOWING_WATER) {
+				this.outOfControlTicks = 0.0F;
+			} else {
+				++this.outOfControlTicks;
+			}
 
-		if (!this.worldObj.isRemote && this.outOfControlTicks >= 60.0F) {
-			this.removePassengers();
+			if (!this.worldObj.isRemote && this.outOfControlTicks >= 60.0F) {
+				this.removePassengers();
+			}
 		}
 
 		if (this.getTimeSinceHit() > 0) {
@@ -777,6 +781,10 @@ public class EntityNewBoat extends Entity {
 		double d2 = 0.0D;
 		this.momentum = 0.05F;
 
+		final boolean legacyBuoyancyUnderwater = ConfigTweaks.legacyNewBoatBuoyancy
+				&& (this.status == EntityNewBoat.Status.UNDER_WATER || this.status == EntityNewBoat.Status.UNDER_FLOWING_WATER);
+		final float legacyStrength = legacyBuoyancyUnderwater ? ConfigTweaks.legacyNewBoatBuoyancyStrength : 1.0F;
+
 		if (this.previousStatus == EntityNewBoat.Status.IN_AIR && this.status != EntityNewBoat.Status.IN_AIR && this.status != EntityNewBoat.Status.ON_LAND) {
 			this.waterLevel = this.getBoundingBox().minY + (double) this.height;
 			this.setPosition(this.posX, (double) (this.getWaterLevelAbove() - this.height) + 0.101D, this.posZ);
@@ -787,12 +795,22 @@ public class EntityNewBoat extends Entity {
 			if (this.status == EntityNewBoat.Status.IN_WATER) {
 				d2 = (this.waterLevel - this.getBoundingBox().minY) / (double) this.height;
 				this.momentum = 0.9F;
-			} else if (this.status == EntityNewBoat.Status.UNDER_FLOWING_WATER) {
-				d1 = -7.0E-4D;
-				this.momentum = 0.9F;
-			} else if (this.status == EntityNewBoat.Status.UNDER_WATER) {
-				d2 = 0.009999999776482582D;
-				this.momentum = 0.45F;
+			} else if (this.status == EntityNewBoat.Status.UNDER_FLOWING_WATER || this.status == EntityNewBoat.Status.UNDER_WATER) {
+				if (legacyBuoyancyUnderwater) {
+					this.waterLevel = this.getWaterLevelAbove();
+					d2 = (this.waterLevel - this.getBoundingBox().minY) / (double) this.height;
+					d2 *= (double) legacyStrength;
+					d1 = 0.0D;
+					this.momentum = 0.9F;
+				} else {
+					if (this.status == EntityNewBoat.Status.UNDER_FLOWING_WATER) {
+						d1 = -7.0E-4D;
+						this.momentum = 0.9F;
+					} else {
+						d2 = 0.009999999776482582D;
+						this.momentum = 0.45F;
+					}
+				}
 			} else if (this.status == EntityNewBoat.Status.IN_AIR) {
 				this.momentum = 0.9F;
 			} else if (this.status == EntityNewBoat.Status.ON_LAND) {
@@ -811,6 +829,13 @@ public class EntityNewBoat extends Entity {
 			if (d2 > 0.0D) {
 				this.motionY += d2 * (-d0 / 0.65D);
 				this.motionY *= 0.75D;
+			}
+
+			if (legacyBuoyancyUnderwater) {
+				double targetY = (double) (this.getWaterLevelAbove() - this.height) + 0.101D;
+				if (this.posY < targetY - 0.05D) {
+					this.motionY += 0.06D * (double) legacyStrength;
+				}
 			}
 		}
 	}
@@ -965,15 +990,16 @@ public class EntityNewBoat extends Entity {
 
 		if (!this.isRiding()) {
 			if (onGroundIn) {
-				if (this.fallDistance > 3.0F) {
-					if (this.status != EntityNewBoat.Status.ON_LAND && this.getControllingPassenger() instanceof EntityPlayer) {
-						this.fallDistance = 0.0F;
-						return;
-					}
-
+				float breakDist = ConfigTweaks.newBoatsFallBreakDistance;
+				boolean canBreakFromFall = breakDist > 0.0F;
+				// Only count a "smash" if we landed on a solid (non-water) block.
+				Material belowMat = this.worldObj.getBlock((int) posX, (int) (posY - 1D), (int) posZ).getMaterial();
+				boolean landedOnSolid = belowMat != null && belowMat.isSolid() && belowMat != Material.water;
+				if (canBreakFromFall && landedOnSolid && this.fallDistance > breakDist) {
 					this.fall(this.fallDistance);
 
 					if (!this.worldObj.isRemote && !this.isDead) {
+						this.removePassengers();
 						this.setDead();
 
 						if (this.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot")) {

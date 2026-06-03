@@ -24,29 +24,41 @@ public class ItemSkullRenderer implements IItemRenderer {
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack stack, Object... data) {
 		GameProfile profile = stack.hasTagCompound() ? getGameProfile(stack) : null;
+		int meta = stack.getItemDamage();
 
 		switch (type) {
 			case ENTITY:
-				renderSkull(-0.25F, -0.5F, -0.5F, stack.getItemDamage(), profile);
+				renderSkull(-0.25F, -0.5F, -0.5F, meta, profile, 1.0F);
 				break;
 			case EQUIPPED:
-				renderSkull(0.5F, 0.0F, 0.0F, stack.getItemDamage(), profile);
+				renderSkull(0.5F, 0.0F, 0.0F, meta, profile, 1.0F);
 				break;
 			case EQUIPPED_FIRST_PERSON:
-				renderSkull(0.5F, 0.35F, 0.25F, stack.getItemDamage(), profile);
+				renderSkull(0.5F, 0.35F, 0.25F, meta, profile, 1.0F);
 				break;
 			case INVENTORY:
+				OpenGLHelper.pushMatrix();
 				OpenGLHelper.scale(1.5, 1.5, 1.5);
-				renderSkull(0.75F, 0.30F, 0.5F, stack.getItemDamage(), profile);
+				if (meta == 5) {
+					// Manual GUI transform polish for dragon head
+					// Decreasing X shifts it left in GUI space
+					renderSkull(0.45F, 0.26F, 0.5F, meta, profile, 0.6F);
+				} else {
+					renderSkull(0.75F, 0.30F, 0.5F, meta, profile, 1.0F);
+				}
+				OpenGLHelper.popMatrix();
 				break;
 			default:
 				break;
 		}
 	}
 
-	private void renderSkull(float x, float y, float z, int meta, GameProfile name) {
+	private void renderSkull(float x, float y, float z, int meta, GameProfile name, float extraScale) {
 		OpenGLHelper.pushMatrix();
 		OpenGLHelper.translate(x, y, z);
+		if (extraScale != 1.0F) {
+			OpenGLHelper.scale(extraScale, extraScale, extraScale);
+		}
 		TileEntityFancySkullRenderer.instance.renderSkull(0, 0, 0, 0, 0, meta, name);
 		OpenGLHelper.popMatrix();
 	}

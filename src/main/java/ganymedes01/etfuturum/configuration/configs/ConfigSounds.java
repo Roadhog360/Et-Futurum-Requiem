@@ -1,82 +1,10 @@
 package ganymedes01.etfuturum.configuration.configs;
 
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import ganymedes01.etfuturum.core.utils.Logger;
-import net.minecraftforge.common.config.Property;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ConfigSounds extends ConfigBase {
-
-	private static final String[] DEFAULT_CUSTOM_ARMOR_EQUIP_RULES = new String[]{
-			"leather:thermal_padding",
-			"leather:wool",
-			"chain:cultist",
-			"gold:alloy",
-			"gold:angmallen",
-			"gold:astral_silver",
-			"gold:carmot",
-			"gold:copper",
-			"gold:efrine",
-			"gold:electrum",
-			"gold:hepatizon",
-			"gold:midasium",
-			"gold:orichalcum",
-			"gold:oureclase",
-			"gold:platinum",
-			"gold:silver",
-			"iron:amordrine",
-			"iron:brass",
-			"iron:bronze",
-			"iron:celenegil",
-			"iron:ceruclase",
-			"iron:desh",
-			"iron:endium",
-			"iron:inolashite",
-			"iron:invar",
-			"iron:kalendrite",
-			"iron:lead",
-			"iron:nickel",
-			"iron:nickle",
-			"iron:prometheum",
-			"iron:solar",
-			"iron:steel",
-			"iron:thaumium",
-			"iron:tin",
-			"iron:titanium",
-			"iron:vyroxeres",
-			"diamond:adamantine",
-			"diamond:amethyst",
-			"diamond:atlarus",
-			"diamond:desichalkos",
-			"diamond:eximite",
-			"diamond:mithril",
-			"diamond:mythril",
-			"diamond:void",
-			"netherite:haderoth",
-			"netherite:heavyblaze",
-			"netherite:ignatius",
-			"netherite:sanguinite",
-			"netherite:tartarite",
-			"netherite:fortress",
-			"netherite:vulcanite",
-			"turtle_helmet:wood",
-			"elytra:hazmat"
-	};
-
-	public static Set<String> newArmorEquipCustomRulesLeather = new HashSet<>();
-	public static Set<String> newArmorEquipCustomRulesChain = new HashSet<>();
-	public static Set<String> newArmorEquipCustomRulesGold = new HashSet<>();
-	public static Set<String> newArmorEquipCustomRulesIron = new HashSet<>();
-	public static Set<String> newArmorEquipCustomRulesDiamond = new HashSet<>();
-	public static Set<String> newArmorEquipCustomRulesNetherite = new HashSet<>();
-	public static Set<String> newArmorEquipCustomRulesTurtle = new HashSet<>();
-	public static Set<String> newArmorEquipCustomRulesElytra = new HashSet<>();
-	public static Set<String> newArmorEquipCustomRulesGeneric = new HashSet<>();
-	public static Set<String> newArmorEquipCustomRulesNone = new HashSet<>();
-
 	public static boolean combatSounds;
 	public static boolean thornsSounds;
 	public static boolean armorEquip;
@@ -152,40 +80,5 @@ public class ConfigSounds extends ConfigBase {
 		heavyWaterSplashing = getBoolean("heavyWaterSplashing", catEntity, true, "Play a more intense splash when the player lands in water at high speeds.");
 
 		bookPageTurn = getBoolean("bookPageTurn", catMisc, true, "Changes the click in the book GUI to have a page turn sound instead of the menu click.");
-
-		Property newArmorEquipCustomRulesProp = get(catPlayer, "armorEquipCustomRules", DEFAULT_CUSTOM_ARMOR_EQUIP_RULES);
-		newArmorEquipCustomRulesProp.comment = "Used for custom armor to play custom equip sounds. First the sound you want to play, a colon, then a part of the unlocalized name. The string can be anywhere in the unlocalized name and is not case-sensitive.\nFor example, one of the default custom rules below is \"gold:copper\", which means any armor with \"copper\" anywhere in its unlocalized name will get the gold equip sound.\nAvailable sounds are: 'leather, chain, gold, iron, diamond, netherite, elytra, turtle_helmet, generic, none'. If a modded armor is not on the list it will use generic equip sounds automatically unless it's given the \"none\" type. Non-armor gear will not play a sound unless specified to do so.";
-
-		for (String rule : newArmorEquipCustomRulesProp.getStringList()) {
-			if (rule.split(":").length != 1 && !rule.startsWith("leather") && !rule.startsWith("chain") && !rule.startsWith("gold") && !rule.startsWith("iron") && !rule.startsWith("diamond") &&
-					!rule.startsWith("netherite") && !rule.startsWith("elytra") && !rule.startsWith("turtle_helmet") && !rule.startsWith("generic") && !rule.startsWith("none")) {
-				Logger.error("Custom armor rule entry " + rule + " is invalid. Each entry should have ONE colon (:) and should start with a material type. Skipping.");
-				continue;
-			}
-
-			String material = rule.split(":")[1].toLowerCase();
-
-			if (rule.startsWith("leather")) {
-				newArmorEquipCustomRulesLeather.add(material);
-			} else if (rule.startsWith("chain")) {
-				newArmorEquipCustomRulesChain.add(material);
-			} else if (rule.startsWith("gold")) {
-				newArmorEquipCustomRulesGold.add(material);
-			} else if (rule.startsWith("iron")) {
-				newArmorEquipCustomRulesIron.add(material);
-			} else if (rule.startsWith("diamond")) {
-				newArmorEquipCustomRulesDiamond.add(material);
-			} else if (rule.startsWith("netherite")) {
-				newArmorEquipCustomRulesNetherite.add(material);
-			} else if (rule.startsWith("elytra")) {
-				newArmorEquipCustomRulesElytra.add(material);
-			} else if (rule.startsWith("turtle_helmet")) {
-				newArmorEquipCustomRulesTurtle.add(material);
-			} else if (rule.startsWith("generic")) {
-				newArmorEquipCustomRulesGeneric.add(material);
-			} else if (rule.startsWith("none")) {
-				newArmorEquipCustomRulesNone.add(material);
-			}
-		}
 	}
 }

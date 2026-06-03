@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
-import cpw.mods.ironchest.client.GUIChest;
 import ganymedes01.etfuturum.inventory.ContainerChestGeneric;
 import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import ganymedes01.etfuturum.tileentities.TileEntityBarrel.BarrelType;
@@ -16,7 +15,7 @@ import java.util.Arrays;
 public class GuiBarrel extends GuiContainer {
 
 	private static final ResourceLocation[] backgrounds = Arrays.stream(BarrelType.VALUES)
-			.map(t -> t.getGuiTextureName() == null ? new ResourceLocation("textures/gui/container/generic_54.png") :
+			.map(t -> t.getGuiTextureName() == null ? new ResourceLocation("textures/gui/container/barrel.png") :
 					new ResourceLocation(String.format("etfuturum:textures/gui/container/ironbarrels/%s.png", t.getGuiTextureName())))
 			.toArray(ResourceLocation[]::new);
 	private final IInventory upperChestInventory;
@@ -45,7 +44,7 @@ public class GuiBarrel extends GuiContainer {
 	 */
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		if (type == BarrelType.VANILLA) {
+		if (type == BarrelType.WOOD) {
 			this.fontRendererObj.drawString(this.lowerChestInventory.hasCustomInventoryName() ? this.lowerChestInventory.getInventoryName() : I18n.format(this.lowerChestInventory.getInventoryName()), 8, 6, 4210752);
 			this.fontRendererObj.drawString(this.upperChestInventory.hasCustomInventoryName() ? this.upperChestInventory.getInventoryName() : I18n.format(this.upperChestInventory.getInventoryName()), 8, this.ySize - 96 + 2, 4210752);
 		}
@@ -69,11 +68,6 @@ public class GuiBarrel extends GuiContainer {
 			return;
 		}
 
-		if (type == BarrelType.VANILLA) {
-			this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.inventoryRows * 18 + 17);
-			this.drawTexturedModalRect(k, l + this.inventoryRows * 18 + 17, 0, 126, this.xSize, 96);
-		} else {
-			this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-		}
+		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 	}
 }

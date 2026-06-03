@@ -9,6 +9,5 @@ on:
 
 jobs:
   build-and-test:
-    uses: Roadhog360/Hog-Actions-Workflows/.github/workflows/build-and-test.yml@master
-    #Change the above to "build-without-test" and the name to "Build without test" if you don't want this build to run a test server
+    uses: GTNewHorizons/GTNH-Actions-Workflows/.github/workflows/build-and-test.yml@master
     secrets: inherit

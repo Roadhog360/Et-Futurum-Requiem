@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import cpw.mods.ironchest.ContainerIronChest;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
+import ganymedes01.etfuturum.api.spectator.SpectatorUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -18,14 +18,14 @@ public class MixinContainerIronChest {
 	@WrapOperation(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/IInventory;openInventory()V"))
 	private void ignoreOpenInventoryInSpectator(IInventory chestInv, Operation<Void> original,
 												@Local(ordinal = 0, argsOnly = true) IInventory playerInv) {
-		if (!(playerInv instanceof InventoryPlayer) || !SpectatorMode.isSpectator(((InventoryPlayer) playerInv).player)) {
+		if (!(playerInv instanceof InventoryPlayer) || !SpectatorUtils.isSpectator(((InventoryPlayer) playerInv).player)) {
 			original.call(chestInv);
 		}
 	}
 
 	@Inject(method = "onContainerClosed", at = @At(value = "HEAD"), cancellable = true)
 	private void ignoreCloseInventoryInSpectator(EntityPlayer p_75134_1_, CallbackInfo ci) {
-		if (SpectatorMode.isSpectator(p_75134_1_)) {
+		if (SpectatorUtils.isSpectator(p_75134_1_)) {
 			ci.cancel();
 		}
 	}

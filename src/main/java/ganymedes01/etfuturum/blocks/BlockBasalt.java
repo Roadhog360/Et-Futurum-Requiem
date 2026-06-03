@@ -27,6 +27,7 @@ public class BlockBasalt extends BlockRotatedPillar implements ISubBlocksBlock {
 		setResistance(4.2F);
 		setBlockName(Utils.getUnlocalisedName("basalt"));
 		setBlockTextureName("basalt");
+		setHarvestLevel("pickaxe",0);
 		Utils.setBlockSound(this, ModSounds.soundBasalt);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}

@@ -1,8 +1,7 @@
 package ganymedes01.etfuturum.mixins.early.spectator;
 
-import ganymedes01.etfuturum.spectator.SpectatorMode;
+import ganymedes01.etfuturum.api.spectator.SpectatorUtils;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.network.play.client.C0EPacketClickWindow;
@@ -21,7 +20,7 @@ public class MixinNetHandlerPlayServer {
 
 	@Inject(method = "processClickWindow", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Container;slotClick(IIILnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/item/ItemStack;"), cancellable = true)
 	private void skipClickForSpectators(C0EPacketClickWindow packet, CallbackInfo ci) {
-		if (SpectatorMode.isSpectator(this.playerEntity)) {
+        if (SpectatorUtils.isSpectator(this.playerEntity)) {
 			ci.cancel();
 			ArrayList<ItemStack> arraylist = new ArrayList<>();
 			for (int i = 0; i < this.playerEntity.openContainer.inventorySlots.size(); ++i) {

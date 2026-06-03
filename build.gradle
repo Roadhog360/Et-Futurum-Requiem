@@ -1,58 +1,53 @@
-//version: 1707058017
-
 plugins {
-    id 'com.gtnewhorizons.gtnhconvention'
+    id("com.gtnewhorizons.gtnhconvention")
 }
 
-// The planned name of the next release
-def NEXT_VERSION = ext.modVersion
-
-// Append to the version as needed. If the variables look a bit strange, that's because they are -
-// git-version doesn't expose a ton of useful functions, we need to extract them indirectly.
-
+// Write the next planned version here. This will be used instead of the previous tag version for CI builds and other "dirty" builds.
+// If left blank, the previous tag name will be used. At the moment, this will not apply at all if there is no tag in the repository.
+String stagingVersion = "3.0.0"
+stagingVersion = stagingVersion.trim()
 def details = versionDetails()
+// Commit distance isn't 0, last tag isn't empty and there are no unpushed commits.
+// If true, this build was built from a tagged commit, usually coming from the tagged release workflow.
+boolean isTaggedRelease = details.getCommitDistance() == 0 && !details.lastTag.isEmpty() && details.getIsCleanTag()
+version = version.replace("+", "-") // For some reason some instances have weird intermittent issues with + in a file path.
 
-// If we have a clean tag (or manually specified), this is a production release.
-// No need for the commit hash!
-def isPlainTag = details.getCommitDistance() == 0 && details.getLastTag().isEmpty()
-
-// If we didn't ask for the commit hash, don't put it there. If the GitHash is empty (no Git repo?) then this is true.
-boolean noCommitHash = (providers.gradleProperty("noCommitHash").isPresent() || details.gitHash.isEmpty()) && !ext.modVersion.isEmpty()
-if (!isPlainTag && !noCommitHash) {
-    if(!NEXT_VERSION.isEmpty()) {
-        NEXT_VERSION += "-"
+if(!stagingVersion.isEmpty() && !isTaggedRelease) {
+    String lastTag = details.lastTag
+    if(!lastTag.isEmpty()) {
+        // There is a previous tag, replace it with our staging version
+        version = version.replace(lastTag, stagingVersion)
+    } else {
+        // TODO: Add logic for when there is no tag
     }
-    NEXT_VERSION += details.gitHash
 }
 
-// If we have uncommitted changes, say so.
-def isDirty = gitVersion().endsWith(".dirty")
-if (isDirty && !noCommitHash) {
-    NEXT_VERSION += "-dirty"
+boolean isStable() {
+    ver = versionDetails().lastTag;
+    if(ver.isEmpty() || ver.contains("-rc-") || ver.contains("alpha") || ver.contains("beta") || ver.contains("candidate") || ver.contains("snapshot")) {
+        return false
+    }
+    return true
 }
 
-//Set the mod and jar version to the info we just collected.
-version = NEXT_VERSION
-
-//If version is blank we'll use the above version instead.
-if(ext.modVersion.isEmpty()) {
-    ext.modVersion = NEXT_VERSION
+String prefixTaglessVersion(String prefix, String string) {
+    if(!string.startsWith("-")) {
+        return prefix += "-"
+    }
+    return prefix + string
 }
-
 
 minecraft {
-    //Creates a tag in Tags with the above generated mod version, instead of the "clean" one
-    injectedTags.put("RAW_VERSION", NEXT_VERSION)
     injectedTags.put("MOD_ID", project.modId)
     injectedTags.put("MOD_NAME", project.modName)
     injectedTags.put("MOD_GROUP", project.modGroup)
 
-    //Returns true if this build is in a dev env or has a commit hash (typically used by CI), false if otherwise
-    injectedTags.put("CI_BUILD", false)
-    //Returns true if this build is the above or has key words in its name that indicate it may not be a release build
-    injectedTags.put("SNAPSHOT_BUILD", false)
-}
+    //Returns true if this build isn't a tagged release build, meaning it came from the CI (or was arbitrarily built)
+    injectedTags.put("SNAPSHOT_BUILD", !isTaggedRelease)
+    //Returns true if this build is a tagged build, and contains no version keywords that may indicate it possibly being a pre-release tagged build.
+    injectedTags.put("STABLE_BUILD", isTaggedRelease && isStable())
+    // SNAPSHOT_BUILD == false but STABLE_BUILD == false means this release is a tagged beta, alpha, release candidate, etc.
+    // Neither of these values can be true at the same time.
 
-minecraft {
-    injectedTags.put("MC_ASSET_VER", "minecraft_1.21")
+    injectedTags.put("MC_ASSET_VER", "minecraft_1.21.11")
 }

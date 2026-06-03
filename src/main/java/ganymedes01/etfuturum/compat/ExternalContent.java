@@ -177,10 +177,10 @@ public class ExternalContent {
 		;
 
 		private Item item;
-		private final Supplier<Item> blockSupplier;
+		private final Supplier<Item> itemSupplier;
 
-		Items(Supplier<Item> blockSupplier) {
-			this.blockSupplier = blockSupplier;
+		Items(Supplier<Item> itemSupplier) {
+			this.itemSupplier = itemSupplier;
 		}
 
 		Items(String modID, String itemID) {
@@ -189,7 +189,7 @@ public class ExternalContent {
 
 		public Item get() {
 			if (item == null) {
-				item = blockSupplier.get();
+				item = itemSupplier.get();
 			}
 			return item;
 		}

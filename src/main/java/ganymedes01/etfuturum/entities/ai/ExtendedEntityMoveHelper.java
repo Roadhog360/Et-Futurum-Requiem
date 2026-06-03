@@ -62,13 +62,17 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 			f4 = f1 / f4;
 			f2 = f2 * f4;
 			f3 = f3 * f4;
+			float f5 = MathHelper.sin(this.entity.rotationYaw * 0.017453292F);
+			float f6 = MathHelper.cos(this.entity.rotationYaw * 0.017453292F);
+			float f7 = f2 * f6 - f3 * f5;
+			float f8 = f3 * f6 + f2 * f5;
 			PathNavigate pathnavigate = this.entity.getNavigator();
 
 			if (pathnavigate != null) {
 				int width = MathHelper.ceiling_float_int(entity.width);
 				Vec3 entityOrigin = pathnavigate.getEntityPosition();
-				if (pathnavigate.isSafeToStandAt(MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.posY), MathHelper.floor_double(entity.posZ),
-						width, MathHelper.ceiling_float_int(entity.height), width, entityOrigin, entityOrigin.xCoord, entityOrigin.zCoord)) {
+				if (!pathnavigate.isSafeToStandAt(MathHelper.floor_double(entity.posX + f7), MathHelper.floor_double(entity.boundingBox.minY + 0.5D), MathHelper.floor_double(entity.posZ + f8),
+						width, MathHelper.ceiling_float_int(entity.height), width, entityOrigin, f7, f8)) {
 					this.moveForward = 1.0F;
 					this.moveStrafe = 0.0F;
 					f1 = f;
@@ -80,6 +84,7 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 			this.entity.moveStrafing = this.moveStrafe;
 			this.action = ExtendedEntityMoveHelper.Action.WAIT;
 		} else if (this.action == ExtendedEntityMoveHelper.Action.MOVE_TO) {
+			this.entity.moveStrafing = 0.0F;
 			this.action = ExtendedEntityMoveHelper.Action.WAIT;
 			double d0 = this.posX - this.entity.posX;
 			double d1 = this.posZ - this.entity.posZ;
@@ -100,6 +105,7 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 				this.action = ExtendedEntityMoveHelper.Action.JUMPING;
 			}
 		} else if (this.action == ExtendedEntityMoveHelper.Action.JUMPING) {
+			this.entity.moveStrafing = 0.0F;
 			this.entity.setAIMoveSpeed((float) (this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue()));
 
 			if (this.entity.onGround) {
@@ -107,6 +113,7 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 			}
 		} else {
 			this.entity.setMoveForward(0.0F);
+			this.entity.moveStrafing = 0.0F;
 		}
 	}
 

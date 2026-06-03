@@ -17,6 +17,9 @@ public class ConfigTweaks extends ConfigBase {
 	public static boolean stonecutterSawHurts;
 	public static boolean squidsBlindPlayers;
 	public static boolean stopBoatRotationLock;
+	public static boolean legacyNewBoatBuoyancy;
+	public static float legacyNewBoatBuoyancyStrength;
+	public static float newBoatsFallBreakDistance;
 	public static float creativeFlightVerticalModifier;
 
 	public static final String catAbandoned = "abandoned ideas";
@@ -46,6 +49,9 @@ public class ConfigTweaks extends ConfigBase {
 		stonecutterSawHurts = getBoolean("stonecutterSawHurts", catCustomTweaks, false, "If you want stonecutters to deal damage to players standing on them.");
 		squidsBlindPlayers = getBoolean("squidsBlindPlayers", catCustomTweaks, false, "Squids will blind players when they take damage.");
 		stopBoatRotationLock = getBoolean("stopBoatRotationLock", catCustomTweaks, false, "Stops the boat view rotation lock, body rotates with camera.");
+		legacyNewBoatBuoyancy = getBoolean("legacyNewBoatBuoyancy", catCustomTweaks, false, "Restores the old Minecraft boat buoyancy for Et Futurum's new boats, boats will not dismount riders when submerged and will try to rise back up to the water surface if pushed underwater.");
+		legacyNewBoatBuoyancyStrength = getFloat("legacyNewBoatBuoyancyStrength", catCustomTweaks, 0.0F, 0.0F, Float.MAX_VALUE, "When legacyNewBoatBuoyancy is enabled, controls how strongly boats rise back up toward the water surface. 0 disables the extra buoyancy strength, higher values rise faster.");
+		newBoatsFallBreakDistance = getFloat("newBoatsFallBreakDistance", catCustomTweaks, 0.0F, 0.0F, Float.MAX_VALUE, "Fall distance (in blocks, roughly) at which new boats break when landing on a solid block. Set to 0 to disable fall-breaking.");
 		creativeFlightVerticalModifier = getFloat("creativeFlightVerticalModifier", catCustomTweaks, 1, 1, 5, "When greater than 1, boosts vertical(up/down) creative flight speed when sprinting.");
 	}
 

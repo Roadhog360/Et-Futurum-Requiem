@@ -76,14 +76,26 @@ public abstract class ConfigBase extends Configuration {
 	protected abstract void syncConfigOptions();
 
 	/**
-	 * Used in case we need to wait till later to initialize some config values.
+	 * Used in case we need to wait until after preInit to initialize values.
 	 */
 	protected void initValues() {
 	}
 
-	public static void postInit() {
+	public static void init() {
 		for (ConfigBase config : CONFIGS) {
 			config.initValues();
+		}
+	}
+
+	/**
+	 * Used in case we need to wait until after mixin phase to initialize values.
+	 */
+	protected void onConstructingValues() {
+	}
+
+	public static void onConstructing() {
+		for (ConfigBase config : CONFIGS) {
+			config.onConstructingValues();
 		}
 	}
 

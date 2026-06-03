@@ -15,6 +15,7 @@ public class BlockBlackstone extends BaseSubtypesBlock {
 		setResistance(6.0F);
 		setHardness(1.5F);
 		setHardnessValues(2.0F, 1);
+		setHarvestLevel("pickaxe", 0);
 	}
 
 	@Override

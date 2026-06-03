@@ -86,6 +86,12 @@ public class CompatThaumcraft {
 
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.PIGSTEP_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.FIRE, 2).add(Aspect.BEAST, 2));
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.OTHERSIDE_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.ELDRITCH, 4));
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.PRECIPICE_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.TRAVEL, 4));
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.CREATOR_MUSIC_BOX_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.ELDRITCH, 4).add(Aspect.VOID, 2));
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.CREATOR_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.ELDRITCH, 4));
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.TEARS_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.SOUL, 4).add(Aspect.UNDEAD, 4));
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LAVA_CHICKEN_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.FIRE, 4).add(Aspect.MOTION, 4));
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.FIVE_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 8).add(Aspect.SENSES, 4));
 
 		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.TRAP, 1).add(Aspect.WATER, 1).add(Aspect.MAGIC, 2));
 		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 0), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.WATER, 1));

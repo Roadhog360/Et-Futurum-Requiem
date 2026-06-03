@@ -133,6 +133,7 @@ public class BlockStateConverter {
 					case "zombie" -> type = 2;
 					case "player" -> type = 3;
 					case "creeper" -> type = 4;
+					case "dragon" -> type = 5;
 					default -> {
 					}
 				}
@@ -1064,6 +1065,8 @@ public class BlockStateConverter {
 				case "player_wall_head":
 				case "creeper_head":
 				case "creeper_wall_head":
+				case "dragon_head":
+				case "dragon_wall_head":
 					return Blocks.skull;
 
 				case "attached_pumpkin_stem":

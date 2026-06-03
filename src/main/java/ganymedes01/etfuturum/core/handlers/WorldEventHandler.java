@@ -206,9 +206,9 @@ public class WorldEventHandler {
 				y++;
 			}
 		} else {
-			//Because mangrove trees never leave a log where the sapling actually grew, so we check for the first log and then try this function again
-			//We want to ensure we start at a log, so we can run the follow log and find leaves logic from there.
-			for (int i = 0; y + i < world.getHeight() - 2; ++i) {
+			// Because mangrove trees never leave a log where the sapling actually grew, so we check for the first log and then try this function again
+			// We want to ensure we start at a log, so we can run the follow log and find leaves logic from there.
+			for (int i = y; i <= y + 8 && i < world.getHeight(); ++i) { // 8 Blocks should be a good enough check.
 				if (world.getBlock(x, y + i, z).isWood(world, x, y + i, z)) {
 					tryPlaceBeeNest(world, x, y + i, z, rand, minBees);
 					return;

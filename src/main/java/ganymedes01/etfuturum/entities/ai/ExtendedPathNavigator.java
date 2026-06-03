@@ -86,7 +86,7 @@ public abstract class ExtendedPathNavigator extends PathNavigate {
 	}
 
 	@Override
-	protected boolean canNavigate() {
+	public boolean canNavigate() {
 		return theEntity instanceof INoGravityEntity || super.canNavigate();
 	}
 }

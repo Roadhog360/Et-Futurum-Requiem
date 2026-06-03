@@ -4,12 +4,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.Tags;
+import ganymedes01.etfuturum.api.spectator.SpectatorUtils;
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.ai.*;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.Block;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.enchantment.Enchantment;
@@ -62,8 +62,7 @@ public class EntityFox extends EntityAnimal {
     private static final Predicate<EntityLivingBase> CHICKEN_AND_RABBIT_FILTER =
             entity -> entity instanceof EntityChicken || entity instanceof EntityRabbit;
     private static final Predicate<EntityLivingBase> NOTICEABLE_PLAYER_FILTER =
-            entity -> !(entity instanceof EntityPlayer player)
-                    || (!player.isSneaking() && !player.capabilities.isCreativeMode && !SpectatorMode.isSpectator(player));
+            entity -> !(entity instanceof EntityPlayer player) || !player.isSneaking() && !player.capabilities.isCreativeMode && !SpectatorUtils.isSpectator(player);
     private static final Predicate<EntityLivingBase> JUST_ATTACKED_SOMETHING_FILTER =
             entity -> entity instanceof EntityLiving;
 
@@ -1540,7 +1539,7 @@ public class EntityFox extends EntityAnimal {
             } else if (!(livingEntity instanceof EntityChicken) && !(livingEntity instanceof EntityRabbit) && !(livingEntity instanceof EntityMob)) {
                 if (livingEntity instanceof EntityTameable) {
                     return !((EntityTameable) livingEntity).isTamed();
-                } else if (livingEntity instanceof EntityPlayer player && (SpectatorMode.isSpectator(player) || player.capabilities.isCreativeMode)) {
+                } else if (livingEntity instanceof EntityPlayer player && (SpectatorUtils.isSpectator(player) || player.capabilities.isCreativeMode)) {
                     return false;
                 } else if (EntityFox.this.canTrust(livingEntity.getUniqueID())) {
                     return false;
@@ -1694,7 +1693,7 @@ public class EntityFox extends EntityAnimal {
         }
 
         @Override
-        protected void spawnBaby() {
+        public void spawnBaby() {
             EntityFox babyFox = EntityFox.this.createChild(this.targetMate);
             if (babyFox != null) {
                 EntityPlayer serverPlayerEntity = EntityFox.this.func_146083_cb();

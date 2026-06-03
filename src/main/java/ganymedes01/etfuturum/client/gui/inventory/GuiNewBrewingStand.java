@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
 import ganymedes01.etfuturum.Tags;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.inventory.ContainerNewBrewingStand;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -12,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiNewBrewingStand extends GuiContainer {
 
-	private static final ResourceLocation TEXTURE = Utils.getResource(Tags.MOD_ID + ":textures/gui/container/brewing_stand.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(Tags.MOD_ID + ":textures/gui/container/brewing_stand.png");
 	private final TileEntityNewBrewingStand tile;
 
 	public GuiNewBrewingStand(InventoryPlayer playerInvt, TileEntityNewBrewingStand tile) {

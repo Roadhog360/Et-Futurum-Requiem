@@ -40,6 +40,8 @@ import ganymedes01.etfuturum.world.EtFuturumEarlyWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEFREnd;
+import ganymedes01.etfuturum.world.end.gen.EndCityPieces;
+import ganymedes01.etfuturum.world.end.gen.MapGenEndCity;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
 import ganymedes01.etfuturum.world.nether.dimension.DimensionProviderEFRNether;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
@@ -60,6 +62,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
@@ -158,6 +161,7 @@ public class EtFuturum {
 			Logger.info(Tags.MOD_ID + " is in snapshot mode. Disabling update checker... Other features may also be different.");
 		}
 
+		ConfigBase.onConstructing();
 		MCLib.init();
 
 		ADConfig config = new ADConfig();
@@ -178,6 +182,9 @@ public class EtFuturum {
 	@EventHandler
 	@SuppressWarnings("unchecked")
 	public void preInit(FMLPreInitializationEvent event) {
+		if(ModsList.IRON_CHEST.isLoaded()) {
+			CompatIronChests.init();
+		}
 		try {
 			Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
 			chestInfo.setAccessible(true);
@@ -191,6 +198,11 @@ public class EtFuturum {
 			e.printStackTrace();
 		}
 
+		ModBlocks.init();
+		ModItems.init();
+		ModEnchantments.init();
+		ModPotions.init();
+		SpectatorMode.init();
 
 		for (ModBlocks block : ModBlocks.values()) {
 			if (block.isEnabled() && block.get() instanceof IInitAction) {
@@ -202,12 +214,6 @@ public class EtFuturum {
 				((IInitAction) item.get()).preInitAction();
 			}
 		}
-
-		ModBlocks.init();
-		ModItems.init();
-		ModEnchantments.init();
-		ModPotions.init();
-		SpectatorMode.init();
 
 		if (event.getSide() == Side.CLIENT) {
 
@@ -273,6 +279,8 @@ public class EtFuturum {
 		proxy.registerRenderers();
 
 		CompatMisc.runModHooksInit();
+
+		ConfigBase.init();
 	}
 
 	@EventHandler
@@ -315,6 +323,26 @@ public class EtFuturum {
 			ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.OTHERSIDE_RECORD.get(), 0, 1, 1, 1));
 		}
 
+		if (ConfigBlocksItems.enablePrecipice) {
+			ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.PRECIPICE_RECORD.get(), 0, 1, 1, 1));
+			ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.PRECIPICE_RECORD.get(), 0, 1, 1, 1));
+		}
+
+		if (ConfigBlocksItems.enableCreatorMusicBox) {
+			ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.CREATOR_MUSIC_BOX_RECORD.get(), 0, 1, 1, 1));
+			ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.CREATOR_MUSIC_BOX_RECORD.get(), 0, 1, 1, 1));
+		}
+
+		if (ConfigBlocksItems.enableCreator) {
+			ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.CREATOR_RECORD.get(), 0, 1, 1, 1));
+			ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.CREATOR_RECORD.get(), 0, 1, 1, 1));
+		}
+
+		if (ConfigBlocksItems.enable5) {
+			ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.DISC_FRAGMENT_5.get(), 0, 1, 1, 1));
+			ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.DISC_FRAGMENT_5.get(), 0, 1, 1, 1));
+		}
+
 		if (ConfigBlocksItems.enablePigstep) {
 			ChestGenHooks.addItem(NETHER_FORTRESS, new WeightedRandomChestContent(ModItems.PIGSTEP_RECORD.get(), 0, 1, 1, 5));
 
@@ -354,7 +382,10 @@ public class EtFuturum {
 		}
 
 		EtFuturumLootTables.init();
-
+		if (ConfigExperiments.enableEndCities) {
+			MapGenStructureIO.registerStructure(MapGenEndCity.Start.class, "EndCity");
+			MapGenStructureIO.func_143031_a(EndCityPieces.EndCityPiece.class, "ECP");
+		}
 		ModRecipes.init();
 		DeepslateOreRegistry.init();
 		StrippedLogRegistry.init();
@@ -382,8 +413,6 @@ public class EtFuturum {
 				((IInitAction) item.get()).onLoadAction();
 			}
 		}
-
-		ConfigBase.postInit();
 
 		EtFuturumWorldGenerator.INSTANCE.postInit();
 		WorldEventHandler.INSTANCE.postInit();
@@ -423,28 +452,30 @@ public class EtFuturum {
 		}
 	}
 
-	/// As of 2.5.0, I removed some ItemBlocks that are just technical blocks (EG, lit EFR furnaces)
-	/// We need to use this event since unregistering specifically an ItemBlock from a block makes Forge mistakenly think a save is corrupted.
-	/// I add the EFR name check at the beginning just as a safety precaution.
-	///
-	/// Forge does some bad checks on if the item is an ItemBlock before letting you run ignoreItemBlock, leading to erroneous errors.
-	/// It doesn't look much different than what I do above but their code rarely spits out "Cannot skip an ItemBlock that doesn't have a Block"
-	/// Which makes no sense since if the block != null then we're skipping an ItemBlock that DOES have a block, if my block check != null then what else would it be?
-	/// So their check must be wrong. Some of Forge's many registry finders are a little faulty at times.
-	/// I already know we're running this on an item, and the only other requirement has a broken check.
-	/// So I use reflection to force my way. It's rare for a save to actually throw an error, but just in case....
-	/// They really should have just had an ITEMBLOCK mapping type to avoid all these hacky checks.
-	///
-	/// All this because Forge falsely declares a world corrupt if you remove an ItemBlock from an existing block.
-	/// Gee, all that for removing ItemBlocks.
-	/// I wrote this bad code to get around Forge's bad code, only to reveal EVEN MORE bad code in Forge I have to write even worse code to avoid.
 	@EventHandler
 	public void onMissingMapping(FMLMissingMappingsEvent e) {
 		for (FMLMissingMappingsEvent.MissingMapping mapping : e.getAll()) {
 			if (mapping.name.startsWith("etfuturum")) {
-				if (Block.getBlockById(mapping.id) != null && mapping.type == GameRegistry.Type.ITEM) {
-					mapping.ignore();
-					ReflectionHelper.setPrivateValue(FMLMissingMappingsEvent.MissingMapping.class, mapping, FMLMissingMappingsEvent.Action.BLOCKONLY, "action");
+				if(mapping.type == GameRegistry.Type.ITEM) {
+					if (Block.getBlockById(mapping.id) != null) {
+						// As of 2.5.0, I removed some ItemBlocks that are just technical blocks (EG, lit EFR furnaces)
+						// We need to use this event since unregistering specifically an ItemBlock from a block makes Forge mistakenly think a save is corrupted.
+						// I add the EFR name check at the beginning just as a safety precaution.
+						//
+						// Forge does some bad checks on if the item is an ItemBlock before letting you run ignoreItemBlock, leading to erroneous errors.
+						// It doesn't look much different than what I do above but their code rarely spits out "Cannot skip an ItemBlock that doesn't have a Block"
+						// Which makes no sense since if the block != null then we're skipping an ItemBlock that DOES have a block, if my block check != null then what else would it be?
+						// So their check must be wrong. Some of Forge's many registry finders are a little faulty at times.
+						// I already know we're running this on an item, and the only other requirement has a broken check.
+						// So I use reflection to force my way. It's rare for a save to actually throw an error, but just in case....
+						// They really should have just had an ITEMBLOCK mapping type to avoid all these hacky checks.
+						//
+						// All this because Forge falsely declares a world corrupt if you remove an ItemBlock from an existing block.
+						// Gee, all that for removing ItemBlocks.
+						// I wrote this bad code to get around Forge's bad code, only to reveal EVEN MORE bad code in Forge I have to write even worse code to avoid.
+						mapping.ignore();
+						ReflectionHelper.setPrivateValue(FMLMissingMappingsEvent.MissingMapping.class, mapping, FMLMissingMappingsEvent.Action.BLOCKONLY, "action");
+					}
 				}
 			}
 		}
@@ -455,6 +486,9 @@ public class EtFuturum {
 	public void serverStarting(FMLServerStartingEvent event) {
 		if (ConfigFunctions.enableFillCommand) {
 			event.registerServerCommand(new CommandFill());
+		}
+		if (ConfigExperiments.enableEndCities) {
+			event.registerServerCommand(new ganymedes01.etfuturum.command.CommandLocateEndCity());
 		}
 	}
 
@@ -614,6 +648,12 @@ public class EtFuturum {
 
 		config.addSoundEvent(ver, "music_disc.pigstep", "record");
 		config.addSoundEvent(ver, "music_disc.otherside", "record");
+		config.addSoundEvent(ver, "music_disc.precipice", "record");
+		config.addSoundEvent(ver, "music_disc.creator_music_box", "record");
+		config.addSoundEvent(ver, "music_disc.creator", "record");
+		config.addSoundEvent(ver, "music_disc.tears", "record");
+		config.addSoundEvent(ver, "music_disc.lava_chicken", "record");
+		config.addSoundEvent(ver, "music_disc.5", "record");
 
 		config.addSoundEvent(ver, "item.elytra.flying", "player");
 		config.addSoundEvent(ver, "enchant.thorns.hit", "player");
@@ -652,6 +692,33 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.snow_golem.ambient", "neutral");
 		config.addSoundEvent(ver, "entity.snow_golem.hurt", "neutral");
 		config.addSoundEvent(ver, "entity.snow_golem.death", "neutral");
+		config.addSoundEvent(ver, "entity.polar_bear.ambient", "neutral");
+		config.addSoundEvent(ver, "entity.polar_bear.ambient_baby", "neutral");
+		config.addSoundEvent(ver, "entity.polar_bear.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.polar_bear.death", "neutral");
+		config.addSoundEvent(ver, "entity.polar_bear.step", "neutral");
+		config.addSoundEvent(ver, "entity.polar_bear.warning", "neutral");
+		config.addSoundEvent(ver, "entity.goat.ambient", "neutral");
+		config.addSoundEvent(ver, "entity.goat.death", "neutral");
+		config.addSoundEvent(ver, "entity.goat.eat", "neutral");
+		config.addSoundEvent(ver, "entity.goat.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.goat.long_jump", "neutral");
+		config.addSoundEvent(ver, "entity.goat.milk", "neutral");
+		config.addSoundEvent(ver, "entity.goat.prepare_ram", "neutral");
+		config.addSoundEvent(ver, "entity.goat.ram_impact", "neutral");
+		config.addSoundEvent(ver, "entity.goat.horn_break", "neutral");
+		config.addSoundEvent(ver, "entity.goat.step", "neutral");
+		config.addSoundEvent(ver, "entity.goat.screaming.ambient", "neutral");
+		config.addSoundEvent(ver, "entity.goat.screaming.death", "neutral");
+		config.addSoundEvent(ver, "entity.goat.screaming.eat", "neutral");
+		config.addSoundEvent(ver, "entity.goat.screaming.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.goat.screaming.long_jump", "neutral");
+		config.addSoundEvent(ver, "entity.goat.screaming.milk", "neutral");
+		config.addSoundEvent(ver, "entity.goat.screaming.prepare_ram", "neutral");
+		config.addSoundEvent(ver, "entity.goat.screaming.ram_impact", "neutral");
+		for (int i = 0; i < 8; ++i) {
+			config.addSoundEvent(ver, "item.goat_horn.sound." + i, "record");
+		}
 		config.addSoundEvent(ver, "entity.wither_skeleton.ambient", "hostile");
 		config.addSoundEvent(ver, "entity.wither_skeleton.hurt", "hostile");
 		config.addSoundEvent(ver, "entity.wither_skeleton.death", "hostile");
@@ -729,6 +796,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "item.honey_bottle.drink", "player");
 
 		config.addSoundEvent(ver, "item.armor.equip_leather", "player");
+		config.addSoundEvent(ver, "item.armor.equip_copper", "player");
 		config.addSoundEvent(ver, "item.armor.equip_gold", "player");
 		config.addSoundEvent(ver, "item.armor.equip_chain", "player");
 		config.addSoundEvent(ver, "item.armor.equip_iron", "player");

@@ -17,7 +17,11 @@ public class MixinBlockIronChest extends Block implements IMultiBlockSound {
 
 	@Override
 	public @NonNull SoundType getSoundType(World world, int i, int i1, int i2, SoundMode soundMode) {
-		int meta = world.getBlockMetadata(i, i1, i2);
-		return  meta == 8 ? ModSounds.soundNetherite : meta == 3 ? ModSounds.soundCopper : stepSound;
+		return switch (world.getBlockMetadata(i, i1, i2)) {
+			case 3 -> ModSounds.soundCopper;
+			case 5 -> ModSounds.soundAmethystBlock;
+			case 8 -> ModSounds.soundNetherite;
+			default -> stepSound;
+		};
 	}
 }

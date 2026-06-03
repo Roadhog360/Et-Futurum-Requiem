@@ -13,6 +13,7 @@ public class ConfigEnchantsPotions extends ConfigBase {
 	public static int frostWalkerID;
 	public static int swiftSneakID;
 	public static int levitationID;
+	public static int glowingID;
 
 	static final String catEnchants = "enchantments";
 	static final String catPotions = "potions";
@@ -39,6 +40,7 @@ public class ConfigEnchantsPotions extends ConfigBase {
 
 		//potions
 		levitationID = getInt("levitationID", catPotions, 27, 0, Short.MAX_VALUE, "Since this is essential for Shulkers, this is tied to Shulkers being enabled instead of having its own option.");
+		glowingID = getInt("glowingID", catPotions, 28, 0, Short.MAX_VALUE, "");
 	}
 
 }

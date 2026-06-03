@@ -23,7 +23,7 @@ public class FlyingPathNavigator extends ExtendedPathNavigator {
 	 * If on ground or swimming and can swim
 	 */
 	@Override
-	protected boolean canNavigate() {
+	public boolean canNavigate() {
 		return canSwim && this.isInLiquid() || !this.theEntity.isRiding();
 	}
 
@@ -62,7 +62,7 @@ public class FlyingPathNavigator extends ExtendedPathNavigator {
 	 * Checks if the specified entity can safely walk to the specified location.
 	 */
 	@Override
-	protected boolean isDirectPathBetweenPoints(Vec3 posVec31, Vec3 posVec32, int sizeX, int sizeY, int sizeZ) {
+	public boolean isDirectPathBetweenPoints(Vec3 posVec31, Vec3 posVec32, int sizeX, int sizeY, int sizeZ) {
 		int i = MathHelper.floor_double(posVec31.xCoord);
 		int j = MathHelper.floor_double(posVec31.yCoord);
 		int k = MathHelper.floor_double(posVec31.zCoord);

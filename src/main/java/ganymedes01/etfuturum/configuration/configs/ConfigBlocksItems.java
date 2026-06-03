@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.configuration.configs;
 
-import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraftforge.common.config.Property;
 
@@ -54,6 +53,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableGrassPath;
 	public static boolean enableTippedArrows;
 	public static boolean enableLingeringPotions;
+	public static boolean enableSpectralArrows;
 	public static boolean enableCryingObsidian;
 	public static boolean enableBrewingStands;
 	public static boolean enableColourfulBeacons;
@@ -102,6 +102,12 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableIronNugget;
 	public static boolean enablePigstep;
 	public static boolean enableOtherside;
+	public static boolean enablePrecipice;
+	public static boolean enableCreatorMusicBox;
+	public static boolean enableCreator;
+	public static boolean enableLavaChicken;
+	public static boolean enableTears;
+	public static boolean enable5;
 	public static boolean enableEnchantingTable;
 	public static boolean enableAnvil;
 	public static boolean enableComposter;
@@ -320,6 +326,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableIronNugget = getBoolean("enableIronNugget", catItemMisc, true, "");
 		enableTippedArrows = getBoolean("enableTippedArrows", catItemMisc, true, "");
 		enableLingeringPotions = getBoolean("enableLingeringPotions", catItemMisc, true, "");
+		enableSpectralArrows = getBoolean("enableSpectralArrows", catItemMisc, true, "");
 		enableRawOres = getBoolean("enableRawOres", catItemMisc, true, "If true, vanilla and Et Futurum copper ores will drop raw ore items.");
 
 		enableTotemUndying = getBoolean("enableTotemUndying", catItemMisc, true, "");
@@ -328,6 +335,12 @@ public class ConfigBlocksItems extends ConfigBase {
 
 		enablePigstep = getBoolean("enablePigstep", catItemMisc, true, "Appears in Nether fortress chest loot.");
 		enableOtherside = getBoolean("enableOtherside", catItemMisc, true, "Appears in stronghold corridor and dungeon chests.");
+		enablePrecipice = getBoolean("enablePrecipice", catItemMisc, true, "Appears in stronghold corridor and dungeon chests.");
+		enableCreatorMusicBox = getBoolean("enableCreatorMusicBox", catItemMisc, true, "Appears in stronghold corridor and dungeon chests.");
+		enableCreator = getBoolean("enableCreator", catItemMisc, true, "Appears in stronghold corridor and dungeon chests.");
+		enableTears = getBoolean("enableTears", catItemMisc, true, "Appears in stronghold corridor and dungeon chests.");
+		enableLavaChicken = getBoolean("enableLavaChicken", catItemMisc, true, "Appears only when zombie juvenile variant riding a chicken.");
+		enable5 = getBoolean("enable5", catItemMisc, true, "Appears in stronghold corridor and dungeon chests.");
 
 		//Equipment Items
 		netheriteToolDurability = getInt("netheriteToolDurability", catItemEquipment, 2031, 1, Integer.MAX_VALUE, "");
@@ -365,13 +378,5 @@ public class ConfigBlocksItems extends ConfigBase {
 
 		//      endGatewaySpawnColor = getInt("endGatewaySpawnColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when the gateway first appears.");
 //      endGatewayEntryColor = getInt("endGatewayEntryColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when an entity enters it. Originally, this value was 4 (yellow) before version 1.11.");
-	}
-
-	@Override
-	protected void initValues() {
-		if (!ModsList.IRON_CHEST.isLoaded()) {
-			ConfigModCompat.shulkerBoxesIronChest = false;
-			ConfigModCompat.barrelIronChest = false;
-		}
 	}
 }

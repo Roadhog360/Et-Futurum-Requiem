@@ -103,8 +103,27 @@ public class ModTagging {
 		BlockTags.addTags(Blocks.dirt, Tags.MOD_ID + ":pathables");
 		BlockTags.addTags(Blocks.mycelium, Tags.MOD_ID + ":pathables");
 
+		doGoatTags();
 		doBeeTags();
 		doPistonTags();
+	}
+
+	private static void doGoatTags() {
+		BlockTags.addTags(Blocks.grass, "minecraft:goats_spawnable_on");
+		BlockTags.addTags(Blocks.stone, "minecraft:goats_spawnable_on", "minecraft:snaps_goat_horn");
+		BlockTags.addTags(Blocks.snow, "minecraft:goats_spawnable_on");
+		BlockTags.addTags(Blocks.snow_layer, "minecraft:goats_spawnable_on");
+		BlockTags.addTags(Blocks.packed_ice, "minecraft:goats_spawnable_on", "minecraft:snaps_goat_horn");
+		BlockTags.addTags(Blocks.gravel, "minecraft:goats_spawnable_on");
+
+		BlockTags.addTags(Blocks.log, "minecraft:snaps_goat_horn");
+		BlockTags.addTags(Blocks.log2, "minecraft:snaps_goat_horn");
+		BlockTags.addTags(Blocks.iron_ore, "minecraft:snaps_goat_horn");
+		BlockTags.addTags(Blocks.coal_ore, "minecraft:snaps_goat_horn");
+		BlockTags.addTags(Blocks.emerald_ore, "minecraft:snaps_goat_horn");
+		BlockTags.addTags(ModBlocks.COPPER_ORE.get(), "minecraft:snaps_goat_horn");
+		BlockTags.addTags(ModBlocks.MANGROVE_LOG.get(), "minecraft:snaps_goat_horn");
+		BlockTags.addTags(ModBlocks.CHERRY_LOG.get(), "minecraft:snaps_goat_horn");
 	}
 
 	private static void doBeeTags() {
@@ -388,6 +407,15 @@ public class ModTagging {
 
 		ItemStack ore10 = ModBlocks.COBBLED_DEEPSLATE.newItemStack();
 		RecipeHelper.registerOre("cobblestone", ore10);
+
+		ItemStack oreBasalt = ModBlocks.BASALT.newItemStack();
+		RecipeHelper.registerOre("stone",oreBasalt);
+
+		ItemStack oreDeepslate = ModBlocks.DEEPSLATE.newItemStack();
+		RecipeHelper.registerOre("stone", oreDeepslate);
+
+		ItemStack oreTuff = ModBlocks.TUFF.newItemStack();
+		RecipeHelper.registerOre("stone", oreTuff);
 
 		RecipeHelper.registerOre("record", ModItems.PIGSTEP_RECORD.get());
 		RecipeHelper.registerOre("record", ModItems.OTHERSIDE_RECORD.get());

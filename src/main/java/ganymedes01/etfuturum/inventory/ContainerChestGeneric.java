@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.inventory;
 
-import ganymedes01.etfuturum.spectator.SpectatorMode;
+import ganymedes01.etfuturum.api.spectator.SpectatorUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -27,7 +27,7 @@ public class ContainerChestGeneric extends Container {
 		}
 
 		int numRows = (int) Math.ceil(p_i1806_2_.getSizeInventory() / (float) rowSize);
-		if (!(p_i1806_1_ instanceof InventoryPlayer) || !SpectatorMode.isSpectator(((InventoryPlayer) p_i1806_1_).player)) {
+        if (!(p_i1806_1_ instanceof InventoryPlayer) || !SpectatorUtils.isSpectator(((InventoryPlayer) p_i1806_1_).player)) {
 			p_i1806_2_.openInventory();
 		}
 		int j;
@@ -49,6 +49,10 @@ public class ContainerChestGeneric extends Container {
 		}
 
 		int invSlotStartXOff = (rowSize * 18 - 9 * 18) / 2;
+		if(!slim) {
+			// Needed for vanilla inventories so the slots aren't off by one pixel
+			padT--;
+		}
 
 		for (j = 0; j < 3; ++j) {
 			for (k = 0; k < 9; ++k) {
@@ -130,7 +134,7 @@ public class ContainerChestGeneric extends Container {
 	 */
 	@Override
 	public void onContainerClosed(EntityPlayer p_75134_1_) {
-		if (!SpectatorMode.isSpectator(p_75134_1_)) {
+        if (!SpectatorUtils.isSpectator(p_75134_1_)) {
 			super.onContainerClosed(p_75134_1_);
 			this.chestInventory.closeInventory();
 		}

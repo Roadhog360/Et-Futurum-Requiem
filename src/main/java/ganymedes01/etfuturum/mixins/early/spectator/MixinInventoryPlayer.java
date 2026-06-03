@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.mixins.early.spectator;
 
-import ganymedes01.etfuturum.spectator.SpectatorMode;
+import ganymedes01.etfuturum.api.spectator.SpectatorUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -19,6 +19,6 @@ public abstract class MixinInventoryPlayer implements IInventory {
 
 	@Inject(method = "getCurrentItem", at = @At(value = "HEAD"), cancellable = true)
 	public void getCurrentItemIfNotSpectating(CallbackInfoReturnable<ItemStack> cir) {
-		if (SpectatorMode.isSpectator(player)) cir.setReturnValue(null);
+		if (SpectatorUtils.isSpectator(player)) cir.setReturnValue(null);
 	}
 }

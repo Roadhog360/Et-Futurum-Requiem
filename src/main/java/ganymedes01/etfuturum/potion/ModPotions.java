@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.potion;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import net.minecraft.client.Minecraft;
@@ -26,10 +27,15 @@ public class ModPotions extends Potion {
 	}
 
 	public static Potion levitation;
+	public static Potion glowing;
 
 	public static void init() {
 		if (ConfigEntities.enableShulker) {
 			levitation = new PotionLevitation("levitation", ConfigEnchantsPotions.levitationID, true, 0xFFFFFF);
+		}
+
+		if (ConfigBlocksItems.enableSpectralArrows) {
+			glowing = new PotionGlowing("glowing", ConfigEnchantsPotions.glowingID, false, 9740385);
 		}
 	}
 

@@ -83,6 +83,7 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 		if (ConfigMixins.enableSpectatorMode) {
 			mixins.add("spectator.MixinGameType");
 			mixins.add("spectator.MixinEntity");
+			mixins.add("spectator.MixinEntityLivingBase");
 			mixins.add("spectator.MixinWorld");
 			mixins.add("spectator.MixinWorldServer");
 			mixins.add("spectator.MixinEntityPlayer");
@@ -93,6 +94,7 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("spectator.MixinCommandGameMode");
 			if (side == MixinEnvironment.Side.CLIENT) {
 				mixins.add("spectator.client.MixinEntityRenderer");
+				mixins.add("spectator.client.MixinEntity");
 				mixins.add("spectator.client.MixinEntityPlayer");
 				mixins.add("spectator.client.MixinWorldRenderer");
 			}
@@ -146,6 +148,19 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("sounds.MixinEntitySkeleton");
 			mixins.add("sounds.MixinEntitySquid");
 			mixins.add("sounds.MixinEntityWitch");
+		}
+
+		if (ConfigMixins.modernSkeletonBehavior) {
+			mixins.add("skeleton.MixinEntitySkeleton");
+
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("skeleton.client.MixinEntityLivingBase");
+				mixins.add("skeleton.client.MixinModelSkeleton");
+			}
+		}
+
+		if (ConfigMixins.modernZombieBehavior) {
+			mixins.add("zombie.MixinEntityZombie");
 		}
 
 		if (ConfigMixins.floorCeilingButtons) {
@@ -223,6 +238,16 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("uninflammableitem.MixinEntityItem");
 		}
 
+		if (ConfigMixins.adjustedLiquidPhysics) {
+			mixins.add("liquidphysics.MixinEntity");
+			mixins.add("liquidphysics.MixinWorld");
+			mixins.add("liquidphysics.MixinBlockLiquid");
+		}
+
+		if (ConfigMixins.liquidItemFloat) {
+			mixins.add("liquidphysics.MixinEntityItem");
+		}
+
 		if (false) { //Does not work for some reason, investigate in 2.6.1
 			mixins.add("darkspawns.MixinEntityMob");
 		}
@@ -259,6 +284,10 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			if(ConfigSounds.newBlockSounds) {
 				mixins.add("sounds.client.MixinBlockStepSounds");
 			}
+			
+			mixins.add("client.MixinRendererLivingEntity");
+			mixins.add("items.MixinRenderBiped");
+			mixins.add("items.MixinRenderPlayer");
 		}
 
 		if (ConfigMixins.thinPanes) {
@@ -276,6 +305,18 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("foxes.MixinEntityLivingBase");
 			mixins.add("foxes.MixinEntityWolf");
 		}
+
+		if (ConfigEntities.enableGoats && side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("goats.client.MixinItemRenderer");
+			mixins.add("goats.client.MixinModelBiped");
+		}
+
+		mixins.add("items.MixinItemSkull");
+		if (side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("items.MixinItemSkullClient");
+		}
+		mixins.add("blocks.MixinTileEntitySkull");
+
 		mixins.add("deepslateores.MixinChunk");
 
 		return mixins;

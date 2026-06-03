@@ -19,7 +19,11 @@ public class ItemBowRenderer implements IItemRenderer {
 
 	@Override
 	public boolean handleRenderType(ItemStack stack, ItemRenderType type) {
-		ItemStack usingItem = Minecraft.getMinecraft().thePlayer.getItemInUse();
+		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		if (player == null)
+			return false;
+
+		ItemStack usingItem = player.getItemInUse();
 		return type == ItemRenderType.INVENTORY && usingItem != null && usingItem == stack;
 	}
 
@@ -34,6 +38,9 @@ public class ItemBowRenderer implements IItemRenderer {
 		ResourceLocation resource = textureManager.getResourceLocation(stack.getItemSpriteNumber());
 
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		if (player == null)
+			return;
+
 		ItemStack usingItem = player.getItemInUse();
 		int useRemaining = player.getItemInUseCount();
 
