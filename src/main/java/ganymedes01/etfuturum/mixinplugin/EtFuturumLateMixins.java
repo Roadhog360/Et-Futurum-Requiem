@@ -51,6 +51,9 @@ public class EtFuturumLateMixins implements ILateMixinLoader {
 			if(loadedMods.contains("IronChest")) {
 				mixins.add("sounds.client.MixinBlockIronChest");
 			}
+			if (loadedMods.contains("Thaumcraft")) {
+				mixins.add("spectator.MixinItemHoverHarnessThaumcraft");
+			}
 		}
 
 		return mixins;
