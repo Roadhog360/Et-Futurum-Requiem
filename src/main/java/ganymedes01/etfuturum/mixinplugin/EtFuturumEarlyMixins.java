@@ -136,6 +136,10 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("endflashes.client.MixinRenderGlobal");
 		}
 
+		if (ConfigWorld.modernLightmapGamma && side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("modernlightmap.client.MixinEntityRenderer");
+		}
+
 		if (ConfigMixins.creativeFlightSpeedModifier > 1 || ConfigTweaks.creativeFlightVerticalModifier > 1) {
 			mixins.add("flyspeed.MixinEntityPlayer");
 		}
