@@ -29,7 +29,7 @@ public class MixinRenderGlobal {
 	@Final
 	private TextureManager renderEngine;
 
-	private static final ResourceLocation END_FLASH = new ResourceLocation("etfuturum", "textures/environment/end_flash.png");
+	private static final ResourceLocation END_FLASH = new ResourceLocation("textures/environment/end_flash.png");
 
 	@Inject(method = "renderSky", at = @At("TAIL"))
 	private void etfu$renderEndFlash(float partialTicks, CallbackInfo ci) {

@@ -23,7 +23,7 @@ if(!stagingVersion.isEmpty() && !isTaggedRelease) {
 }
 
 boolean isStable() {
-    ver = versionDetails().lastTag;
+    def ver = versionDetails().lastTag;
     if(ver.isEmpty() || ver.contains("-rc-") || ver.contains("alpha") || ver.contains("beta") || ver.contains("candidate") || ver.contains("snapshot")) {
         return false
     }
