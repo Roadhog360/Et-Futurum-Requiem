@@ -86,6 +86,20 @@ public class SpectatorMode {
 		return player instanceof EntityPlayerMP && ((EntityPlayerMP) player).theItemInWorldManager.getGameType() == SPECTATOR_GAMETYPE;
 	}
 
+	/**
+	 * {@link #isSpectator(EntityPlayer)} can only tell whether the *local* player is spectating:
+	 * the per-player GameType is not synced to other clients in 1.7.10, so it always returns false
+	 * for any other player's entity on the client. For rendering decisions about other players we
+	 * fall back to {@link EntityPlayer#isInvisible()}, which the server does set for spectators
+	 * (see {@link #onPlayerTick}) and which vanilla syncs to every client via the DataWatcher.
+	 */
+	public static boolean isSpectatorForRender(EntityPlayer player) {
+		if (isSpectator(player)) {
+			return true;
+		}
+		return player != null && player.worldObj != null && player.worldObj.isRemote && player.isInvisible();
+	}
+
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onInteract(PlayerInteractEvent event) {
 		if (isSpectator(event.entityPlayer)) {

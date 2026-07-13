@@ -118,7 +118,7 @@ import java.util.Random;
 import java.util.WeakHashMap;
 
 
-import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
+import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectatorForRender;
 
 public class ClientEventHandler {
 
@@ -445,7 +445,7 @@ public class ClientEventHandler {
 			LayerBetterElytra.doRenderLayer(event.entityLiving, event.entityPlayer.limbSwing, event.entityPlayer.limbSwingAmount, Minecraft.getMinecraft().timer.renderPartialTicks, event.entityPlayer.getAge(), 0.0625F);
 		}
 
-		if (isSpectator(event.entityPlayer)) {
+		if (isSpectatorForRender(event.entityPlayer)) {
 			event.result = 0;
 		} else if (ConfigFunctions.enableTransparentAmour) {
 			OpenGLHelper.enableBlend();

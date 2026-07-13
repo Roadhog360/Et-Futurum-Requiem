@@ -37,14 +37,14 @@ public class SpectatorModeClient extends SpectatorMode {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onRenderPlayerPre(RenderPlayerEvent.Pre event) {
 		EntityPlayer viewer = Minecraft.getMinecraft().thePlayer;
-		if (viewer != null && isSpectator(event.entityPlayer) && event.entityPlayer != viewer
+		if (viewer != null && isSpectatorForRender(event.entityPlayer) && event.entityPlayer != viewer
 				&& !isSpectator(viewer) && !viewer.capabilities.isCreativeMode) {
 			event.setCanceled(true);
 			return;
 		}
 
 		if (!SPECTATING_ENTITIES.containsKey(event.entityPlayer)) {
-			if (isSpectator(event.entityPlayer)) {
+			if (isSpectatorForRender(event.entityPlayer)) {
 				setBipedVisible(event.renderer.modelBipedMain, false);
 				event.renderer.modelBipedMain.bipedHead.showModel = true;
 				event.renderer.modelBipedMain.bipedHeadwear.showModel = true;
@@ -58,7 +58,7 @@ public class SpectatorModeClient extends SpectatorMode {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onRenderPlayerArmor(RenderPlayerEvent.Specials.Pre event) {
-		if (isSpectator(event.entityPlayer)) {
+		if (isSpectatorForRender(event.entityPlayer)) {
 			event.setCanceled(true);
 		}
 	}

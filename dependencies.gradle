@@ -34,7 +34,7 @@
  * For more details, see https://docs.gradle.org/8.0.1/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
 dependencies {
-    api("com.github.GTNewHorizons:GTNHLib:0.11.22:dev")
+    api("com.github.GTNewHorizons:GTNHLib:0.11.28:dev")
     compileOnly('curse.maven:rple-1050511:7358368') {transitive=false}
     compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") {transitive=false}
     compileOnly "mcp.mobius.waila:Waila:1.5.11-RC2-NONEI_1.7.10:dev"
@@ -48,16 +48,18 @@ dependencies {
     compileOnly 'com.github.GTNewHorizons:ironchest:6.1.13'
     compileOnly 'curse.maven:applied-energistics-2-223794:2296430'
     compileOnly 'com.github.GTNewHorizons:Battlegear2-for-Backhand:1.6.8-backhand'
+    compileOnly("com.github.GTNewHorizons:Backhand:1.8.12:dev") {transitive = false}
+    compileOnly("com.github.GTNewHorizons:Minecraft-Backpack-Mod:2.6.14-GTNH:dev") {transitive = false}
     compileOnly('com.github.GTNewHorizons:ForbiddenMagic:0.9.16-GTNH:dev') {
         transitive = false
     }
     compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.14.93-GTNH:dev") {
         transitive = false
     }
-    compileOnly("com.github.GTNewHorizons:Angelica:2.1.49:api") {
+    compileOnly("com.github.GTNewHorizons:Angelica:2.1.53:api") {
         transitive = false
     }
-    compileOnly("com.github.GTNewHorizons:lwjgl3ify:3.0.25:api") {
+    compileOnly("com.github.GTNewHorizons:lwjgl3ify:3.0.26:api") {
         transitive = false
     }
     compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") {

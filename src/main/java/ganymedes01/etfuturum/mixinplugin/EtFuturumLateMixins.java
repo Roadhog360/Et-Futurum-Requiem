@@ -35,6 +35,12 @@ public class EtFuturumLateMixins implements ILateMixinLoader {
 			if (loadedMods.contains("Thaumcraft")) {
 				mixins.add("spectator.MixinItemHoverHarnessThaumcraft");
 			}
+			if (loadedMods.contains("backhand")) {
+				mixins.add("spectator.MixinClientEventHandlerBackhand");
+			}
+			if (loadedMods.contains("Backpack")) {
+				mixins.add("spectator.MixinEventHandlerClientOnlyBackpack");
+			}
 		}
 
 		return mixins;
