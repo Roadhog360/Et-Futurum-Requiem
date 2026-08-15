@@ -161,8 +161,8 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static final String catItemEntity = "entity items";
 	public static final String catItemMisc = "misc items";
 
-	public ConfigBlocksItems(File file) {
-		super(file);
+	public ConfigBlocksItems(File file, String configName) {
+		super(file, configName);
 		setCategoryComment(catBlockNatural, "Blocks that can generate naturally in your world. Check world.cfg for generation values.");
 		setCategoryComment(catBlockFunc, "Blocks that have a specific function, whether right clicked or otherwise.");
 		setCategoryComment(catBlockMisc, "Blocks that don't fit in any other category.");

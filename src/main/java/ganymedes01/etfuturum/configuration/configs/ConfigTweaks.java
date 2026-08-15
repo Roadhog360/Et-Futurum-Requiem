@@ -26,8 +26,8 @@ public class ConfigTweaks extends ConfigBase {
 	public static final String catCustomTweaks = "custom tweaks";
 	public static final String catBedrockParity = "bedrock parity";
 
-	public ConfigTweaks(File file) {
-		super(file);
+	public ConfigTweaks(File file, String configName) {
+		super(file, configName);
 		setCategoryComment(catBedrockParity, "Features that differ from Bedrock Edition in one way or another, or new content that isn't in Java Edition at all.");
 		setCategoryComment(catAbandoned, "Scrapped concepts, abandoned ideas, old versions of changed content, etc.");
 		setCategoryComment(catCustomTweaks, "Tweaks made that are original and not vanilla in any way.");
