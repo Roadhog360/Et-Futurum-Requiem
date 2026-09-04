@@ -24,6 +24,9 @@ public class ConfigWorld extends ConfigBase {
 	public static BlockMetaPair amethystMiddleBlock;
 
 	public static boolean enableDmgIndicator;
+	public static boolean endFlashes;
+	public static boolean modernEndAmbientColor;
+	public static boolean modernLightmapGamma;
 	public static boolean enableAirDebris;
 	public static int debrisMax = 3;
 	public static int maxNetherGoldPerCluster;
@@ -93,6 +96,9 @@ public class ConfigWorld extends ConfigBase {
 	protected void syncConfigOptions() {
 		enableDmgIndicator = getBoolean("enableDmgIndicator", catClient, true, "Heart Damage Indicator");
 
+		endFlashes = getBoolean("endFlashes", catClient, true, "Allow The End dimension to have periodic flashes of light in the sky\nModified Client Classes: net.minecraft.client.renderer.EntityRenderer net.minecraft.client.renderer.RenderGlobal");
+		modernEndAmbientColor = getBoolean("modernEndAmbientColor", catClient, true, "Tint The End's ambient lighting to match modern Minecraft.\nModified Client Classes: net.minecraft.client.renderer.EntityRenderer");
+		modernLightmapGamma = getBoolean("modernLightmapGamma", catClient, true, "Replaces the vanilla brightness-slider curve with the modern hue and saturation preserving one\nModified Client Classes: net.minecraft.client.renderer.EntityRenderer");
 		enableAirDebris = getBoolean("enableAirDebris", catGeneration, false, "Can ancient debris generate next to air?");
 		maxStonesPerCluster = getInt("maxStonesPerCluster", catGeneration, 32, 0, 64, "Max vein size for Granite/Andesite/Diorite blocks in a cluster");
 		smallDebrisMax = getInt("smallDebrisMax", catGeneration, 2, 0, 64, "The max vein size for the first, typically smaller debris veins which generate from Y 8 to 119");

@@ -623,6 +623,7 @@ public class EtFuturum {
 
 		config.addSoundEvent(ver, "weather.rain", "weather");
 		config.addSoundEvent(ver, "weather.rain.above", "weather");
+		config.addSoundEvent(ver, "weather.end_flash", "weather");
 
 		config.addSoundEvent(ver, "music.nether.nether_wastes", "music");
 		config.addSoundEvent(ver, "ambient.nether_wastes.additions", "ambient");
