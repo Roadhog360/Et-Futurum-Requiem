@@ -36,8 +36,8 @@ public class ConfigSounds extends ConfigBase {
 	static final String catMisc = "misc";
 	static final String catAmbient = "ambient";
 
-	public ConfigSounds(File file) {
-		super(file);
+	public ConfigSounds(File file, String configName) {
+		super(file, configName);
 		setCategoryComment(catPlayer, "");
 		setCategoryComment(catBlocksItems, "Sounds for blocks and items.");
 		setCategoryComment(catEntity, "Sounds for entities.");

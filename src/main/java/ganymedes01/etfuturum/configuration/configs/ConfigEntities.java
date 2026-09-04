@@ -30,8 +30,8 @@ public class ConfigEntities extends ConfigBase {
 	static final String catPlayer = "player";
 	static final String catMisc = "misc";
 
-	public ConfigEntities(File file) {
-		super(file);
+	public ConfigEntities(File file, String configName) {
+		super(file, configName);
 		setCategoryComment(catHostile, "Hostile entities.");
 		setCategoryComment(catNeutral, "Neutral entities.");
 		setCategoryComment(catPassive, "Passive entities.");

@@ -58,8 +58,8 @@ public class ConfigMixins extends ConfigBase {
 	static final String catFixes = "fixes";
 	static final String catMisc = "misc";
 
-	public ConfigMixins(File file) {
-		super(file);
+	public ConfigMixins(File file, String configName) {
+		super(file, configName);
 		setCategoryComment(catBackport, "Backports that can typically only have a clean implementation with mixins.");
 		setCategoryComment(catOptimization, "Better implementations of existing features.\nThis is generally used when doing something through the Forge API would be slower or less practical than using a Mixin.");
 		setCategoryComment(catFixes, "Fixes to vanilla issues which are necessary for backports.");

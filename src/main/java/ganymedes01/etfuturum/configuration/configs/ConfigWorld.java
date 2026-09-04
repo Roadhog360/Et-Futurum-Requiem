@@ -80,8 +80,8 @@ public class ConfigWorld extends ConfigBase {
 	public static final String catBiomes = "biomes";
 	public static final String catMisc = "miscellaneous";
 
-	public ConfigWorld(File file) {
-		super(file);
+	public ConfigWorld(File file, String configName) {
+		super(file, configName);
 		setCategoryComment(catClient, "Client-side only effects.");
 		setCategoryComment(catGeneration, "Generation settings.");
 		setCategoryComment(catBiomes, "Biome ID and weight settings. These do not disable the respective blocks, go to blocksitems.cfg to disable their blocks. Nether biomes can currently only be enabled via experiments.cfg");

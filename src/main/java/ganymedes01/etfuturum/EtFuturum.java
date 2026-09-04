@@ -76,8 +76,8 @@ import java.util.*;
 		modid = Tags.MOD_ID,
 		name = Tags.MOD_NAME,
 		version = Tags.VERSION,
-		dependencies = Reference.DEPENDENCIES
-//		guiFactory = Tags.MOD_GROUP + ".configuration.ConfigGuiFactory"
+		dependencies = Reference.DEPENDENCIES,
+		guiFactory = Tags.MOD_GROUP + ".configuration.ConfigGuiFactory"
 )
 
 public class EtFuturum {
@@ -186,6 +186,11 @@ public class EtFuturum {
 		if(ModsList.IRON_CHEST.isLoaded()) {
 			CompatIronChests.init();
 		}
+
+		for (ConfigBase config : ConfigBase.getConfigs()) {
+			FMLCommonHandler.instance().bus().register(config);
+		}
+
 		try {
 			Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
 			chestInfo.setAccessible(true);
