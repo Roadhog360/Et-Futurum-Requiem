@@ -836,40 +836,8 @@ public class ServerEventHandler {
 							}
 						}
 
-						//Lava cauldron filling and cauldron filling noises
-						if (heldStack != null && canUse(player, world, x, y, z) && oldBlock == Blocks.cauldron) {
-							Item item = heldStack.getItem();
-							if (ConfigBlocksItems.enableLavaCauldrons && item instanceof ItemBucket && ((ItemBucket) item).isFull == Blocks.flowing_lava && meta == 0) {
-								event.setResult(Result.DENY);
-								player.swingItem();
-								world.setBlock(x, y, z, ModBlocks.LAVA_CAULDRON.get());
-								if (ConfigSounds.fluidInteract) {
-									world.playSoundEffect(x, y, z, Tags.MC_ASSET_VER + ":item.bucket.empty_lava", 1, 1);
-								}
-								if (!player.capabilities.isCreativeMode) {
-									if (heldStack.stackSize <= 1) {
-										player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(item.getContainerItem()));
-									} else {
-										--heldStack.stackSize;
-									}
-								}
-								return;
-							} else if (ConfigSounds.fluidInteract) {
-								String container = "";
-								String fillOrEmpty = "";
-								if (item instanceof ItemBucket && ((ItemBucket) item).isFull == Blocks.flowing_water && meta < 3) {
-									container = "bucket";
-									fillOrEmpty = "empty";
-								} else if (item == Items.glass_bottle || (item == Items.potionitem && heldStack.getItemDamage() == 0 && !heldStack.hasTagCompound())) {
-									container = "bottle";
-									fillOrEmpty = /* meta < 3 && item == Items.potionitem ? "empty" : */ item == Items.glass_bottle && meta > 0 ? "fill" : "";
-								}//TODO add taking from cauldrons and evaporation, and filling a cauldron with regular potion bottles
-								if (!container.equals("") && !fillOrEmpty.equals("")) {
-									world.playSoundEffect(x, y, z, Tags.MC_ASSET_VER + ":item." + container + "." + fillOrEmpty, 1, 1);
-									return;
-								}
-							}
-						}
+						//Lava cauldron filling/emptying and cauldron filling noises
+						if (cauldronInteract(event, heldStack, player, world, x, y, z, oldBlock, meta)) return;
 
 						// --- Bottle fill sounds --- //
 						if (ConfigSounds.fluidInteract && !world.isRemote && heldStack != null && heldStack.getItem() == Items.glass_bottle && event.action == Action.RIGHT_CLICK_AIR) {
@@ -997,6 +965,74 @@ public class ServerEventHandler {
 		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("InfiTool")) {
 			return stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken");
 		}
+		return false;
+	}
+
+	private static boolean cauldronInteract(
+		PlayerInteractEvent event, ItemStack heldStack, EntityPlayer player, World world, int x, int y, int z,
+		Block oldBlock, int meta
+	) {
+        if (heldStack == null || !canUse(player, world, x, y, z) || !(oldBlock instanceof BlockCauldron)) {
+            return false;
+        }
+
+        Item item = heldStack.getItem();
+
+        if (ConfigBlocksItems.enableLavaCauldrons) {
+			if (item == Items.bucket && oldBlock == ModBlocks.LAVA_CAULDRON.get()) {
+				event.setResult(Result.DENY);
+				player.swingItem();
+				world.setBlock(x, y, z, Blocks.cauldron);
+
+				if (ConfigSounds.fluidInteract) {
+					world.playSoundEffect(x, y, z, Tags.MC_ASSET_VER + ":item.bucket.empty_lava", 1, 1);
+				}
+
+				convertHeldItem(player, 1, new ItemStack(Items.lava_bucket));
+
+				return true;
+			}
+
+			if (item == Items.lava_bucket && meta == 0) {
+				event.setResult(Result.DENY);
+				player.swingItem();
+				world.setBlock(x, y, z, ModBlocks.LAVA_CAULDRON.get());
+
+				if (ConfigSounds.fluidInteract) {
+					world.playSoundEffect(x, y, z, Tags.MC_ASSET_VER + ":item.bucket.fill_lava", 1, 1);
+				}
+
+				convertHeldItem(player, 1, new ItemStack(Items.bucket));
+
+				return true;
+			}
+        }
+
+		if (item == Items.water_bucket && meta < 3) {
+			if (ConfigSounds.fluidInteract) {
+				world.playSoundEffect(x, y, z, Tags.MC_ASSET_VER + ":item.bucket.fill", 1, 1);
+			}
+
+			return true;
+		} else if (item == Items.bucket && meta == 3) {
+			convertHeldItem(player, 1, new ItemStack(Items.water_bucket));
+			world.setBlockMetadataWithNotify(x, y, z, 0, 3);
+
+			if (ConfigSounds.fluidInteract) {
+				world.playSoundEffect(x, y, z, Tags.MC_ASSET_VER + ":item.bucket.empty", 1, 1);
+			}
+
+			return true;
+		} else if (item == Items.glass_bottle || (item == Items.potionitem && heldStack.getItemDamage() == 0 && !heldStack.hasTagCompound())) {
+			String fillOrEmpty = item == Items.glass_bottle && meta > 0 ? "fill" : "empty";
+
+			if (ConfigSounds.fluidInteract) {
+				world.playSoundEffect(x, y, z, Tags.MC_ASSET_VER + ":item.bottle." + fillOrEmpty, 1, 1);
+			}
+
+			return true;
+		}
+
 		return false;
 	}
 
@@ -2035,6 +2071,30 @@ public class ServerEventHandler {
 		}
 		Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
 		return worldIn.func_147447_a/*rayTraceBlocks*/(vec3, vec31, useLiquids, !useLiquids, false);
+	}
+
+	private static boolean convertHeldItem(EntityPlayer player, int decrementAmount, ItemStack result) {
+		ItemStack held = player.getHeldItem();
+
+		if (held == null || held.stackSize < decrementAmount) return false;
+
+		if (!player.capabilities.isCreativeMode) {
+			held.stackSize -= decrementAmount;
+
+			if (held.stackSize == 0) {
+				player.inventory.mainInventory[player.inventory.currentItem] = null;
+			}
+		}
+
+		if (result != null) {
+			ItemStack resultCopy = result.copy();
+
+			if (!player.inventory.addItemStackToInventory(resultCopy)) {
+				player.worldObj.spawnEntityInWorld(new EntityItem(player.worldObj, player.posX, player.posY + 0.5, player.posZ, resultCopy));
+			}
+		}
+
+		return true;
 	}
 
 

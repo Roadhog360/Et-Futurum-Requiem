@@ -14,6 +14,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.api.*;
+import ganymedes01.etfuturum.api.DripOperationRegistry;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
 import ganymedes01.etfuturum.client.DynamicSoundsResourcePack;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
@@ -394,6 +395,7 @@ public class EtFuturum {
 		CompostingRegistry.init();
 		BeePlantRegistry.init();
 		PistonBehaviorRegistry.init();
+		DripOperationRegistry.init();
 
 		if (ModsList.TINKERS_CONSTRUCT.isLoaded()) {
 			CompatTinkersConstruct.postInit();

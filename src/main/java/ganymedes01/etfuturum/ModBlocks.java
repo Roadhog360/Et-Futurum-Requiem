@@ -285,9 +285,9 @@ public enum ModBlocks {
 	FLETCHING_TABLE(ConfigBlocksItems.enableFletchingTable, new BlockFletchingTable(), ItemBlockDecorationWorkbench.class),
 	CARTOGRAPHY_TABLE(ConfigBlocksItems.enableCartographyTable, new BlockCartographyTable(), ItemBlockDecorationWorkbench.class),
 	LOOM(ConfigBlocksItems.enableLoom, new BlockLoom(), ItemBlockDecorationWorkbench.class),
-	DRIPSTONE_BLOCK(ConfigExperiments.enableDripstone, new BaseBlock(Material.rock).setNames("dripstone_block")
+	DRIPSTONE_BLOCK(ConfigBlocksItems.enableDripstone, new BaseBlock(Material.rock).setNames("dripstone_block")
 			.setBlockSound(ModSounds.soundDripstoneBlock).setHardness(1.5F).setResistance(1F)),
-	POINTED_DRIPSTONE(ConfigExperiments.enableDripstone, new BlockPointedDripstone()),
+	POINTED_DRIPSTONE(ConfigBlocksItems.enableDripstone, new BlockPointedDripstone()),
 	HONEY_BLOCK(ConfigBlocksItems.enableHoney, new BlockHoney()),
 	HONEYCOMB_BLOCK(ConfigBlocksItems.enableHoney, new BaseBlock(Material.clay).setNames("honeycomb_block")
 			.setBlockSound(ModSounds.soundCoralBlock).setHardness(0.6F).setResistance(0.6F)),

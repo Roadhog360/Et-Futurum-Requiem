@@ -2,82 +2,75 @@ package ganymedes01.etfuturum.client.renderer.entity;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.entities.EntityFallingDripstone;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityFallingBlock;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 public class FallingDripstoneRenderer extends Render {
-	private final RenderBlocks field_147920_a = new RenderBlocks();
+
+	private final RenderBlocks renderBlocks = new RenderBlocks();
 
 	public FallingDripstoneRenderer() {
 		this.shadowSize = 0.5F;
 	}
 
-	/**
-	 * Actually renders the given argument. This is a synthetic bridge method, always casting down its argument and then
-	 * handing it off to a worker function which does the actual work. In all probabilty, the class Render is generic
-	 * (Render<T extends Entity) and this method has signature public void func_76986_a(T entity, double d, double d1,
-	 * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
-	 */
-	public void doRender(EntityFallingDripstone p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
-		World world = p_76986_1_.func_145807_e(); // getWorldObj
-		Block block = ModBlocks.POINTED_DRIPSTONE.get();
-		int i = MathHelper.floor_double(p_76986_1_.posX);
-		int j = MathHelper.floor_double(p_76986_1_.posY);
-		int k = MathHelper.floor_double(p_76986_1_.posZ);
+	public void doRender(EntityFallingDripstone entity, double x, double y, double z, float yaw, float partialTick) {
+		int bx = MathHelper.floor_double(entity.posX);
+		int by = MathHelper.floor_double(entity.posY);
+		int bz = MathHelper.floor_double(entity.posZ);
 
-		if (block != null && block != world.getBlock(i, j, k)) {
-			GL11.glPushMatrix();
-			GL11.glTranslatef((float) p_76986_2_, (float) p_76986_4_, (float) p_76986_6_);
-			this.bindEntityTexture(p_76986_1_);
-			GL11.glDisable(GL11.GL_LIGHTING);
-			Tessellator tessellator;
+		if (ModBlocks.POINTED_DRIPSTONE.get() == entity.worldObj.getBlock(bx, by, bz)) return;
 
-			this.field_147920_a.blockAccess = world;
-			tessellator = Tessellator.instance;
-			tessellator.startDrawingQuads();
-			tessellator.setTranslation((float) (-i) - 0.5F, (float) (-j) - 0.5F, (float) (-k) - 0.5F);
-			field_147920_a.setRenderBoundsFromBlock(block);
-			field_147920_a.drawCrossedSquares(ModBlocks.POINTED_DRIPSTONE.get().getIcon(0, p_76986_1_.field_145814_a), i, j, k, 1.0F);
-			tessellator.setTranslation(0.0D, 0.0D, 0.0D);
-			tessellator.draw();
+		GL11.glPushMatrix();
+		GL11.glTranslatef((float) x, (float) y, (float) z);
+		this.bindEntityTexture(entity);
+		GL11.glDisable(GL11.GL_LIGHTING);
 
-			GL11.glEnable(GL11.GL_LIGHTING);
-			GL11.glPopMatrix();
+		renderBlocks.blockAccess = entity.worldObj;
+		Tessellator tess = Tessellator.instance;
+		tess.startDrawingQuads();
+		tess.setTranslation(-bx - 0.5F, -by - 0.5F, -bz - 0.5F);
+		renderBlocks.setRenderBoundsFromBlock(ModBlocks.POINTED_DRIPSTONE.get());
+
+		boolean isUp = entity.field_145814_a >= 5;
+		int count = entity.getCount();
+		for (int n = 0; n < count; n++) {
+			int segMeta = (isUp ? 5 : 0) + stateOrdinalForSegment(n, count);
+			IIcon icon = ModBlocks.POINTED_DRIPSTONE.get().getIcon(0, segMeta);
+			renderBlocks.drawCrossedSquares(icon, bx, by - n, bz, 1.0F);
 		}
+
+		tess.setTranslation(0, 0, 0);
+		tess.draw();
+		renderBlocks.blockAccess = null;
+
+		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glPopMatrix();
 	}
 
-	/**
-	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
-	 */
-	protected ResourceLocation getEntityTexture(EntityFallingBlock p_110775_1_) {
+	// Returns the DripstoneState ordinal (Base=0, Middle=1, Frustum=2, Tip=3) for segment n in a column of `count`.
+	// n=0 is the topmost block; n=count-1 is the tip.
+	private static int stateOrdinalForSegment(int n, int count) {
+		int countDown = count - n;
+		if (countDown == 1) return 3; // Tip
+		if (countDown == 2) return 2; // Frustum
+		if (n == 1)         return 0; // Base
+		return 1;                     // Middle
+	}
+
+	@Override
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return TextureMap.locationBlocksTexture;
 	}
 
-	/**
-	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
-	 */
 	@Override
-	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
-		return this.getEntityTexture((EntityFallingBlock) p_110775_1_);
-	}
-
-	/**
-	 * Actually renders the given argument. This is a synthetic bridge method, always casting down its argument and then
-	 * handing it off to a worker function which does the actual work. In all probabilty, the class Render is generic
-	 * (Render<T extends Entity) and this method has signature public void func_76986_a(T entity, double d, double d1,
-	 * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
-	 */
-	@Override
-	public void doRender(Entity p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
-		this.doRender((EntityFallingDripstone) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+	public void doRender(Entity entity, double x, double y, double z, float yaw, float partialTick) {
+		this.doRender((EntityFallingDripstone) entity, x, y, z, yaw, partialTick);
 	}
 }

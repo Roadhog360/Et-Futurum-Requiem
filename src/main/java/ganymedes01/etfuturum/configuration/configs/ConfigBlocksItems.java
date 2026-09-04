@@ -130,6 +130,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableGlowBerries;
 	public static boolean enableSoulSoil;
 	public static boolean enableSoulLighting;
+	public static boolean enableDripstone;
 
 	// Wilds Update
 	public static boolean enableMud;
@@ -161,7 +162,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static final String catItemEntity = "entity items";
 	public static final String catItemMisc = "misc items";
 
-	public ConfigBlocksItems(File file) {
+    public ConfigBlocksItems(File file) {
 		super(file);
 		setCategoryComment(catBlockNatural, "Blocks that can generate naturally in your world. Check world.cfg for generation values.");
 		setCategoryComment(catBlockFunc, "Blocks that have a specific function, whether right clicked or otherwise.");
@@ -215,6 +216,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableBasalt = getBoolean("enableBasalt", catBlockNatural, true, "This must be on for the basalt deltas biome to generate unless Netherlicious is installed.");
 		enableGlowLichen = getBoolean("enableGlowLichen", catBlockNatural, true, "");
 		enableGlowBerries = getBoolean("enableGlowBerries", catBlockNatural, true, "");
+		enableDripstone = getBoolean("enableDripstone", catBlockNatural, true, "");
 		if (ConfigExperiments.enableCrimsonBlocks) {
 			enableNetherwartBlock = true;
 		}
