@@ -47,7 +47,7 @@ dependencies {
     // but not require it in `runClient`/`runServer`
     compileOnly "mcp.mobius.waila:Waila:1.5.11-RC2-NONEI_1.7.10:dev"
     /** every file in libs/ gets forcibly compiled, please use another dir */
-    compileOnly "maven.modrinth:baubles-expanded:2.2.1"
+    compileOnly('com.github.GTNewHorizons:Baubles-Expanded:2.2.21-GTNH:dev')
     compileOnly "maven.modrinth:crafttweaker:3.1.0"
     compileOnly "team.chisel:Chisel:2.9.5.12:deobf"
     compileOnly "team.chisel.ctmlib:CTMLib:MC1.7.10-1.4.1.5:deobf"

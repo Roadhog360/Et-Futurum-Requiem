@@ -27,7 +27,7 @@ public class MixinEntity {
     public float stepHeight;
 
     @Inject(method = "moveEntity",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getCollidingBoundingBoxes(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/AxisAlignedBB;)Ljava/util/List;", ordinal = 0),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/util/AxisAlignedBB;setBB(Lnet/minecraft/util/AxisAlignedBB;)V", ordinal = 0, shift = At.Shift.AFTER),
             slice = @Slice(from = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/entity/Entity;stepHeight:F", ordinal = 1))
     )
     private void captureStepContext(double x, double y, double z, CallbackInfo ci, @Share("preMoveBB") LocalRef<AxisAlignedBB> ref) {

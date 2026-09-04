@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.blocks;
 
+import com.gtnewhorizon.gtnhlib.blocks.util.BFSLeafDecay;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,7 +19,6 @@ import java.util.Random;
 
 public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock {
 
-	private int[] field_150128_a;
 	private final String[] types;
 
 	public BaseLeaves(String... types) {
@@ -102,92 +101,10 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 	@Override
 	public void updateTick(World worldIn, int x, int y, int z, Random random) {
 		if (!worldIn.isRemote) {
-			int l = worldIn.getBlockMetadata(x, y, z);
-			int decayRange = getRange(l % 4);
-
-			if ((l & 8) != 0 && (l & 4) == 0) {
-				int i1 = decayRange + 1;
-				byte b1 = 32;
-				int j1 = b1 * b1;
-				int k1 = b1 / 2;
-
-				if (this.field_150128_a == null) {
-					this.field_150128_a = new int[b1 * b1 * b1];
-				}
-
-				int l1;
-
-				if (worldIn.checkChunksExist(x - i1, y - i1, z - i1, x + i1, y + i1, z + i1)) {
-					int i2;
-					int j2;
-
-					for (l1 = -decayRange; l1 <= decayRange; ++l1) {
-						for (i2 = -decayRange; i2 <= decayRange; ++i2) {
-							for (j2 = -decayRange; j2 <= decayRange; ++j2) {
-								Block block = worldIn.getBlock(x + l1, y + i2, z + j2);
-
-								int i = (l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1;
-								if (!block.canSustainLeaves(worldIn, x + l1, y + i2, z + j2)) {
-									if (block.isLeaves(worldIn, x + l1, y + i2, z + j2)) {
-										this.field_150128_a[i] = -2;
-									} else {
-										this.field_150128_a[i] = -1;
-									}
-								} else {
-									this.field_150128_a[i] = 0;
-								}
-							}
-						}
-					}
-
-					for (l1 = 1; l1 <= decayRange; ++l1) {
-						for (i2 = -decayRange; i2 <= decayRange; ++i2) {
-							for (j2 = -decayRange; j2 <= decayRange; ++j2) {
-								for (int k2 = -decayRange; k2 <= decayRange; ++k2) {
-									if (this.field_150128_a[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1] == l1 - 1) {
-										int i = (i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1;
-										if (this.field_150128_a[i] == -2) {
-											this.field_150128_a[i] = l1;
-										}
-
-										int i3 = (i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1;
-										if (this.field_150128_a[i3] == -2) {
-											this.field_150128_a[i3] = l1;
-										}
-
-										int i4 = (i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1;
-										if (this.field_150128_a[i4] == -2) {
-											this.field_150128_a[i4] = l1;
-										}
-
-										int i5 = (i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1;
-										if (this.field_150128_a[i5] == -2) {
-											this.field_150128_a[i5] = l1;
-										}
-
-										int i6 = (i2 + k1) * j1 + (j2 + k1) * b1 + (k2 + k1 - 1);
-										if (this.field_150128_a[i6] == -2) {
-											this.field_150128_a[i6] = l1;
-										}
-
-										int i7 = (i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1;
-										if (this.field_150128_a[i7] == -2) {
-											this.field_150128_a[i7] = l1;
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-
-				l1 = this.field_150128_a[k1 * j1 + k1 * b1 + k1];
-
-				if (l1 >= 0) {
-					worldIn.setBlockMetadataWithNotify(x, y, z, l & -9, 4);
-				} else {
-					this.removeLeaves(worldIn, x, y, z);
-				}
+			final int meta = worldIn.getBlockMetadata(x, y, z);
+			if ((meta & 8) != 0 && (meta & 4) == 0) {
+				final int decayRange = getRange(meta % 4);
+				BFSLeafDecay.handleDecayChecked(this, worldIn, x, y, z, meta, decayRange);
 			}
 		}
 	}

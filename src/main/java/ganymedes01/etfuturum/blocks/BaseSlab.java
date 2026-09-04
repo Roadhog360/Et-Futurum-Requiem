@@ -171,6 +171,16 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 		return Item.getItemFromBlock(singleSlab);
 	}
 
+	// Block.harvestBlock calls this for silk touch drops. Double slabs must yield 2 single slabs,
+	// not the double slab item (which has no inventory representation).
+	@Override
+	protected ItemStack createStackedBlock(int meta) {
+		if (field_150004_a) { // isDouble
+			return new ItemStack(Item.getItemFromBlock(singleSlab), 2, meta % 8);
+		}
+		return super.createStackedBlock(meta);
+	}
+
 	private final Map<Integer, Float> hardnesses = Maps.newHashMap();
 	private final Map<Integer, Float> resistances = Maps.newHashMap();
 
