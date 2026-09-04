@@ -1,9 +1,12 @@
 package ganymedes01.etfuturum.client.particle;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EntityFX;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class CustomDripFX extends EntityFX {
@@ -14,6 +17,9 @@ public class CustomDripFX extends EntityFX {
 
 	public CustomDripFX(World worldIn, double p_i1203_2_, double p_i1203_4_, double p_i1203_6_, String dripSound, int color, boolean splashes) {
 		super(worldIn, p_i1203_2_, p_i1203_4_, p_i1203_6_, 0, 0, 0);
+		this.prevPosX = this.posX;
+		this.prevPosY = this.posY;
+		this.prevPosZ = this.posZ;
 		this.motionX = this.motionY = this.motionZ = 0.0D;
 		particleAlpha = (color >> 24 & 0xff) / 255F;
 		particleRed = (color >> 16 & 0xff) / 255F;
@@ -24,6 +30,7 @@ public class CustomDripFX extends EntityFX {
 
 		this.setParticleTextureIndex(113);
 		this.setSize(0.01F, 0.01F);
+		this.setPosition(this.posX, this.posY, this.posZ); // re-center bbox; setSize shrink doesn't call setPosition
 		this.particleGravity = 0.06F;
 		this.bobTimer = 40;
 		this.particleMaxAge = (int) (64.0D / (Math.random() * 0.8D + 0.2D));
@@ -74,12 +81,27 @@ public class CustomDripFX extends EntityFX {
 			this.motionZ *= 0.699999988079071D;
 		}
 
-		Material material = this.worldObj.getBlock(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)).getMaterial();
+		int bX = MathHelper.floor_double(this.posX);
+		int bY = MathHelper.floor_double(this.posY);
+		int bZ = MathHelper.floor_double(this.posZ);
 
-		if (material.isLiquid() || material.isSolid()) {
-			double d0 = (float) (MathHelper.floor_double(this.posY) + 1) - BlockLiquid.getLiquidHeightPercent(this.worldObj.getBlockMetadata(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)));
+		Block block = this.worldObj.getBlock(bX, bY, bZ);
+		int meta = this.worldObj.getBlockMetadata(bX, bY, bZ);
+
+		Material material = block.getMaterial();
+
+		if (material.isLiquid()) {
+			double d0 = (float) (bY + 1) - BlockLiquid.getLiquidHeightPercent(meta);
 
 			if (this.posY < d0) {
+				this.setDead();
+			}
+		} else if (material.isSolid()) {
+			block.setBlockBoundsBasedOnState(worldObj, bX, bY, bZ);
+
+			AxisAlignedBB aabb = block.getCollisionBoundingBoxFromPool(worldObj, bX, bY, bZ);
+
+			if (aabb.isVecInside(Vec3.createVectorHelper(this.posX, this.posY, this.posZ))) {
 				this.setDead();
 			}
 		}

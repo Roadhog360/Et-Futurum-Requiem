@@ -14,6 +14,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.api.*;
+import ganymedes01.etfuturum.api.DripOperationRegistry;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
 import ganymedes01.etfuturum.client.DynamicSoundsResourcePack;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
@@ -399,6 +400,7 @@ public class EtFuturum {
 		CompostingRegistry.init();
 		BeePlantRegistry.init();
 		PistonBehaviorRegistry.init();
+		DripOperationRegistry.init();
 
 		if (ModsList.TINKERS_CONSTRUCT.isLoaded()) {
 			CompatTinkersConstruct.postInit();
@@ -628,6 +630,7 @@ public class EtFuturum {
 
 		config.addSoundEvent(ver, "weather.rain", "weather");
 		config.addSoundEvent(ver, "weather.rain.above", "weather");
+		config.addSoundEvent(ver, "weather.end_flash", "weather");
 
 		config.addSoundEvent(ver, "music.nether.nether_wastes", "music");
 		config.addSoundEvent(ver, "ambient.nether_wastes.additions", "ambient");

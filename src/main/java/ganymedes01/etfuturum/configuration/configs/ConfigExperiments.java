@@ -16,7 +16,6 @@ public class ConfigExperiments extends ConfigBase {
 	public static boolean enableWarpedBlocks;
 	public static boolean enableMangroveBlocks;
 	public static boolean enableMossAzalea;
-	public static boolean enableDripstone;
 	public static boolean enableLightningRod;
 
 	public static boolean netherDimensionProvider;
@@ -45,7 +44,6 @@ public class ConfigExperiments extends ConfigBase {
 		enableWarpedBlocks = getBoolean("enableWarpedBlocks", catExperiments, false, "Enables the warped nylium, wood, and plants. This must be on for the warped forest biome to generate unless Netherlicious is installed. Requires newNether to be enabled without Netherlicious.");
 		enableMangroveBlocks = getBoolean("enableMangroveBlocks", catExperiments, false, "Enables mangrove wood and all of its wood subtypes, and the roots (+ muddy versions).");
 		enableSculk = getBoolean("enableSculk", catExperiments, false, "Enables sculk-related blocks.");
-		enableDripstone = getBoolean("enableDripstone", catExperiments, false, "Partially functional. Does not naturally generate.");
 		enableMossAzalea = getBoolean("enableMossAzalea", catExperiments, false, "Enables moss and azalea. Currently azalea saplings do not grow.");
 		enableLightningRod = getBoolean("enableLightningRod", catExperiments, false, "Completely nonfunctional.");
 

@@ -20,6 +20,8 @@ import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.inventory.*;
+import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
+import ganymedes01.etfuturum.entities.EntityFallingDripstone;
 import ganymedes01.etfuturum.lib.GUIIDs;
 import ganymedes01.etfuturum.tileentities.*;
 import net.minecraft.entity.EnumCreatureType;
@@ -215,9 +217,9 @@ public class CommonProxy implements IGuiHandler {
 			}
 		}
 
-//      {
-//          ModEntityList.registerEntity(EntityFallingDripstone.class, "falling_dripstone", 18, EtFuturum.instance, 64, 1, true);
-//      }
+		if (ConfigBlocksItems.enableDripstone) {
+			ModEntityList.registerEntity(EntityFallingDripstone.class, "falling_dripstone", 18, EtFuturum.instance, 64, 1, true);
+		}
 
 		if (ConfigBlocksItems.enableNewBoats) {
 			ModEntityList.registerEntity(EntityNewBoat.class, "new_boat", 13, EtFuturum.instance, 64, 1, true);

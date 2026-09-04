@@ -28,19 +28,6 @@ public class BlockLavaCauldron extends BlockCauldron {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
-//      ItemStack item;
-//      if (player.getCurrentEquippedItem() != null) {
-//          item = player.getCurrentEquippedItem();
-//          if (item.getItem() instanceof ItemBucket) {
-//              // TODO Bucketing lava out of the cauldron
-//          }
-//      }
-//      return true;
-		return super.onBlockActivated(worldIn, x, y, z, player, side, subX, subY, subZ);
-	}
-
-	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
 		if (!world.isRemote && !entity.isImmuneToFire()) {
 			if (!(entity instanceof EntityLiving) && !entity.isBurning()) {

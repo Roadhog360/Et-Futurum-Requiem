@@ -1,19 +1,26 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.storage.EtFuturumPlayer;
+import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+
+import java.util.UUID;
 
 public final class EntityEventHandler {
 	public static final EntityEventHandler INSTANCE = new EntityEventHandler();
@@ -78,4 +85,38 @@ public final class EntityEventHandler {
 			ghast.worldObj.spawnEntityInWorld(drop);
 		}
 	}
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void announcePetDeath(LivingDeathEvent event) {
+        if (!ConfigFunctions.petDeathMessages) return;
+        if (event.isCanceled() || event.entity.worldObj.isRemote) return;
+
+        String ownerUUID;
+        if (event.entityLiving instanceof IEntityOwnable ownable) {
+            ownerUUID = ownable.func_152113_b();
+        } else if (event.entityLiving instanceof EntityHorse horse) {
+            // Horses don't implement IEntityOwnable for some reason
+            ownerUUID = horse.func_152119_ch();
+        } else {
+            return;
+        }
+
+        if (ownerUUID.isEmpty()) return;
+
+        UUID uuid;
+        try {
+            uuid = UUID.fromString(ownerUUID);
+        } catch (IllegalArgumentException e) {
+            return;
+        }
+
+        for (EntityPlayerMP player : MinecraftServer.getServer().getConfigurationManager().playerEntityList) {
+            if (uuid.equals(player.getPersistentID())) {
+                // func_110142_aN = getCombatTracker
+                // func_151521_b  = generateDeathMessage
+                player.addChatMessage(event.entityLiving.func_110142_aN().func_151521_b());
+                break;
+            }
+        }
+    }
 }

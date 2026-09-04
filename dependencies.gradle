@@ -41,11 +41,10 @@ dependencies {
     api files("libs/hogutils-0.0.0-nightly-5782dbbe51-dev.jar")
 
 
-    implementation("com.github.GTNewHorizons:GTNHLib:0.11.4")
+    api("com.github.GTNewHorizons:GTNHLib:0.11.22:dev")
 
     // Can use `compileOnly` instead of `compile` if you want to require it at build time,
     // but not require it in `runClient`/`runServer`
-    compileOnly "thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev"
     compileOnly "mcp.mobius.waila:Waila:1.5.11-RC2-NONEI_1.7.10:dev"
     /** every file in libs/ gets forcibly compiled, please use another dir */
     compileOnly "maven.modrinth:baubles-expanded:2.2.1"
@@ -55,32 +54,33 @@ dependencies {
     compileOnly "codechicken:NotEnoughItems:1.7.10-1.0.5.120:dev"
     compileOnly "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
     compileOnly "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
-    compileOnly 'com.github.GTNewHorizons:ironchest:6.1.6'
+    compileOnly 'com.github.GTNewHorizons:ironchest:6.1.13'
     compileOnly 'curse.maven:applied-energistics-2-223794:2296430'
     compileOnly 'curse.maven:mb-battlegear-2-59710:2286765'
-    compileOnly ("com.github.GTNewHorizons:ForbiddenMagic:0.9.6-GTNH:dev") { transitive = false }
 
     compileOnly("org.projectlombok:lombok:1.18.42") { transitive = false }
     annotationProcessor("org.projectlombok:lombok:1.18.42")
     compileOnly('org.jetbrains:annotations:24.0.1')
 
-    compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.12.6-GTNH:dev") {
+    compileOnly('com.github.GTNewHorizons:ForbiddenMagic:0.9.16-GTNH:dev') {
         transitive = false
     }
-    compileOnly("com.github.GTNewHorizons:Mantle:0.5.1:dev") {
+    compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.14.93-GTNH:dev") {
         transitive = false
     }
-
-
-    compileOnly("com.github.GTNewHorizons:Angelica:1.0.0-beta4:api") {
+	compileOnly("com.github.GTNewHorizons:Mantle:0.5.4:dev") {
         transitive = false
     }
-
-    compileOnly("com.github.GTNewHorizons:lwjgl3ify:2.1.2:api") {
+    compileOnly("com.github.GTNewHorizons:Angelica:2.1.49:api") {
         transitive = false
     }
-
-    shadowImplementation('com.github.makamys:MCLib:0.3.7.7') {
+    compileOnly("com.github.GTNewHorizons:lwjgl3ify:3.0.25:api") {
+        transitive = false
+    }
+    compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") {
+        transitive = false
+    }
+    shadowImplementation('com.github.makamys:MCLib:0.3.7.8') {
         exclude group: "codechicken"
     }
 }
