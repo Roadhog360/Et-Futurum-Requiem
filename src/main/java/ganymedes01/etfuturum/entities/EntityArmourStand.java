@@ -283,6 +283,7 @@ public class EntityArmourStand extends EntityLiving {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
+		if (isDead) return false;
 		if (!worldObj.isRemote && !canInteract) {
 			if (DamageSource.outOfWorld.equals(source)) {
 				setDead();
